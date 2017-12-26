@@ -1,0 +1,119 @@
+/********************
+共通
+********************/
+
+div.tabArea {
+	padding-left:10px !important;
+	padding-right:10px !important;
+}
+
+
+body{
+	margin:10px;
+	font-family:"Arial";
+}
+.demoHeaders {
+	margin-top: 2em;
+}
+#dialog-link {
+	padding: .4em 1em .4em 20px;
+	text-decoration: none;
+	position: relative;
+}
+#dialog-link span.ui-icon {
+	margin: 0 5px 0 0;
+	position: absolute;
+	left: .2em;
+	top: 50%;
+	margin-top: -8px;
+}
+#icons {
+	margin: 0;
+	padding: 0;
+}
+#icons li {
+	margin: 2px;
+	position: relative;
+	padding: 4px 0;
+	cursor: pointer;
+	float: left;
+	list-style: none;
+}
+#icons span.ui-icon {
+	float: left;
+	margin: 0 4px;
+}
+.fakewindowcontain .ui-widget-overlay {
+	position: absolute;
+}
+
+div#divLogout {
+	float:left;
+}
+
+div#lastDate {
+	font-size:0.9em;
+	float:right;
+	color:#fff;
+}
+
+
+
+tr.NOTUSE {
+	display:none;
+}
+
+div.NOTUSE {
+	display:none;
+}
+
+span.required {
+	color:#ff0000;
+	font-weight:bold;
+}
+
+div.list {
+	float:left;
+	margin-right:10px;
+}
+
+div.list table {
+
+	border-collapse:collapse;
+}
+div.list td {
+
+	border:1px solid black;
+}
+
+
+div.tabBottomBtn {
+
+	position: absolute;
+	bottom: 10px;
+}
+
+div.tabMid {
+
+	overflow:auto;
+}
+
+
+div#imgList .img {
+
+	float:left;
+}
+
+div.imgList {
+
+	overflow:auto;
+	height:190px;
+}
+
+div.resetFloat:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}

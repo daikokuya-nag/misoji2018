@@ -1,0 +1,64 @@
+/********************
+ファイル選択
+********************/
+
+table.photoFileSele {
+	border-collapse:collapse;
+}
+
+th.sepI {
+	border-bottom:1px solid #000000;
+	border-right:1px solid #000000;
+	padding-bottom:4px;
+}
+
+th.sepF {
+	border-bottom:1px solid #000000;
+	border-right:1px solid #000000;
+	padding-bottom:4px;
+}
+
+th.sepD {
+	border-bottom:1px solid #000000;
+	padding-bottom:4px;
+}
+
+
+td.sepI {
+	border-bottom:1px solid #000000;
+	border-right:1px solid #000000;
+	padding:4px;
+}
+
+td.sepF {
+	border-bottom:1px solid #000000;
+	border-right:1px solid #000000;
+	padding:4px;
+}
+
+td.sepD {
+	border-bottom:1px solid #000000;
+	padding-left:4px;
+}
+
+
+td.sepI2 {
+	border-right:1px solid #000000;
+	padding:4px;
+}
+
+td.sepF2 {
+	border-right:1px solid #000000;
+	padding:4px;
+}
+
+td.sepD2 {
+	padding:4px;
+}
+
+
+
+#seleNewImg {
+
+	display:none;
+}

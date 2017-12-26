@@ -1,0 +1,512 @@
+/********************
+プロファイル編集
+********************/
+
+/***
+プロファイルリスト
+***/
+div.prof1 {
+	float:left;
+	padding:5px;
+	margin:5px;
+	text-align:center;
+}
+
+#profSeqListD {
+	float:left;
+	overflow:auto;
+}
+
+tr.profItemA td {
+	border-bottom:1px solid #000000;
+}
+
+td.profItemAA {
+	border-right:1px solid #000000;
+}
+
+table.profItem {
+	border-collapse:collapse;
+}
+
+table.profItem tr td {
+	padding:2px;
+}
+
+
+
+/***
+プロファイル編集
+***/
+div#editLeftP {
+	float:left;
+}
+div#editRightP {
+	float:left;
+	margin-left:10px;
+}
+
+div#editProfDlg {
+	padding-left:0.5em;
+	padding-right:0.5em;
+}
+
+div#editDir {
+	float:left;
+	margin-left:20px;
+}
+
+
+
+/*****
+識別子削除
+*****/
+div#delDir {
+	margin-top:20px;
+	text-align:right;
+}
+
+#delDirBtn {
+	color:#ff0000;
+	font-weight:bold;
+}
+
+#DelDirDlg {
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	min-width: 300px; /* Dialog will be no smaller than this */
+	max-width: 600px; /* Dialog will wrap after this width */
+	background: #FFF;
+	border: solid 5px #999;
+	color: #000;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#popup_titleDelDir {
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 1.75em;
+	color: #666;
+	background: #CCC url(../jq/css/images/title.gif) top repeat-x;
+	border: solid 1px #FFF;
+	border-bottom: solid 1px #999;
+	cursor: default;
+	padding: 0em;
+	margin: 0em;
+}
+
+#popup_contentDelDir {
+	background: 16px 16px no-repeat url(../jq/css/images/info.gif);
+	padding: 1em 1.75em;
+	margin: 0em;
+}
+
+#popup_contentDelDir.alert {
+	background-image: url(../jq/css/images/info.gif);
+}
+
+#popup_contentDelDir.confirm {
+	background-image: url(../jq/css/images/important.gif);
+}
+
+#popup_contentDelDir.prompt {
+	background-image: url(../jq/css/images/help.gif);
+}
+
+#popup_messageDelDir {
+	padding-left: 48px;
+}
+
+#popup_panelDelDir {
+	text-align: center;
+	margin: 1em 0em 0em 1em;
+}
+
+#popup_promptDelDir {
+	margin: .5em 0em;
+}
+
+
+
+/*****
+識別子変更のPOPUP
+*****/
+div#editDirDlg {
+	padding:5px;
+	line-height:1.5em;
+	display:none;
+	position:absolute;
+	background-color:#ffffff;
+
+
+	border: 5px solid #999;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+div#profDirShow {
+	float:left;
+}
+
+#popup_titleDir {
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 1.75em;
+	color: #666;
+	background: #CCC url(../jq/css/images/title.gif) top repeat-x;
+	border: solid 1px #FFF;
+	border-bottom: solid 1px #999;
+	cursor: default;
+	padding: 0em;
+	margin: 0em;
+}
+
+#popup_contentDir {
+	background: 16px 16px no-repeat url(../jq/css/images/info.gif);
+	padding: 1em 1.75em;
+	margin: 0em;
+}
+
+#popup_contentDir.alert {
+	background-image: url(../jq/css/images/info.gif);
+}
+
+#popup_contentDir.confirm {
+	background-image: url(../jq/css/images/important.gif);
+}
+
+#popup_contentDir.prompt {
+	background-image: url(../jq/css/images/help.gif);
+}
+
+#popup_messageDir {
+	padding-left: 48px;
+}
+
+#popup_panelDir {
+	text-align: center;
+	margin: 1em 0em 0em 1em;
+}
+
+#popup_promptDir {
+	margin: .5em 0em;
+}
+
+
+
+
+
+/*******************************************************************************************/
+
+
+
+
+
+.whileDrag {
+	background-color:#ff2200;	/* ff0022 */
+}
+.whileDrag2 {
+	color:#00ff00;	/* ff0022 */
+}
+
+
+
+
+/*************************************/
+
+
+
+
+form#workTimeList {
+	overflow:scroll;
+	width:100%;
+}
+
+table.works {
+	border-collapse:collapse;
+}
+
+table.works tr td {
+	border:#000000 1px solid;
+	padding:3px;
+	vertical-align:top;
+	font-size:0.8em;
+}
+
+
+
+table.works tr th {
+	border:#000000 1px solid;
+	padding:3px;
+	font-size:0.8em;
+}
+
+input[type="text"].workTM {
+	padding:2px;
+	font-size:0.9em;
+	width:15px;
+/*	margin-bottom:5px;*/
+}
+
+
+input[type="radio"].seleTo {
+	font-size:0.9em;
+}
+
+label {
+	font-size:0.8em;
+}
+
+div.endModeSele {
+	text-align:right;
+}
+
+td.dowStr {
+	text-align:center;
+}
+td.dayStr {
+	text-align:center;
+}
+
+td.dowSun {
+	color:#ff0000;
+}
+td.dowSat {
+	color:#0000ff;
+}
+
+
+
+td.setTime {
+	text-align:right;
+}
+
+table.works tr td.sepFromToFrom {
+	border-right-style:hidden;
+	padding-right:0px;
+}
+
+
+table.works tr td.sepFromToTo {
+	border-left-style:hidden;
+	padding-left:0px;
+}
+
+/*
+input[type="select"] {
+	font-size:0.9em;
+}
+*/
+
+select.seleTime option {
+/*	font-size:0.5em;*/
+}
+
+
+.ui-widget select {
+	font-size:11px;	/*0.5em;*/
+}
+
+
+td.sepFromToFrom {
+	white-space:nowrap;
+}
+
+
+
+table.works {
+/*	width:1100px;*/
+}
+
+thead.worksH {
+/*	width:967px;*/
+	float:left;
+}
+
+
+tbody.worksD {
+	float:left;
+	height:500px;
+	overflow:auto;
+	width:1115px;
+}
+
+table.works tr th.workName {
+	width:60px;	/* 53 */
+}
+
+table.works tr th.workDay {
+	width:140px;
+}
+
+
+
+table.works tr td.workName {
+	width:60px;
+}
+
+table.works tr td.sepFromToFrom {
+	width:75px;
+}
+
+table.works tr td.sepFromToTo {
+	width:65px;
+}
+
+
+
+
+/***** 入力エリア表示 *****/
+div#profileA:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+
+div#showBArea {
+	float:right;
+}
+
+
+/***** 入力エリア表示ボタン *****/
+div.showAreaBtn {
+	float:right;
+}
+
+/*
+#showAreaBtn1 {
+	display:none;
+}
+*/
+
+/***** 特徴 *****/
+/*
+div#profArea1 {
+	display:none;
+}
+*/
+
+div.profileBFld {
+	float:left;
+	padding-right:10px;
+	margin-left:5px;
+}
+
+
+div#profArea1:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+
+
+/***** QA *****/
+div.qaAsk {
+	float:left;
+}
+
+div.qaAns {
+	float:left;
+}
+
+div#qaAsk2 {
+	margin-left:35px;
+}
+
+
+tr.qaItemA td {
+	border-bottom:1px solid #000000;
+}
+
+td.qaItemAA {
+	border-right:1px solid #000000;
+}
+
+table.qaItem {
+	border-collapse:collapse;
+}
+
+table.qaItem tr td {
+	padding:4px;
+}
+
+
+
+/************************************************************/
+div#profArea2 {
+	display:none;
+}
+
+div#qaAsk3 {
+	display:none;
+}
+
+
+ul#sortableList2 li:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+
+
+
+div.sw {
+	float:left;
+}
+div.id {
+	float:left;
+}
+div.name {
+	float:left;
+}
+
+#profSeqListHTR2 {
+	float:left;
+}
+
+
+#profSeqListH2 {
+	width:360px;
+}
+
+#profSeqListD2 {
+	float:left;
+/*	height:500px; */
+	overflow:auto;
+	width:694px;
+}
+
+
+
+
+#profSeqList2 #profSeqListD2 tr td {
+	background-color : #fff;	/*e5e5e5;*/
+}
+
+
+div.profEdit {
+	margin-top: 5px;
+}
+
+div.dispBtn {
+	margin-top: 1px;
+	float: right;
+}
+
+div.editBtn {
+	float: left;
+}
