@@ -101,22 +101,6 @@
 <script src="../js2018/mtn/system.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/recruit.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/top.js?<?php print $vesion; ?>"></script>
-
-<!--
-<script src="../js2018/mtn/profSeq.js?<?php print $vesion; ?>"></script>
-<script src="../js2018/mtn/profSeq2.js"></script>
--->
-
-<!--
-<script src="../js2018/mtn/blog.js"></script>
-<script src="../js2018/mtn/blogOut.js"></script>
-<script src="../js2018/mtn/blogDisp.js"></script>
--->
-
-<!--
-<script src="../js2018/mtn/work.js"></script>
-<script src="../js2018/mtn/fileSele.js"></script>
--->
 </head>
 <body>
 <input type="hidden" id="branchNo"   name="branchNo" value="<?php print $branchNo; ?>">
@@ -125,9 +109,9 @@
 
 <div id="tabA">
 	<ul>
+		<li><a href="#tabsNews">ニュース</a></li>
 		<li><a href="#tabsTop">TOP</a></li>
 		<li><a href="#tabsProfile">プロファイル</a></li>
-		<li><a href="#tabsNews">ニュース</a></li>
 		<li><a href="#tabsRecruit">求人</a></li>
 		<li><a href="#tabsSystem">システム</a></li>
 	</ul>
@@ -135,43 +119,70 @@
 	<!-- ***** タブの中身の定義 ***** -->
 	<!-- ニュース -->
 	<div id="tabsNews" class="tabArea">
-
-		<div id="tabNewsTop">
-			<input type="button" value="新規ニュース" onclick="newNews()">&nbsp;&nbsp;
-			<input type="button" value="定型文編集" onclick="editFixPhrase()">
-			<br><br>
+		<div id="tabNewsUsePage" class="resetFloat">
+			<div class="selectPage">
+				使用するニュースページ<br>
+				<label><input type="radio" name="useNews" id="useNewsOther" value="OTHER_SITE">外部</label><input type="text" name="newsOuterURL" id="newsOuterURL" class="outerURL"><br>
+				<label><input type="radio" name="useNews" id="useNewsOwn" value="OWN_SITE">内部</label><br>
+			</div>
+			<div class="sendSelectPage">
+				<input type="button" value="使用ページ反映" id="sendSeleNewsPage" onclick="updUsePage('news');" disabled="disabled">
+			</div>
 		</div>
+		<hr>
 
-		<div id="tabNewsMid" class="tabMid">
-			<table id="newsList">
-				<thead id="newsListH"></thead>
-				<tbody id="newsListD"></tbody>
-			</table>
+		<div id="tabNewsMain">
+			<div id="tabNewsTop">
+				<input type="button" value="新規ニュース" onclick="newNews()">&nbsp;&nbsp;
+				<input type="button" value="定型文編集" onclick="editFixPhrase()">
+				<br><br>
+			</div>
+
+			<div id="tabNewsMid" class="tabMid">
+				<table id="newsList">
+					<thead id="newsListH"></thead>
+					<tbody id="newsListD"></tbody>
+				</table>
+			</div>
 		</div>
+		<div class="grayPanel" id="grayPanelNews"></div>
 
 		<div id="tabNewsBottom" class="tabBottomBtn">
 			<hr>
 			<input type="button" value="表示可否反映" id="bldNewsList" onclick="updNewsDisp();" disabled="disabled">
 		</div>
+
 	</div>
 
 	<!-- プロファイル -->
 	<div id="tabsProfile" class="tabArea">
-
-		<div id="tabProfTop">
-			<input type="button" value="新規プロファイル" onclick="newProf()"><br><br>
+		<div id="tabProfileUsePage" class="resetFloat">
+			<div class="selectPage">
+				使用するプロファイルページ<br>
+				<label><input type="radio" name="useProfile" id="useProfileOther" value="OTHER_SITE">外部</label><input type="text" name="profileOuterURL" id="profileOuterURL" class="outerURL"><br>
+				<label><input type="radio" name="useProfile" id="useProfileOwn" value="OWN_SITE">内部</label><br>
+			</div>
+			<div class="sendSelectPage">
+				<input type="button" value="使用ページ反映" id="sendSeleProfPage" onclick="updUsePage('profile');" disabled="disabled">
+			</div>
 		</div>
+		<hr>
 
-		<div id="tabProfMid" class="tabMid">
-			<table id="profSeqList">
-				<thead id="profSeqListH"></thead>
-				<tbody id="profSeqListD"></tbody>
-			</table>
+		<div id="tabProfMain">
+			<div id="tabProfTop">
+				<input type="button" value="新規プロファイル" onclick="newProf()"><br><br>
+			</div>
+
+			<div id="tabProfMid" class="tabMid">
+				<div id="profSeqListD">
+				</div>
+			</div>
 		</div>
+		<div class="grayPanel" id="grayPanelProf"></div>
 
 		<div id="tabProfBottom" class="tabBottomBtn">
 			<hr>
-			<input type="button" value="表示順反映" id="bldProfList" onclick="updProfSeqPre();" disabled="disabled">
+			<input type="button" value="表示順反映" id="bldProfList" onclick="updProfSeq();" disabled="disabled">
 			<?php
 				if(strcmp($mtn ,'Y') == 0) {
 					print('&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="全プロファイル一括更新" id="rebldAllProf" onclick="updAllProf();">');
@@ -182,21 +193,36 @@
 
 	<!-- システム -->
 	<div id="tabsSystem" class="tabArea">
-		<div id="tabSystemTop">
-			システム内容<span class="required">*</span>
+		<div id="tabSystemUsePage" class="resetFloat">
+			<div class="selectPage">
+				使用するシステムページ<br>
+				<label><input type="radio" name="useSystemPage" id="useSystemPageOther" value="OTHER_SITE">外部</label><input type="text" name="systemOuterURL" id="systemOuterURL" class="outerURL"><br>
+				<label><input type="radio" name="useSystemPage" id="useSystemPageOwn" value="OWN_SITE">内部</label><br>
+			</div>
+			<div class="sendSelectPage">
+				<input type="button" value="使用ページ反映" id="sendSeleSystemPage" onclick="updUsePage('system');" disabled="disabled">
+			</div>
 		</div>
+		<hr>
 
-		<div id="tabSystemMid" class="tabMid">
-			<textarea id="systemStr" name="systemStr" cols="60" rows="4"></textarea>
-			<script type="text/javascript">
-				CKEDITOR.replace('systemStr' ,
-					{
-						height : 120
-						//skin : 'office2003'
-					});
-			</script>
-			<div id="warnSystemStr" class="parsley-errors-list filled"></div>
+		<div id="tabSystemMain">
+			<div id="tabSystemTop">
+				システム内容<span class="required">*</span>
+			</div>
+
+			<div id="tabSystemMid" class="tabMid">
+				<textarea id="systemStr" name="systemStr" cols="60" rows="4"></textarea>
+				<script type="text/javascript">
+					CKEDITOR.replace('systemStr' ,
+						{
+							height : 120
+							//skin : 'office2003'
+						});
+				</script>
+				<div id="warnSystemStr" class="parsley-errors-list filled"></div>
+			</div>
 		</div>
+		<div class="grayPanel" id="grayPanelSystem"></div>
 
 		<div id="tabSystemBottom" class="tabBottomBtn">
 			<hr>
@@ -206,21 +232,36 @@
 
 	<!-- 求人 -->
 	<div id="tabsRecruit" class="tabArea">
-		<div id="tabRecruitTop">
-			求人内容<span class="required">*</span>
+		<div id="tabRecruitUsePage" class="resetFloat">
+			<div class="selectPage">
+				使用する求人ページ<br>
+				<label><input type="radio" name="useRecruitPage" id="useRecruitPageOther" value="OTHER_SITE">外部</label><input type="text" name="recruitOuterURL" id="recruitOuterURL" class="outerURL"><br>
+				<label><input type="radio" name="useRecruitPage" id="useRecruitPageOwn" value="OWN_SITE">内部</label><br>
+			</div>
+			<div class="sendSelectPage">
+				<input type="button" value="使用ページ反映" id="sendSeleRecruitPage" onclick="updUsePage('recruit');" disabled="disabled">
+			</div>
 		</div>
+		<hr>
 
-		<div id="tabSystemMid" class="tabMid">
-			<textarea id="recruitStr" name="recruitStr" cols="60" rows="4"></textarea>
-			<script type="text/javascript">
-				CKEDITOR.replace('recruitStr' ,
-					{
-						height : 120
-						//skin : 'office2003'
-					});
-			</script>
-			<div id="warnRecruitStr" class="parsley-errors-list filled"></div>
+		<div id="tabRecruitMain">
+			<div id="tabRecruitTop">
+				求人内容<span class="required">*</span>
+			</div>
+
+			<div id="tabSystemMid" class="tabMid">
+				<textarea id="recruitStr" name="recruitStr" cols="60" rows="4"></textarea>
+				<script type="text/javascript">
+					CKEDITOR.replace('recruitStr' ,
+						{
+							height : 120
+							//skin : 'office2003'
+						});
+				</script>
+				<div id="warnRecruitStr" class="parsley-errors-list filled"></div>
+			</div>
 		</div>
+		<div class="grayPanel" id="grayPanelRecruit"></div>
 
 		<div id="tabRecruitBottom" class="tabBottomBtn">
 			<hr>
@@ -231,9 +272,8 @@
 	<!-- トップ -->
 	<div id="tabsTop" class="tabArea">
 		<div id="tabTopTop">
-			（とっぷ）
+			TOP
 		</div>
-
 		<div id="tabTopMid" class="tabMid">
 			<table class="topImgSele">
 				<thead>
@@ -273,7 +313,7 @@
 
 		<div id="tabTopBottom" class="tabBottomBtn">
 			<hr>
-			<input type="button" value="出力" id="bldTopImgDispSeq" onclick="updTopImgSeqPre();" disabled="disabled">
+			<input type="button" value="出力" id="bldTopImgDispSeq" onclick="updTopImgSeq();" disabled="disabled">
 		</div>
 	</div>
 

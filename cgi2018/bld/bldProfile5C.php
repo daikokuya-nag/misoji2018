@@ -213,7 +213,7 @@ class bldProfile5C {
 		$id = $prof1[dbProfile5C::FLD_DIR ];
 
 		/* 編集ボタン */
-		$editBtn = '<input type="button" value="　" style="font-size:0.9em;" onclick="editProf(\'' . $profID . '\')" />';
+		$editBtn = '<div class="editBtn"><input type="button" value="編集" style="font-size:0.9em;" onclick="editProf(\'' . $profID . '\')" /></div>';
 
 		/* 表示/非表示 */
 		if(strcmp($prof1[dbProfile5C::FLD_DISP] ,dbProfile5C::DISP_ON) == 0) {
@@ -221,7 +221,7 @@ class bldProfile5C {
 		} else {
 			$disp = '';
 		}
-		$dispCB = '<input type="checkbox" id="disp' . $profID . '" name="disp' . $profID . '" value="U"' . $disp . ' onchange="enableWriteProfSeq();" class="dispProfSW" />';
+		$dispCB = '<div class="dispBtn"><input type="checkbox" id="disp' . $profID . '" name="disp' . $profID . '" value="U"' . $disp . ' onchange="enableWriteProfSeq();" class="dispProfSW" /></div>';
 
 		$ret = '<div id="sort-' . $id . '" class="prof1 ui-state-default">' .
 			'<div class="tnOut">' . $photoStr . '</div>' .

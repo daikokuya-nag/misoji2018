@@ -15,7 +15,7 @@ PHP5
 class dbGeneral5C {
 
 	/*** テーブル名 ***/
-	const TABLE_NAME = 'general2018';
+	const TABLE_NAME = 'general2018'; 
 
 	/*** フィールド ***/
 	const FLD_BRANCH_NO = 'branchNo';	/* 店No */

@@ -1,17 +1,17 @@
 
-	/***** 新着情報 *****/
-var TAB_NEWS_HEIGHT;
-
-	/***** プロファイル *****/
-var TAB_PROF_HEIGHT;
-
-	/***** 求人 *****/
-var TAB_RECRUIT_HEIGHT;
-
-	/***** システム *****/
-var TAB_SYSTEM_HEIGHT;
-
 var EXT_LIST = [];
+
+var USE_PAGE = {};
+var RADIO_NAME     = {news:'useNews'       ,profile:'useProfile'      ,recruit:'useRecruitPage'   ,system:'useSystemPage'};
+var ID_PREFIX      = {news:'tabsNews'      ,profile:'tabsProfile'     ,recruit:'tabsRecruit'      ,system:'tabsSystem'};
+var OUTER_URL_FORM = {news:'newsOuterURL'  ,profile:'profileOuterURL' ,recruit:'recruitOuterURL'  ,system:'systemOuterURL'};
+var GRAY_PANEL_ID  = {news:'grayPanelNews' ,profile:'grayPanelProf'   ,recruit:'grayPanelRecruit' ,system:'grayPanelSystem'};
+
+var EDIT_AREA        = {news:'tabNewsMain' ,profile:'tabProfMain'     ,recruit:'tabRecruitMain'   ,system:'tabSystemMain'};
+var EDIT_AREA_HEIGHT = {news:0 ,profile:0 ,recruit:0 ,system:0};
+
+var TAB_HEIGHT = {news:0 ,profile:0 ,recruit:0 ,system:0};
+
 
 $(document).ready(function(){
 
@@ -38,23 +38,23 @@ $(document).ready(function(){
 				console.debug(ui.newPanel.selector);
 				var selectedPanel = ui.newPanel.selector;
 				if(selectedPanel == "#tabsNews") {
-					if(TAB_NEWS_HEIGHT == 0) {
+					if(TAB_HEIGHT['news'] == 0) {
 						setNewsTabHeight();
 					}
 				}
 				if(selectedPanel == "#tabsProfile") {
-					if(TAB_PROF_HEIGHT == 0) {
+					if(TAB_HEIGHT['profile'] == 0) {
 						setProfTabHeight();
 					}
 				}
 
 				if(selectedPanel == "#tabsRecruit") {
-					if(TAB_RECRUIT_HEIGHT == 0) {
+					if(TAB_HEIGHT['recruit'] == 0) {
 						setRecruitTabHeight();
 					}
 				}
 				if(selectedPanel == "#tabsSystem") {
-					if(TAB_SYSTEM_HEIGHT == 0) {
+					if(TAB_HEIGHT['system'] == 0) {
 						setSystemTabHeight();
 					}
 				}
@@ -63,19 +63,6 @@ $(document).ready(function(){
 	);
 
 	/***** タブの中身調整 *****/
-	/***** 高さの初期化 *****/
-	/***** 新着情報 *****/
-	TAB_NEWS_HEIGHT = 0;
-
-	/***** プロファイル *****/
-	TAB_PROF_HEIGHT = 0;
-
-	/***** 求人 *****/
-	TAB_RECRUIT_HEIGHT = 0;
-
-	/***** システム *****/
-	TAB_SYSTEM_HEIGHT = 0;
-
 	setTabHeight();
 	setTabBottom();
 
@@ -86,7 +73,32 @@ $(document).ready(function(){
 		fileSele(this);
 	});
 
-	showImgList();
+
+	$("input[name='useNews']").change(function() {
+
+		USE_PAGE['news']['USE'] = $(this).val();
+		setUsePage('news');
+	});
+
+	$("input[name='useProfile']").change(function() {
+
+		USE_PAGE['profile']['USE'] = $(this).val();
+		setUsePage('profile');
+	});
+
+	$("input[name='useRecruitPage']").change(function() {
+
+		USE_PAGE['recruit']['USE'] = $(this).val();
+		setUsePage('recruit');
+	});
+
+	$("input[name='useSystemPage']").change(function() {
+
+		USE_PAGE['system']['USE'] = $(this).val();
+		setUsePage('system');
+	});
+
+	readImgList();
 });
 
 
@@ -94,6 +106,8 @@ $(window).load(function(){
 
 	/***** 画像選択ダイアログの定義 *****/
 	initSelectImgFileDlg();
+
+	readUsePage();
 });
 
 
@@ -117,16 +131,21 @@ var width = $(".tabArea").width();
 function setNewsTabHeight() {
 
 							//console.debug('set news tab height');
-var areaH    = $("#tabsNews").height();			//領域の高さ
-var areaTopH = $("#tabNewsTop").height();		//上ボタンの高さ
-var areaBtmH = $("#tabNewsBottom").height();	//下ボタンの高さ
+var areaH     = $("#tabsNews").height();			//領域の高さ
+var areaSeleH = $("#tabNewsUsePage").height();	//使用ページ選択の高さ
+var areaTopH  = $("#tabNewsTop").height();		//上ボタンの高さ
+var areaBtmH  = $("#tabNewsBottom").height();	//下ボタンの高さ
 
-var height = areaH - (areaTopH + areaBtmH);
+var height = areaH - (areaSeleH + areaTopH + areaBtmH);
+var grayPanelID = GRAY_PANEL_ID['news'];
 
 				//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);
 	$("#tabNewsMid").height(height + 'px');
+	TAB_HEIGHT['news'] = height;
 
-	TAB_NEWS_HEIGHT = height;
+	height = $("#" + EDIT_AREA['news']).height();
+	EDIT_AREA_HEIGHT['news'] = height;
+	$("#" + grayPanelID).height(height);
 }
 
 
@@ -134,16 +153,21 @@ var height = areaH - (areaTopH + areaBtmH);
 function setProfTabHeight() {
 
 							//console.debug('set prof tab height');
-var areaH    = $("#tabsProfile").height();		//領域の高さ
-var areaTopH = $("#tabProfTop").height();		//上ボタンの高さ
-var areaBtmH = $("#tabProfBottom").height();	//下ボタンの高さ
+var areaH     = $("#tabsProfile").height();			//領域の高さ
+var areaSeleH = $("#tabProfileUsePage").height();	//使用ページ選択の高さ
+var areaTopH  = $("#tabProfTop").height();			//上ボタンの高さ
+var areaBtmH  = $("#tabProfBottom").height();		//下ボタンの高さ
 
-var height = areaH - (areaTopH + areaBtmH);
+var height = areaH - (areaSeleH + areaTopH + areaBtmH);
+var grayPanelID = GRAY_PANEL_ID['profile'];
 
 				//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);
 	$("#tabProfMid").height(height + 'px');
+	TAB_HEIGHT['profile'] = height;
 
-	TAB_PROF_HEIGHT = height;
+	height = $("#" + EDIT_AREA['profile']).height();
+	EDIT_AREA_HEIGHT['profile'] = height;
+	$("#" + grayPanelID).height(height);
 }
 
 
@@ -151,16 +175,21 @@ var height = areaH - (areaTopH + areaBtmH);
 function setRecruitTabHeight() {
 
 							//console.debug('set recruit tab height');
-var areaH    = $("#tabsRecruit").height();		//領域の高さ
-var areaTopH = $("#tabRecruitTop").height();	//上ボタンの高さ
-var areaBtmH = $("#tabRecruitBottom").height();	//下ボタンの高さ
+var areaH     = $("#tabsRecruit").height();			//領域の高さ
+var areaSeleH = $("#tabRecruitUsePage").height();	//使用ページ選択の高さ
+var areaTopH  = $("#tabRecruitTop").height();		//上ボタンの高さ
+var areaBtmH  = $("#tabRecruitBottom").height();	//下ボタンの高さ
 
-var height = areaH - (areaTopH + areaBtmH);
+var height = areaH - (areaSeleH + areaTopH + areaBtmH);
+var grayPanelID = GRAY_PANEL_ID['recruit'];
 
 				//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);
 	$("#tabRecruitMid").height(height + 'px');
+	TAB_HEIGHT['recruit'] = height;
 
-	TAB_RECRUIT_HEIGHT = height;
+	height = $("#" + EDIT_AREA['recruit']).height();
+	EDIT_AREA_HEIGHT['recruit'] = height;
+	$("#" + grayPanelID).height(height);
 
 	//ckEditorの編集領域の高さの調整
 var editTopH = $("#cke_recruitStr .cke_top").height();
@@ -188,16 +217,21 @@ var btmPB    = $("#cke_recruitStr .cke_bottom").css("padding-bottom");
 function setSystemTabHeight() {
 
 							//console.debug('set system tab height');
-var areaH    = $("#tabsSystem").height();		//領域の高さ
-var areaTopH = $("#tabSystemTop").height();		//上ボタンの高さ
-var areaBtmH = $("#tabSystemBottom").height();		//下ボタンの高さ
+var areaH     = $("#tabsSystem").height();			//領域の高さ
+var areaSeleH = $("#tabSystemUsePage").height();	//使用ページ選択の高さ
+var areaTopH  = $("#tabSystemTop").height();		//上ボタンの高さ
+var areaBtmH  = $("#tabSystemBottom").height();		//下ボタンの高さ
 
-var height = areaH - (areaTopH + areaBtmH);
+var height = areaH - (areaSeleH + areaTopH + areaBtmH);
+var grayPanelID = GRAY_PANEL_ID['system'];
 
 				//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);
 	$("#tabSystemMid").height(height + 'px');
+	TAB_HEIGHT['system'] = height;
 
-	TAB_SYSTEM_HEIGHT = height;
+	height = $("#" + EDIT_AREA['system']).height();
+	EDIT_AREA_HEIGHT['system'] = height;
+	$("#" + grayPanelID).height(height);
 
 	//ckEditorの編集領域の高さの調整
 var editTopH = $("#cke_systemStr .cke_top").height();
@@ -316,7 +350,7 @@ function initSelectImgFileDlg() {
 
 
 /***** 画像リスト取得 *****/
-function showImgList() {
+function readImgList() {
 
 var branchNo = $('#branchNo').val();
 var result;
@@ -358,8 +392,6 @@ var extS2;
 
 	result.always(function() {
 	});
-
-
 }
 
 
@@ -383,14 +415,14 @@ var result
 		fd.append("class"    ,$("#imgClass").val());
 
 
-console.debug('file upload beg');
+				//console.debug('file upload beg');
 		result = ajaxUploadNewImg(fd);
-console.debug('file upload end');
+				//console.debug('file upload end');
 
 		result.done(function(response) {
 					console.debug(response);
 			$("#seleNewImg").hide();
-			showImgList();		//画像リスト再表示
+			readImgList();		//画像リスト再表示
 		});
 
 		result.fail(function(result, textStatus, errorThrown) {
@@ -470,5 +502,113 @@ var ext;
 		$('#topImg' + param1).val(selectedImg);
 
 		$("#bldTopImgDispSeq").prop('disabled' ,false);
+	}
+}
+
+
+function readUsePage() {
+
+var branchNo = $('#branchNo').val();
+
+var result = $.ajax({
+		type : "get" ,
+		url  : "../cgi2018/ajax/mtn/getUsePage.php" ,
+		data : {
+			branchNo : branchNo
+		} ,
+
+		cache    : false ,
+		dataType : 'json'
+	});
+
+	result.done(function(response) {
+					//console.debug(response);
+		USE_PAGE['news'   ] = response['NEWS'   ];
+		USE_PAGE['profile'] = response['PROFILE'];
+		USE_PAGE['recruit'] = response['RECRUIT'];
+		USE_PAGE['system' ] = response['SYSTEM' ];
+
+		var pageID;
+		var radioName;
+		var usePage;
+
+		pageID    = 'news';
+		radioName = RADIO_NAME[pageID];
+		usePage   = USE_PAGE[pageID]['USE'];
+		$("input[name='" + radioName + "']").val([usePage]);
+		setUsePage(pageID);
+
+		pageID    = 'profile';
+		radioName = RADIO_NAME[pageID];
+		usePage   = USE_PAGE[pageID]['USE'];
+		$("input[name='" + radioName + "']").val([usePage]);
+		setUsePage(pageID);
+
+		pageID    = 'recruit';
+		radioName = RADIO_NAME[pageID];
+		usePage   = USE_PAGE[pageID]['USE'];
+		$("input[name='" + radioName + "']").val([usePage]);
+		setUsePage(pageID);
+
+		pageID    = 'system';
+		radioName = RADIO_NAME[pageID];
+		usePage   = USE_PAGE[pageID]['USE'];
+		$("input[name='" + radioName + "']").val([usePage]);
+		setUsePage(pageID);
+	});
+
+	result.fail(function(result, textStatus, errorThrown) {
+			console.debug('error at getImgFiles(:' + result.status + ' ' + textStatus);
+	});
+
+	result.always(function() {
+	});
+}
+
+
+function setUsePage(pageID) {
+
+var usePage      = USE_PAGE[pageID]['USE'];
+var otherURL     = USE_PAGE[pageID]['USEPAGE'];
+var idPrefix     = ID_PREFIX[pageID];
+var outerURLForm = OUTER_URL_FORM[pageID];
+var grayPanelID  = GRAY_PANEL_ID[pageID];
+var editArea       = EDIT_AREA[pageID];
+var editAreaHeight = EDIT_AREA_HEIGHT[pageID];
+
+	$("#" + outerURLForm).val(otherURL);
+
+console.debug(usePage);
+
+	if(usePage == 'OWN_SITE') {
+		//内部サイトの時
+		$("#" + outerURLForm).prop('disabled' ,true);
+
+			$("#" + grayPanelID).css("top" ,'0px');
+			$("#" + grayPanelID).hide();	//.fadeIn("slow");
+			$("#" + idPrefix).css("overflow" ,"auto");
+	} else {
+		//外部サイトの時
+		$("#" + outerURLForm).prop('disabled' ,false);
+
+		if(grayPanelID.length >= 1) {
+			var topPos = $("#" + editArea).height();
+
+
+console.debug('id prefix:' + idPrefix);
+				$("#" + idPrefix).css("overflow" ,"hidden");
+			if(topPos >= 1) {
+				$("#" + grayPanelID).css("top" ,'-' + topPos + 'px');
+				$("#" + grayPanelID).show();	//.fadeIn("slow");
+			}
+
+
+//			if(editAreaHeight >= 1) {
+//
+//				$("#" + grayPanelID).css("top" ,'-' + topPos + 'px');
+//				$("#" + grayPanelID).show();	//.fadeIn("slow");
+//			}
+
+		}
 	}
 }

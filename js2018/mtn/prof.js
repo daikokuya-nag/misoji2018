@@ -111,6 +111,10 @@ var result = $.ajax({
 	});
 }
 
+function enableWriteProfSeq() {
+
+	$("#bldProfList").prop('disabled' ,false);
+}
 
 function enableWriteProfSeq() {
 
@@ -455,6 +459,47 @@ var result = $.ajax({
 	});
 }
 
+/********************
+表示順を出力
+********************/
+function writeProfSeqDisp() {
+
+var branchNo  = $('#branchNo').val();
+var dispSW    = $(".dispProfSW").serialize();
+var profOrder = $("#profSeqListD").sortable('serialize');
+
+var sendData;
+
+	sendData = profOrder + '&branchNo=' + branchNo + '&' + dispSW;
+					console.debug(sendData);
+
+var result;
+
+	result = $.ajax({
+		type : "post" ,
+		url  : "../cgi2018/ajax/mtn/writeProfSeqDisp.php" ,
+					//		data : profOrder ,		// see commonA.js
+
+		data  : sendData ,
+		cache : false
+	});
+
+
+	result.done(function(response) {
+					console.debug(response);
+
+//		showProfListAll();		//リスト再表示
+//		bldProfListHTML(bld);	//アルバムページ再出力
+//		bldProfSitemap();
+	});
+
+	result.fail(function(result, textStatus, errorThrown) {
+			console.debug('error at writeProfSeqDisp:' + result.status + ' ' + textStatus);
+	});
+
+	result.always(function() {
+	});
+}
 
 /********************
 リスト再表示

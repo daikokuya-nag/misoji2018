@@ -17,22 +17,22 @@ div.prof1 {
 	overflow:auto;
 }
 
-tr.profItemA td {
-	border-bottom:1px solid #000000;
+div.profEdit {
+	margin-top:3px;
 }
 
-td.profItemAA {
-	border-right:1px solid #000000;
+div.profName {
+	margin-bottom:4px;
 }
 
-table.profItem {
-	border-collapse:collapse;
+div.profEdit div.editBtn {
+	font-size:0.9em;
+	float:left;
 }
-
-table.profItem tr td {
-	padding:2px;
+div.profEdit div.dispBtn {
+	padding-top:1px;
+	float:right;
 }
-
 
 
 /***

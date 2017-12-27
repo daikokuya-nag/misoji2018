@@ -14,7 +14,7 @@ PHP5
 class dbProfile5C {
 
 	/*** テーブル名 ***/
-	const TABLE_NAME = 'profile2018';
+	const TABLE_NAME = 'profile2018'; 
 
 	/*** フィールド ***/
 	const FLD_BRANCH_NO  = 'branchNo';	/* 店No */

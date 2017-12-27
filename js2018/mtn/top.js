@@ -47,7 +47,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					//console.debug(response);
+					console.debug(response);
 
 		var pageVal    = response['pageVal'];
 		var seqList    = pageVal['value1'];
@@ -60,29 +60,33 @@ var result = $.ajax({
 					//console.debug(useImgList);
 					//console.debug(imgNoList);
 
-		var seq    = seqList.split(':');
-		var useImg = useImgList.split(':');
-		var imgNo  = imgNoList.split(':');
+		var seq    = ['A' ,'B' ,'C' ,'D'];
+		var useImg = ['U' ,'U' ,'U' ,'U'];
+		var imgNo  = [''  ,''  ,''  ,''];
 
-		if(seq.length == 4) {
+		//画像の表示順
+		if(seqList.length >= 1) {
+			seq = seqList.split(':')
+		}
+
+		//その画像を表示するか
+		if(useImgList.length >= 1) {
+			useImg = useImgList.split(':')
+		}
+
+		//選択されている画像No
+		if(imgNoList.length >= 1) {
+			imgNo = imgNoList.split(':');
+		}
+
+		//拡張子リスト
+		if(extList.length >= 1) {
 			extS1 = extList.split(',');
 			idxMax = extS1.length - 1;
 			for(idx=0 ;idx<idxMax ;idx++) {
 				extS2 = extS1[idx].split(':');
 				imgExt[extS2[0]] = extS2[1];
 			}
-		} else {
-			seq[0] = '';
-			seq[1] = '';
-			seq[2] = '';
-			seq[3] = '';
-		}
-
-		if(imgNoList.length <= 0) {
-			imgNo[0] = 0;
-			imgNo[1] = 0;
-			imgNo[2] = 0;
-			imgNo[3] = 0;
 		}
 
 		var trTag = setTRImgTag(seq ,imgNo ,imgExt);
@@ -146,10 +150,9 @@ var imgTag;
 		imgNo = imgNoList[paramIdx];
 
 		//表示する画像の指定
+		imgTag = '';
 		if(imgNoList[paramIdx].length >= 1) {
 			imgTag = '<img src="../img/1/TOP_HEADER/' + imgNo + '.' + imgExtList[imgNo] + '">';
-		} else {
-			imgTag = '';
 		}
 
 		//画像Noの保持

@@ -31,11 +31,26 @@ class dbPageParam5C {
 
 
 	/***** ページ識別 *****/
-	const PAGE_TOP = 'TOP';	/* ヘッダ */
+	const PAGE_TOP     = 'TOP';
+	const PAGE_PROFILE = 'PROFILE';
+	const PAGE_NEWS    = 'NEWS';
+	const PAGE_RECRUIT = 'RECRUIT';
+	const PAGE_SYSTEM  = 'SYSTEM';
 
 
 	/***** 項目識別 *****/
-	const OBJ_HEADER = 'HEADER';
+	const OBJ_HEADER   = 'HEADER';
+	const OBJ_USE_PAGE = 'USEPAGE';
+
+
+	/*** 'USEPAGE'の時の値 ***/
+	/***** 値1 *****/
+	const OWN   = 'OWN_SITE';
+	const OTHER = 'OTHER_SITE';
+
+	/***** 値2 *****/
+	/* 'OTHER_SITE'の時のURL */
+
 
 
 	var $handle;
@@ -99,6 +114,27 @@ class dbPageParam5C {
 			$where = $where . ' and ' .
 				self::FLD_OBJ . '=' . $db->setQuote($obj);
 		}
+
+		$ret = $this->readMain($fldArr ,$where);
+
+		return $ret;
+	}
+
+	/********************
+	使用ページの読み込み
+	パラメータ：-
+	戻り値　　：リスト
+	********************/
+	function readUsePage() {
+
+		$db = $this->handle;
+
+		$fldArr = array(
+			self::FLD_PAGE_ID ,self::FLD_VALUE1 ,self::FLD_VALUE2 ,self::FLD_VALUE3 ,self::FLD_VALUE4 ,self::FLD_VALUE5
+		);
+		$where =
+			self::FLD_BRANCH_NO . '=' . $this->branchNo . ' and ' .
+			self::FLD_OBJ       . '=' . $db->setQuote(self::OBJ_USE_PAGE);
 
 		$ret = $this->readMain($fldArr ,$where);
 
