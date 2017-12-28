@@ -271,6 +271,21 @@ function setCKEditRecruit() {
 				height : 120
 			});
 
+
+		CKEDITOR.instances.recruitStr.on("blur", function(e) {
+			CKEDITOR.instances.recruitStr.updateElement();
+			var str = $("#recruitStr").val();
+			var msg;
+
+			if(str.length >= 1) {
+				msg = '';
+			} else {
+				msg = 'any error';
+			}
+			$("#warnRecruitStr").html(msg);
+		});
+
+
 		DISP_RECRUIT_TAB = true;
 	}
 }
@@ -283,6 +298,21 @@ function setCKEditSystem() {
 			{
 				height : 120
 			});
+
+
+		CKEDITOR.instances.systemStr.on("blur", function(e) {
+			CKEDITOR.instances.systemStr.updateElement();
+			var str = $("#systemStr").val();
+			var msg;
+
+			if(str.length >= 1) {
+				msg = '';
+			} else {
+				msg = 'any error';
+			}
+			$("#warnSystemStr").html(msg);
+		});
+
 
 		DISP_SYSTEM_TAB = true;
 	}
