@@ -2,15 +2,15 @@
 var EXT_LIST = [];
 
 var USE_PAGE = {};
-var RADIO_NAME     = {news:'useNews'       ,profile:'useProfile'      ,recruit:'useRecruitPage'   ,system:'useSystemPage'};
-var ID_PREFIX      = {news:'tabsNews'      ,profile:'tabsProfile'     ,recruit:'tabsRecruit'      ,system:'tabsSystem'};
-var OUTER_URL_FORM = {news:'newsOuterURL'  ,profile:'profileOuterURL' ,recruit:'recruitOuterURL'  ,system:'systemOuterURL'};
-var GRAY_PANEL_ID  = {news:'grayPanelNews' ,profile:'grayPanelProf'   ,recruit:'grayPanelRecruit' ,system:'grayPanelSystem'};
+var RADIO_NAME     = {NEWS:'useNews'       ,PROFILE:'useProfile'      ,RECRUIT:'useRecruitPage'   ,SYSTEM:'useSystemPage'};
+var ID_PREFIX      = {NEWS:'tabsNews'      ,PROFILE:'tabsProfile'     ,RECRUIT:'tabsRecruit'      ,SYSTEM:'tabsSystem'};
+var OUTER_URL_FORM = {NEWS:'newsOuterURL'  ,PROFILE:'profileOuterURL' ,RECRUIT:'recruitOuterURL'  ,SYSTEM:'systemOuterURL'};
+var GRAY_PANEL_ID  = {NEWS:'grayPanelNews' ,PROFILE:'grayPanelProf'   ,RECRUIT:'grayPanelRecruit' ,SYSTEM:'grayPanelSystem'};
 
-var EDIT_AREA        = {news:'tabNewsMain' ,profile:'tabProfMain'     ,recruit:'tabRecruitMain'   ,system:'tabSystemMain'};
-var EDIT_AREA_HEIGHT = {news:0 ,profile:0 ,recruit:0 ,system:0};
+var EDIT_AREA        = {NEWS:'tabNewsMain' ,PROFILE:'tabProfMain'     ,RECRUIT:'tabRecruitMain'   ,SYSTEM:'tabSystemMain'};
+var EDIT_AREA_HEIGHT = {NEWS:0 ,PROFILE:0 ,RECRUIT:0 ,SYSTEM:0};
 
-var TAB_HEIGHT = {news:0 ,profile:0 ,recruit:0 ,system:0};
+var TAB_HEIGHT = {NEWS:0 ,PROFILE:0 ,RECRUIT:0 ,SYSTEM:0};
 
 
 var DISP_SYSTEM_TAB  = false;	//システムタブを表示したか
@@ -83,25 +83,29 @@ $(document).ready(function(){
 
 	$("input[name='useNews']").change(function() {
 
-		USE_PAGE['news']['USE'] = $(this).val();
+		$("#sendSeleNewsPage").prop('disabled' ,false);
+		USE_PAGE['NEWS']['USE'] = $(this).val();
 		setUsePage('news');
 	});
 
 	$("input[name='useProfile']").change(function() {
 
-		USE_PAGE['profile']['USE'] = $(this).val();
+		$("#sendSeleProfPage").prop('disabled' ,false);
+		USE_PAGE['PROFILE']['USE'] = $(this).val();
 		setUsePage('profile');
 	});
 
 	$("input[name='useRecruitPage']").change(function() {
 
-		USE_PAGE['recruit']['USE'] = $(this).val();
+		$("#sendSeleRecruitPage").prop('disabled' ,false);
+		USE_PAGE['RECRUIT']['USE'] = $(this).val();
 		setUsePage('recruit');
 	});
 
 	$("input[name='useSystemPage']").change(function() {
 
-		USE_PAGE['system']['USE'] = $(this).val();
+		$("#sendSeleSystemPage").prop('disabled' ,false);
+		USE_PAGE['SYSTEM']['USE'] = $(this).val();
 		setUsePage('system');
 	});
 
@@ -115,6 +119,7 @@ $(window).load(function(){
 	initSelectImgFileDlg();
 
 	readUsePage();
+
 });
 
 
@@ -586,35 +591,35 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					//console.debug(response);
-		USE_PAGE['news'   ] = response['NEWS'   ];
-		USE_PAGE['profile'] = response['PROFILE'];
-		USE_PAGE['recruit'] = response['RECRUIT'];
-		USE_PAGE['system' ] = response['SYSTEM' ];
+					console.debug(response);
+		USE_PAGE['NEWS'   ] = response['NEWS'   ];
+		USE_PAGE['PROFILE'] = response['PROFILE'];
+		USE_PAGE['RECRUIT'] = response['RECRUIT'];
+		USE_PAGE['SYSTEM' ] = response['SYSTEM' ];
 
 		var pageID;
 		var radioName;
 		var usePage;
 
-		pageID    = 'news';
+		pageID    = 'NEWS';
 		radioName = RADIO_NAME[pageID];
 		usePage   = USE_PAGE[pageID]['USE'];
 		$("input[name='" + radioName + "']").val([usePage]);
 		setUsePage(pageID);
 
-		pageID    = 'profile';
+		pageID    = 'PROFILE';
 		radioName = RADIO_NAME[pageID];
 		usePage   = USE_PAGE[pageID]['USE'];
 		$("input[name='" + radioName + "']").val([usePage]);
 		setUsePage(pageID);
 
-		pageID    = 'recruit';
+		pageID    = 'RECRUIT';
 		radioName = RADIO_NAME[pageID];
 		usePage   = USE_PAGE[pageID]['USE'];
 		$("input[name='" + radioName + "']").val([usePage]);
 		setUsePage(pageID);
 
-		pageID    = 'system';
+		pageID    = 'SYSTEM';
 		radioName = RADIO_NAME[pageID];
 		usePage   = USE_PAGE[pageID]['USE'];
 		$("input[name='" + radioName + "']").val([usePage]);
@@ -648,9 +653,9 @@ console.debug(usePage);
 		//内部サイトの時
 		$("#" + outerURLForm).prop('disabled' ,true);
 
-			$("#" + grayPanelID).css("top" ,'0px');
-			$("#" + grayPanelID).hide();	//.fadeIn("slow");
-			$("#" + idPrefix).css("overflow" ,"auto");
+		$("#" + grayPanelID).css("top" ,'0px');
+		$("#" + grayPanelID).hide();	//.fadeIn("slow");
+		$("#" + idPrefix).css("overflow" ,"auto");
 	} else {
 		//外部サイトの時
 		$("#" + outerURLForm).prop('disabled' ,false);
@@ -665,4 +670,42 @@ console.debug(usePage);
 			}
 		}
 	}
+}
+
+
+function updUsePage(pageID) {
+
+var branchNo = $('#branchNo').val();
+
+var radioName = RADIO_NAME[pageID];
+var otherForm = OUTER_URL_FORM[pageID];
+
+var usePage   = $("input[name='" + radioName + "']:checked").val();
+var otherURL  = $("#" + otherForm).val();
+
+					console.debug(usePage);
+
+var result = $.ajax({
+		type : "post" ,
+		url  : "../cgi2018/ajax/mtn/writeUsePage.php" ,
+		data : {
+			branchNo : branchNo ,
+			pageID   : pageID   ,
+			usePage  : usePage  ,
+			otherURL : otherURL
+		} ,
+
+		cache : false
+	});
+
+	result.done(function(response) {
+					console.debug(response);
+	});
+
+	result.fail(function(result, textStatus, errorThrown) {
+			console.debug('error at writeUsePage:' + result.status + ' ' + textStatus);
+	});
+
+	result.always(function() {
+	});
 }

@@ -126,7 +126,7 @@
 				<label><input type="radio" name="useNews" id="useNewsOwn" value="OWN_SITE">内部</label><br>
 			</div>
 			<div class="sendSelectPage">
-				<input type="button" value="使用ページ反映" id="sendSeleNewsPage" onclick="updUsePage('news');" disabled="disabled">
+				<input type="button" value="使用ページ反映" id="sendSeleNewsPage" onclick="updUsePage('NEWS');" disabled="disabled">
 			</div>
 		</div>
 		<hr>
@@ -163,7 +163,7 @@
 				<label><input type="radio" name="useProfile" id="useProfileOwn" value="OWN_SITE">内部</label><br>
 			</div>
 			<div class="sendSelectPage">
-				<input type="button" value="使用ページ反映" id="sendSeleProfPage" onclick="updUsePage('profile');" disabled="disabled">
+				<input type="button" value="使用ページ反映" id="sendSeleProfPage" onclick="updUsePage('PROFILE');" disabled="disabled">
 			</div>
 		</div>
 		<hr>
@@ -200,7 +200,7 @@
 				<label><input type="radio" name="useSystemPage" id="useSystemPageOwn" value="OWN_SITE">内部</label><br>
 			</div>
 			<div class="sendSelectPage">
-				<input type="button" value="使用ページ反映" id="sendSeleSystemPage" onclick="updUsePage('system');" disabled="disabled">
+				<input type="button" value="使用ページ反映" id="sendSeleSystemPage" onclick="updUsePage('SYSTEM');" disabled="disabled">
 			</div>
 		</div>
 		<hr>
@@ -232,7 +232,7 @@
 				<label><input type="radio" name="useRecruitPage" id="useRecruitPageOwn" value="OWN_SITE">内部</label><br>
 			</div>
 			<div class="sendSelectPage">
-				<input type="button" value="使用ページ反映" id="sendSeleRecruitPage" onclick="updUsePage('recruit');" disabled="disabled">
+				<input type="button" value="使用ページ反映" id="sendSeleRecruitPage" onclick="updUsePage('RECRUIT');" disabled="disabled">
 			</div>
 		</div>
 		<hr>
