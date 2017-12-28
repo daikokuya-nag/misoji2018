@@ -13,23 +13,27 @@ var EDIT_AREA_HEIGHT = {news:0 ,profile:0 ,recruit:0 ,system:0};
 var TAB_HEIGHT = {news:0 ,profile:0 ,recruit:0 ,system:0};
 
 
+var DISP_SYSTEM_TAB  = false;	//システムタブを表示したか
+var DISP_RECRUIT_TAB = false;	//求人タブを表示したか
+
+
 $(document).ready(function(){
 
-/*
-	CKEDITOR.on('instanceReady', function(){
-		$.each( CKEDITOR.instances, function(instance) {
-			CKEDITOR.instances[instance].on("change", function(e) {
-				for(instance in CKEDITOR.instances)
-					CKEDITOR.instances[instance].updateElement();
-			});
+					/*
+						CKEDITOR.on('instanceReady', function(){
+							$.each( CKEDITOR.instances, function(instance) {
+								CKEDITOR.instances[instance].on("change", function(e) {
+									for(instance in CKEDITOR.instances)
+										CKEDITOR.instances[instance].updateElement();
+								});
 
-			CKEDITOR.instances[instance].on("blur", function(e) {
-				for(instance in CKEDITOR.instances)
-					CKEDITOR.instances[instance].updateElement();
-			});
-		});
-	});
-*/
+								CKEDITOR.instances[instance].on("blur", function(e) {
+									for(instance in CKEDITOR.instances)
+										CKEDITOR.instances[instance].updateElement();
+								});
+							});
+						});
+					*/
 
 	$("#tabA").tabs(
 		{
@@ -49,11 +53,13 @@ $(document).ready(function(){
 				}
 
 				if(selectedPanel == "#tabsRecruit") {
+					setCKEditRecruit();
 					if(TAB_HEIGHT['recruit'] == 0) {
 						setRecruitTabHeight();
 					}
 				}
 				if(selectedPanel == "#tabsSystem") {
+					setCKEditSystem();
 					if(TAB_HEIGHT['system'] == 0) {
 						setSystemTabHeight();
 					}
@@ -61,6 +67,7 @@ $(document).ready(function(){
 			}
 		}
 	);
+
 
 	/***** タブの中身調整 *****/
 	setTabHeight();
@@ -255,6 +262,33 @@ var btmPB    = $("#cke_systemStr .cke_bottom").css("padding-bottom");
 }
 
 
+function setCKEditRecruit() {
+
+	if(!DISP_RECRUIT_TAB) {
+
+		CKEDITOR.replace('recruitStr' ,
+			{
+				height : 120
+			});
+
+		DISP_RECRUIT_TAB = true;
+	}
+}
+
+function setCKEditSystem() {
+
+
+	if(!DISP_SYSTEM_TAB) {
+		CKEDITOR.replace('systemStr' ,
+			{
+				height : 120
+			});
+
+		DISP_SYSTEM_TAB = true;
+	}
+}
+
+
 
 /************************************** 画像選択 **************************************/
 
@@ -354,7 +388,7 @@ function readImgList() {
 
 var branchNo = $('#branchNo').val();
 var result;
-var list;
+var dispList;
 var extList;
 var idx;
 var idxMax;
@@ -373,9 +407,9 @@ var extS2;
 	});
 
 	result.done(function(response) {
-					//console.debug(response);
-		list = response['SEQ']['data'];
-		$("#imgList").html(list);
+				console.debug(response);
+		dispList = response['SEQ']['data'];
+		$("#imgList").html(dispList);
 
 		extList = response['SEQ']['extList'];
 		extS1 = extList.split(',');
@@ -593,22 +627,12 @@ console.debug(usePage);
 
 		if(grayPanelID.length >= 1) {
 			var topPos = $("#" + editArea).height();
-
-
-console.debug('id prefix:' + idPrefix);
+							//console.debug('id prefix:' + idPrefix);
 				$("#" + idPrefix).css("overflow" ,"hidden");
 			if(topPos >= 1) {
 				$("#" + grayPanelID).css("top" ,'-' + topPos + 'px');
 				$("#" + grayPanelID).show();	//.fadeIn("slow");
 			}
-
-
-//			if(editAreaHeight >= 1) {
-//
-//				$("#" + grayPanelID).css("top" ,'-' + topPos + 'px');
-//				$("#" + grayPanelID).show();	//.fadeIn("slow");
-//			}
-
 		}
 	}
 }

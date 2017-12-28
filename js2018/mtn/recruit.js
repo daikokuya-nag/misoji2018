@@ -11,18 +11,18 @@ $(document).ready(function(){
 	/***** 求人内容データの読み込み *****/
 	getRecruitVal();
 
-	CKEDITOR.instances.recruitStr.on("blur", function(e) {
-		CKEDITOR.instances.recruitStr.updateElement();
-		var str = $("#recruitStr").val();
-		var msg;
-
-		if(str.length >= 1) {
-			msg = '';
-		} else {
-			msg = 'any error';
-		}
-		$("#warnRecruitStr").html(msg);
-	});
+//	CKEDITOR.instances.recruitStr.on("blur", function(e) {
+//		CKEDITOR.instances.recruitStr.updateElement();
+//		var str = $("#recruitStr").val();
+//		var msg;
+//
+//		if(str.length >= 1) {
+//			msg = '';
+//		} else {
+//			msg = 'any error';
+//		}
+//		$("#warnRecruitStr").html(msg);
+//	});
 });
 
 $(window).load(function(){
@@ -57,10 +57,10 @@ var branchNo = $('#branchNo').val();
 					console.debug('error at getRecruitVal:' + result.status + ' ' + textStatus);
 	});
 
-	result.always(function() {
-		$("#recruitStr").val(RECRUIT_STR);
-		CKEDITOR.instances.recruitStr.setData(RECRUIT_STR);
-	});
+//	result.always(function() {
+//		$("#recruitStr").val(RECRUIT_STR);
+//		CKEDITOR.instances.recruitStr.setData(RECRUIT_STR);
+//	});
 }
 
 /********************

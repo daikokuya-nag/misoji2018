@@ -3,35 +3,10 @@
 *************************/
 
 var CURR_AREA_NO = 0;
+var DISP_PROF_EDIT_DIALOG = false;	//女性情報編集のダイアログを表示したか
 
 /***** 初期化 *****/
 $(document).ready(function(){
-
-	CKEDITOR.instances.mastComment.on("blur", function(e) {
-		CKEDITOR.instances.mastComment.updateElement();
-		var str = $("#mastComment").val();
-		var msg;
-
-		if(str.length >= 1) {
-			msg = '';
-		} else {
-			msg = 'any error';
-		}
-		$("#warnMastComment").html(msg);
-	});
-
-	CKEDITOR.instances.appComment.on("blur", function(e) {
-		CKEDITOR.instances.appComment.updateElement();
-		var str = $("#appComment").val();
-		var msg;
-
-		if(str.length >= 1) {
-			msg = '';
-		} else {
-			msg = 'any error';
-		}
-		$("#warnAppComment").html(msg);
-	});
 
 });
 
@@ -156,8 +131,6 @@ var result;
 
 	$('#mastComment').val('');
 	$('#appComment' ).val('');
-	CKEDITOR.instances.mastComment.setData('');
-	CKEDITOR.instances.appComment.setData('');
 
 	$('#yoasobiDiaryURI'  ).val('');
 	$('#heavennetDiaryURI').val('');
@@ -226,6 +199,10 @@ var chk = false;
 		});
 
 		$("#editProfDlg").dialog("open");
+
+		setCKEditProf();
+		CKEDITOR.instances.mastComment.setData('');
+		CKEDITOR.instances.appComment.setData('');
 	});
 
 	result.fail(function(result, textStatus, errorThrown) {
@@ -277,8 +254,6 @@ var result = $.ajax({
 
 		$('#mastComment').val(response['mastersComment']);
 		$('#appComment' ).val(response['appealComment' ]);
-		CKEDITOR.instances.mastComment.setData(response['mastersComment']);
-		CKEDITOR.instances.appComment.setData(response['appealComment' ]);
 
 
 		$('#qa1' ).val(response['QA1' ]);
@@ -332,6 +307,10 @@ var result = $.ajax({
 		});
 
 		$("#editProfDlg").dialog("open");
+
+		setCKEditProf();
+		CKEDITOR.instances.mastComment.setData(response['mastersComment']);
+		CKEDITOR.instances.appComment.setData(response['appealComment' ]);
 	});
 
 	result.fail(function(result, textStatus, errorThrown) {
@@ -341,6 +320,55 @@ var result = $.ajax({
 	result.always(function() {
 	});
 }
+
+
+function setCKEditProf() {
+
+	if(!DISP_PROF_EDIT_DIALOG) {
+
+		CKEDITOR.replace('mastComment' ,
+			{
+				height : 120
+			});
+
+		CKEDITOR.replace('appComment' ,
+			{
+				height : 120
+			});
+
+
+		CKEDITOR.instances.mastComment.on("blur", function(e) {
+			CKEDITOR.instances.mastComment.updateElement();
+			var str = $("#mastComment").val();
+			var msg;
+
+			if(str.length >= 1) {
+				msg = '';
+			} else {
+				msg = 'any error';
+			}
+			$("#warnMastComment").html(msg);
+		});
+
+		CKEDITOR.instances.appComment.on("blur", function(e) {
+			CKEDITOR.instances.appComment.updateElement();
+			var str = $("#appComment").val();
+			var msg;
+
+			if(str.length >= 1) {
+				msg = '';
+			} else {
+				msg = 'any error';
+			}
+			$("#warnAppComment").html(msg);
+		});
+
+
+		DISP_PROF_EDIT_DIALOG = true;
+	}
+}
+
+
 
 /*****
 入力域の初期表示

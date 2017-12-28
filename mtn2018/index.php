@@ -212,13 +212,6 @@
 
 			<div id="tabSystemMid" class="tabMid">
 				<textarea id="systemStr" name="systemStr" cols="60" rows="4"></textarea>
-				<script type="text/javascript">
-					CKEDITOR.replace('systemStr' ,
-						{
-							height : 120
-							//skin : 'office2003'
-						});
-				</script>
 				<div id="warnSystemStr" class="parsley-errors-list filled"></div>
 			</div>
 		</div>
@@ -251,13 +244,6 @@
 
 			<div id="tabSystemMid" class="tabMid">
 				<textarea id="recruitStr" name="recruitStr" cols="60" rows="4"></textarea>
-				<script type="text/javascript">
-					CKEDITOR.replace('recruitStr' ,
-						{
-							height : 120
-							//skin : 'office2003'
-						});
-				</script>
 				<div id="warnRecruitStr" class="parsley-errors-list filled"></div>
 			</div>
 		</div>
@@ -380,13 +366,6 @@
 					<td>記事概要<span class="required">*</span></td>
 					<td>
 						<textarea id="digest" name="digest" cols="60" rows="4" required="" data-parsley-trigger="change"></textarea>		<!--    data-parsley-trigger="change"     -->
-						<script type="text/javascript">
-							CKEDITOR.replace('digest' ,
-								{
-									height : 120
-									//skin : 'office2003'
-								});
-						</script>
 						<div id="warnDigest" class="parsley-errors-list filled"></div>
 					</td>
 				</tr>
@@ -397,12 +376,6 @@
 					<td>記事本体<span class="required">*</span></td>
 					<td>
 						<textarea id="content" name="content" cols="60" rows="18" required="" data-parsley-trigger="change"></textarea>
-						<script type="text/javascript">
-							CKEDITOR.replace('content' ,
-								{
-									//skin : 'office2003'
-								});
-						</script>
 						<div id="warnContent" class="parsley-errors-list filled"></div>
 					</td>
 				</tr>
@@ -432,12 +405,6 @@
 <div id="editFixPhrase" title="定型文編集">
 	<div id="editLeftNFP">
 		<textarea id="fixPhraseStr" name="fixPhraseStr" cols="60" rows="18"></textarea>
-		<script type="text/javascript">
-			CKEDITOR.replace('fixPhraseStr',
-				{
-					//skin : 'office2003'
-				});
-		</script>
 		<div id="warnFixPhraseStr" class="parsley-errors-list filled"></div>
 	</div>
 	<br class="clear">
@@ -534,12 +501,6 @@
 						<td class="profItemAA">店長コメント</td>
 						<td>
 							<textarea id="mastComment" name="mastComment" cols="45" rows="6"></textarea>
-							<script type="text/javascript">
-								CKEDITOR.replace('mastComment' ,
-									{
-										//skin : 'office2003'
-									});
-							</script>
 							<div id="warnMastComment" class="parsley-errors-list filled"></div>
 						</td>
 					</tr>
@@ -547,12 +508,6 @@
 						<td class="profItemAA">アピールコメント</td>
 						<td>
 							<textarea id="appComment" name="appComment" cols="45" rows="6"></textarea>
-							<script type="text/javascript">
-								CKEDITOR.replace('appComment' ,
-									{
-										//skin : 'office2003'
-									});
-							</script>
 						</td>
 						<div id="warnAppComment" class="parsley-errors-list filled"></div>
 					</tr>

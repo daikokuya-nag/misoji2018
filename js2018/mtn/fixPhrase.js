@@ -3,21 +3,11 @@
 2013 July 04 ver 1.0
 *************************/
 
+var DISP_FIX_PHRASE_EDIT_DIALOG = false;	//定型文編集のダイアログを表示したか
+
 /***** 初期化 *****/
 $(document).ready(function(){
 
-	CKEDITOR.instances.fixPhraseStr.on("blur", function(e) {
-		CKEDITOR.instances.fixPhraseStr.updateElement();
-		var str = $("#fixPhraseStr").val();
-		var msg;
-
-		if(str.length >= 1) {
-			msg = '';
-		} else {
-			msg = 'any error';
-		}
-		$("#warnFixPhraseStr").html(msg);
-	});
 });
 
 
@@ -70,10 +60,12 @@ var result;
 
 					console.debug('本文:' + phraseData);
 		$("#fixPhraseStr").val(phraseData);
-		CKEDITOR.instances.fixPhraseStr.setData(phraseData);
 		$("#warnFixPhraseStr").html('');
 
 		$("#editFixPhrase").dialog("open");
+
+		setCKEditFixPhrase();
+		CKEDITOR.instances.fixPhraseStr.setData(phraseData);
 	});
 
 	result.fail(function(result, textStatus, errorThrown) {
@@ -82,6 +74,34 @@ var result;
 
 	result.always(function() {
 	});
+}
+
+function setCKEditFixPhrase() {
+
+	if(!DISP_FIX_PHRASE_EDIT_DIALOG) {
+
+		CKEDITOR.replace('fixPhraseStr',
+			{
+				height : 120
+			});
+
+
+		CKEDITOR.instances.fixPhraseStr.on("blur", function(e) {
+			CKEDITOR.instances.fixPhraseStr.updateElement();
+			var str = $("#fixPhraseStr").val();
+			var msg;
+
+			if(str.length >= 1) {
+				msg = '';
+			} else {
+				msg = 'any error';
+			}
+			$("#warnFixPhraseStr").html(msg);
+		});
+
+
+		DISP_FIX_PHRASE_EDIT_DIALOG = true;
+	}
 }
 
 

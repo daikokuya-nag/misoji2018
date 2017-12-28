@@ -11,18 +11,18 @@ $(document).ready(function(){
 	/***** 料金表データの読み込み *****/
 	getPriceVal();
 
-	CKEDITOR.instances.systemStr.on("blur", function(e) {
-		CKEDITOR.instances.systemStr.updateElement();
-		var str = $("#systemStr").val();
-		var msg;
-
-		if(str.length >= 1) {
-			msg = '';
-		} else {
-			msg = 'any error';
-		}
-		$("#warnSystemStr").html(msg);
-	});
+//	CKEDITOR.instances.systemStr.on("blur", function(e) {
+//		CKEDITOR.instances.systemStr.updateElement();
+//		var str = $("#systemStr").val();
+//		var msg;
+//
+//		if(str.length >= 1) {
+//			msg = '';
+//		} else {
+//			msg = 'any error';
+//		}
+//		$("#warnSystemStr").html(msg);
+//	});
 });
 
 $(window).load(function(){
@@ -57,10 +57,10 @@ var branchNo = $('#branchNo').val();
 					console.debug('error at getPriceVal:' + result.status + ' ' + textStatus);
 	});
 
-	result.always(function() {
-		$("#systemStr").val(PRICE_STR);
-		CKEDITOR.instances.systemStr.setData(PRICE_STR);
-	});
+//	result.always(function() {
+//		$("#systemStr").val(PRICE_STR);
+//		CKEDITOR.instances.systemStr.setData(PRICE_STR);
+//	});
 }
 
 /********************

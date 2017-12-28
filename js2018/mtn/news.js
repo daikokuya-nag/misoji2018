@@ -6,35 +6,11 @@
 var DISP_UPDATED   = false;
 var RESP_NEWS_DISP = false;	//「表示可否反映」ボタンの有効/無効
 var NEWS_NO_LIST;			//ニュースNoのリスト
+var DISP_NEWS_EDIT_DIALOG = false;	//ニュース編集のダイアログを表示したか
 
 /***** 初期化 *****/
 $(document).ready(function(){
 
-	CKEDITOR.instances.digest.on("blur", function(e) {
-		CKEDITOR.instances.digest.updateElement();
-		var str = $("#digest").val();
-		var msg;
-
-		if(str.length >= 1) {
-			msg = '';
-		} else {
-			msg = 'any error';
-		}
-		$("#warnDigest").html(msg);
-	});
-
-	CKEDITOR.instances.content.on("blur", function(e) {
-		CKEDITOR.instances.content.updateElement();
-		var str = $("#content").val();
-		var msg;
-
-		if(str.length >= 1) {
-			msg = '';
-		} else {
-			msg = 'any error';
-		}
-		$("#warnContent").html(msg);
-	});
 });
 
 
@@ -201,8 +177,6 @@ var result = $.ajax({
 
 		$("#digest").val('');
 		$("#content").val(phraseData);
-		CKEDITOR.instances.digest.setData('');
-		CKEDITOR.instances.content.setData(phraseData);
 
 		$("#editNewsNo").val($('#newNewsRec').val());	/* 新規 */
 
@@ -219,6 +193,10 @@ var result = $.ajax({
 			title: '新規'
 		});
 		$("#editNews").dialog("open");
+
+		setCKEditNews();
+		CKEDITOR.instances.digest.setData('');
+		CKEDITOR.instances.content.setData(phraseData);
 	});
 
 	result.fail(function(result, textStatus, errorThrown) {
@@ -291,8 +269,6 @@ var split;
 
 	$("#digest").val(newsData['digest']);
 	$("#content").val(newsData['content']);
-	CKEDITOR.instances.digest.setData(newsData['digest']);
-	CKEDITOR.instances.content.setData(newsData['content']);
 
 	$("#editNewsNo").val(newsData['addDT']);
 
@@ -309,6 +285,56 @@ var split;
 		title: '編集 ' + newsData['addDT']
 	});
 	$("#editNews").dialog("open");
+
+	setCKEditNews();
+	CKEDITOR.instances.digest.setData(newsData['digest']);
+	CKEDITOR.instances.content.setData(newsData['content']);
+}
+
+function setCKEditNews() {
+
+	if(!DISP_NEWS_EDIT_DIALOG) {
+
+		CKEDITOR.replace('digest' ,
+			{
+				height : 120
+			});
+
+		CKEDITOR.replace('content' ,
+			{
+				height : 120
+			});
+
+
+		CKEDITOR.instances.digest.on("blur", function(e) {
+			CKEDITOR.instances.digest.updateElement();
+			var str = $("#digest").val();
+			var msg;
+
+			if(str.length >= 1) {
+				msg = '';
+			} else {
+				msg = 'any error';
+			}
+			$("#warnDigest").html(msg);
+		});
+
+		CKEDITOR.instances.content.on("blur", function(e) {
+			CKEDITOR.instances.content.updateElement();
+			var str = $("#content").val();
+			var msg;
+
+			if(str.length >= 1) {
+				msg = '';
+			} else {
+				msg = 'any error';
+			}
+			$("#warnContent").html(msg);
+		});
+
+
+		DISP_NEWS_EDIT_DIALOG = true;
+	}
 }
 
 
