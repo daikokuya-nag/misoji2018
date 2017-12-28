@@ -35,11 +35,9 @@ function getTopImgList() {
 var branchNo = $('#branchNo').val();
 var result = $.ajax({
 		type : "get" ,
-		url  : "../cgi2018/ajax/mtn/getPageVals.php" ,
+		url  : "../cgi2018/ajax/mtn/getTopPageImg.php" ,
 		data : {
-			branchNo : branchNo ,
-			page     : 'TOP'    ,
-			obj      : 'HEADER'
+			branchNo : branchNo
 		} ,
 
 		cache    : false ,
@@ -54,6 +52,7 @@ var result = $.ajax({
 		var useImgList = pageVal['value2'];
 		var imgNoList  = pageVal['value3'];
 		var extList    = response['extList'];
+		var existList  = response['fileExist'];
 		var imgExt = [];
 
 					//console.debug(seqList);
@@ -63,6 +62,7 @@ var result = $.ajax({
 		var seq    = ['A' ,'B' ,'C' ,'D'];
 		var useImg = ['U' ,'U' ,'U' ,'U'];
 		var imgNo  = [''  ,''  ,''  ,''];
+		var fileExist = ['0' ,'0' ,'0' ,'0'];
 
 		//画像の表示順
 		if(seqList.length >= 1) {
@@ -79,6 +79,11 @@ var result = $.ajax({
 			imgNo = imgNoList.split(':');
 		}
 
+		//画像ファイルの有無
+		if(existList.length >= 1) {
+			fileExist = existList.split(':');
+		}
+
 		//拡張子リスト
 		if(extList.length >= 1) {
 			extS1 = extList.split(',');
@@ -89,22 +94,38 @@ var result = $.ajax({
 			}
 		}
 
-		var trTag = setTRImgTag(seq ,imgNo ,imgExt);
+		var trTag = setTRImgTag(seq ,imgNo ,fileExist ,imgExt);
 		$('#topImgList').html(trTag);
 
 		//使用/非使用の指定
+		var useChecked;
 		if(useImg[0] == 'U') {
-			$('#useTopImgA').prop('checked' ,true);
+			useChecked = true;
+		} else {
+			useChecked = false;
 		}
+		$('#useTopImgA').prop('checked' ,useChecked);
+
 		if(useImg[1] == 'U') {
-			$('#useTopImgB').prop('checked' ,true);
+			useChecked = true;
+		} else {
+			useChecked = false;
 		}
+		$('#useTopImgB').prop('checked' ,useChecked);
+
 		if(useImg[2] == 'U') {
-			$('#useTopImgC').prop('checked' ,true);
+			useChecked = true;
+		} else {
+			useChecked = false;
 		}
+		$('#useTopImgC').prop('checked' ,useChecked);
+
 		if(useImg[3] == 'U') {
-			$('#useTopImgD').prop('checked' ,true);
+			useChecked = true;
+		} else {
+			useChecked = false;
 		}
+		$('#useTopImgD').prop('checked' ,useChecked);
 
 		$(".useTopImg").toggleSwitch();
 
@@ -121,7 +142,7 @@ var result = $.ajax({
 }
 
 
-function setTRImgTag(seqList ,imgNoList ,imgExtList) {
+function setTRImgTag(seqList ,imgNoList ,fileExist ,imgExtList) {
 
 var ret = '';
 var idx;
@@ -151,8 +172,10 @@ var imgTag;
 
 		//表示する画像の指定
 		imgTag = '';
-		if(imgNoList[paramIdx].length >= 1) {
-			imgTag = '<img src="../img/1/TOP_HEADER/' + imgNo + '.' + imgExtList[imgNo] + '">';
+		if(fileExist[paramIdx] == 1) {
+			if(imgNoList[paramIdx].length >= 1) {
+				imgTag = '<img src="../img/1/TOP_HEADER/' + imgNo + '.' + imgExtList[imgNo] + '">';
+			}
 		}
 
 		//画像Noの保持

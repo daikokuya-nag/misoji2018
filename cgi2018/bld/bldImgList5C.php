@@ -33,12 +33,15 @@ class bldImgList5C {
 		$ret['extList'] = '';
 		for($idx=0 ;$idx<$listMax ;$idx++) {
 			$img1 = $imgVals[$idx];
-			$ret['data'] = $ret['data'] . self::bldSeqList1($img1 ,$branchNo);
+			$imgTag = self::bldSeqList1($img1 ,$branchNo);
 
-			$imgNo = $img1[dbImage5C::FLD_IMG_NO ];
-			$ext   = $img1[dbImage5C::FLD_ORG_EXT];
+			if(strlen($imgTag) >= 1) {
+				$ret['data'] = $ret['data'] . self::bldSeqList1($img1 ,$branchNo);
 
-			$ret['extList'] = $ret['extList'] . $imgNo . ':' . $ext . ',';
+				$imgNo = $img1[dbImage5C::FLD_IMG_NO ];
+				$ext   = $img1[dbImage5C::FLD_ORG_EXT];
+				$ret['extList'] = $ret['extList'] . $imgNo . ':' . $ext . ',';
+			}
 		}
 		$ret['extList'] = $ret['extList'] . '0:0';
 
@@ -68,11 +71,16 @@ class bldImgList5C {
 		$photoFile = '../img/' . $branchNo . '/' . $class . '/' . $imgNo . '.' . $ext;
 		$imgStr = '<img src="' . $photoFile . '" width="110" height="145">';
 
-		$ret = '<div id="img-' . $imgNo . '" class="img ui-state-default">' .
-			'<div class="tnOut">' . $seleStr . '</div>' .
-			'<div class="tnOut">' . $imgStr  . '</div>' .
-			'</div>';
-
+		//ファイルの有無
+		$filePath = dirname(__FILE__) . '/../' . $photoFile;
+		if(is_file($filePath)) {
+			$ret = '<div id="img-' . $imgNo . '" class="img ui-state-default">' .
+				'<div class="tnOut">' . $seleStr . '</div>' .
+				'<div class="tnOut">' . $imgStr  . '</div>' .
+				'</div>';
+		} else {
+			$ret = '';
+		}
 
 		return $ret;
 	}
