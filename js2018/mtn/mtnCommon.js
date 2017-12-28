@@ -85,28 +85,28 @@ $(document).ready(function(){
 
 		$("#sendSeleNewsPage").prop('disabled' ,false);
 		USE_PAGE['NEWS']['USE'] = $(this).val();
-		setUsePage('news');
+		setUsePage('NEWS');
 	});
 
 	$("input[name='useProfile']").change(function() {
 
 		$("#sendSeleProfPage").prop('disabled' ,false);
 		USE_PAGE['PROFILE']['USE'] = $(this).val();
-		setUsePage('profile');
+		setUsePage('PROFILE');
 	});
 
 	$("input[name='useRecruitPage']").change(function() {
 
 		$("#sendSeleRecruitPage").prop('disabled' ,false);
 		USE_PAGE['RECRUIT']['USE'] = $(this).val();
-		setUsePage('recruit');
+		setUsePage('RECRUIT');
 	});
 
 	$("input[name='useSystemPage']").change(function() {
 
 		$("#sendSeleSystemPage").prop('disabled' ,false);
 		USE_PAGE['SYSTEM']['USE'] = $(this).val();
-		setUsePage('system');
+		setUsePage('SYSTEM');
 	});
 
 	readImgList();
@@ -624,6 +624,23 @@ var result = $.ajax({
 		usePage   = USE_PAGE[pageID]['USE'];
 		$("input[name='" + radioName + "']").val([usePage]);
 		setUsePage(pageID);
+
+
+		$("input[name='newsOuterURL']").change(function() {
+			$("#sendSeleNewsPage").prop('disabled' ,false);
+		});
+
+		$("input[name='profileOuterURL']").change(function() {
+			$('#sendSeleProfPage').prop('disabled' ,false);
+		});
+
+		$("input[name='systemOuterURL']").change(function() {
+			$('#sendSeleSystemPage').prop('disabled' ,false);
+		});
+
+		$("input[name='recruitOuterURL']").change(function() {
+			$('#sendSeleRecruitPage').prop('disabled' ,false);
+		});
 	});
 
 	result.fail(function(result, textStatus, errorThrown) {
