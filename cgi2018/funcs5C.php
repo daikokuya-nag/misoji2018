@@ -9,6 +9,9 @@
  * @link
  */
 
+	require_once dirname(__FILE__) . '/strings5C.php';
+	require_once dirname(__FILE__) . '/common5C.php';
+
 /**
  * 各種関数
  *
@@ -65,7 +68,20 @@ class funcs5C {
  */
 	function readFile($fileName) {
 
-		$ret = file_get_contents($fileName);		/* file */
+		/* ファイルを読み込み、行ごとに分解する */
+		$lineTmpA = file($fileName);
+		if(count($lineTmpA) <= 1) {
+			/* file()で改行コードで分離されないときは強制的に分離する */
+			$lineTmpB = explode(common5C::CTXT_NL_CODE ,$lineTmpA[0]);
+		} else {
+			$lineTmpB = $lineTmpA;
+		}
+
+		/* 行末の改行コードを消す */
+		$ret = array();
+		foreach($lineTmpB as $line1) {
+			$ret[] = strings5C::eraseCRLF($line1);
+		}
 
 		return $ret;
 	}

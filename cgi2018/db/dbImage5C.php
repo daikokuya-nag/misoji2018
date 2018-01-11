@@ -44,7 +44,6 @@ class dbImage5C {
 
 
 	var $handle;
-	var $branchNo;
 	var $dispSeq;
 	var $vals;
 
@@ -53,15 +52,13 @@ class dbImage5C {
 	パラメータ：-
 	戻り値　　：-
 	********************/
-	function dbImage5C($branchNo ,$handle=null) {
+	function dbImage5C($handle=null) {
 
 		if(is_null($handle)) {
 			$this->handle = new sql5C();
 		} else {
 			$this->handle = $handle;
 		}
-
-		$this->branchNo = $branchNo;
 
 		$this->vals = array();
 	}
@@ -85,7 +82,7 @@ class dbImage5C {
 	パラメータ：-
 	戻り値　　：画像リスト
 	********************/
-	function readAll() {
+	function readAll($branchNo) {
 
 		$db = $this->handle;
 
@@ -96,7 +93,7 @@ class dbImage5C {
 			self::FLD_ADD_DT ,self::FLD_UPD_DT
 		);
 		$where =
-			self::FLD_BRANCH_NO . '='  . $this->branchNo . ' and ' .
+			self::FLD_BRANCH_NO . '='  . $branchNo . ' and ' .
 			self::FLD_USE_MARK  . '!=' . $db->setQuote(self::DISP_DEL);	/* 削除でないレコード */
 
 		$ret = $this->readMain($fldArr ,$where);
@@ -109,7 +106,7 @@ class dbImage5C {
 	パラメータ：-
 	戻り値　　：画像リスト
 	********************/
-	function readShowable() {
+	function readShowable($branchNo) {
 
 		$db = $this->handle;
 
@@ -120,7 +117,7 @@ class dbImage5C {
 			self::FLD_ADD_DT ,self::FLD_UPD_DT
 		);
 		$where =
-			self::FLD_BRANCH_NO . '=' . $this->branchNo . ' and ' .
+			self::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .
 			self::FLD_USE_MARK  . '=' . $db->setQuote(self::DISP_ON);	/* 表示可のレコード */
 
 		$ret = $this->readMain($fldArr ,$where);
@@ -263,7 +260,7 @@ class dbImage5C {
 	パラメータ：-
 	戻り値　　：
 	********************/
-	function add() {
+	function add($branchNo) {
 
 		$db = $this->handle;
 
@@ -287,7 +284,7 @@ class dbImage5C {
 		);
 
 		$valList =
-			$this->branchNo     . ',' .
+			$branchNo     . ',' .
 
 			$vals[self::FLD_WIDTH]  . ',' .
 			$vals[self::FLD_HEIGHT] . ',' .

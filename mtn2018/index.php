@@ -87,6 +87,7 @@
 <script src="../js2018/parsley/i18n/ja.js"></script>
 <script src="../js2018/parsley/i18n/ja.extra.js"></script>
 
+<script src="../js2018/mtn/writeFile.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/ctrlSess.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/logoutSess.js?<?php print $vesion; ?>"></script>
 
@@ -101,12 +102,15 @@
 <script src="../js2018/mtn/system.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/recruit.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/top.js?<?php print $vesion; ?>"></script>
+<script>
+	var BRANCH_NO = "<?php print $branchNo; ?>";
+</script>
+
 </head>
 <body>
 <input type="hidden" id="branchNo"   name="branchNo" value="<?php print $branchNo; ?>">
 <input type="hidden" id="newNewsRec" name="newNewsRec" value="<?php print dbNews5C::NEW_REC; ?>">
 <input type="hidden" id="newBlogRec" name="newBlogRec" value="<?php print dbMBlog5C::NEW_REC; ?>">
-
 <div id="tabA">
 	<ul>
 		<li><a href="#tabsNews">ニュース</a></li>

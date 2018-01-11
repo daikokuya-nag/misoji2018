@@ -16,7 +16,6 @@ var TAB_HEIGHT = {NEWS:0 ,PROFILE:0 ,RECRUIT:0 ,SYSTEM:0};
 var DISP_SYSTEM_TAB  = false;	//システムタブを表示したか
 var DISP_RECRUIT_TAB = false;	//求人タブを表示したか
 
-
 $(document).ready(function(){
 
 					/*
@@ -455,8 +454,8 @@ var extS2;
 		}
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-			console.debug('error at getImgFiles(:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at readImgList:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -643,8 +642,8 @@ var result = $.ajax({
 		});
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-			console.debug('error at getImgFiles(:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at readUsePage:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -719,8 +718,8 @@ var result = $.ajax({
 					console.debug(response);
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-			console.debug('error at writeUsePage:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at updUsePage:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {

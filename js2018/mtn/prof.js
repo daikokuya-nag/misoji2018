@@ -55,12 +55,11 @@ alert('any error');
 ********************/
 function getProfileList() {
 
-var branchNo = $('#branchNo').val();
 var result = $.ajax({
 		type : "get" ,
 		url  : "../cgi2018/ajax/mtn/getProfileList.php" ,
 		data : {
-			branchNo : branchNo
+			branchNo : BRANCH_NO
 		} ,
 
 		cache    : false ,
@@ -78,8 +77,8 @@ var result = $.ajax({
 		$("#profSeqListD").sortable();
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-			console.debug('error at getProfileList:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at getProfileList:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -102,8 +101,6 @@ function enableWriteProfSeq() {
 新規プロファイル編集
 ********************/
 function newProf() {
-
-var branchNo = $('#branchNo').val();
 
 var result;
 
@@ -178,7 +175,7 @@ var chk = false;
 		type : "get" ,
 		url  : "../cgi2018/ajax/mtn/getProfile.php" ,
 		data : {
-			branchNo : branchNo ,
+			branchNo : BRANCH_NO ,
 			dir      : ''
 		} ,
 
@@ -205,8 +202,8 @@ var chk = false;
 		CKEDITOR.instances.appComment.setData('');
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-			console.debug('error at newProf:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at newProf:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -222,13 +219,12 @@ function editProf(dir) {
 	$('#newProf').val('edit');
 	setShowProfDir(dir);
 
-var branchNo = $('#branchNo').val();
 var bVal;
 var result = $.ajax({
 		type : "get" ,
 		url  : "../cgi2018/ajax/mtn/getProfile.php" ,
 		data : {
-			branchNo : branchNo ,
+			branchNo : BRANCH_NO ,
 			dir      : dir
 		} ,
 
@@ -297,7 +293,7 @@ var result = $.ajax({
 		$('input[name="profBC"]').val([bVal]);
 
 
-			//$("#seleImgFile").prop('src' ,'fileSele.php?g=' + groupNo + '&b=' + branchNo + '&id=' + dir);
+			//$("#seleImgFile").prop('src' ,'fileSele.php?g=' + groupNo + '&b=' + BRANCH_NO + '&id=' + dir);
 
 		setFileSeleVals(dir ,response['photo']);
 		setProfArea('EDIT');
@@ -313,8 +309,8 @@ var result = $.ajax({
 		CKEDITOR.instances.appComment.setData(response['appealComment' ]);
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-			console.debug('error at editProf:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at editProf:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -446,11 +442,10 @@ console.debug(currID + ' ' + newID);
 ********************/
 function updProfSeq() {
 
-var branchNo  = $('#branchNo').val();
 var dispSW    = $(".dispProfSW").serialize();
 var profOrder = $("#profSeqListD").sortable('serialize');
 
-var dataVal = profOrder + '&branchNo=' + branchNo + '&' + dispSW;
+var dataVal = profOrder + '&branchNo=' + BRANCH_NO + '&' + dispSW;
 
 			//console.debug(dataVal);
 
@@ -465,83 +460,40 @@ var result = $.ajax({
 
 
 	result.done(function(response) {
-					//console.debug(response);
+					console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
-//				writeProfSeqPreA();
+			selectWriteFile('ALBUM');		//出力対象ファイルの抽出→ファイル出力
 		} else {
-				alert('長時間操作がなかったため接続が切れました。ログインしなおしてください。');
-//				location.href = 'login.html';
+			alert('長時間操作がなかったため接続が切れました。ログインしなおしてください。');
+			location.href = 'login.html';
 		}
 
 //		showProfListAll();		//リスト再表示
 //		bldProfListHTML(bld);	//アルバムページ再出力
-//		bldProfSitemap();
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-			console.debug('error at writeProfSeqDisp:' + result.status + ' ' + textStatus);
-	});
-
-	result.always(function() {
-	});
-}
-
-/********************
-表示順を出力
-********************/
-function writeProfSeqDisp() {
-
-var branchNo  = $('#branchNo').val();
-var dispSW    = $(".dispProfSW").serialize();
-var profOrder = $("#profSeqListD").sortable('serialize');
-
-var sendData;
-
-	sendData = profOrder + '&branchNo=' + branchNo + '&' + dispSW;
-					console.debug(sendData);
-
-var result;
-
-	result = $.ajax({
-		type : "post" ,
-		url  : "../cgi2018/ajax/mtn/writeProfSeqDisp.php" ,
-					//		data : profOrder ,		// see commonA.js
-
-		data  : sendData ,
-		cache : false
-	});
-
-
-	result.done(function(response) {
-					console.debug(response);
-
-//		showProfListAll();		//リスト再表示
-//		bldProfListHTML(bld);	//アルバムページ再出力
-//		bldProfSitemap();
-	});
-
-	result.fail(function(result, textStatus, errorThrown) {
-			console.debug('error at writeProfSeqDisp:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at updProfSeq:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
 	});
 }
+
 
 /********************
 リスト再表示
 ********************/
 function showProfListAll() {
 
-var groupNo  = $('#groupNo').val();
 var profListTag;
 
 	$.ajax({
 		type : "get" ,
 		url  : "cgi/ajax/bldProfList.php" ,
 		data : {
-			branchNo : branchNo
+			branchNo : BRANCH_NO
 		} ,
 
 		cache    : false  ,
@@ -554,7 +506,7 @@ var profListTag;
 		} ,
 
 		error : function(result) {
-					console.debug('error at showList:' + result);
+					console.debug('error at showProfListAll:' + result);
 		} ,
 
 		complete : function(result) {
@@ -587,16 +539,12 @@ var profListTag;
 ********************/
 function bldProfListHTML(bld) {
 
-var groupNo  = $('#groupNo').val();
-var branchNo = $('#branchNo').val();
-
 	$.ajax({
 		type :"post" ,
 		url  :"cgi/ajax/bldProfHTML.php" ,
 		data : {
-			groupNo  : groupNo  ,
-			branchNo : branchNo ,
-			bld      : bld      ,
+			branchNo : BRANCH_NO ,
+			bld      : bld       ,
 			profDir  : ''
 		} ,
 
@@ -821,7 +769,6 @@ var ret = "";
 
 function checkIDDir(profDir) {
 
-var branchNo = $('#branchNo').val();
 var result;
 var chkResult = '';
 
@@ -829,7 +776,7 @@ var chkResult = '';
 		type : "get" ,
 		url  : "../cgi2018/ajax/mtn/checkIDDir.php" ,
 		data : {
-			branchNo : branchNo ,
+			branchNo : BRANCH_NO ,
 			profDir  : profDir
 		} ,
 
@@ -841,8 +788,8 @@ var chkResult = '';
 		chkResult = response;
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-			console.debug('error at checkIDDir:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at checkIDDir:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -857,16 +804,12 @@ HTMLファイル出力
 ********************/
 function bldProfHTML(profDir) {
 
-var groupNo  = $('#groupNo' ).val();
-var branchNo = $('#branchNo').val();
-
 	$.ajax({
 		type :"post" ,
 		url  :"cgi/ajax/bldProfHTML.php" ,
 		data : {
-			groupNo  :groupNo  ,
-			branchNo :branchNo ,
-			profDir  :profDir
+			branchNo : BRANCH_NO ,
+			profDir  : profDir
 		} ,
 
 		cache    :false ,
@@ -969,9 +912,6 @@ function hideEditDir() {
 *******************/
 function updProfDir() {
 
-var groupNo  = $('#groupNo').val();
-var branchNo = $('#branchNo').val();
-
 var newDir  = $("#newDir").val();			//更新後
 var currDir = $("#profDirShow").html();		//更新前
 
@@ -984,10 +924,9 @@ var hideDlg = false;
 				type :"post" ,
 				url  :"cgiA/ajax/updProfDir.php" ,
 				data : {
-					groupNo  :groupNo  ,
-					branchNo :branchNo ,
-					old      :currDir  ,
-					new      :newDir
+					branchNo : BRANCH_NO ,
+					old      : currDir   ,
+					new      : newDir
 				} ,
 
 				cache    :false ,
@@ -1000,13 +939,13 @@ var hideDlg = false;
 				} ,
 
 				error :function(result) {
-							console.debug('error at updDir:' + result);
+							console.debug('error at updProfDir:' + result);
 				} ,
 
 				async :false
 			});
 
-			$("#seleImgFile").prop('src' ,'fileSele.php?g=' + groupNo + '&b=' + branchNo + '&id=' + newDir);
+			$("#seleImgFile").prop('src' ,'fileSele.php?g=' + groupNo + '&b=' + BRANCH_NO + '&id=' + newDir);
 
 			showProfListAll();		//リスト再表示
 			var bld = AL + ',' + RE;
@@ -1060,17 +999,13 @@ function hideDelDir() {
 *******************/
 function delProfDir() {
 
-var groupNo  = $('#groupNo').val();
-var branchNo = $('#branchNo').val();
-
 var currDir  = $("#profDirShow").html();
 
 	$.ajax({
 		type : "post" ,
 		url  : "cgi/ajax/delProfDir.php" ,
 		data : {
-			groupNo  : groupNo  ,
-			branchNo : branchNo ,
+			branchNo : BRANCH_NO ,
 			dir      : currDir
 		} ,
 
@@ -1083,7 +1018,7 @@ var currDir  = $("#profDirShow").html();
 		} ,
 
 		error : function(result) {
-					console.debug('error at updDir:' + result);
+					console.debug('error at delProfDir:' + result);
 		} ,
 
 		complete : function(result) {
@@ -1107,9 +1042,6 @@ var currDir  = $("#profDirShow").html();
 ********************/
 function updAllProf() {
 
-var groupNo  = $('#groupNo').val();
-var branchNo = $('#branchNo').val();
-
 var profMax = 0;
 var profDir = new Array();
 var i;
@@ -1119,8 +1051,7 @@ var i;
 			/*url  :"cgi/ajax/getAllProf.php" ,*/
 		url  : "cgi/ajax/getProfileList.php" ,
 		data : {
-			groupNo  :groupNo  ,
-			branchNo :branchNo
+			branchNo : BRANCH_NO
 		} ,
 
 		cache    :false ,
@@ -1189,66 +1120,9 @@ function updProf(groupNo ,branchNo ,profDir) {
 
 /***********************************************************************************************************************/
 
-
-
-
-
-
-
-
-
-
-/********************
-サイトマップ出力
-********************/
-function bldProfSitemap() {
-
-var groupNo  = $('#groupNo').val();
-var branchNo = $('#branchNo').val();
-
-	$.ajax({
-		type :"post" ,
-		url  :"cgiA/ajax/bldProfSitemap.php" ,
-		data : {
-			groupNo  :groupNo  ,
-			branchNo :branchNo
-		} ,
-
-		cache    :false ,
-//		dataType :'json' ,
-
-		success :function(result) {
-					console.debug(result);
-			//ret = result;
-					//console.debug(ret['TITLE']);
-		} ,
-
-		error :function(result) {
-					console.debug('error at bldProfSiteMap:' + result);
-		}
-	});
-}
-
-
-
-
-
-
-
-
 /*****
 出勤表入力域表示
 *****/
 function showWorkArea() {
 
-//	/* ボタン切り替え */
-//	$('#showBAreaBtn').css('display' ,'block');
-//	$('#showWorkAreaBtn').css('display' ,'none');
-//
-//
-//				//	$('#profileB').css('display' ,'none');
-//				//	$('#profWorkListO').css('display' ,'block');
-//
-//	$('#profWorkListO').slideDown("slow");		/* 開く */
-//	$('#profileB').slideUp("slow");				/* 閉じる */
 }

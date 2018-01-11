@@ -26,12 +26,21 @@ class common5C {
 	/* CR \r 0x0d */
 	/* LF \n 0x0a */
 	const CTXT_NL_CODE = "\r";	/* テキストファイル */
-	const CSRC_NL_CODE = "\r";	/* PHPソースコード,HTMLソースコード */	/* define('CR_CODE' , "\r"); */
+	const CSRC_NL_CODE = "\n";	/* PHPソースコード,HTMLソースコード */	/* define('CR_CODE' , "\r"); */
+
+	/* 対象デバイス */
+	const DEVICE_PC = 'PC';		/* PC */
+	const DEVICE_SP = 'SP';		/* スマートフォン */
+	const DEVICE_MO = 'MO';		/* 携帯電話 */
 
 	/***** 装飾指定 *****/
 	const DECO_CSS_CLASS = 'C';	/* class */
 	const DECO_CSS_STYLE = 'S';	/* style */
 	const DECO_FONT      = 'F';	/* style sheet以外 */
+
+	const DIR_PC = '';
+	const DIR_SP = '';
+	const DIR_MO = '';
 
 
 /**

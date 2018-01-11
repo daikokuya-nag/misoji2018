@@ -32,7 +32,7 @@ PHP5
 
 		$birthDate = $postVals['profBirthDate'];	/* 誕生日 */
 
-		$prof = new dbProfile5C($branchNo);
+		$prof = new dbProfile5C();
 
 		$prof->setVal(dbProfile5C::FLD_NEWFACE ,$postVals['newFace' ]);		/* 新人 */
 		$prof->setVal(dbProfile5C::FLD_NAME    ,$postVals['profName']);		/* 名前 */
@@ -185,10 +185,10 @@ PHP5
 
 		if(strcmp($newProf ,'edit') == 0) {
 			/*** 既存 ***/
-			$prof->upd($dir);
+			$prof->upd($branchNo ,$dir);
 		} else {
 			/*** 新規 ***/
-			$prof->add($dir);
+			$prof->add($branchNo ,$dir);
 		}
 	}
 
@@ -283,8 +283,8 @@ PHP5
 			$works->upd($dir);
 		} else {
 			/*** 新規 ***/
-			$prof = new dbProfile5C($branchNo);
-			$profVal = $prof->get($dir);
+			$prof = new dbProfile5C();
+			$profVal = $prof->get($branchNo ,$dir);
 
 			$disp = $profVal[dbProfile5C::FLD_DISP];
 			if(strcmp($disp ,dbProfile5C::DISP_ON) == 0) {

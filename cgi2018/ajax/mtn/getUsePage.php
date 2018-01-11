@@ -23,8 +23,8 @@ PHP5
 
 
 	$handle  = new sql5C();
-	$paramDB = new dbPageParam5C($branchNo ,$handle);
-	$useData = $paramDB->readUsePage();
+	$paramDB = new dbPageParam5C($handle);
+	$useData = $paramDB->readUsePage($branchNo);
 
 	$idxMax = $useData['count'];
 	for($idx=0 ;$idx<$idxMax ;$idx++) {

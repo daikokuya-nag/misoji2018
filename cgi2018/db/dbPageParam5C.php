@@ -51,10 +51,7 @@ class dbPageParam5C {
 	/***** 値2 *****/
 	/* 'OTHER_SITE'の時のURL */
 
-
-
 	var $handle;
-	var $branchNo;
 	var $vals;
 
 	/********************
@@ -62,15 +59,13 @@ class dbPageParam5C {
 	パラメータ：-
 	戻り値　　：-
 	********************/
-	function dbPageParam5C($branchNo ,$handle=null) {
+	function dbPageParam5C($handle=null) {
 
 		if(is_null($handle)) {
 			$this->handle = new sql5C();
 		} else {
 			$this->handle = $handle;
 		}
-
-		$this->branchNo = $branchNo;
 
 		$this->vals = array();
 	}
@@ -94,7 +89,7 @@ class dbPageParam5C {
 	パラメータ：ページID
 	戻り値　　：リスト
 	********************/
-	function readAll($pageID ,$obj=null) {
+	function readAll($branchNo ,$pageID ,$obj=null) {
 
 		$db = $this->handle;
 
@@ -103,7 +98,7 @@ class dbPageParam5C {
 			self::FLD_ADD_DT ,self::FLD_UPD_DT
 		);
 		$where =
-			self::FLD_BRANCH_NO . '=' . $this->branchNo . ' and ' .
+			self::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .
 			self::FLD_PAGE_ID   . '=' . $db->setQuote($pageID);
 
 		if(is_null($obj)) {
@@ -121,11 +116,33 @@ class dbPageParam5C {
 	}
 
 	/********************
+	値リストの読み込み
+	パラメータ：ページID
+	戻り値　　：リスト
+	********************/
+	function readByObj($branchNo ,$obj) {
+
+		$db = $this->handle;
+
+		$fldArr = array(
+			self::FLD_PAGE_ID ,self::FLD_VALUE1 ,self::FLD_VALUE2 ,self::FLD_VALUE3 ,self::FLD_VALUE4 ,self::FLD_VALUE5 ,
+			self::FLD_ADD_DT ,self::FLD_UPD_DT
+		);
+		$where =
+			self::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .
+			self::FLD_OBJ       . '=' . $db->setQuote($obj);
+
+		$ret = $this->readMain($fldArr ,$where);
+
+		return $ret;
+	}
+
+	/********************
 	使用ページの読み込み
 	パラメータ：-
 	戻り値　　：リスト
 	********************/
-	function readUsePage() {
+	function readUsePage($branchNo) {
 
 		$db = $this->handle;
 
@@ -133,7 +150,7 @@ class dbPageParam5C {
 			self::FLD_PAGE_ID ,self::FLD_VALUE1 ,self::FLD_VALUE2 ,self::FLD_VALUE3 ,self::FLD_VALUE4 ,self::FLD_VALUE5
 		);
 		$where =
-			self::FLD_BRANCH_NO . '=' . $this->branchNo . ' and ' .
+			self::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .
 			self::FLD_OBJ       . '=' . $db->setQuote(self::OBJ_USE_PAGE);
 
 		$ret = $this->readMain($fldArr ,$where);
@@ -190,7 +207,7 @@ class dbPageParam5C {
 	　　　　　　項目
 	戻り値　　：
 	********************/
-	function upd($pageID ,$obj) {
+	function upd($branchNo ,$pageID ,$obj) {
 
 		$updDT = dateTime5C::getCurrDT();
 		$db = $this->handle;
@@ -205,7 +222,7 @@ class dbPageParam5C {
 			self::FLD_UPD_DT . '=' . $db->setQuote($updDT);
 
 		$where =
-			self::FLD_BRANCH_NO . '=' . $this->branchNo        . ' and ' .
+			self::FLD_BRANCH_NO . '=' . $branchNo              . ' and ' .
 			self::FLD_PAGE_ID   . '=' . $db->setQuote($pageID) . ' and ' .
 			self::FLD_OBJ       . '=' . $db->setQuote($obj);
 
@@ -217,7 +234,7 @@ class dbPageParam5C {
 	パラメータ：-
 	戻り値　　：
 	********************/
-	function add($pageID ,$obj) {
+	function add($branchNo ,$pageID ,$obj) {
 
 		$db = $this->handle;
 
@@ -238,7 +255,7 @@ class dbPageParam5C {
 		);
 
 		$valList =
-			$this->branchNo        . ',' .
+			$branchNo              . ',' .
 			$db->setQuote($pageID) . ',' .
 			$db->setQuote($obj)    . ',' .
 

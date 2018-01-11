@@ -104,12 +104,11 @@ var dtop = {
 ********************/
 function getNewsList() {
 
-var branchNo = $('#branchNo').val();
 var result = $.ajax({
 		type : "get" ,
 		url  : "../cgi2018/ajax/mtn/getNewsList.php" ,
 		data : {
-			branchNo : branchNo
+			branchNo : BRANCH_NO
 		} ,
 
 		cache    : false ,
@@ -127,8 +126,8 @@ var result = $.ajax({
 		dispWriteNewsBtn();					//表示可否反映ボタンの初期化
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-					console.debug('error at getNewestNews:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+					console.debug('error at getNewsList:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -140,8 +139,6 @@ var result = $.ajax({
 新規ニュース編集
 ********************/
 function newNews() {
-
-var branchNo = $('#branchNo').val();
 
 /***** 記事日付 *****/
 var today = new Date();
@@ -161,7 +158,7 @@ var result = $.ajax({
 		type : "get" ,
 		url  : "../cgi2018/ajax/mtn/getFixPhrase.php" ,
 		data : {
-			branchNo : branchNo
+			branchNo : BRANCH_NO
 		} ,
 
 		cache : false
@@ -199,8 +196,8 @@ var result = $.ajax({
 		CKEDITOR.instances.content.setData(phraseData);
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-					console.debug('error at getPhraseData:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+					console.debug('error at newNews:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -213,9 +210,7 @@ var result = $.ajax({
 ********************/
 function editNews(newsNo) {
 
-var branchNo = $('#branchNo').val();
-
-	getNewsData(branchNo ,newsNo ,'E');
+	getNewsData(BRANCH_NO ,newsNo ,'E');
 }
 
 /********************
@@ -240,8 +235,8 @@ var result = $.ajax({
 		editNewsSet(response);	//編集表示
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-					console.debug('error at getNewsData:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+					console.debug('error at getNewsData:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -427,10 +422,10 @@ var result;
 					//console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
+			selectWriteFile('NEWS');		//出力対象ファイルの抽出→ファイル出力
 			dispCnt = response['DISPCOUNT'];
 			if(dispCnt >= 1) {
-				bldNewsHTML();
-						//bldNewsSitemap();	/* サイトマップ出力 */
+
 				alert('出力完了 (' + dispCnt + '件)');
 			} else {
 				alert('表示するニュースが0件でした');
@@ -442,8 +437,8 @@ var result;
 		}
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-					console.debug('error at updNewsDispMain:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+					console.debug('error at updNewsDisp:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function(result) {
@@ -461,7 +456,6 @@ var result;
 function writeNewsPre() {
 
 	/* ニュース書き出し */
-var branchNo = $('#branchNo').val();
 var newsNo   = $('#editNewsNo').val();
 
 var title    = $('#title').val();
@@ -484,7 +478,7 @@ var result = $.ajax({
 		type  : "post" ,
 		url   : "../cgi2018/ajax/mtn/writeNews.php" ,
 		data  : {
-			branchNo : branchNo ,
+			branchNo : BRANCH_NO ,
 			newsNo   : newsNo   ,
 
 			title    : title    ,
@@ -521,24 +515,11 @@ var result = $.ajax({
 
 		alert('ニュース出力完了');
 		$("#editNews").dialog("close");
-		writeNewsNext(newsNo ,reshowTag ,newsIDTag);
+//		reshowList(newsNo ,tdTag ,newsIDTag);
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-			console.debug('error at writeNews:' + result.status + ' ' + textStatus);
-	});
-
-	result.always(function() {
-	});
-
-
-
-	result.done(function(response) {
-					//console.debug(response);
-	});
-
-	result.fail(function(result, textStatus, errorThrown) {
-			console.debug('error at writeNewsPre:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at writeNewsPre:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -546,75 +527,6 @@ var result = $.ajax({
 }
 
 
-/********************
-HTMLファイル出力
-********************/
-function writeNewsNext(newsNo ,tdTag ,newsIDTag) {
-
-//	bldNewsHTML();		/* HTMLファイル出力 */
-//	reshowList(newsNo ,tdTag ,newsIDTag);
-}
-
-/********************
-HTMLファイル出力
-********************/
-function bldNewsHTML() {
-
-var branchNo = $('#branchNo').val();
-var result;
-
-//	result = $.ajax({
-//		type : "post" ,
-//		url  : "../cgi2018/ajax/mtn/bldNewsHTML.php" ,
-//		data : {
-//			branchNo : branchNo
-//		} ,
-//
-//		cache : false
-//	});
-//
-//	result.done(function(response) {
-//					//console.debug(response);
-//	});
-//
-//	result.fail(function(result, textStatus, errorThrown) {
-//			console.debug('error at bldNewsHTML:' + result.status + ' ' + textStatus);
-//	});
-//
-//	result.always(function() {
-//	});
-}
-
-/********************
-サイトマップ出力
-********************/
-function bldNewsSitemap() {
-
-var branchNo = $('#branchNo').val();
-
-//	$.ajax({
-//		type  : "post" ,
-//		url   : "cgi/ajax/bldNewsSitemap.php" ,
-//		data  : {
-//			branchNo : branchNo
-//		} ,
-//
-//		cache : false ,
-//
-//		success :function(result) {
-//					console.debug(result);
-//			//ret = result;
-//					//console.debug(ret['TITLE']);
-//		} ,
-//
-//		error :function(result) {
-//					console.debug('error at bldNewsSiteMap:' + result);
-//		}
-//	});
-}
-
-
-/***********************************************************************************************************************/
 /********************
 ニュースの再表示
 ********************/
@@ -678,7 +590,6 @@ function hideDelNews() {
 *******************/
 function delNewsItem() {
 
-var branchNo = $('#branchNo').val();
 var newsNo   = $('#editNewsNo').val();
 var result;
 
@@ -686,7 +597,7 @@ var result;
 		type : "post" ,
 		url  : "cgi/ajax/delNewsItem.php" ,
 		data : {
-			branchNo : branchNo ,
+			branchNo : BRANCH_NO ,
 			newsNo   : newsNo
 		} ,
 
@@ -695,15 +606,15 @@ var result;
 
 	result.done(function(response) {
 					//console.debug(response);
-			bldNewsHTML();		/* HTMLファイル出力 */
+
 			showNewsList();		/* リスト表示 */
 
 			hideDelNews();
 			$("#editNews").dialog("close");
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-			console.debug('error at delNewsItem:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at delNewsItem:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {

@@ -30,8 +30,8 @@ var result;
 		sess = response;
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-					console.debug('error at login:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+					//console.debug('error at init for login:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -57,8 +57,8 @@ var result;
 		sess = response;
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-					console.debug('error at login:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+					//console.debug('error at login:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -104,7 +104,6 @@ function loginMain() {
 
 var id2 = $('#id2').val();
 
-var branchNo = $('#branchNo').val();
 var mtnMode  = '';
 var result;
 
@@ -113,7 +112,7 @@ var result;
 		url  : "../cgi2018/ajax/mtn/login.php" ,
 		data : {
 			id2      : id2 ,
-			branchNo : branchNo
+			branchNo : BRANCH_NO
 		} ,
 
 		cache    : false  ,
@@ -121,15 +120,15 @@ var result;
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					//console.debug(response);
 		if(response['BRANCHNO'].length >= 1) {
 			updSess();
 			location.href = 'index.php';
 		}
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-					console.debug('error at loginMain:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+					console.debug('error at loginMain:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {

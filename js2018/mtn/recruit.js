@@ -21,15 +21,11 @@ $(window).load(function(){
 ********************/
 function getRecruitVal() {
 
-var result;
-var str;
-var branchNo = $('#branchNo').val();
-
-	result = $.ajax({
+var result = $.ajax({
 		type : "get" ,
 		url  : "../cgi2018/ajax/mtn/getRecruitVal.php" ,
 		data : {
-			branchNo : branchNo
+			branchNo : BRANCH_NO
 		} ,
 
 		cache : false
@@ -40,8 +36,8 @@ var branchNo = $('#branchNo').val();
 		RECRUIT_STR = response;
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-					console.debug('error at getRecruitVal:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+					console.debug('error at getRecruitVal:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -55,7 +51,6 @@ var branchNo = $('#branchNo').val();
 function writeRecruitVal() {
 
 var result;
-var branchNo = $('#branchNo').val();
 var str = CKEDITOR.instances.recruitStr.getData();
 
 	if(str.length >= 1) {
@@ -63,25 +58,26 @@ var str = CKEDITOR.instances.recruitStr.getData();
 			type : "post" ,
 			url  : "../cgi2018/ajax/mtn/writeRecruitVal.php" ,
 			data : {
-				branchNo : branchNo ,
+				branchNo : BRANCH_NO ,
 				str      : str
 			} ,
 
-			cache : false    ,
-			dataType :'json'
+			cache    : false ,
+			dataType : 'json'
 		});
 
 		result.done(function(response) {
-						//console.debug(response);
+						console.debug(response);
 			if(response['SESSCOND'] == SESS_OWN_INTIME) {
+				selectWriteFile('RECRUIT');		//出力対象ファイルの抽出→ファイル出力
 			} else {
 				alert('長時間操作がなかったため接続が切れました。ログインしなおしてください。');
 				location.href = 'login.html';
 			}
 		});
 
-		result.fail(function(result, textStatus, errorThrown) {
-						console.debug('error at writeRecruitVal:' + result.status + ' ' + textStatus);
+		result.fail(function(response, textStatus, errorThrown) {
+						console.debug('error at writeRecruitVal:' + response.status + ' ' + textStatus);
 		});
 
 		result.always(function() {

@@ -11,8 +11,8 @@ PHP4
 	$branchNo = $_REQUEST['branchNo'];
 	$dir      = $_REQUEST['profDir'];
 
-	$prof = new dbProfile5C($branchNo);
-	$ret = $prof->existProfileDir($dir);
+	$prof = new dbProfile5C();
+	$ret = $prof->existProfileDir($branchNo ,$dir);
 
 	print $ret;
 ?>

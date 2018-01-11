@@ -17,7 +17,7 @@ PHP5
 		$branchNo = $_POST['branchNo'];
 		$sortVal  = $_POST['sort'];
 
-		$prof = new dbProfile5C($branchNo);
+		$prof = new dbProfile5C();
 
 		/***** 表示順の更新 *****/
 		$sortMax = count($sortVal);
@@ -31,7 +31,7 @@ PHP5
 			}
 			$dispSeq = $idx + 1;
 
-			$prof->updDispSeq($dir ,$dispSeq ,$disp);
+			$prof->updDispSeq($branchNo ,$dir ,$dispSeq ,$disp);
 		}
 	}
 

@@ -7,6 +7,13 @@
 	require_once dirname(__FILE__) . '/../dateTime5C.php';
 	require_once dirname(__FILE__) . '/../logFile5C.php';
 
+	require_once dirname(__FILE__) . '/../db/dbGeneral5C.php';
+	require_once dirname(__FILE__) . '/../db/dbPageParam5C.php';
+	require_once dirname(__FILE__) . '/../db/dbImage5C.php';
+	require_once dirname(__FILE__) . '/../db/dbImage5C.php';
+	require_once dirname(__FILE__) . '/../db/dbProfile5C.php';
+	require_once dirname(__FILE__) . '/../db/dbNews5C.php';
+
 class sess5C {
 
 	/********************
@@ -23,6 +30,13 @@ class sess5C {
 	const OTHER_INTIME  = 5;	/* 他IDでログイン中　「他でログイン中」のダイアログ、ログイン不可 */
 
 	const SEPT = ',';
+
+
+	/***** 出力データ保持 *****/
+	const OUTDATA = 'outdata';
+
+	/***** ファイル分割 *****/
+	const FILE_DIVI = 'fileDivi';
 
 
 	/********************
@@ -56,7 +70,7 @@ class sess5C {
 		if(file_exists($fileName)) {
 			$line = funcs5C::readFile($fileName);
 					logFile5C::debug('セッションファイル有');
-			$sessData = explode(self::SEPT ,$line);
+			$sessData = explode(self::SEPT ,$line[0]);
 			$ret = self::getTimeoutCond($sessID ,$sessData[0] ,$sessData[1]);
 		} else {
 			/***** ファイルナシ *****/
@@ -189,6 +203,137 @@ class sess5C {
 					$ret = self::OTHER_INTIME;
 				}
 			}
+		}
+
+		return $ret;
+	}
+
+
+
+	function resetOutVals($ID='') {
+
+		if(strlen($ID) >= 1) {
+			if(isset($_SESSION[self::OUTDATA][$ID])) {
+				unset($_SESSION[self::OUTDATA][$ID]);
+			}
+		} else {
+			if(isset($_SESSION[self::OUTDATA])) {
+				unset($_SESSION[self::OUTDATA]);
+			}
+		}
+	}
+
+	function setOutVals($ID ,$branchNo) {
+
+		$val = '';
+
+		if(strcmp($ID ,'RECRUIT') == 0) {
+			$db = new dbGeneral5C();
+			$dbVal = $db->read($branchNo ,dbGeneral5C::CATE_RECRUIT);
+			$val = $dbVal['vals'][0][dbGeneral5C::FLD_STR];
+		}
+
+		if(strcmp($ID ,'SYSTEM') == 0) {
+			$db = new dbGeneral5C();
+			$dbVal = $db->read($branchNo ,dbGeneral5C::CATE_SYSTEM);
+			$val = $dbVal['vals'][0][dbGeneral5C::FLD_STR];
+		}
+
+		if(strcmp($ID ,'NEWS_DIGEST') == 0) {
+			$db = new dbNews5C();
+			$dbVal = $db->readShowable($branchNo ,'');
+			$val = $dbVal['newsInfo'];
+		}
+
+		if(strcmp($ID ,'NEWS_MAIN') == 0) {
+			$db = new dbNews5C();
+			$dbVal = $db->readShowable($branchNo ,'');
+			$val = $dbVal['newsInfo'];
+		}
+
+		if(strcmp($ID ,'PROFILE') == 0) {
+			$db = new dbProfile5C();
+			$dbVal = $db->readShowableProf($branchNo);
+			$val = $dbVal['profInfo'];
+		}
+
+		if(strcmp($ID ,'ALBUM') == 0) {
+			$db = new dbProfile5C();
+			$dbVal = $db->readShowableProf($branchNo);
+			$val = $dbVal['profInfo'];
+		}
+
+		if(strcmp($ID ,'TOP_PAGE_HEADER') == 0) {
+			$db = new dbPageParam5C();
+			$dbVal = $db->readAll($branchNo ,'TOP' ,'HEADER');
+
+			$dbVal1 = $dbVal['pageVal'][0];
+			$val['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+			$val['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+			$val['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+
+			$handle = $db->getHandle();
+			$dbImgList = new dbImage5C($handle);
+
+			$imgList = $dbImgList->readShowable($branchNo);
+			$val['IMGLIST'] = $imgList['imgInfo'];
+		}
+
+		if(strcmp($ID ,'TOP_PAGE_MENU'  ) == 0
+		|| strcmp($ID ,'OTHER_PAGE_MENU') == 0) {
+			$db = new dbPageParam5C();
+			$dbVal  = $db->readByObj($branchNo ,'USEPAGE');
+
+			$pageVal = $dbVal['pageVal'];
+			$recMax  = $dbVal['count'  ];
+			for($idx=0 ;$idx<$recMax ;$idx++) {
+				$dbVal1 = $pageVal[$idx];
+				$pageID = $dbVal1[dbPageParam5C::FLD_PAGE_ID];
+				$val[$pageID]['SITE'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+				$val[$pageID]['URL' ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+			}
+		}
+
+		$_SESSION[self::OUTDATA][$ID] = $val;
+	}
+
+	function getOutVals($ID) {
+
+		if(isset($_SESSION[self::OUTDATA][$ID])) {
+			$ret = $_SESSION[self::OUTDATA][$ID];
+		} else {
+			$ret = '';
+		}
+
+		return $ret;
+	}
+
+
+
+	function resetOutSect($fileID='') {
+
+		if(strlen($fileID) >= 1) {
+			if(isset($_SESSION[self::FILE_DIVI][$fileID])) {
+				unset($_SESSION[self::FILE_DIVI][$fileID]);
+			}
+		} else {
+			if(isset($_SESSION[self::FILE_DIVI])) {
+				unset($_SESSION[self::FILE_DIVI]);
+			}
+		}
+	}
+
+	function setOutSect($fileID ,$div) {
+
+		$_SESSION[self::FILE_DIVI][$fileID] = $div;
+	}
+
+	function getOutSect($fileID) {
+
+		if(isset($_SESSION[self::FILE_DIVI][$fileID])) {
+			$ret = $_SESSION[self::FILE_DIVI][$fileID];
+		} else {
+			$ret = '';
 		}
 
 		return $ret;

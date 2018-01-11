@@ -57,8 +57,8 @@ class photo5C {
 
 		$photoDir = $this->photoRootDir;
 
-		$db = new dbProfile5C(1 ,null);
-		$allVal = $db->readAll();
+		$db = new dbProfile5C(null);
+		$allVal = $db->readAll(1);
 		$profList = $allVal['profInfo'];
 		$profMax  = $allVal['count'   ];
 		for($idx=0 ;$idx<$profMax ;$idx++) {
@@ -217,7 +217,7 @@ class photo5C {
 
 					/* 写真ファイルがあり、使用/非使用が使用であれば　表示可 */
 				if($use && $exist) {
-					$ret[$photoID] = dbProfile5C::PHOTO_SHOW_NG;
+					$ret[$photoID] = dbProfile5C::PHOTO_SHOW_OK;
 				} else {
 					/* 写真ファイルがない、または使用/非使用が非使用であれば　写真ナシ */
 					$ret[$photoID] = dbProfile5C::PHOTO_SHOW_NOT;

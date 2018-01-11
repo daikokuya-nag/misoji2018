@@ -61,7 +61,7 @@ PHP5
 		$value3 = $imgNoA . ':' . $imgNoB . ':' . $imgNoC . ':' . $imgNoD;
 
 
-		$pageParam = new dbPageParam5C($branchNo);
+		$pageParam = new dbPageParam5C();
 		$handle = $pageParam->getHandle();
 
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE1 ,$value1);
@@ -78,10 +78,10 @@ PHP5
 
 		if($exist) {
 			//更新
-			$pageParam->upd('TOP' ,'HEADER');
+			$pageParam->upd($branchNo ,'TOP' ,'HEADER');
 		} else {
 			//レコード追加
-			$pageParam->add('TOP' ,'HEADER');
+			$pageParam->add($branchNo ,'TOP' ,'HEADER');
 		}
 	}
 ?>

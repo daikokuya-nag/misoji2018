@@ -40,7 +40,6 @@ $(window).load(function(){
 ********************/
 function editFixPhrase() {
 
-var branchNo = $('#branchNo').val();
 var phraseData;
 var result;
 
@@ -48,7 +47,7 @@ var result;
 		type : "get" ,
 		url  : "../cgi2018/ajax/mtn/getFixPhrase.php" ,
 		data : {
-			branchNo : branchNo
+			branchNo : BRANCH_NO
 		} ,
 
 		cache : false
@@ -68,8 +67,8 @@ var result;
 		CKEDITOR.instances.fixPhraseStr.setData(phraseData);
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-			console.debug('error at editFixPhrase:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at editFixPhrase:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -110,7 +109,6 @@ function setCKEditFixPhrase() {
 ********************/
 function writeFixPhrase() {
 
-var branchNo  = $('#branchNo').val();
 var phraseStr = CKEDITOR.instances.fixPhraseStr.getData();
 var result;
 
@@ -119,7 +117,7 @@ var result;
 			type : "post" ,
 			url  : "../cgi2018/ajax/mtn/writeFixPhrase.php" ,
 			data : {
-				branchNo  : branchNo ,
+				branchNo  : BRANCH_NO ,
 				phraseStr : phraseStr
 			} ,
 
@@ -132,8 +130,8 @@ var result;
 			$("#editFixPhrase").dialog("close");
 		});
 
-		result.fail(function(result, textStatus, errorThrown) {
-				console.debug('error at writeFixPhrase:' + result.status + ' ' + textStatus);
+		result.fail(function(response, textStatus, errorThrown) {
+				console.debug('error at writeFixPhrase:' + response.status + ' ' + textStatus);
 		});
 
 		result.always(function() {

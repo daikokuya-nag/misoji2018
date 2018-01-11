@@ -121,11 +121,7 @@ class dbProfile5C {
 
 
 	var $handle;
-
-	var $branchNo;
-
 	var $dispSeq;
-
 	var $vals;
 
 	/********************
@@ -133,16 +129,13 @@ class dbProfile5C {
 	パラメータ：-
 	戻り値　　：-
 	********************/
-	function dbProfile5C($branchNo ,$handle=null) {
+	function dbProfile5C($handle=null) {
 
 		if(is_null($handle)) {
 			$this->handle = new sql5C();
 		} else {
 			$this->handle = $handle;
 		}
-
-		$this->branchNo = $branchNo;
-
 		$this->vals = array();
 	}
 
@@ -156,7 +149,7 @@ class dbProfile5C {
 	パラメータ：-
 	戻り値　　：プロファイルリスト
 	********************/
-	function readAll() {
+	function readAll($branchNo) {
 
 		$db = $this->handle;
 
@@ -184,7 +177,7 @@ class dbProfile5C {
 			self::FLD_ADD_DT ,self::FLD_UPD_DT
 		);
 		$where =
-			self::FLD_BRANCH_NO . '='  . $this->branchNo . ' and ' .
+			self::FLD_BRANCH_NO . '='  . $branchNo . ' and ' .
 			self::FLD_DISP      . '!=' . $db->setQuote(self::DISP_DEL);	/* 削除でないレコード */
 
 		$ret = $this->readMain($fldArr ,$where);
@@ -217,7 +210,7 @@ class dbProfile5C {
 	パラメータ：-
 	戻り値　　：プロファイルリスト
 	********************/
-	function readShowableProf() {
+	function readShowableProf($branchNo) {
 
 		$db = $this->handle;
 
@@ -245,7 +238,7 @@ class dbProfile5C {
 			self::FLD_ADD_DT ,self::FLD_UPD_DT
 		);
 		$where =
-			self::FLD_BRANCH_NO . '=' . $this->branchNo . ' and ' .
+			self::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .
 			self::FLD_DISP      . '=' . $db->setQuote(self::DISP_ON);	/* 表示可のレコード */
 
 		$ret = $this->readMain($fldArr ,$where);
@@ -447,7 +440,7 @@ class dbProfile5C {
 	パラメータ：ディレクトリ
 	戻り値　　：
 	********************/
-	function get($dir) {
+	function get($branchNo ,$dir) {
 
 		$db = $this->handle;
 
@@ -475,7 +468,7 @@ class dbProfile5C {
 			self::FLD_ADD_DT ,self::FLD_UPD_DT
 		);
 		$where =
-			self::FLD_BRANCH_NO . '=' . $this->branchNo . ' and ' .
+			self::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .
 			self::FLD_DIR       . '=' . $db->setQuote($dir);
 
 		$ret = $this->readMainONE($fldArr ,$where);
@@ -670,7 +663,7 @@ class dbProfile5C {
 	パラメータ：ディレクトリ
 	戻り値　　：
 	********************/
-	function upd($dir) {
+	function upd($branchNo ,$dir) {
 
 		$updDT = dateTime5C::getCurrDT();
 
@@ -828,7 +821,7 @@ class dbProfile5C {
 
 
 		$where =
-			self::FLD_BRANCH_NO . '=' . $this->branchNo . ' and ' .
+			self::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .
 			self::FLD_DIR       . '=' . $db->setQuote($dir);
 
 		$db->updateRec(self::TABLE_NAME ,$fldList ,$where);
@@ -842,7 +835,7 @@ class dbProfile5C {
 	　　　　　　表示可否
 	戻り値　　：
 	********************/
-	function updDispSeq($dir ,$seq ,$disp) {
+	function updDispSeq($branchNo ,$dir ,$seq ,$disp) {
 
 			/*$updDT = dateTime5C::getCurrDT();*/
 
@@ -853,7 +846,7 @@ class dbProfile5C {
 			self::FLD_DISP     . '=' . $db->setQuote($disp);
 
 		$where =
-			self::FLD_BRANCH_NO . '=' . $this->branchNo . ' and ' .
+			self::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .
 			self::FLD_DIR       . '=' . $db->setQuote($dir);
 
 		$db->updateRec(self::TABLE_NAME ,$fldList ,$where);
@@ -1171,12 +1164,12 @@ class dbProfile5C {
 	戻り値　　：'ALREADY' 有り
 	　　　　　　'NOTYET'  ナシ
 	********************/
-	function existProfileDir($dir) {
+	function existProfileDir($branchNo ,$dir) {
 
 		$db = $this->handle;
 
 		$where =
-			self::FLD_BRANCH_NO . '=' . $this->branchNo . ' and ' .
+			self::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .
 			self::FLD_DIR       . '=' . $db->setQuote($dir);
 
 		$exist = $db->existRec(self::TABLE_NAME ,$where);

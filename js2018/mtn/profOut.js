@@ -19,7 +19,7 @@ var result = $.ajax({
 		contentType : false ,
 
 		cache    : false  ,
-		dataType : 'json' ,
+//		dataType : 'json' ,
 	});
 
 	result.done(function(response) {
@@ -35,8 +35,8 @@ var result = $.ajax({
 		}
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-					console.debug('error at writeProfile:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+					console.debug('error at writeProf:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -44,38 +44,8 @@ var result = $.ajax({
 }
 
 
-function writeProfileNext() {
 
-//var branchNo = $('#branchNo').val();
-//var profListTag;
-//
-//	$.ajax({
-//		type : "get" ,
-//		url  : "cgi/ajax/bldProfList.php" ,
-//		data : {
-//			branchNo : branchNo
-//		} ,
-//
-//		cache    : false ,
-//		dataType : 'json' ,
-//
-//		success : function(result) {
-//					console.debug(result);
-//			profListTag = result;
-//					//console.debug(ret['TITLE']);
-//		} ,
-//
-//		error : function(result) {
-//					console.debug('error at writeProfileNext:' + result);
-//		} ,
-//
-//		complete  : function(result) {
-//			writeProfileNext2(profListTag);
-//		}
-//	});
-}
-
-
+/***** 事後処理 *****/
 function writeProfileNext2(profListTag) {
 
 				//alert(newTag['data']);
@@ -139,7 +109,7 @@ var fd = new FormData();
 var mastComment = CKEDITOR.instances.mastComment.getData();
 var appComment  = CKEDITOR.instances.appComment.getData();
 
-	fd.append("branchNo" ,$('#branchNo').val());
+	fd.append("branchNo" ,BRANCH_NO);
 	fd.append("newProf"  ,$('#newProf').val());
 	fd.append("profDir"  ,$('#profDir' ).val());
 	fd.append("profName" ,$('#profName').val());

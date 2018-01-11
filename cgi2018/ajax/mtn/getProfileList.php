@@ -14,15 +14,15 @@ PHP5
 
 	$handle = new sql5C();
 
-	$profile  = new dbProfile5C($branchNo ,$handle);
+	$profile  = new dbProfile5C($handle);
 	$profList = new bldProfile5C();
 
 	/*** 表示順 ***/
-	$profDataA = $profile->readAll();
+	$profDataA = $profile->readAll($branchNo);
 	$ret['SEQ'] = $profList->bldSeqList($branchNo ,$profDataA);
 
 	/*** ニュース記事へ埋め込み ***/
-	$profDataS = $profile->readShowableProf();
+	$profDataS = $profile->readShowableProf($branchNo);
 	$ret['FORNEWS'] = $profList->bldNewsList($branchNo ,$profDataS);
 
 	print json_encode($ret);

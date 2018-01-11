@@ -40,7 +40,7 @@
 
 	/***** db登録 *****/
 	$handle = null;
-	$imgDB  = new dbImage5C($branchNo ,$handle);
+	$imgDB  = new dbImage5C($handle);
 	$handle = $imgDB->getHandle();
 
 	$imgDB->setVal(dbImage5C::FLD_BRANCH_NO ,$branchNo);
@@ -56,7 +56,7 @@
 	$imgDB->setVal(dbImage5C::FLD_ORG_FILENAME ,$fileName);	/* 原稿の画像ファイル名 */
 	$imgDB->setVal(dbImage5C::FLD_ORG_EXT      ,$fileExt);	/* 原稿の画像ファイル名拡張子 */
 
-	$imgDB->add();
+	$imgDB->add($branchNo);
 	$newNo = $handle->getLastInsertID(dbImage5C::TABLE_NAME);
 
 	/* 画像ファイルの取り込み */

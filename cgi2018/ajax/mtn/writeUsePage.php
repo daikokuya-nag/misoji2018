@@ -18,7 +18,7 @@ PHP5
 	$cond = sess5C::getSessCond();
 	if($cond == sess5C::OWN_INTIME) {
 		$handle  = new sql5C();
-		$paramDB = new dbPageParam5C($branchNo ,$handle);
+		$paramDB = new dbPageParam5C($handle);
 
 		$paramDB->setVal(dbPageParam5C::FLD_VALUE1 ,$usePage);
 		$paramDB->setVal(dbPageParam5C::FLD_VALUE2 ,$otherURL);
@@ -32,9 +32,9 @@ PHP5
 
 		/***** 使用ページの出力 *****/
 		if($exist) {
-			$ret = $paramDB->upd($pageID ,dbPageParam5C::OBJ_USE_PAGE);
+			$ret = $paramDB->upd($branchNo ,$pageID ,dbPageParam5C::OBJ_USE_PAGE);
 		} else {
-			$ret = $paramDB->add($pageID ,dbPageParam5C::OBJ_USE_PAGE);
+			$ret = $paramDB->add($branchNo ,$pageID ,dbPageParam5C::OBJ_USE_PAGE);
 		}
 	}
 

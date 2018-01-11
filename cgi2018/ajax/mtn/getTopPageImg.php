@@ -11,9 +11,9 @@ PHP5
 
 	$branchNo = $_REQUEST['branchNo'];	/* 店No */
 
-	$pageParam = new dbPageParam5C($branchNo);
+	$pageParam = new dbPageParam5C();
 
-	$pageVals = $pageParam->readAll('TOP' ,'HEADER');
+	$pageVals = $pageParam->readAll($branchNo ,'TOP' ,'HEADER');
 	$extList  = bldImgList5C::bldSeqList($branchNo);
 
 	$ret['pageVal'] = $pageVals['pageVal'][0];

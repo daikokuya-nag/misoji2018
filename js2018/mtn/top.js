@@ -32,12 +32,11 @@ $(window).load(function(){
 ********************/
 function getTopImgList() {
 
-var branchNo = $('#branchNo').val();
 var result = $.ajax({
 		type : "get" ,
 		url  : "../cgi2018/ajax/mtn/getTopPageImg.php" ,
 		data : {
-			branchNo : branchNo
+			branchNo : BRANCH_NO
 		} ,
 
 		cache    : false ,
@@ -133,8 +132,8 @@ var result = $.ajax({
 		$("#topImgList").sortable();
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-			console.debug('error at getTopImgList:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at getTopImgList:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -198,7 +197,6 @@ var imgTag;
 ********************/
 function updTopImgSeq() {
 
-var branchNo = $('#branchNo').val();
 var dispSW   = $(".useTopImg").serialize();
 var imgOrder = $("#topImgList").sortable('serialize');
 
@@ -207,7 +205,7 @@ var seleImgB = $('#topImgB').val();
 var seleImgC = $('#topImgC').val();
 var seleImgD = $('#topImgD').val();
 
-var sendData = imgOrder + '&branchNo=' + branchNo + '&' + dispSW +
+var sendData = imgOrder + '&branchNo=' + BRANCH_NO + '&' + dispSW +
 		'&imgNoA=' + seleImgA + '&imgNoB=' + seleImgB + '&imgNoC=' + seleImgC + '&imgNoD=' + seleImgD;
 
 console.debug(sendData);
@@ -224,17 +222,16 @@ var result = $.ajax({
 					console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
-//		showProfListAll();		//リスト再表示
-//		bldProfListHTML(bld);	//アルバムページ再出力
-//		bldProfSitemap();
+//			showProfListAll();		//リスト再表示
+			selectWriteFile('TOP_PAGE_HEADER');		//出力対象ファイルの抽出→ファイル出力
 		} else {
 				alert('長時間操作がなかったため接続が切れました。ログインしなおしてください。');
-//				location.href = 'login.html';
+				location.href = 'login.html';
 		}
 	});
 
-	result.fail(function(result, textStatus, errorThrown) {
-			console.debug('error at writeTopImgSeqDisp:' + result.status + ' ' + textStatus);
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at writeTopImgSeqDisp:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -247,14 +244,13 @@ var result = $.ajax({
 ********************/
 function showProfListAll() {
 
-var groupNo  = $('#groupNo').val();
 var profListTag;
 
 	$.ajax({
 		type : "get" ,
 		url  : "cgi/ajax/bldProfList.php" ,
 		data : {
-			branchNo : branchNo
+			branchNo : BRANCH_NO
 		} ,
 
 		cache    : false  ,
@@ -293,128 +289,4 @@ var profListTag;
 		}
 	});
 
-}
-
-/********************
-アルバムHTML、JSのファイル出力
-********************/
-function bldProfListHTML(bld) {
-
-var groupNo  = $('#groupNo').val();
-var branchNo = $('#branchNo').val();
-
-	$.ajax({
-		type :"post" ,
-		url  :"cgi/ajax/bldProfHTML.php" ,
-		data : {
-			groupNo  : groupNo  ,
-			branchNo : branchNo ,
-			bld      : bld      ,
-			profDir  : ''
-		} ,
-
-		cache    :false ,
-//		dataType :'json' ,
-
-		success :function(result) {
-					console.debug(result);
-			ret = result;
-					//console.debug(ret['TITLE']);
-		} ,
-
-		error :function(result) {
-					console.debug('error at bldProfListHTML:' + result);
-		}
-	});
-}
-
-
-
-
-/*******************************************************************************/
-/*******************************************************************************/
-/*******************************************************************************/
-/*******************************************************************************/
-/*******************************************************************************/
-/*******************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-/********************
-HTMLファイル出力
-********************/
-function bldProfHTML(profDir) {
-
-var groupNo  = $('#groupNo' ).val();
-var branchNo = $('#branchNo').val();
-
-	$.ajax({
-		type :"post" ,
-		url  :"cgi/ajax/bldProfHTML.php" ,
-		data : {
-			groupNo  :groupNo  ,
-			branchNo :branchNo ,
-			profDir  :profDir
-		} ,
-
-		cache    :false ,
-//		dataType :'json' ,
-
-		success :function(result) {
-					console.debug(result);
-			ret = result;
-					//console.debug(ret['TITLE']);
-		} ,
-
-		error :function(result) {
-					console.debug('error at bldProfHTML:' + result);
-		}
-	});
-}
-
-
-
-
-
-
-
-
-
-/********************
-サイトマップ出力
-********************/
-function bldProfSitemap() {
-
-var groupNo  = $('#groupNo').val();
-var branchNo = $('#branchNo').val();
-
-	$.ajax({
-		type :"post" ,
-		url  :"cgiA/ajax/bldProfSitemap.php" ,
-		data : {
-			groupNo  :groupNo  ,
-			branchNo :branchNo
-		} ,
-
-		cache    :false ,
-//		dataType :'json' ,
-
-		success :function(result) {
-					console.debug(result);
-			//ret = result;
-					//console.debug(ret['TITLE']);
-		} ,
-
-		error :function(result) {
-					console.debug('error at bldProfSiteMap:' + result);
-		}
-	});
 }

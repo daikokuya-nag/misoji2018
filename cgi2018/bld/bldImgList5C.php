@@ -22,9 +22,9 @@ class bldImgList5C {
 	********************/
 	function bldSeqList($branchNo) {
 
-		$img = new dbImage5C($branchNo);
+		$img = new dbImage5C();
 
-		$imgList = $img->readShowable();
+		$imgList = $img->readShowable($branchNo);
 
 		$imgVals = $imgList['imgInfo'];
 		$listMax = $imgList['count'  ];
