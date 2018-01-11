@@ -19,17 +19,16 @@
  * @link
  */
 class siteConst5C {
-	/*** 出勤情報のURI ***/
-	const WORKINFO_URI_YORU   = 'http://www.yoasobi.co.jp/mb/syukkin_mise_list.cfm?mi=5123';	/* よるとも */
-	const WORKINFO_URI_HEAVEN = 'http://www.cityheaven.net/t/erotopia/A7ShukkinYotei/';		/* ヘブンネット */
+	// 出勤情報のURL
+	const WORKINFO_URI_YORU   = 'http://www.yoasobi.co.jp/mb/syukkin_mise_list.cfm?mi=5123';	// よるとも
+	const WORKINFO_URI_HEAVEN = 'http://www.cityheaven.net/t/erotopia/A7ShukkinYotei/';			// ヘブンネット
 
-	/*** 電話番号 ***/
-	const TEL_NO_DISP = '052-231-6328';	/* 表示 */
-	const TEL_NO_CALL = '0522316328';	/* 架電 */
+	// 電話番号
+	const TEL_NO_DISP = '052-231-6328';	// 表示
+	const TEL_NO_CALL = '0522316328';	// 架電
 
 
-	/*** ファイル ***/
-	static $htmlFileID = array(
+	static $htmlFileID = array(		// ファイル識別
 		'NEWS'    ,
 		'ALBUM'   ,
 		'RECRUIT' ,
@@ -37,7 +36,7 @@ class siteConst5C {
 		'TOP'
 	);
 
-	static $htmlFile = array(
+	static $htmlFile = array(		// ファイル名
 		'NEWS'    => 'news.html'    ,
 		'ALBUM'   => 'album.html'   ,
 		'RECRUIT' => 'recruit.html' ,
@@ -45,7 +44,7 @@ class siteConst5C {
 		'TOP'     => 'top.html'
 	);
 
-	static $outItem = array(
+	static $outItem = array(		// ファイル出力の有無
 		'NEWS'    => false ,
 		'ALBUM'   => false ,
 		'RECRUIT' => false ,
@@ -53,15 +52,13 @@ class siteConst5C {
 		'TOP'     => false
 	);
 
-	static $menuStr = array(
+	static $menuStr = array(		// メニューバーの表示文字列
 		'NEWS'    => '新着情報' ,
 		'ALBUM'   => '女性一覧' ,
 		'RECRUIT' => '求人'     ,
 		'SYSTEM'  => 'システム' ,
 		'TOP'     => 'TOP'
 	);
-
-
 
 
 	static function getHtmlFileIDList() {

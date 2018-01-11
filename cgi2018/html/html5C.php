@@ -1,9 +1,13 @@
 <?php
-/*************************
-ページ再生成 Version 1.0
-PHP5
-2016 Mar. 3 ver 1.0
-*************************/
+/**
+ * HTMLファイル生成
+ *
+ * @version 1.0.1
+ * @copyright
+ * @license
+ * @author
+ * @link
+ */
 
 	require_once dirname(__FILE__) . '/../sql5C.php';
 	require_once dirname(__FILE__) . '/../fileName5C.php';
@@ -14,38 +18,64 @@ PHP5
 	require_once dirname(__FILE__) . '/../photo5C.php';
 	require_once dirname(__FILE__) . '/../strings5C.php';
 
+/**
+ * HTMLファイル生成
+ *
+ * @version 1.0.1
+ * @copyright
+ * @license
+ * @author
+ * @link
+ */
 class html5C {
 
 	const MAX_FILE_SIZE_MO = 20000;		/* 20000 */	/* 4000 */
 
-	var $handle;
-	var $branchNo;
-	var $fileID;
-	var $profDir;
+	var $handle;			//DBハンドル
+	var $branchNo;			//店No
+	var $fileID;			//出力するHTMLファイルの識別
+	var $profDir;			//プロファイルディレクトリ
 
 	var $templateFileName;	//テンプレートファイル名
 	var $outFileName;		//出力先ファイル名
 
-	var $fileSect;			//分割されたテンプレートファイルの内容
+	var $fileSect;			//セクションごとに分割されたテンプレートファイルの内容
 	var $outSect;			//出力する内容
 
-	var $templateVals;
-	var $rangeList;		//範囲キーワードリスト
-	var $begValList;	//開始キーワードリスト
-	var $endValList;	//終了キーワードリスト
+	var $rangeList;		//セクションキーワードリスト
+	var $begValList;	//セクション開始キーワードリスト
+	var $endValList;	//セクション終了キーワードリスト
 
 	var $detail1;
 
-	/********************
-	コンストラクタ(DB接続)
-	パラメータ：-
-	戻り値　　：-
-	********************/
+/**
+ * コンストラクタ
+ *
+ * 店No、ファイルの識別、プロファイルのディレクトリを保持し、出力ファイル名を特定する。また、各セクションの開始と終了のキーワードを保持する。
+ *
+ * @access
+ * @param string $branchNo 店No
+ * @param string $fileID 出力するファイルの識別
+ * @param string $profDir 出力するプロファイルのディレクトリ
+ * @return
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	function html5C($branchNo ,$fileID ,$profDir=null) {
 
 		$this->handle = new sql5C();
 		$this->branchNo = $branchNo;
-		$this->setFileID($fileID ,$profDir);
+		$this->fileID   = $fileID;
+		$this->profDir  = $profDir;
+
+		//出力ファイル名の特定
+		if(strcmp($fileID ,'PROFILE') == 0) {
+			$this->outFileName = fileName5C::getFileName('PC' ,$this->fileID ,'' ,$this->branchNo ,$profDir);
+		} else {
+			$this->outFileName = fileName5C::getFileName('PC' ,$this->fileID ,'' ,$this->branchNo);
+		}
 
 		$templateVals = new templateConst5C();
 		$rangeList = $templateVals->getSectList();
@@ -55,19 +85,17 @@ class html5C {
 	}
 
 
-	function setFileID($fileID ,$profDir) {
-
-		$this->fileID  = $fileID;
-		$this->profDir = $profDir;
-
-		//出力ファイル名の特定
-		if(strcmp($fileID ,'PROFILE') == 0) {
-			$this->outFileName = fileName5C::getFileName('PC' ,$this->fileID ,'' ,$this->branchNo ,$profDir);
-		} else {
-			$this->outFileName = fileName5C::getFileName('PC' ,$this->fileID ,'' ,$this->branchNo);
-		}
-	}
-
+/**
+ * セクションデータの取り出し
+ *
+ * @access
+ * @param
+ * @return
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	function getFileSect() {
 
 		$this->fileSect = sess5C::getOutSect($this->fileID);
@@ -76,6 +104,17 @@ class html5C {
 	}
 
 
+/**
+ * キーワードの実データへの変換
+ *
+ * @access
+ * @param
+ * @return
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	function cnv() {
 
 		$fileSect = $this->fileSect;
@@ -84,12 +123,12 @@ class html5C {
 
 		$idxMax = count($fileSect);
 		for($idx=0 ;$idx<$idxMax ;$idx++) {
-			$sect1    = $fileSect[$idx];		//分割した塊
+			$sect1    = $fileSect[$idx];	//分割した塊
 			$line1st = $sect1[0];			//分割した塊の1行目
 			$begKwd  = $this->searchSect($line1st);
 
 			if(strlen($begKwd) <= 0) {
-				//どれにも一致しなかったときはそのまま出力
+				//開始キーワードのどれにも一致しなかったときはそのまま出力
 				$cnv = $sect1;
 			} else {
 				//開始キーワードに一致したときはキーワードに応じて変換
@@ -106,7 +145,18 @@ class html5C {
 	}
 
 
-	function searchSect($line) {
+/**
+ * 開始キーワードの検索
+ *
+ * @access
+ * @param string $line 行データ
+ * @return string 一致した開始キーワード どれにも一致しなかったときはカラ
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	private function searchSect($line) {
 
 		$retKwd = '';
 		foreach($this->begValList as $sectIdx => $begKWD) {
@@ -123,6 +173,20 @@ class html5C {
 
 
 
+/**
+ * 開始キーワードの検索
+ *
+ * 指定された開始キーワードに応じてセクション情報を実データに変換する
+ *
+ * @access
+ * @param string $sect1 セクション情報
+ * @param string $begKwd 開始キーワード
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	function cnvLine($sect1 ,$begKwd) {
 
 		$ret = $sect1;
@@ -130,7 +194,7 @@ class html5C {
 		if(strcmp($begKwd ,'RECRUIT') == 0) {
 			$ret = $this->setRecruit($sect1 ,$begKwd);
 		}
-		if(strcmp($begKwd ,'SYSTEM'  ) == 0) {
+		if(strcmp($begKwd ,'SYSTEM' ) == 0) {
 			$ret = $this->setSystem($sect1 ,$begKwd);
 		}
 
@@ -163,7 +227,18 @@ class html5C {
 	}
 
 
-
+/**
+ * 求人データの変換
+ *
+ * @access
+ * @param string $sect セクション情報
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	private function setRecruit($sect ,$kwd) {
 
 		$ret = array();
@@ -185,6 +260,18 @@ class html5C {
 		return $ret;
 	}
 
+/**
+ * 料金データの変換
+ *
+ * @access
+ * @param string $sect セクション情報
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	private function setSystem($sect ,$kwd) {
 
 		$ret = array();
@@ -206,9 +293,20 @@ class html5C {
 		return $ret;
 	}
 
-
-
-
+/**
+ * ニュースダイジェストの変換
+ *
+ * ニュース情報を変換する
+ *
+ * @access
+ * @param string $sect セクション情報
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	private function setNewsDigest($sect ,$kwd) {
 
 		$ret = array();
@@ -229,7 +327,20 @@ class html5C {
 		return $ret;
 	}
 
-
+/**
+ * ニュース情報の変換
+ *
+ * ニュース情報を変換する
+ *
+ * @access
+ * @param string $sect セクション情報
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	private function setNewsMain($sect ,$kwd) {
 
 		$ret = array();
@@ -283,6 +394,18 @@ class html5C {
 	}
 
 
+/**
+ * プロファイル情報の変換
+ *
+ * @access
+ * @param string $sect セクション情報
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	private function setProfile($sect ,$kwd) {
 
 		$ret = array();
@@ -409,6 +532,18 @@ class html5C {
 	}
 
 
+/**
+ * アルバム情報の変換
+ *
+ * @access
+ * @param string $sect セクション情報
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	private function setAlbum($sect ,$kwd) {
 
 		$ret = array();
@@ -429,6 +564,18 @@ class html5C {
 		return $ret;
 	}
 
+/**
+ * アルバム情報のタグの組み立て
+ *
+ * @access
+ * @param array $detailStr セクション情報
+ * @param array $profVal プロファイル情報
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	private function setAlbumDetail($detailStr ,$profVal) {
 
 		$ret = '';
@@ -583,6 +730,21 @@ class html5C {
 		return $ret;
 	}
 
+
+/**
+ * 文字列の変換
+ *
+ * 文字列内の$kwdで指定する文字列を$valで指定する文字列に変換する。文字列内に$kwdで指定する文字列がないときは元の文字列のまま返す
+ *
+ * @access
+ * @param string $kwd 変換対象になる文字列
+ * @param string $val 変換する文字列
+ * @return string 変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	private function replaceStr($kwd ,$val) {
 
 		$kwdPos = strings5C::mb_existStr($this->detail1 ,$kwd);
@@ -591,6 +753,21 @@ class html5C {
 		}
 	}
 
+
+/**
+ * 文字列の変換
+ *
+ * 文字列内の$kwdで指定する文字列を$valで指定する文字列に変換する。文字列内に$kwdで指定する文字列がないときは対象文字列をカラにする
+ *
+ * @access
+ * @param string $kwd 変換対象になる文字列
+ * @param string $val 変換する文字列
+ * @return string 変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	private function replaceLine($kwd ,$val) {
 
 		$kwdPos = strings5C::mb_existStr($this->detail1 ,$kwd);
@@ -604,7 +781,18 @@ class html5C {
 	}
 
 
-
+/**
+ * TOPページのヘッダの変換
+ *
+ * @access
+ * @param string $sect セクション情報
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	private function setTopPageHeader($sect ,$kwd) {
 
 		$ret = array();
@@ -635,6 +823,17 @@ class html5C {
 		return $ret;
 	}
 
+/**
+ * TOPページに表示する画像の取得
+ *
+ * @access
+ * @param string $headerVal 画像指定情報
+ * @return array 画像ファイルへのパス
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	private function setTopPageHeaderImg($headerVal) {
 
 		$imgDir  = 'img/' . $this->branchNo . '/TOP_HEADER/';
@@ -715,6 +914,17 @@ class html5C {
 	}
 
 
+/**
+ * TOPページに表示する画像が1枚の時のタグの組み立て
+ *
+ * @access
+ * @param array $imgList 画像ファイルへのパスのリスト
+ * @return array 画像ファイルへのパス
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	 private function setTopHeader1Img($imgList) {
 
 		$ret = '<img src=\'' . $imgList[0] . '\' class="img-responsive center-block" id="topImg">';
@@ -723,6 +933,17 @@ class html5C {
 	}
 
 
+/**
+ * TOPページに表示する画像が2枚以上の時のタグの組み立て
+ *
+ * @access
+ * @param array $imgList 画像ファイルへのパスのリスト
+ * @return array 画像ファイルへのパス
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	 private function setTopHeaderSlideShow($imgList) {
 
 		$li   = '';
@@ -765,6 +986,18 @@ class html5C {
 
 
 
+/**
+ * TOPページのメニューの変換
+ *
+ * @access
+ * @param string $sect セクション情報
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	function setTopPageMenu($sect ,$kwd) {
 
 		$ret = array();
@@ -786,6 +1019,18 @@ class html5C {
 		return $ret;
 	}
 
+/**
+ * TOPページ以外のメニューの変換
+ *
+ * @access
+ * @param string $sect セクション情報
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	function setOtherPageMenu($sect ,$kwd) {
 
 		$ret = array();
@@ -807,6 +1052,17 @@ class html5C {
 		return $ret;
 	}
 
+/**
+ * メニューの変換
+ *
+ * @access
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	private function setMenuStr($kwd) {
 
 		$ret = '';
@@ -836,7 +1092,7 @@ class html5C {
 					$url = '../' . $url;		//女性紹介ページのときは階層を一つ上がる
 				}
 			} else {
-				$url = $menuVals[$targetID]['URL' ];
+				$url = $menuVals[$targetID]['URL'];
 			}
 
 			if(strcmp($targetID ,$currFileID) == 0) {
@@ -854,6 +1110,19 @@ class html5C {
 	}
 
 
+/**
+ * ファイル出力
+ *
+ * 変換されたセクション情報をファイルに出力する
+ *
+ * @access
+ * @param
+ * @return
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	function outFile() {
 
 		$outSect = array();

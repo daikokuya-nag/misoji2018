@@ -26,7 +26,7 @@ class fileUpload5C {
  */
 	function copyImgFile($fileINFO ,$fileName ,$branchNo ,$subDir='') {
 
-		/***** 写真ファイルのディレクトリがなければ作る *****/
+		// 写真ファイルのディレクトリがなければ作る
 		$dir = fileName5C::getImgRelativeDir($branchNo ,fileName5C::DIR_OS_ROOT);
 		$dir = $dir . '/' . $branchNo;
 		if(!is_dir($dir)) {
@@ -42,7 +42,7 @@ class fileUpload5C {
 			}
 		}
 
-		/*** 拡張子を取り出してコピー先のファイル名につなげる ***/
+		// 拡張子を取り出してコピー先のファイル名につなげる
 		$fileExt = pathinfo($fileINFO["name"], PATHINFO_EXTENSION);
 		$destFileName = $dir . '/' . $fileName . '.' . $fileExt;
 

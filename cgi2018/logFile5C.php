@@ -23,9 +23,8 @@
  */
 class logFile5C {
 
-	/***** ログファイルローテーション *****/
-	/***** ファイルサイズの上限 *****/
-	const LOG_FILE_SIZE_MAX = 1047552;		/* 1024*100 */		/* 1047552 = 1024*1023 */
+	// ログファイルローテーション
+	const LOG_FILE_SIZE_MAX = 1047552;	// ファイルサイズの上限		/* 1024*100 */		/* 1047552 = 1024*1023 */
 
 
 /**
@@ -186,19 +185,16 @@ class logFile5C {
  */
 	function outLogMain($logStr ,$logFileNameBody) {
 
-		/***** ファイル名 *****/
 		$logDir = realpath(dirname(__FILE__) . '/../logFile2018');						/* ログ出力先ディレクトリ '?????/log' が返る */
-
 		$ext = '.txt';
+		$logFileName = $logDir . '/'       . $logFileNameBody . $ext;		// 書き出すログファイル名
+		$oldFileName = $logDir . '/older/' . $logFileNameBody;				// ローテーション先ファイル名
 
-		$logFileName = $logDir . '/'       . $logFileNameBody . $ext;		/* 書き出すログファイル名 */
-		$oldFileName = $logDir . '/older/' . $logFileNameBody;				/* ローテーション先ファイル名 */
-
-		/***** ファイルロック *****/
+		// ファイルロック
 		$lockFileName = $logFileName . '.lock';
 		$lockFhn = self::setLockFile($lockFileName);
 
-		/***** ローテーションが必要ならファイルをコピーする *****/
+		// ローテーションが必要ならファイルをコピーする
 		self::rotateLogFile($logFileName ,$oldFileName ,$ext);
 		$fhn = fopen($logFileName ,'a');
 		flock($fhn ,LOCK_EX);
@@ -209,7 +205,7 @@ class logFile5C {
 					/*print $logFileName;*/
 		chmod($logFileName ,0755);
 
-		/***** ファイルアンロック *****/
+		// ファイルアンロック
 		self::unsetLockFile($lockFileName ,$lockFhn);
 	}
 
@@ -225,16 +221,17 @@ class logFile5C {
  * @see
  * @throws
  * @todo
+
+ * ファイルサイズが一定値以上になっているとき、ファイルをリネームする
  */
 	function rotateLogFile($logFileName ,$arcFileName ,$arcFileExt) {
 
-		/* ファイルサイズが一定値以上になっているとき、ファイルをリネームする */
-		@$fileSize = filesize($logFileName);	/* ファイルがないときのエラーを回避 */
+		@$fileSize = filesize($logFileName);	// ファイルがないときのエラーを回避
 		if($fileSize >= self::LOG_FILE_SIZE_MAX) {
 			dateTime5C::setTimeZone();
 			$newFileName = $arcFileName . date('Ymd-His') . $arcFileExt;
 			rename($logFileName ,$newFileName);
-			touch($logFileName);	/* 新しいログファイルを生成 */
+			touch($logFileName);	// 新しいログファイルを生成
 		}
 	}
 
@@ -251,7 +248,6 @@ class logFile5C {
  */
 	function setLockFile($lockFileName) {
 
-			/* touch($lockFileName); */
 		$fhn = fopen($lockFileName ,'a');
 		flock($fhn ,LOCK_EX);
 
@@ -274,7 +270,6 @@ class logFile5C {
 
 		flock($lockFhn ,LOCK_UN);
 		fclose($lockFhn);
-		/*unlink($lockFileName);*/
 	}
 }
 ?>

@@ -22,33 +22,32 @@
  */
 class sql5C {
 
-	/***** リターンコードのindex *****/
-	const EXECUTE_RESULT = 'exeResult';	/* 実行結果 */
-	const ERR_STR_INDEX  = 'errStr';		/* エラーメッセージ */
-	const ERR_ID_INDEX   = 'errID';		/* エラーID */
+	// リターンコードのindex
+	const EXECUTE_RESULT = 'exeResult';	// 実行結果
+	const ERR_STR_INDEX  = 'errStr';	// エラーメッセージ
+	const ERR_ID_INDEX   = 'errID';		// エラーID
 
-	/***** 実行結果 *****/
-	const RET_NO_ERROR  = 0;	/* エラーナシ */
-	const CONNECT_ERROR = 1;	/* DB接続エラー */
-	const OPEN_ERROR    = 2;	/* DB選択エラー */
-	const ANY_ERROR     = 3;	/* 何かのエラー */
+	// 実行結果
+	const RET_NO_ERROR  = 0;	// エラーナシ
+	const CONNECT_ERROR = 1;	// DB接続エラー
+	const OPEN_ERROR    = 2;	// DB選択エラー
+	const ANY_ERROR     = 3;	// 何かのエラー
 
-		/***** DBロック *****/
-	const LOCK_TIMEOUT   = 4;	/* 指定した時間内にロックできなかった */
-	const LOCK_ANY_ERROR = 5;	/* 何かのエラー */
+	// 実行結果 - DBロック
+	const LOCK_TIMEOUT   = 4;	// 指定した時間内にロックできなかった
+	const LOCK_ANY_ERROR = 5;	// 何かのエラー
 
-		/***** トランザクション *****/
-	const TRANS_BEGIN_ERR    = 6;	/* トランザクション開始エラー */
-	const TRANS_WRITE_ERR    = 7;	/* トランザクション書き込みエラー */
-	const TRANS_ROLLBACK_ERR = 8;	/* トランザクションロールバックエラー */
+	// 実行結果 - トランザクション
+	const TRANS_BEGIN_ERR    = 6;	// トランザクション開始エラー
+	const TRANS_WRITE_ERR    = 7;	// トランザクション書き込みエラー
+	const TRANS_ROLLBACK_ERR = 8;	// トランザクションロールバックエラー
 
 
-	/***** ログ出力 *****/
+	// ログ出力
 	const LOG_OUTPUT  = 1;
 	const LOG_NOT_OUT = 0;
 
 	const LOG_DEFAULT = 1;
-
 
 	const SETCHARSET = 'set character set utf8';
 
@@ -66,20 +65,20 @@ class sql5C {
  */
 	function sql5C() {
 
-		$sqlResult[self::ERR_STR_INDEX] = '';					/* エラーメッセージ */
-		$sqlResult[self::ERR_ID_INDEX ] = self::RET_NO_ERROR;	/* エラーID */
+		$sqlResult[self::ERR_STR_INDEX] = '';					// エラーメッセージ
+		$sqlResult[self::ERR_ID_INDEX ] = self::RET_NO_ERROR;	// エラーID
 
-		/***** MySQLへ接続 *****/
+		// MySQLへ接続
 		$this->connectID = mysql_connect(LOCATIONURL /*'127.0.0.1'*/ ,USER ,DBPASS ,false ,65536);
 
-		if(!$this->connectID) {	/* 接続エラー */
+		if(!$this->connectID) {	// 接続エラー
 			logFile5C::error('sql.DBConnect() DB接続エラー：' . LOCATIONURL . ',' . USER . ',' . DBPASS . '：' . mysql_error());
 			$sqlResult[self::ERR_ID_INDEX] = self::DB_CONNECT_ERROR;
 		}
 
-		/***** データベースを開く *****/
+		// データベースを開く
 		$this->seleID = mysql_select_db(DBNAME ,$this->connectID);
-		if(!$this->seleID) {	/* 選択エラー */
+		if(!$this->seleID) {	// 選択エラー
 			logFile5C::error('sql.DBConnect() DB選択エラー：' . DBNAME . '：' . mysql_error());
 			$sqlResult[self::ERR_ID_INDEX] = self::DB_OPEN_ERROR;
 		}
@@ -118,7 +117,6 @@ class sql5C {
 	}
 
 
-/*********************** ロック ***********************/
 /**
  * DBロック
  *
@@ -135,28 +133,27 @@ class sql5C {
 	function setLock($lockName ,$waitTime ,$printLog=self::LOG_DEFAULT) {
 
 		$result[self::ERR_STR_INDEX] = '';
-		$result[self::ERR_ID_INDEX ] = self::ANY_ERROR;	/* 初期値:何かのエラー */
+		$result[self::ERR_ID_INDEX ] = self::ANY_ERROR;	// 初期値:何かのエラー
 
-		/***** 実行 *****/
-		$sqlStr = 'SELECT GET_LOCK(' . $this->setQuote($lockName) . ',' . $waitTime . ')';
+		$sqlStr = 'SELECT GET_LOCK(' . $this->setQuote($lockName) . ',' . $waitTime . ')';	// 実行
 		$sqlResult = $this->execute($sqlStr ,$this->connectID ,$printLog);
 		$result[self::EXECUTE_RESULT] = $sqlResult[self::EXECUTE_RESULT];
 
 		if($result[self::EXECUTE_RESULT]) {
 			$execResult = $result[self::EXECUTE_RESULT];
 			$rows = $this->getResultRows($execResult);
-			if($rows >= 1) {	/* 実行結果があったとき */
+			if($rows >= 1) {	// 実行結果があったとき
 				$fetchRow = mysql_fetch_row($execResult);
 
-				/***** 実行結果の0桁目が1であればロック完了、0のときはタイムアウト、それ以外は何かのエラー *****/
+				// 実行結果の0桁目が1であればロック完了、0のときはタイムアウト、それ以外は何かのエラー
 				if($fetchRow[0] != NULL) {
 					$lockResult = $fetchRow[0];
 
 					if($lockResult == 0) {
-						$result[self::ERR_ID_INDEX] = self::DB_LOCK_TIMEOUT;	/* タイムアウト */
+						$result[self::ERR_ID_INDEX] = self::DB_LOCK_TIMEOUT;	// タイムアウト
 					} else {
 						if($lockResult == 1) {
-							$result[self::ERR_ID_INDEX] = self::RET_NO_ERROR;	/* エラーナシ */
+							$result[self::ERR_ID_INDEX] = self::RET_NO_ERROR;	// エラーナシ
 						}
 					}
 				}
@@ -186,24 +183,23 @@ class sql5C {
 	function releaseLock($lockName ,$printLog=self::LOG_DEFAULT) {
 
 		$result[self::ERR_STR_INDEX] = '';
-		$result[self::ERR_ID_INDEX ] = self::ANY_ERROR;	/* 初期値:何かのエラー */
+		$result[self::ERR_ID_INDEX ] = self::ANY_ERROR;	// 初期値:何かのエラー
 
-		/***** 実行 *****/
-		$sqlStr = 'SELECT RELEASE_LOCK(' . $this->setQuote($lockName) . ')';
+		$sqlStr = 'SELECT RELEASE_LOCK(' . $this->setQuote($lockName) . ')';	// 実行
 		$sqlResult = $this->execute($sqlStr ,$printLog);
 		$result[self::EXECUTE_RESULT] = $sqlResult[self::EXECUTE_RESULT];
 
 		if($result[self::EXECUTE_RESULT]) {
 			$execResult = $result[self::EXECUTE_RESULT];
 			$rows = $this->getResultRows($execResult);
-			if($rows >= 1) {	/* 実行結果があったとき */
+			if($rows >= 1) {	// 実行結果があったとき
 				$fetchRow = mysql_fetch_row($execResult);
 
-				/***** 実行結果が1であればアンロック完了、それ以外は何かのエラー *****/
+				// 実行結果が1であればアンロック完了、それ以外は何かのエラー
 				if($fetchRow[0] != NULL) {
 					$lockResult = $fetchRow[0];
 					if($lockResult == 1) {
-						$result[self::ERR_ID_INDEX] = self::RET_NO_ERROR;	/* エラーナシ */
+						$result[self::ERR_ID_INDEX] = self::RET_NO_ERROR;	// エラーナシ
 					}
 				}
 			}
@@ -218,7 +214,6 @@ class sql5C {
 	}
 
 
-/*********************** トランザクション ***********************/
 /**
  * トランザクションの開始
  *
@@ -234,8 +229,7 @@ class sql5C {
 		$sqlResult[self::ERR_STR_INDEX] = '';
 		$sqlResult[self::ERR_ID_INDEX ] = self::RET_NO_ERROR;
 
-		/***** 自動書き込みOFF実行 *****/
-		$result = mysql_query('SET AUTOCOMMIT=0' ,$this->connectID);
+		$result = mysql_query('SET AUTOCOMMIT=0' ,$this->connectID);	// 自動書き込みOFF実行
 		logFile5C::SQL($sqlStr);
 
 		if(!$result) {
@@ -243,8 +237,7 @@ class sql5C {
 			$sqlResult[self::ERR_ID_INDEX] = self::DB_TRANS_BEGIN_ERR;
 		}
 
-		/***** トランザクション開始実行 *****/
-		$result = mysql_query('START TRANSACTION' ,$this->connectID);
+		$result = mysql_query('START TRANSACTION' ,$this->connectID);	// トランザクション開始実行
 		logFile5C::SQL($sqlStr);
 
 		if(!$result) {
@@ -270,8 +263,7 @@ class sql5C {
 		$sqlResult[self::ERR_STR_INDEX] = '';
 		$sqlResult[self::ERR_ID_INDEX ] = self::RET_NO_ERROR;
 
-		/***** トランザクション書き込み実行 *****/
-		$result = mysql_query('COMMIT' ,$this->connectID);
+		$result = mysql_query('COMMIT' ,$this->connectID);	// トランザクション書き込み実行
 		logFile5C::SQL($sqlStr);
 
 		if(!$result) {
@@ -297,8 +289,7 @@ class sql5C {
 		$sqlResult[self::ERR_STR_INDEX] = '';
 		$sqlResult[self::ERR_ID_INDEX ] = self::RET_NO_ERROR;
 
-		/***** ロールバック実行 *****/
-		$result = mysql_query('ROLLBACK' ,$this->connectID);
+		$result = mysql_query('ROLLBACK' ,$this->connectID);	// ロールバック実行
 		logFile5C::SQL($sqlStr);
 
 		if(!$result) {
@@ -345,8 +336,7 @@ class sql5C {
  */
 	function existRec($table ,$cond ,$printLog=self::LOG_DEFAULT) {
 
-		/***** 初期値:レコードナシ *****/
-		$searchResult = false;
+		$searchResult = false;	// 初期値:レコードナシ
 
 		$sqlStr = 'select count(*) from ' . $table . ' where ' . $cond;
 		$result = $this->execute($sqlStr ,$printLog);
@@ -354,18 +344,18 @@ class sql5C {
 		if($result[self::EXECUTE_RESULT]) {
 			$execResult = $result[self::EXECUTE_RESULT];
 			$rows = $this->getResultRows($execResult);
-			if($rows >= 1) {	/* 実行結果があったとき */
+			if($rows >= 1) {	// 実行結果があったとき
 				$fetchRow = mysql_fetch_row($execResult);
 				if($fetchRow[0] >= 1) {
 					$searchResult = true;
-					/* logFile5C::debug("sqlFuncs.existRecord() レコード存在確認：該当データあり"); */
+					// logFile5C::debug("sqlFuncs.existRecord() レコード存在確認：該当データあり");
 				}
 			} else {
-					/* logFile5C::error("sqlFuncs.existRecord() レコード存在確認：該当データナシ"); */
+					// logFile5C::error("sqlFuncs.existRecord() レコード存在確認：該当データナシ");
 			}
 			$this->freeResult($execResult);
 		} else {
-					/* logFile5C::error("sqlFuncs.existRecord() レコード存在確認：検索エラー"); */
+					// logFile5C::error("sqlFuncs.existRecord() レコード存在確認：検索エラー");
 		}
 
 		return $searchResult;
@@ -388,8 +378,7 @@ class sql5C {
  */
 	function recCount($tableName ,$where ,$printLog=self::LOG_DEFAULT) {
 
-		$rows = 0;		/***** 規定値:レコード数0 *****/
-
+		$rows = 0;		// 規定値:レコード数0
 		$sqlStr = 'select count(*) from ' . $tableName;
 		if(strlen($where) >= 1) {
 			$sqlStr = $sqlStr . ' where ' . $where;
@@ -399,10 +388,10 @@ class sql5C {
 		if($result[self::EXECUTE_RESULT]) {
 			$execResult = $result[self::EXECUTE_RESULT];
 			$rows = $this->getResultRows($execResult);
-			if($rows <= 0) {	/* 実行結果がなかったとき */
+			if($rows <= 0) {	// 実行結果がなかったとき
 				logFile5C::error('sqlFuncs.recCount() レコード数取得:レコード数0');
 			} else {	/* 実行結果があったとき */
-				$fetchRow = mysql_fetch_row($execResult);		/* レコード数取得の本体 */
+				$fetchRow = mysql_fetch_row($execResult);		// レコード数取得の本体
 				$rows     = $fetchRow[0];
 			}
 			$this->freeResult($execResult);
@@ -467,21 +456,17 @@ class sql5C {
 		$result[self::ERR_STR_INDEX] = '';
 		$result[self::ERR_ID_INDEX ] = self::RET_NO_ERROR;
 
-		/***** 取り出すフィールドの設定 *****/
-		$sqlStr = 'select ' . $list . ' from ' . $table;
+		$sqlStr = 'select ' . $list . ' from ' . $table;	// 取り出すフィールドの設定
 
-		/***** 条件があれば指定 *****/
-		if(strlen($cond) >= 1) {
+		if(strlen($cond) >= 1) {							// 条件があれば指定
 			$sqlStr = $sqlStr . ' where ' . $cond;
 		}
 
-		/***** 順序があれば指定 *****/
-		if(strlen($order) >= 1) {
+		if(strlen($order) >= 1) {							// 順序があれば指定
 			$sqlStr = $sqlStr . ' order by ' . $order;
 		}
 
-		/***** その他のパラメータがあれば指定 *****/
-		if(strlen($other) >= 1) {
+		if(strlen($other) >= 1) {							// その他のパラメータがあれば指定
 			$sqlStr = $sqlStr . ' ' . $other;
 		}
 
@@ -584,7 +569,6 @@ class sql5C {
 	}
 
 
-/*********************** sql文実行 ***********************/
 /**
  * sql実行
  *
@@ -604,14 +588,12 @@ class sql5C {
 
 		mysql_query(self::SETCHARSET);
 
-		/***** select文の実行結果 *****/
-		$sqlResult[self::EXECUTE_RESULT] = mysql_query($sqlStr ,$this->connectID);
+		$sqlResult[self::EXECUTE_RESULT] = mysql_query($sqlStr ,$this->connectID);	// select文の実行結果
 		if($printLog == self::LOG_OUTPUT) {
 			logFile5C::SQL($sqlStr);
 		}
 
-		/***** SQLのエラーが起きていたらエラー内容を返す *****/
-		if(!$sqlResult[self::EXECUTE_RESULT]) {
+		if(!$sqlResult[self::EXECUTE_RESULT]) {		// SQLのエラーが起きていたらエラー内容を返す
 			$sqlResult[self::ERR_ID_INDEX] = self::ANY_ERROR;
 			logFile5C::error('SQLエラー：' . mysql_error() . '：' . $sqlStr);
 		}

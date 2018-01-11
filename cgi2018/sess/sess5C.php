@@ -1,7 +1,13 @@
 <?php
-/*************************
-セッション Version 1.0
-*************************/
+/**
+ * セッション
+ *
+ * @version 1.0.1
+ * @copyright
+ * @license
+ * @author
+ * @link
+ */
 
 	require_once dirname(__FILE__) . '/../funcs5C.php';
 	require_once dirname(__FILE__) . '/../dateTime5C.php';
@@ -14,37 +20,40 @@
 	require_once dirname(__FILE__) . '/../db/dbProfile5C.php';
 	require_once dirname(__FILE__) . '/../db/dbNews5C.php';
 
+/**
+ * セッション
+ *
+ * @version 1.0.1
+ * @copyright
+ * @license
+ * @author
+ * @link
+ */
 class sess5C {
 
-	/********************
-	ログイン結果
-	********************/
-	const NO_ID         = 1;	/* セッションデータナシ　ログイン画面へ */
-
-	/*** タイムアウト ***/
-	const OWN_TIMEOUT   = 2;	/* 自IDでタイムアウト　タイムアウトのダイアログ、ログイン画面へ */
-	const OTHER_TIMEOUT = 3;	/* 他IDでタイムアウト　ログイン画面へ */
-
-	/*** not タイムアウト ***/
-	const OWN_INTIME    = 4;	/* 自IDでログイン中　メンテ画面へ */
-	const OTHER_INTIME  = 5;	/* 他IDでログイン中　「他でログイン中」のダイアログ、ログイン不可 */
+	const NO_ID         = 1;	// ログイン結果 - セッションデータナシ　ログイン画面へ
+	const OWN_TIMEOUT   = 2;	// ログイン結果 - 自IDでタイムアウト　タイムアウトのダイアログ、ログイン画面へ
+	const OTHER_TIMEOUT = 3;	// ログイン結果 - 他IDでタイムアウト　ログイン画面へ
+	const OWN_INTIME    = 4;	// ログイン結果 - 自IDでログイン中　メンテ画面へ
+	const OTHER_INTIME  = 5;	// ログイン結果 - 他IDでログイン中　「他でログイン中」のダイアログ、ログイン不可
 
 	const SEPT = ',';
 
+	const OUTDATA   = 'outdata';	// 出力データ保持
+	const FILE_DIVI = 'fileDivi';	// ファイル分割
 
-	/***** 出力データ保持 *****/
-	const OUTDATA = 'outdata';
-
-	/***** ファイル分割 *****/
-	const FILE_DIVI = 'fileDivi';
-
-
-	/********************
-	ファイル名
-	パラメータ：-
-	戻り値　　：-
-	********************/
-	function getFileName() {
+/**
+ * セッション管理ファイル名の取得
+ *
+ * @access
+ * @param
+ * @return string ファイル名
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	static function getFileName() {
 
 		$ret = realpath(dirname(__FILE__) . '/../../dataFiles') . '/sess2018.txt';
 
@@ -52,12 +61,18 @@ class sess5C {
 	}
 
 
-	/********************
-	セッション状態取得
-	パラメータ：自セッションID
-	戻り値　　：-
-	********************/
-	function getSessCond($ownSessID=null) {
+/**
+ * セッション状態取得
+ *
+ * @access
+ * @param string $ownSessID 自セッションID
+ * @return
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	static function getSessCond($ownSessID=null) {
 
 		if(is_null($ownSessID)) {
 			$sessID = session_id();
@@ -82,12 +97,18 @@ class sess5C {
 	}
 
 
-	/********************
-	セッション管理ファイル削除
-	パラメータ：-
-	戻り値　　：-
-	********************/
-	function delSessCond($ownSessID=null) {
+/**
+ * セッション管理ファイル削除
+ *
+ * @access
+ * @param string $ownSessID 自セッションID
+ * @return
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	static function delSessCond($ownSessID=null) {
 
 		if(is_null($ownSessID)) {
 			$sessID = session_id();
@@ -95,8 +116,8 @@ class sess5C {
 			$sessID = $ownSessID;
 		}
 
-		$timestamp = strtotime('-30 minute');	/* -10 minute */
 		$format    = 'Y' . dateTime5C::DATE_SEP . 'm' . dateTime5C::DATE_SEP . 'd' . ' ' . 'H' . dateTime5C::TIME_SEP . 'i' . dateTime5C::TIME_SEP . 's';
+		$timestamp = strtotime('-30 minute');	/* -10 minute */
 		$currDT    = date($format, $timestamp);
 
 
@@ -111,21 +132,26 @@ class sess5C {
 	}
 
 
-	/********************
-	セッション状態更新
-	パラメータ：自セッションID
-	戻り値　　：-
-	********************/
-	function updSessCond($ownSessID=null) {
+/**
+ * セッション状態更新
+ *
+ * @access
+ * @param string $ownSessID 自セッションID
+ * @return
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	static function updSessCond($ownSessID=null) {
 
-				/* $currDT = dateTime5C::getCurrDT(); */
 		if(is_null($ownSessID)) {
 			$sessID = session_id();
 		} else {
 			$sessID = $ownSessID;
 		}
 
-
+		//メンテモードの判定
 		$mtnMode = false;
 		if(isset($_SESSION['MTN'])) {
 			if(strcmp($_SESSION['MTN'] ,'Y') == 0) {
@@ -150,14 +176,20 @@ class sess5C {
 	}
 
 
-	/********************
-	セッションタイムアウト状態取得
-	パラメータ：自セッションID
-	　　　　　　ファイル上のセッションID
-	　　　　　　制限日時
-	戻り値　　：-
-	********************/
-	function getTimeoutCond($ownSessID ,$sessID ,$limitTime) {
+/**
+ * セッションタイムアウト状態取得
+ *
+ * @access
+ * @param string $ownSessID 自セッションID
+ * @param string $sessID セッションID
+ * @param string $limitTime 制限時間
+ * @return int ログイン状態
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	static function getTimeoutCond($ownSessID ,$sessID ,$limitTime) {
 
 					logFile5C::debug('getTimeoutCond()セッションID:' . $ownSessID . ' ファイル上のセッションID:' . $sessID);
 
@@ -170,6 +202,7 @@ class sess5C {
 			$timeOver = false;
 		}
 
+		//メンテモードの判定
 		$mtnMode = false;
 		if(isset($_SESSION['MTN'])) {
 			if(strcmp($_SESSION['MTN'] ,'Y') == 0) {
@@ -178,27 +211,21 @@ class sess5C {
 		}
 
 		if($mtnMode) {
-			$ret = self::OWN_INTIME;
-		} else {
-			if(strcmp($ownSessID ,$sessID) == 0) {
-				/***** 自ID *****/
-				if($timeOver) {
-					/***** タイムアウト *****/
+			$ret = self::OWN_INTIME;	// メンテモードであれば自IDでログイン状態を返す
+		} else {						// メンテモードでなければログイン状態を返す
+			if(strcmp($ownSessID ,$sessID) == 0) {	// 自ID
+				if($timeOver) {			// タイムアウト
 							logFile5C::debug('own ID timeout');
 					$ret = self::OWN_TIMEOUT;
-				} else {
-					/***** インタイム *****/
+				} else {				// インタイム
 							logFile5C::debug('own ID intime');
 					$ret = self::OWN_INTIME;
 				}
-			} else {
-				/***** 他ID *****/
-				if($timeOver) {
-					/***** タイムアウト *****/
+			} else {					// 他ID
+				if($timeOver) {			// タイムアウト
 							logFile5C::debug('other ID timeout');
 					$ret = self::OTHER_TIMEOUT;
-				} else {
-					/***** インタイム *****/
+				} else {				// インタイム
 							logFile5C::debug('other ID intime');
 					$ret = self::OTHER_INTIME;
 				}
@@ -210,7 +237,18 @@ class sess5C {
 
 
 
-	function resetOutVals($ID='') {
+/**
+ * 出力情報のリセット
+ *
+ * @access
+ * @param string $ID セクションID
+ * @return
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	static function resetOutVals($ID='') {
 
 		if(strlen($ID) >= 1) {
 			if(isset($_SESSION[self::OUTDATA][$ID])) {
@@ -223,7 +261,22 @@ class sess5C {
 		}
 	}
 
-	function setOutVals($ID ,$branchNo) {
+
+/**
+ * 出力情報の保持
+ *
+ * セクションIDに応じた、出力に必要な情報を保持する
+ *
+ * @access
+ * @param string $ID セクションID
+ * @param int $branchNo 店No
+ * @return
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	static function setOutVals($ID ,$branchNo) {
 
 		$val = '';
 
@@ -297,7 +350,20 @@ class sess5C {
 		$_SESSION[self::OUTDATA][$ID] = $val;
 	}
 
-	function getOutVals($ID) {
+/**
+ * 出力情報の取り出し
+ *
+ * 指定したセクションIDの出力に必要な情報を取得する
+ *
+ * @access
+ * @param string $ID セクションID
+ * @return array セクションに必要な情報
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	static function getOutVals($ID) {
 
 		if(isset($_SESSION[self::OUTDATA][$ID])) {
 			$ret = $_SESSION[self::OUTDATA][$ID];
@@ -309,8 +375,18 @@ class sess5C {
 	}
 
 
-
-	function resetOutSect($fileID='') {
+/**
+ * セクション情報のリセット
+ *
+ * @access
+ * @param string $fileID ファイルID
+ * @return
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	static function resetOutSect($fileID='') {
 
 		if(strlen($fileID) >= 1) {
 			if(isset($_SESSION[self::FILE_DIVI][$fileID])) {
@@ -323,12 +399,39 @@ class sess5C {
 		}
 	}
 
-	function setOutSect($fileID ,$div) {
+/**
+ * セクション情報のセット
+ *
+ * 指定されたファイルIDに含まれているセクションを保持する
+ *
+ * @access
+ * @param string $fileID ファイルID
+ * @param array $div セクション情報
+ * @return
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	static function setOutSect($fileID ,$div) {
 
 		$_SESSION[self::FILE_DIVI][$fileID] = $div;
 	}
 
-	function getOutSect($fileID) {
+/**
+ * セクション情報の取得
+ *
+ * 指定されたファイルIDに含まれているセクションを取り出す
+ *
+ * @access
+ * @param string $fileID ファイルID
+ * @return array セクション情報
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	static function getOutSect($fileID) {
 
 		if(isset($_SESSION[self::FILE_DIVI][$fileID])) {
 			$ret = $_SESSION[self::FILE_DIVI][$fileID];

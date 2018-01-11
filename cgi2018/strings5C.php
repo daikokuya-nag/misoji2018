@@ -221,11 +221,6 @@ class strings5C {
  * @throws
  * @todo
  */
-	/********************
-	文字列内の<>&"の一括変換
-	パラメータ：対象文字列
-	戻り値　　：加工後の文字列
-	********************/
 	function cnvSPChar($orgStr) {
 			/*
 			元の記号 10進数 16進数 変換後
@@ -236,7 +231,7 @@ class strings5C {
 			" "      &#160; &#xA0; &nbsp;  no-break space = non-breaking space
 			*/
 
-		$wkStr = htmlspecialchars($orgStr);		/* <>&"を一括変換する。 */
+		$wkStr = htmlspecialchars($orgStr);		// <>&"を一括変換する
 		$wkStr = mb_ereg_replace(" "  ,'&nbsp;' ,$wkStr);
 
 		return $wkStr;

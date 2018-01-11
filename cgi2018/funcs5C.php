@@ -68,16 +68,16 @@ class funcs5C {
  */
 	function readFile($fileName) {
 
-		/* ファイルを読み込み、行ごとに分解する */
+		// ファイルを読み込み、行ごとに分解する
 		$lineTmpA = file($fileName);
 		if(count($lineTmpA) <= 1) {
-			/* file()で改行コードで分離されないときは強制的に分離する */
+			// file()で改行コードで分離されないときは強制的に分離する
 			$lineTmpB = explode(common5C::CTXT_NL_CODE ,$lineTmpA[0]);
 		} else {
 			$lineTmpB = $lineTmpA;
 		}
 
-		/* 行末の改行コードを消す */
+		// 行末の改行コードを消す
 		$ret = array();
 		foreach($lineTmpB as $line1) {
 			$ret[] = strings5C::eraseCRLF($line1);

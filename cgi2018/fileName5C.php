@@ -4,7 +4,7 @@
  *
  * @package    
  * @subpackage 
- * @version    1.0
+ * @version    1.0.1
  * @since      
  * @author     
  */
@@ -12,40 +12,42 @@
 	require_once dirname(__FILE__) . '/funcs5C.php';
 	require_once dirname(__FILE__) . '/common5C.php';
 
+/**
+ * ファイル名の組み立て
+ *
+ * @package    
+ * @subpackage 
+ * @version    1.0.1
+ * @since      
+ * @author     
+ */
 class fileName5C {
 
-	/***** CSSファイル *****/
+	// CSSファイル
 	const FILEID_CSS_OTHER = 'otherStyle';	/* top以外 */
 
 
-	/***** 基準ディレクトリ識別 *****/
-	/*** OS ***/
-	const DIR_OS_ROOT = 'OSRoot';	/*** root ***/
-	const DIR_OS_PC   = 'OSPC';		/*** PC ***/
-	const DIR_OS_SP   = 'OSSP';		/*** SP ***/
-	const DIR_OS_MO   = 'OSMO';		/*** MO ***/
+	// 基準ディレクトリ識別
+	// OS
+	const DIR_OS_ROOT = 'OSRoot';	// OSのroot
+	const DIR_OS_PC   = 'OSPC';		// OSのrootから見たPC
+	const DIR_OS_SP   = 'OSSP';		// OSのrootから見たSP
+	const DIR_OS_MO   = 'OSMO';		// OSのrootから見たMO
 
-	/*** web ***/
-	const DIR_WEB_ROOT = 'WebRoot';		/*** root ***/
-	const DIR_WEB_PC   = 'WebPC';		/*** PC ***/
-	const DIR_WEB_SP   = 'WebSP';		/*** SP ***/
-	const DIR_WEB_MO   = 'WebMO';		/*** MO ***/
+	// web
+	const DIR_WEB_ROOT = 'WebRoot';		// webのroot
+	const DIR_WEB_PC   = 'WebPC';		// webのrootから見たPC
+	const DIR_WEB_SP   = 'WebSP';		// webのrootから見たSP
+	const DIR_WEB_MO   = 'WebMO';		// webのrootから見たMO
 
-	/***** 写真ディレクトリ *****/
-	const FILEID_PHOTO_DIR = 'photo';
-
-	/***** 画像ディレクトリ *****/
-	const FILEID_IMG_DIR = 'img';
-
-	/***** 女性紹介ページディレクトリ *****/
-	const PROFILE_DIR = 'profile2018';
-
-	const FILEID_PROFILE = 'PROFILE';
+	const FILEID_PHOTO_DIR = 'photo';		// 写真ディレクトリ
+	const FILEID_IMG_DIR   = 'img';			// 画像ディレクトリ
+	const PROFILE_DIR      = 'profile2018';	// 女性紹介ページディレクトリ
+	const FILEID_PROFILE   = 'PROFILE';
 
 
-	/***** 取得するファイルの識別 *****/
-	static $fileIDList = array(
-		/* ページファイル */
+	static $fileIDList = array(			// 取得するファイルの識別
+		// ページファイル
 /*
 		'404'            => array('' ,'404'       ) ,
 		'TOP'            => array('' ,'top'       ) ,
@@ -61,7 +63,7 @@ class fileName5C {
 		'QUESTIONNAIRE'  => array('' ,'questionnaire') ,
 		'MASTERSBLOG'    => array('' ,'mastersBlog'  ) ,
 */
-		/* テスト用 */
+		// ページファイルのテスト用
 		'404'            => array('' ,'4042018'       ) ,
 		'TOP'            => array('' ,'top2018'       ) ,
 		'NEWS'           => array('' ,'news2018'      ) ,
@@ -76,7 +78,7 @@ class fileName5C {
 		'QUESTIONNAIRE'  => array('' ,'questionnaire2018') ,
 		'MASTERSBLOG'    => array('' ,'mastersBlog2018'  ) ,
 
-		/* テンプレートファイル */
+		// テンプレートファイル
 		'404_TEMPLATE'           => array('' ,'404TEMPLATE'       ) ,
 		'TOP_TEMPLATE'           => array('' ,'topTEMPLATE'       ) ,
 		'NEWS_TEMPLATE'          => array('' ,'newsTEMPLATE'      ) ,

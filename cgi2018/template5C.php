@@ -23,7 +23,6 @@
  */
 class template5C {
 
-	var $templateVals;
 	var $rangeList;		//範囲キーワードリスト
 	var $begValList;	//開始キーワードリスト
 	var $endValList;	//終了キーワードリスト
@@ -57,7 +56,17 @@ class template5C {
 	}
 
 
-	/***** ファイル読み込み *****/
+/**
+ * テンプレートファイルの読み込み
+ *
+ * @access
+ * @param string $fileName テンプレートファイル名
+ * @return
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	function read($fileName) {
 
 		if(is_file($fileName)) {
@@ -68,31 +77,41 @@ class template5C {
 	}
 
 
+/**
+ * セクション毎に分離
+ *
+ * 読みこんだテンプレートファイルの内容をセクション毎に分離する
+ *
+ * @access
+ * @param
+ * @return
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	function divideSection() {
 
-		$inAnySection = false;		/* BEG-ENDの間か */
+		$inAnySection = false;		// BEG-ENDの間か
 		$divNum = 0;
 		$endKwd = '';
 		$dividedBySect = array();
 		$useSect       = array();
 
 		foreach($this->fileLines as $line1) {
-			if($inAnySection) {
-				/* BEG-ENDの間であればENDかどうかを判定。ENDであればBEG-ENDの終了　ENDでなければ続く */
+			if($inAnySection) {				// BEG-ENDの間であればENDかどうかを判定。ENDであればBEG-ENDの終了　ENDでなければ続く
 							//print 'in beg-end ' . "\n";
 				if(strcmp($line1 ,$endKwd) == 0) {
 					/* ENDのとき */
 							//print 'matched end' . "\n";
 					$dividedBySect[$divNum][] = $line1;
 					$inAnySection = false;
-					$divNum++;	/* 次の塊へ */
-				} else {
-					/* ENDでないとき */
-							/* print 'unmatched beg<br>'; */
+					$divNum++;	// 次の塊へ
+				} else {	// ENDでないとき
+							// print 'unmatched beg<br>';
 					$dividedBySect[$divNum][] = $line1;
 				}
-			} else {
-				/* BEG-ENDの間でなければどのBEGかを探す。どれでもなければ「その他」 */
+			} else {						// BEG-ENDの間でなければどのBEGかを探す。どれでもなければ「その他」
 							//print 'not in beg-end ' . "\n";
 				$hit = false;
 				foreach($this->begValList as $sectIdx => $begKWD) {
@@ -103,9 +122,8 @@ class template5C {
 						break;
 					}
 				}
-				if($hit) {
-					/* BEGに一致 */
-							//print 'matched beg by ' . $sectIdx . "\n";
+				if($hit) {		// BEGに一致
+									//print 'matched beg by ' . $sectIdx . "\n";
 					if(isset($dividedBySect[$divNum])) {
 						if(count($dividedBySect[$divNum]) >= 1) {
 							$divNum++;
@@ -117,8 +135,7 @@ class template5C {
 					$endKwd = $this->endValList[$sectIdx];
 							//print 'end kwd...' . $endKwd . "\n";
 					$inAnySection = true;
-				} else {
-					/* BEGに一致しない */
+				} else {		// BEGに一致しない
 							//print 'unmatched beg' . "\n";
 					$dividedBySect[$divNum][] = $line1;
 				}
@@ -133,6 +150,17 @@ class template5C {
 	}
 
 
+/**
+ * 使用しているセクション名の取得
+ *
+ * @access
+ * @param
+ * @return array セクション名のリスト
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	function sectItems() {
 
 		$ret = array();
@@ -144,11 +172,33 @@ class template5C {
 	}
 
 
+/**
+ * セクション毎のソースファイルの内容
+ *
+ * @access
+ * @param
+ * @return array セクション毎のソースファイルの内容
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	function getDividedBySect() {
 
 		return $this->dividedBySect;
 	}
 
+/**
+ * 使用しているセクション名リストの取得
+ *
+ * @access
+ * @param
+ * @return array セクション名のリスト
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	function getUseSect() {
 
 		return $this->useSect;

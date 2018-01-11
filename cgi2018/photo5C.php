@@ -22,17 +22,21 @@
  */
 class photo5C {
 
-	var $useList;
-	var $extList;
-	var $useAll;
+	var $useList;		// 各写真の使用/非使用
+	var $extList;		// 各写真ファイルの拡張子リスト
+	var $photoRootDir;	// 写真ディレクトリのパス
 
-	var $photoRootDir;
-
-	/********************
-	コンストラクタ
-	パラメータ：-
-	戻り値　　：-
-	********************/
+/**
+ * コンストラクタ
+ *
+ * @access
+ * @param
+ * @return
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	function photo5C() {
 
 		$this->useList   = null;
@@ -167,8 +171,8 @@ class photo5C {
  */
 	function isExistImgFile($dir ,$imgID) {
 
-		$photoDir = self::photoDir($dir);	/* そのプロファイルの写真のrootディレクトリ */
-		$extID    = $this->extList[$dir][$imgID];	/* その写真の拡張子 */
+		$photoDir = self::photoDir($dir);			// そのプロファイルの写真のrootディレクトリ
+		$extID    = $this->extList[$dir][$imgID];	// その写真の拡張子
 
 		$photoFileName = $photoDir . '/' . $imgID . '.' . $extID;
 
@@ -199,28 +203,24 @@ class photo5C {
 		$showMode = $this->photoShow[$dir];
 
 		if(strcmp($showMode ,dbProfile5C::PHOTO_SHOW_NG) == 0) {
-			/* 表示可以外のとき無条件にその状態 */
+			// 表示可以外のときは無条件にその状態に設定
 			foreach($imgID as $photoID) {
 				$ret[$photoID] = $showMode;
 			}
 		} else {
-			/* 表示可のときは各ファイルの有無の状態 */
+			// 表示可のときは各ファイルの有無の状態に応じて設定
 			foreach($imgID as $photoID) {
-				/* 使用/非使用の取り出し */
+				// 使用/非使用の取り出し
 				$use = false;
 				if(isset($this->useList[$dir][$photoID])) {
 					$use = $this->useList[$dir][$photoID];
 				}
+				$exist = $this->isExistImgFile($dir ,$photoID);		// 写真ファイルの有無
 
-				/* 写真ファイルの有無 */
-				$exist = $this->isExistImgFile($dir ,$photoID);
-
-					/* 写真ファイルがあり、使用/非使用が使用であれば　表示可 */
 				if($use && $exist) {
-					$ret[$photoID] = dbProfile5C::PHOTO_SHOW_OK;
+					$ret[$photoID] = dbProfile5C::PHOTO_SHOW_OK;	// 写真ファイルがあり、使用/非使用が使用であれば　表示可
 				} else {
-					/* 写真ファイルがない、または使用/非使用が非使用であれば　写真ナシ */
-					$ret[$photoID] = dbProfile5C::PHOTO_SHOW_NOT;
+					$ret[$photoID] = dbProfile5C::PHOTO_SHOW_NOT;	// 写真ファイルがない、または使用/非使用が非使用であれば　写真ナシ
 				}
 			}
 		}

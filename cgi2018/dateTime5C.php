@@ -20,24 +20,24 @@
  */
 class dateTime5C {
 
-	/***** 日付時刻のインデックス *****/
-	const YEAR  = 'year';	/* 年の値 */
-	const MONTH = 'mon';	/* 月の値 */
-	const DAY   = 'mday';	/* 日付の値 */
-	const HOUR  = 'hour';	/* 時の値 */
-	const MIN   = 'min';	/* 分の値 */
-	const SEC   = 'sec';	/* 秒の値 */
+	// 日付時刻のインデックス
+	const YEAR  = 'year';	// 年の値
+	const MONTH = 'mon';	// 月の値
+	const DAY   = 'mday';	// 日付の値
+	const HOUR  = 'hour';	// 時の値
+	const MIN   = 'min';	// 分の値
+	const SEC   = 'sec';	// 秒の値
 
-	const STAMP = 'stamp';	/* タイムスタンプ */
+	const STAMP = 'stamp';	// タイムスタンプ 
 
 			/*const DATE_SEP' ,'-');*/
 	const DATE_SEP = '/';
 	const TIME_SEP = ':';
 
-	const ONE_DAY_SEC = 86400;	/* 1日の秒数 */
+	const ONE_DAY_SEC = 86400;	// 1日の秒数
 
-	const SEP_AMPM = 12;			/* 12時間を使用 */
-	const JOI_AMPM = 24;			/* 24時間を使用 */
+	const SEP_AMPM = 12;			// 12時間を使用
+	const JOI_AMPM = 24;			// 24時間を使用
 
 /**
  * タイムゾーンの指定
@@ -691,8 +691,8 @@ class dateTime5C {
  * @see
  * @throws
  * @todo
- * mktime関数で日付を0にすると前月の末日を指定したことになります
- * $month + 1 をしていますが、結果13月のような値になっても自動で補正されます
+ * mktime関数で日付を0にすると前月の末日を指定したことになる
+ * $month + 1 をしているが13月のような値になっても自動で補正される
  */
 	public static function getMonthEndDay($year, $month) {
 
