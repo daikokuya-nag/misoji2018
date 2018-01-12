@@ -74,8 +74,13 @@ var str = CKEDITOR.instances.systemStr.getData();
 			if(response['SESSCOND'] == SESS_OWN_INTIME) {
 				selectWriteFile('SYSTEM');		//出力対象ファイルの抽出→ファイル出力
 			} else {
-				alert('長時間操作がなかったため接続が切れました。ログインしなおしてください。');
-				location.href = 'login.html';
+				jAlert(
+					'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
+					'メンテナンス' ,
+					function() {
+						location.href = 'login.html';
+					}
+				);
 			}
 		});
 

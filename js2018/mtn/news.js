@@ -30,7 +30,7 @@ $(window).load(function(){
 					var chkEnter = checkNewsEnter();
 					if(chkEnter) {
 								//alert('ok');
-						writeNewsPre();
+						writeNews();
 					} else {
 						alert('any error');
 					}
@@ -420,20 +420,16 @@ var result;
 
 	result.done(function(response) {
 					//console.debug(response);
-
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			selectWriteFile('NEWS');		//出力対象ファイルの抽出→ファイル出力
-			dispCnt = response['DISPCOUNT'];
-			if(dispCnt >= 1) {
-
-				alert('出力完了 (' + dispCnt + '件)');
-			} else {
-				alert('表示するニュースが0件でした');
-			}
 		} else {
-			alert('長時間操作がなかったため接続が切れました。ログインしなおしてください。');
-			$("#editNews").dialog("close");
-			location.href = 'login.html';
+			jAlert(
+				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
+				'メンテナンス' ,
+				function() {
+					location.href = 'login.html';
+				}
+			);
 		}
 	});
 
@@ -450,12 +446,8 @@ var result;
 /*************************
 ニュース出力
 *************************/
-/********************
-セッション状態の取得
-********************/
-function writeNewsPre() {
+function writeNews() {
 
-	/* ニュース書き出し */
 var newsNo   = $('#editNewsNo').val();
 
 var title    = $('#title').val();
@@ -479,18 +471,18 @@ var result = $.ajax({
 		url   : "../cgi2018/ajax/mtn/writeNews.php" ,
 		data  : {
 			branchNo : BRANCH_NO ,
-			newsNo   : newsNo   ,
+			newsNo   : newsNo    ,
 
-			title    : title    ,
-			newsDate : newsDate ,
-			newsTerm : newsTerm ,
+			title    : title     ,
+			newsDate : newsDate  ,
+			newsTerm : newsTerm  ,
 
-			begDate  : begDate  ,
-			endDate  : endDate  ,
+			begDate  : begDate   ,
+			endDate  : endDate   ,
 
-			digest   : digest   ,
-			content  : content  ,
-			cate     : cate     ,
+			digest   : digest    ,
+			content  : content   ,
+			cate     : cate      ,
 			dispBeg  : dispBeg
 		} ,
 
@@ -501,20 +493,23 @@ var result = $.ajax({
 	result.done(function(response) {
 					//console.debug(response);
 
-///		if(response == SESS_OWN_INTIME) {
-///				writeNewsPreA(response);
-///		} else {
-///				alert('長時間操作がなかったため接続が切れました。ログインしなおしてください。');
-/////				$("#editNews").dialog("close");
-/////				location.href = 'login.html';
-///		}
+		if(response['SESSCOND'] == SESS_OWN_INTIME) {
+			$("#editNews").dialog("close");
+			selectWriteFile('NEWS');		//出力対象ファイルの抽出→ファイル出力
+		} else {
+			jAlert(
+				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
+				'メンテナンス' ,
+				function() {
+					location.href = 'login.html';
+				}
+			);
+		}
 
-
-		reshowTag = response['tag'];
-		newsIDTag = response['id'];
-
-		alert('ニュース出力完了');
-		$("#editNews").dialog("close");
+		//リスト再表示
+//		reshowTag = response['tag'];
+//		newsIDTag = response['id'];
+//
 //		reshowList(newsNo ,tdTag ,newsIDTag);
 	});
 

@@ -458,19 +458,20 @@ var result = $.ajax({
 		dataType : 'json' ,
 	});
 
-
 	result.done(function(response) {
 					console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			selectWriteFile('ALBUM');		//出力対象ファイルの抽出→ファイル出力
 		} else {
-			alert('長時間操作がなかったため接続が切れました。ログインしなおしてください。');
-			location.href = 'login.html';
+			jAlert(
+				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
+				'メンテナンス' ,
+				function() {
+					location.href = 'login.html';
+				}
+			);
 		}
-
-//		showProfListAll();		//リスト再表示
-//		bldProfListHTML(bld);	//アルバムページ再出力
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {

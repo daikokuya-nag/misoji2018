@@ -167,7 +167,7 @@
 				<label><input type="radio" name="useProfile" id="useProfileOwn" value="OWN_SITE">内部</label><br>
 			</div>
 			<div class="sendSelectPage">
-				<input type="button" value="使用ページ反映" id="sendSeleProfPage" onclick="updUsePage('PROFILE');" disabled="disabled">
+				<input type="button" value="使用ページ反映" id="sendSeleProfPage" onclick="updUsePage('ALBUM');" disabled="disabled">
 			</div>
 		</div>
 		<hr>

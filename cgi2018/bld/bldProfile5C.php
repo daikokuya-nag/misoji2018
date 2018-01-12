@@ -192,17 +192,17 @@ class bldProfile5C {
 		$photoUse = $photoVal['TN'];
 
 		if(strcmp($photoUse ,dbProfile5C::PHOTO_SHOW_NG ) == 0) {	/* NG */
-			$photoFile = '../photos/tnNG.jpg';
+			$photoFile = '../photo/tnNG.jpg';
 		}
 		if(strcmp($photoUse ,dbProfile5C::PHOTO_SHOW_OK ) == 0) {
 			$photoInfo = $photo->getPhotoInfo($profID ,'TN');
-			$photoFile = '../photos/' . $profID . '/' . 'TN' . '.' . $photoInfo;
+			$photoFile = '../photo/' . $profID . '/' . 'TN' . '.' . $photoInfo;
 		}
 		if(strcmp($photoUse ,dbProfile5C::PHOTO_SHOW_NP ) == 0) {	/* 準備中 */
-			$photoFile = '../photos/tnNP.jpg';
+			$photoFile = '../photo/tnNP.jpg';
 		}
 		if(strcmp($photoUse ,dbProfile5C::PHOTO_SHOW_NOT) == 0) {	/* 写真ナシ */
-			$photoFile = '../photos/tnNP.jpg';
+			$photoFile = '../photo/tnNP.jpg';
 		}
 		$photoStr = '<img src="' . $photoFile . '" width="110" height="145">';
 

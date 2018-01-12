@@ -2,7 +2,7 @@
 /**
  * 仮のタグ
  *
- * 今回使用するのは装飾タグの削除で、他の関数は互換用の残してある。
+ * 今回使用するのは装飾タグの削除で、他の関数は互換のために残してある。
  *
  * @version 1.0.1
  * @copyright
@@ -10,7 +10,6 @@
  * @author
  * @link
  */
-
 
 	require_once dirname(__FILE__) . '/html/htmlNews5C.php';
 

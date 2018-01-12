@@ -198,11 +198,8 @@ class html5C {
 			$ret = $this->setSystem($sect1 ,$begKwd);
 		}
 
-		if(strcmp($begKwd ,'NEWS_DIGEST') == 0) {
-			$ret = $this->setNewsDigest($sect1 ,$begKwd);
-		}
-		if(strcmp($begKwd ,'NEWS_MAIN'  ) == 0) {
-			$ret = $this->setNewsMain($sect1 ,$begKwd);
+		if(strcmp($begKwd ,'NEWS'  ) == 0) {
+			$ret = $this->setNews($sect1 ,$begKwd);
 		}
 
 		if(strcmp($begKwd ,'PROFILE') == 0) {
@@ -216,11 +213,8 @@ class html5C {
 			$ret = $this->setTopPageHeader($sect1 ,$begKwd);
 		}
 
-		if(strcmp($begKwd ,'TOP_PAGE_MENU') == 0) {
-			$ret = $this->setTopPageMenu($sect1 ,$begKwd);
-		}
-		if(strcmp($begKwd ,'OTHER_PAGE_MENU') == 0) {
-			$ret = $this->setOtherPageMenu($sect1 ,$begKwd);
+		if(strcmp($begKwd ,'PAGE_MENU') == 0) {
+			$ret = $this->setPageMenu($sect1 ,$begKwd);
 		}
 
 		return $ret;
@@ -293,39 +287,6 @@ class html5C {
 		return $ret;
 	}
 
-/**
- * ニュースダイジェストの変換
- *
- * ニュース情報を変換する
- *
- * @access
- * @param string $sect セクション情報
- * @param string $kwd セクションID
- * @return string 実データで変換した文字列
- * @link
- * @see
- * @throws
- * @todo
- */
-	private function setNewsDigest($sect ,$kwd) {
-
-		$ret = array();
-		$detailStr = array();
-		$lineMax = count($sect);
-		for($idx=0 ;$idx<$lineMax ;$idx++) {
-			$line1 = $sect[$idx];
-			if(strcmp($line1 ,$this->begValList[$kwd]) == 0
-			|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
-			} else {
-				$detailStr[] = $line1;
-			}
-		}
-
-		$newsVal = sess5C::getOutVals($kwd);
-		$ret[] = $this->setNewsDetail($detailStr ,$newsVal);
-
-		return $ret;
-	}
 
 /**
  * ニュース情報の変換
@@ -341,7 +302,7 @@ class html5C {
  * @throws
  * @todo
  */
-	private function setNewsMain($sect ,$kwd) {
+	private function setNews($sect ,$kwd) {
 
 		$ret = array();
 		$detailStr = array();
@@ -356,23 +317,13 @@ class html5C {
 		}
 
 		$newsVal = sess5C::getOutVals($kwd);
-		$ret[] = $this->setNewsDetail($detailStr ,$newsVal);
 
-		return $ret;
-	}
-
-
-	private function setNewsDetail($detailStr ,$newsVal) {
-
-		$ret = '';
 		$tagStr = '';
-
 		$detailMax = count($detailStr);
 		$idxMax = count($newsVal);
+
 		for($idx=0 ;$idx<$idxMax ;$idx++) {
 			$news1 = $newsVal[$idx];
-
-
 			//出力タグへ変換
 			for($detailIdx=0 ;$detailIdx<$detailMax ;$detailIdx++) {
 				$this->detail1 = $detailStr[$detailIdx];
@@ -387,8 +338,7 @@ class html5C {
 				}
 			}
 		}
-
-		$ret = $ret . $tagStr;
+		$ret[] = $tagStr;
 
 		return $ret;
 	}
@@ -677,6 +627,7 @@ class html5C {
 				$this->replaceStr(templateConst5C::KWD_PROF_DIR_S ,$dir);		//ディレクトリ
 				$this->replaceStr(templateConst5C::KWD_NEW_FACE_S ,$newFace);	//新人印
 
+				$this->replaceStr('WIVES_TN' ,$TNNo);
 
 				//写真表示
 				$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_OK);		/* 表示可 */
@@ -987,7 +938,7 @@ class html5C {
 
 
 /**
- * TOPページのメニューの変換
+ * メニューの変換
  *
  * @access
  * @param string $sect セクション情報
@@ -998,47 +949,14 @@ class html5C {
  * @throws
  * @todo
  */
-	function setTopPageMenu($sect ,$kwd) {
+	function setPageMenu($sect ,$kwd) {
 
 		$ret = array();
 		$lineMax = count($sect);
 		for($idx=0 ;$idx<$lineMax ;$idx++) {
 			$line1 = $sect[$idx];
 
-			if(strcmp($line1 ,templateConst5C::TOP_PAGE_MENU_STR_VAL) == 0) {
-				$ret[] = $this->setMenuStr($kwd);
-			} else {
-				if(strcmp($line1 ,$this->begValList[$kwd]) == 0
-				|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
-				} else {
-					$ret[] = $line1;
-				}
-			}
-		}
-
-		return $ret;
-	}
-
-/**
- * TOPページ以外のメニューの変換
- *
- * @access
- * @param string $sect セクション情報
- * @param string $kwd セクションID
- * @return string 実データで変換した文字列
- * @link
- * @see
- * @throws
- * @todo
- */
-	function setOtherPageMenu($sect ,$kwd) {
-
-		$ret = array();
-		$lineMax = count($sect);
-		for($idx=0 ;$idx<$lineMax ;$idx++) {
-			$line1 = $sect[$idx];
-
-			if(strcmp($line1 ,templateConst5C::OTHER_PAGE_MENU_STR_VAL) == 0) {
+			if(strcmp($line1 ,templateConst5C::MENU_STR_VAL) == 0) {
 				$ret[] = $this->setMenuStr($kwd);
 			} else {
 				if(strcmp($line1 ,$this->begValList[$kwd]) == 0

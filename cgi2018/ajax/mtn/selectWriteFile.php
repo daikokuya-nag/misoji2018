@@ -63,9 +63,10 @@ PHP5
 
 	//出力する要素をセッションに保持
 	foreach($outItem as $item1 => $val) {
-					//print $item1;
+					//print $item1 . "\n";
 		sess5C::setOutVals($item1 ,$branchNo);
 	}
+					//print sess5C::getOutVals('NEWS');
 					//print sess5C::getOutVals('RECRUIT');
 					//print sess5C::getOutVals('SYSTEM');
 
@@ -105,9 +106,9 @@ PHP5
 		$template->read($templateFileName['fullPath']);	//ファイル読み込み
 		$template->divideSection();						//分割
 		$outItem = $template->sectItems();
-
 		$hit = false;
 		$idxMax = count($outItem);
+
 		for($idx=0 ;$idx<$idxMax ;$idx++) {
 			$id1 = $outItem[$idx];
 			if(strcmp($id1 ,$outID) == 0) {

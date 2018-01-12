@@ -2,15 +2,15 @@
 var EXT_LIST = [];
 
 var USE_PAGE = {};
-var RADIO_NAME     = {NEWS:'useNews'       ,PROFILE:'useProfile'      ,RECRUIT:'useRecruitPage'   ,SYSTEM:'useSystemPage'};
-var ID_PREFIX      = {NEWS:'tabsNews'      ,PROFILE:'tabsProfile'     ,RECRUIT:'tabsRecruit'      ,SYSTEM:'tabsSystem'};
-var OUTER_URL_FORM = {NEWS:'newsOuterURL'  ,PROFILE:'profileOuterURL' ,RECRUIT:'recruitOuterURL'  ,SYSTEM:'systemOuterURL'};
-var GRAY_PANEL_ID  = {NEWS:'grayPanelNews' ,PROFILE:'grayPanelProf'   ,RECRUIT:'grayPanelRecruit' ,SYSTEM:'grayPanelSystem'};
+var RADIO_NAME     = {NEWS:'useNews'       ,ALBUM:'useProfile'      ,RECRUIT:'useRecruitPage'   ,SYSTEM:'useSystemPage'};
+var ID_PREFIX      = {NEWS:'tabsNews'      ,ALBUM:'tabsProfile'     ,RECRUIT:'tabsRecruit'      ,SYSTEM:'tabsSystem'};
+var OUTER_URL_FORM = {NEWS:'newsOuterURL'  ,ALBUM:'profileOuterURL' ,RECRUIT:'recruitOuterURL'  ,SYSTEM:'systemOuterURL'};
+var GRAY_PANEL_ID  = {NEWS:'grayPanelNews' ,ALBUM:'grayPanelProf'   ,RECRUIT:'grayPanelRecruit' ,SYSTEM:'grayPanelSystem'};
 
-var EDIT_AREA        = {NEWS:'tabNewsMain' ,PROFILE:'tabProfMain'     ,RECRUIT:'tabRecruitMain'   ,SYSTEM:'tabSystemMain'};
-var EDIT_AREA_HEIGHT = {NEWS:0 ,PROFILE:0 ,RECRUIT:0 ,SYSTEM:0};
+var EDIT_AREA        = {NEWS:'tabNewsMain' ,ALBUM:'tabProfMain'     ,RECRUIT:'tabRecruitMain'   ,SYSTEM:'tabSystemMain'};
+var EDIT_AREA_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0};
 
-var TAB_HEIGHT = {NEWS:0 ,PROFILE:0 ,RECRUIT:0 ,SYSTEM:0};
+var TAB_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0};
 
 
 var DISP_SYSTEM_TAB  = false;	//システムタブを表示したか
@@ -90,8 +90,8 @@ $(document).ready(function(){
 	$("input[name='useProfile']").change(function() {
 
 		$("#sendSeleProfPage").prop('disabled' ,false);
-		USE_PAGE['PROFILE']['USE'] = $(this).val();
-		setUsePage('PROFILE');
+		USE_PAGE['ALBUM']['USE'] = $(this).val();
+		setUsePage('ALBUM');
 	});
 
 	$("input[name='useRecruitPage']").change(function() {
@@ -592,7 +592,7 @@ var result = $.ajax({
 	result.done(function(response) {
 					console.debug(response);
 		USE_PAGE['NEWS'   ] = response['NEWS'   ];
-		USE_PAGE['PROFILE'] = response['PROFILE'];
+		USE_PAGE['ALBUM'  ] = response['PROFILE'];	//PROFIEのみALBUMと読み替える
 		USE_PAGE['RECRUIT'] = response['RECRUIT'];
 		USE_PAGE['SYSTEM' ] = response['SYSTEM' ];
 
@@ -606,7 +606,7 @@ var result = $.ajax({
 		$("input[name='" + radioName + "']").val([usePage]);
 		setUsePage(pageID);
 
-		pageID    = 'PROFILE';
+		pageID    = 'ALBUM';
 		radioName = RADIO_NAME[pageID];
 		usePage   = USE_PAGE[pageID]['USE'];
 		$("input[name='" + radioName + "']").val([usePage]);
@@ -693,13 +693,14 @@ function updUsePage(pageID) {
 
 var branchNo = $('#branchNo').val();
 
-var radioName = RADIO_NAME[pageID];
-var otherForm = OUTER_URL_FORM[pageID];
+var radioName    = RADIO_NAME[pageID];
+var outerURLForm = OUTER_URL_FORM[pageID];
 
-var usePage   = $("input[name='" + radioName + "']:checked").val();
-var otherURL  = $("#" + otherForm).val();
+var usePage  = $("input[name='" + radioName + "']:checked").val();
+var outerURL = $("#" + outerURLForm).val();
 
-					console.debug(usePage);
+console.debug(usePage);
+console.debug(outerURL);
 
 var result = $.ajax({
 		type : "post" ,
@@ -708,14 +709,26 @@ var result = $.ajax({
 			branchNo : branchNo ,
 			pageID   : pageID   ,
 			usePage  : usePage  ,
-			otherURL : otherURL
+			outerURL : outerURL
 		} ,
 
-		cache : false
+		cache    : false ,
+		dataType :'json'
 	});
 
 	result.done(function(response) {
 					console.debug(response);
+		if(response['SESSCOND'] == SESS_OWN_INTIME) {
+			selectWriteFile('PAGE_MENU');		//出力対象ファイルの抽出→ファイル出力			//pageID
+		} else {
+			jAlert(
+				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
+				'メンテナンス' ,
+				function() {
+					location.href = 'login.html';
+				}
+			);
+		}
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {

@@ -1,9 +1,15 @@
 <?php
-/*************************
-ニュースページ再生成 Version 1.0
-PHP5
-2016 Mar. 3 ver 1.0
-*************************/
+/**
+ * ニュースページ再生成
+ *
+ * このファイルはproviTag5Cでのみ使用する。
+ *
+ * @version 1.0.1
+ * @copyright
+ * @license
+ * @author
+ * @link
+ */
 
 	require_once dirname(__FILE__) . '/../db/dbNews5C.php';
 

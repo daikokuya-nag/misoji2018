@@ -222,11 +222,15 @@ var result = $.ajax({
 					console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
-//			showProfListAll();		//リスト再表示
 			selectWriteFile('TOP_PAGE_HEADER');		//出力対象ファイルの抽出→ファイル出力
 		} else {
-				alert('長時間操作がなかったため接続が切れました。ログインしなおしてください。');
-				location.href = 'login.html';
+			jAlert(
+				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
+				'メンテナンス' ,
+				function() {
+					location.href = 'login.html';
+				}
+			);
 		}
 	});
 
@@ -236,57 +240,4 @@ var result = $.ajax({
 
 	result.always(function() {
 	});
-}
-
-
-/********************
-リスト再表示
-********************/
-function showProfListAll() {
-
-var profListTag;
-
-	$.ajax({
-		type : "get" ,
-		url  : "cgi/ajax/bldProfList.php" ,
-		data : {
-			branchNo : BRANCH_NO
-		} ,
-
-		cache    : false  ,
-		dataType : 'json' ,
-
-		success : function(result) {
-					console.debug(result);
-			profListTag = result;
-					//console.debug(ret['TITLE']);
-		} ,
-
-		error : function(result) {
-					console.debug('error at showList:' + result);
-		} ,
-
-		complete : function(result) {
-					//alert(newTag['data']);
-			/*** ニュース埋め込み用 ***/
-			$("#profListD").html(profListTag['news']['data']);
-
-			/*** 定型文埋め込み用 ***/
-			$("#profListFPD").html(profListTag['news']['data']);
-
-			/*** プロファイルリスト ***/
-			$("#profSeqListD").html(profListTag['prof']['data']);
-
-			$("#profSeqList").tableDnD({
-				onDrop: function(table, row) {
-									//profOrder = $.tableDnD.serialize();
-									//		console.debug(profOrder);
-									//enableWriteProfSeq();
-				}
-			});
-
-			$(".dispProfSW").toggleSwitch();
-		}
-	});
-
 }

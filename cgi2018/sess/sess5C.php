@@ -292,13 +292,7 @@ class sess5C {
 			$val = $dbVal['vals'][0][dbGeneral5C::FLD_STR];
 		}
 
-		if(strcmp($ID ,'NEWS_DIGEST') == 0) {
-			$db = new dbNews5C();
-			$dbVal = $db->readShowable($branchNo ,'');
-			$val = $dbVal['newsInfo'];
-		}
-
-		if(strcmp($ID ,'NEWS_MAIN') == 0) {
+		if(strcmp($ID ,'NEWS') == 0) {
 			$db = new dbNews5C();
 			$dbVal = $db->readShowable($branchNo ,'');
 			$val = $dbVal['newsInfo'];
@@ -332,8 +326,7 @@ class sess5C {
 			$val['IMGLIST'] = $imgList['imgInfo'];
 		}
 
-		if(strcmp($ID ,'TOP_PAGE_MENU'  ) == 0
-		|| strcmp($ID ,'OTHER_PAGE_MENU') == 0) {
+		if(strcmp($ID ,'PAGE_MENU'  ) == 0) {
 			$db = new dbPageParam5C();
 			$dbVal  = $db->readByObj($branchNo ,'USEPAGE');
 

@@ -12,7 +12,6 @@ PHP5
 	require_once dirname(__FILE__) . '/../../sess/sess5C.php';
 
 	$cond = sess5C::getSessCond();
-
 	if($cond == sess5C::OWN_INTIME) {
 		sess5C::updSessCond();
 

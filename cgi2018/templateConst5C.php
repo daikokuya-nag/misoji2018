@@ -28,14 +28,11 @@ class templateConst5C {
 	const SYSTEM_BEG_LINE = '<!-- SYSTEM_STR_BEG -->';		// 料金の開始
 	const SYSTEM_END_LINE = '<!-- SYSTEM_STR_END -->';		// 料金の終了
 
-	const NEWS_DIGEST_BEG_LINE = '<!-- NEWS_DIGEST_LIST_BEG -->';	// ニュースダイジェストの開始
-	const NEWS_DIGEST_END_LINE = '<!-- NEWS_DIGEST_LIST_END -->';	// ニュースダイジェストの終了
+	const NEWS_BEG_LINE = '<!-- NEWS_BEG -->';				// ニュースの開始
+	const NEWS_END_LINE = '<!-- NEWS_END -->';				// ニュースの終了
 
-	const NEWS_MAIN_BEG_LINE = '<!-- NEWS_MAIN_LIST_BEG -->';		// ニュース本文の開始
-	const NEWS_MAIN_END_LINE = '<!-- NEWS_MAIN_LIST_END -->';		// ニュース本文の終了
-
-	const PROFILE_BEG_LINE = '<!-- PROFILE_BEG -->';				// プロファイルの開始
-	const PROFILE_END_LINE = '<!-- PROFILE_END -->';				// プロファイルの終了
+	const PROFILE_BEG_LINE = '<!-- PROFILE_BEG -->';		// プロファイルの開始
+	const PROFILE_END_LINE = '<!-- PROFILE_END -->';		// プロファイルの終了
 
 	const ALBUM_BEG_LINE = '<!-- ALBUM_BEG -->';			// アルバムの開始
 	const ALBUM_END_LINE = '<!-- ALBUM_END -->';			// アルバムの終了
@@ -43,44 +40,34 @@ class templateConst5C {
 	const TOP_PAGE_HEADER_BEG_LINE = '<!-- TOP_PAGE_HEADER_BEG -->';	// TOPページのヘッダの開始
 	const TOP_PAGE_HEADER_END_LINE = '<!-- TOP_PAGE_HEADER_END -->';	// TOPページのヘッダの終了
 
-	/*** TOPページのメニュー項目 ***/
-	const TOP_PAGE_MENU_BEG_LINE = '<!-- TOP_PAGE_MENU_BEG -->';		// TOPページのメニュー項目の開始
-	const TOP_PAGE_MENU_END_LINE = '<!-- TOP_PAGE_MENU_END -->';		// TOPページのメニュー項目の終了
-
-	/*** TOPページ以外のメニュー項目 ***/
-	const OTHER_PAGE_MENU_BEG_LINE = '<!-- OTHER_PAGE_MENU_BEG -->';	// TOPページ以外のメニュー項目の開始
-	const OTHER_PAGE_MENU_END_LINE = '<!-- OTHER_PAGE_MENU_END -->';	// TOPページ以外のメニュー項目の終了
-
+	const MENU_BEG_LINE = '<!-- MENU_BEG -->';		// メニュー項目の開始
+	const MENU_END_LINE = '<!-- MENU_END -->';		// メニュー項目の終了
 
 	var $begList = array(			// セクションの開始キーワードリスト
-		'RECRUIT'     => self::RECRUIT_BEG_LINE     ,
-		'SYSTEM'      => self::SYSTEM_BEG_LINE      ,
-		'NEWS_DIGEST' => self::NEWS_DIGEST_BEG_LINE ,
-		'NEWS_MAIN'   => self::NEWS_MAIN_BEG_LINE   ,
+		'RECRUIT' => self::RECRUIT_BEG_LINE ,
+		'SYSTEM'  => self::SYSTEM_BEG_LINE  ,
+		'NEWS'    => self::NEWS_BEG_LINE    ,
 
 		'PROFILE' => self::PROFILE_BEG_LINE ,
 		'ALBUM'   => self::ALBUM_BEG_LINE   ,
 
 		'TOP_PAGE_HEADER' => self::TOP_PAGE_HEADER_BEG_LINE ,
 
-		'TOP_PAGE_MENU'   => self::TOP_PAGE_MENU_BEG_LINE   ,
-		'OTHER_PAGE_MENU' => self::OTHER_PAGE_MENU_BEG_LINE ,
+		'PAGE_MENU' => self::MENU_BEG_LINE  ,
 
 		'BEG_A' ,'BEG_B' ,'BEG_C'
 	);
 	var $endList = array(			// セクションの終了キーワードリスト
-		'RECRUIT'     => self::RECRUIT_END_LINE     ,
-		'SYSTEM'      => self::SYSTEM_END_LINE      ,
-		'NEWS_DIGEST' => self::NEWS_DIGEST_END_LINE ,
-		'NEWS_MAIN'   => self::NEWS_MAIN_END_LINE   ,
+		'RECRUIT' => self::RECRUIT_END_LINE ,
+		'SYSTEM'  => self::SYSTEM_END_LINE  ,
+		'NEWS'    => self::NEWS_END_LINE    ,
 
 		'PROFILE' => self::PROFILE_END_LINE ,
 		'ALBUM'   => self::ALBUM_END_LINE   ,
 
 		'TOP_PAGE_HEADER' => self::TOP_PAGE_HEADER_END_LINE ,
 
-		'TOP_PAGE_MENU'   => self::TOP_PAGE_MENU_END_LINE   ,
-		'OTHER_PAGE_MENU' => self::OTHER_PAGE_MENU_END_LINE ,
+		'PAGE_MENU' => self::MENU_END_LINE  ,
 
 		'END_A' ,'END_B' ,'END_C'
 	);
@@ -90,8 +77,7 @@ class templateConst5C {
 	const SYSTEM_STR_VAL          = '<!-- SYSTEM_STR -->';				// 料金内容
 	const ALBUM_STR_VAL           = '<!-- ALBUM_STR -->';				// アルバム内容
 	const TOP_PAGE_HEADER_STR_VAL = '<!-- TOP_PAGE_HEADER_STR -->';		// TOPページヘッダの内容
-	const TOP_PAGE_MENU_STR_VAL   = '<!-- TOP_PAGE_MENU_STR -->';		// TOPページのメニューの内容
-	const OTHER_PAGE_MENU_STR_VAL = '<!-- OTHER_PAGE_MENU_STR -->';		// TOPページ以外のメニューの内容
+	const MENU_STR_VAL            = '<!-- MENU_STR -->';				// メニューの内容
 
 
 	const KWD_NEWS_TITLE_S    = '<!-- NEWS_TITLE -->';			// ニュースタイトル
