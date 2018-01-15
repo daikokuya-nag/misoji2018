@@ -38,6 +38,38 @@ var result = $.ajax({
 }
 
 /********************
+出力対象ファイルの抽出
+********************/
+function writeProfHTMLFile(profDir) {
+
+var result = $.ajax({
+		type : "get" ,
+		url  : "../cgi2018/ajax/mtn/selectWriteFile.php" ,
+		data : {
+			branchNo : BRANCH_NO ,
+			outItem  : 'ALBUM'   ,
+			profDir  : profDir
+		} ,
+
+		cache    : false ,
+		dataType : 'json'
+	});
+
+	result.done(function(response) {
+					console.debug(response);
+		writeHTMLFile(response);
+	});
+
+	result.fail(function(response, textStatus, errorThrown) {
+					console.debug('error at selectWriteFile:' + response.status + ' ' + textStatus);
+	});
+
+	result.always(function() {
+	});
+}
+
+
+/********************
 HTMLファイルの出力
 ********************/
 function writeHTMLFile(fileList) {
@@ -75,6 +107,8 @@ var profMax = 0;
 	}
 }
 
+
+
 /********************
 HTMLファイルの出力の本体
 ********************/
@@ -105,7 +139,10 @@ var result = $.ajax({
 		if(ALL_WROTE_FILES >= ALL_OUT_FILES) {
 			if(!ALL_DONE) {
 				ALL_DONE = true;
-				alert('全ファイル出力完了');
+				jAlert(
+					'ファイル出力完了' ,
+					'メンテナンス'
+				);
 			}
 		}
 	});

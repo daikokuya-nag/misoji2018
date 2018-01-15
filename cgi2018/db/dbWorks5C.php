@@ -140,6 +140,18 @@ class dbWorks5C {
 	}
 
 	/********************
+	
+	パラメータ：-
+	戻り値　　：出勤リスト
+	********************/
+	function getHandle() {
+
+		$ret = $this->handle;
+
+		return $ret;
+	}
+
+	/********************
 	出勤データの読み込み(削除以外)
 	パラメータ：-
 	戻り値　　：出勤リスト
@@ -1646,7 +1658,7 @@ class dbWorks5C {
 			$ret['4'] = $this->setUsePhoto($baseDir ,$profData[PROF_DIR_S] ,'4' ,$profData[PROF_PHOTOUSE_4_S] ,$profData[PROF_PHOTOEXT_4_S]);
 			$ret['5'] = $this->setUsePhoto($baseDir ,$profData[PROF_DIR_S] ,'5' ,$profData[PROF_PHOTOUSE_5_S] ,$profData[PROF_PHOTOEXT_5_S]);
 
-			$ret['S'] = $this->setUsePhoto($baseDir ,$profData[PROF_DIR_S] ,'-s' ,$profData[PROF_PHOTOUSE_S_S] ,$profData[PROF_PHOTOEXT_S_S]);
+			$ret['S'] = $this->setUsePhoto($baseDir ,$profData[PROF_DIR_S] ,'TN' ,$profData[PROF_PHOTOUSE_S_S] ,$profData[PROF_PHOTOEXT_S_S]);
 			$ret['M'] = $this->setUsePhoto($baseDir ,$profData[PROF_DIR_S] ,'-m' ,$profData[PROF_PHOTOUSE_M_S] ,$profData[PROF_PHOTOEXT_M_S]);
 
 

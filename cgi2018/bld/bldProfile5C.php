@@ -196,7 +196,7 @@ class bldProfile5C {
 		}
 		if(strcmp($photoUse ,dbProfile5C::PHOTO_SHOW_OK ) == 0) {
 			$photoInfo = $photo->getPhotoInfo($profID ,'TN');
-			$photoFile = '../photo/' . $profID . '/' . 'TN' . '.' . $photoInfo;
+			$photoFile = '../photo/' . $profID . '/' . $profID . 'TN' . '.' . $photoInfo['EXT'];
 		}
 		if(strcmp($photoUse ,dbProfile5C::PHOTO_SHOW_NP ) == 0) {	/* 準備中 */
 			$photoFile = '../photo/tnNP.jpg';

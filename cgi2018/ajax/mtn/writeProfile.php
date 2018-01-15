@@ -137,7 +137,7 @@ PHP5
 
 
 		/***** 写真ファイル *****/
-		$path = realpath(dirname(__FILE__) . '/../../..') . '/photos/' . $dir;
+		$path = realpath(dirname(__FILE__) . '/../../..') . '/photo/' . $dir;
 
 		/*** 新規なら写真格納ディレクトリを作成 ***/
 			/*if(strcmp($newProf ,'new') == 0) {*/
@@ -177,7 +177,7 @@ PHP5
 			$prof->setVal(dbProfile5C::FLD_PHOTOEXT_M ,$fileExt);
 		}
 		if(isset($_FILES['attTN'])) {
-			copyImgFile($_FILES['attTN'] ,$path , $dir . '-s');
+			copyImgFile($_FILES['attTN'] ,$path , $dir . 'TN');
 			$fileExt = pathinfo($_FILES['attTN']["name"], PATHINFO_EXTENSION);
 			$prof->setVal(dbProfile5C::FLD_PHOTOEXT_S ,$fileExt);
 		}

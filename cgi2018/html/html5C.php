@@ -381,7 +381,7 @@ class html5C {
 		$ret = '';
 
 		$photoVal = new photo5C();
-		$photoID  = array('TN');
+		$photoID  = array('1' ,'2' ,'3' ,'4' ,'5' ,'TN');
 
 		$photoDir = fileName5C::FILEID_PHOTO_DIR;	//写真ディレクトリ
 		$profDir  = fileName5C::PROFILE_DIR;		//紹介ページディレクトリ
@@ -405,8 +405,28 @@ class html5C {
 			$newFace = '';
 		}
 
-		//サムネイル表示判定
+		//写真表示判定
+		$photoVal->getDirPhoto($dir);
 		$photoUse = $photoVal->getUsePhoto($dir ,$photoID);
+
+		$photoMax = 0;
+		if(strcmp($photoUse['1'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+			$photoMax++;
+		}
+		if(strcmp($photoUse['2'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+			$photoMax++;
+		}
+		if(strcmp($photoUse['3'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+			$photoMax++;
+		}
+		if(strcmp($photoUse['4'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+			$photoMax++;
+		}
+		if(strcmp($photoUse['5'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+			$photoMax++;
+		}
+		$ret['LARGE'] = $photoMax;
+
 
 
 		//出力タグへ変換
@@ -429,21 +449,32 @@ class html5C {
 			$this->replaceLine(templateConst5C::KWD_MASTERS_COMMENT_S ,$prof1[dbProfile5C::FLD_MASTERS_COMMENT]);	//店長コメント
 			$this->replaceLine(templateConst5C::KWD_APPEAL_COMMENT_S  ,$prof1[dbProfile5C::FLD_APPEAL_COMMENT]);	//アピールコメント
 
+			//QA
+			$this->replaceLine(templateConst5C::KWD_QA1  ,$prof1[dbProfile5C::FLD_QA1 ]);
+			$this->replaceLine(templateConst5C::KWD_QA2  ,$prof1[dbProfile5C::FLD_QA2 ]);
+			$this->replaceLine(templateConst5C::KWD_QA3  ,$prof1[dbProfile5C::FLD_QA3 ]);
+			$this->replaceLine(templateConst5C::KWD_QA4  ,$prof1[dbProfile5C::FLD_QA4 ]);
+			$this->replaceLine(templateConst5C::KWD_QA5  ,$prof1[dbProfile5C::FLD_QA5 ]);
+			$this->replaceLine(templateConst5C::KWD_QA6  ,$prof1[dbProfile5C::FLD_QA6 ]);
+			$this->replaceLine(templateConst5C::KWD_QA7  ,$prof1[dbProfile5C::FLD_QA7 ]);
+			$this->replaceLine(templateConst5C::KWD_QA8  ,$prof1[dbProfile5C::FLD_QA8 ]);
+			$this->replaceLine(templateConst5C::KWD_QA9  ,$prof1[dbProfile5C::FLD_QA9 ]);
+			$this->replaceLine(templateConst5C::KWD_QA10 ,$prof1[dbProfile5C::FLD_QA10]);
+			$this->replaceLine(templateConst5C::KWD_QA11 ,$prof1[dbProfile5C::FLD_QA11]);
+			$this->replaceLine(templateConst5C::KWD_QA12 ,$prof1[dbProfile5C::FLD_QA12]);
+			$this->replaceLine(templateConst5C::KWD_QA13 ,$prof1[dbProfile5C::FLD_QA13]);
+			$this->replaceLine(templateConst5C::KWD_QA14 ,$prof1[dbProfile5C::FLD_QA14]);
+
 
 			//写真表示
 			$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_OK);		/* 表示可 */
 			if($kwdPos >= 0) {
-				if(strcmp($photoUse['TN'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
-					$this->detail1 = str_replace(templateConst5C::KWD_PHOTO_SHOW_OK ,'' ,$this->detail1);
-				} else {
-					//写真可の行で写真表示指定が可以外の時はその行を表示しない
-					$this->detail1 = '';
-				}
+				$this->setProfPhoto($dir ,$prof1 ,$photoUse);
 			}
 
 			$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_NG);		/* 写真NG */
 			if($kwdPos >= 0) {
-				if(strcmp($photoUse['TN'] ,dbProfile5C::PHOTO_SHOW_NG) == 0) {
+				if(strcmp($photoUse['1'] ,dbProfile5C::PHOTO_SHOW_NG) == 0) {
 					$this->detail1 = str_replace(templateConst5C::KWD_PHOTO_SHOW_NG ,'' ,$this->detail1);
 				} else {
 					//写真NGの行で写真表示指定がNG以外の時はその行を表示しない
@@ -453,7 +484,7 @@ class html5C {
 
 			$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_NP);		/* 写真準備中 */
 			if($kwdPos >= 0) {
-				if(strcmp($photoUse['TN'] ,dbProfile5C::PHOTO_SHOW_NP) == 0) {
+				if(strcmp($photoUse['1'] ,dbProfile5C::PHOTO_SHOW_NP) == 0) {
 					$this->detail1 = str_replace(templateConst5C::KWD_PHOTO_SHOW_NP ,'' ,$this->detail1);
 				} else {
 					//写真準備中の行で写真表示指定が準備中以外の時はその行を表示しない
@@ -463,7 +494,7 @@ class html5C {
 
 			$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_NOT);		/* 写真なし */
 			if($kwdPos >= 0) {
-				if(strcmp($photoUse['TN'] ,dbProfile5C::PHOTO_SHOW_NOT) == 0) {
+				if(strcmp($photoUse['1'] ,dbProfile5C::PHOTO_SHOW_NOT) == 0) {
 					$this->detail1 = str_replace(templateConst5C::KWD_PHOTO_SHOW_NOT ,'' ,$this->detail1);
 				} else {
 					//写真なしの行で写真表示指定が写真ナシ以外の時はその行を表示しない
@@ -481,6 +512,94 @@ class html5C {
 		return $ret;
 	}
 
+	private function setProfPhoto($profID ,$profData ,$photoData) {
+
+				//print 'show mode:' . $photoData['SHOWMODE']['L'];
+		$photoDir = '../photo/';
+				/* print_r($photoData['SHOWMODE']); */
+
+		$photoMax = 0;
+		if(strcmp($photoData['1'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+			$photoMax++;
+			$photoList[$photoMax] = '1';
+			$imgExt[$photoMax] = $profData[dbProfile5C::FLD_PHOTOEXT_1];
+		}
+		if(strcmp($photoData['2'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+			$photoMax++;
+			$photoList[$photoMax] = '2';
+			$imgExt[$photoMax] = $profData[dbProfile5C::FLD_PHOTOEXT_2];
+		}
+		if(strcmp($photoData['3'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+			$photoMax++;
+			$photoList[$photoMax] = '3';
+			$imgExt[$photoMax] = $profData[dbProfile5C::FLD_PHOTOEXT_3];
+		}
+		if(strcmp($photoData['4'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+			$photoMax++;
+			$photoList[$photoMax] = '4';
+			$imgExt[$photoMax] = $profData[dbProfile5C::FLD_PHOTOEXT_4];
+		}
+		if(strcmp($photoData['5'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+			$photoMax++;
+			$photoList[$photoMax] = '5';
+			$imgExt[$photoMax] = $profData[dbProfile5C::FLD_PHOTOEXT_5];
+		}
+
+
+		if($photoMax <= 0) {
+			//写真可の行で表示する写真がないときはその行を表示しない
+			$ret = '';
+		} else {
+			if($photoMax == 1) {
+				$imgFileName = $photoDir . $profID . '/' . $profID . $photoList[1] . '.' . $imgExt[1];
+				$ret = '<div class="item"><img src="' . $imgFileName . '" alt="" class="center-block img-responsive"></div>';
+			} else {
+				$retA = '<div id="carousel1" class="carousel slide center-block" data-ride="carousel">' .
+						'<ol class="carousel-indicators">';
+
+				$retB = '<li data-target="#carousel1" data-slide-to="0" class="active"></li>';
+
+				$retC = '</ol>' .
+						'<div class="carousel-inner" role="listbox">';
+
+				$imgFileName = $photoDir . $profID . '/' . $profID . $photoList[1] . '.' . $imgExt[1];
+				$retD = '<div class="item active"><img src="' . $imgFileName . '" alt="" class="center-block img-responsive"></div>';
+
+				$retE = '</div>' .
+						'<a class="left carousel-control" href="#carousel1" role="button" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="sr-only">Previous</span></a>' .
+						'<a class="right carousel-control" href="#carousel1" role="button" data-slide="next"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span class="sr-only">Next</span></a>' .
+						'</div>';
+
+				for($photoCnt=2 ;$photoCnt<=$photoMax ;$photoCnt++) {
+					$slideCnt = $photoCnt - 1;
+					$imgFileName = $photoDir . $profID . '/' . $profID . $photoList[$photoCnt] . '.' . $imgExt[$photoCnt];
+
+					$retB = $retB . '<li data-target="#carousel1" data-slide-to="' . $slideCnt . '"></li>';
+					$retD = $retD . '<div class="item"><img src="' . $imgFileName . '" alt="" class="center-block img-responsive"></div>';
+				}
+				$ret = $retA . $retB . $retC . $retD .$retE;
+
+				/*
+      <div id="carousel1" class="carousel slide center-block" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carousel1" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel1" data-slide-to="1"></li>
+          <li data-target="#carousel1" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <div class="item active"><img src="../../photos/alpha/alpha1.jpg" alt="" class="center-block img-responsive"></div>
+          <div class="item"><img src="../../photos/alpha/alpha2.jpg" alt="" class="center-block img-responsive"></div>
+          <div class="item"><img src="../../photos/alpha/alpha3.jpg" alt="" class="center-block img-responsive"></div>
+        </div>
+        <a class="left carousel-control" href="#carousel1" role="button" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="sr-only">Previous</span> </a>
+        <a class="right carousel-control" href="#carousel1" role="button" data-slide="next"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span class="sr-only">Next</span> </a>
+      </div>
+				*/
+			}
+		}
+
+		$this->detail1 = $ret;
+	}
 
 /**
  * アルバム情報の変換
@@ -532,6 +651,7 @@ class html5C {
 
 		$photoVal = new photo5C();
 		$photoID  = array('TN');
+		$photoVal->getAllDirPhoto();
 
 		$photoDir = fileName5C::FILEID_PHOTO_DIR;	//写真ディレクトリ
 		$profDir  = fileName5C::PROFILE_DIR;		//紹介ページディレクトリ
@@ -616,7 +736,7 @@ class html5C {
 
 			//サムネイル表示判定
 			$photoUse = $photoVal->getUsePhoto($dir ,$photoID);
-
+					print_r($photoUse);
 
 			//出力タグへ変換
 			$tagStr = '';
@@ -903,33 +1023,18 @@ class html5C {
 		$imgIdx = count($imgList);
 		for($idx=0 ;$idx<$imgIdx ;$idx++) {
 			if($idx == 0) {
-				$liParam   = 'active';
-				$itemParam = ' active';
+				$class = 'imgTop';
 			} else {
-				$liParam   = '';
-				$itemParam = '';
+				$class = 'img2';
 			}
-
-			$li   = $li   . '<li data-target="#carousel1" data-slide-to="' . $idx . '" class="' . $liParam . '"></li>';
-			$item = $item . '<div class="item' . $itemParam . '"><img src="' . $imgList[$idx] . '" alt="" class="center-block img-responsive"></div>';
+			$item = $item . '<img src="' . $imgList[$idx] . '" alt="" class="img-responsive center-block ' . $class . '">';
 		}
 
 		$cr = common5C::CSRC_NL_CODE;
 
 		$ret = 
-'					<div id="carousel1" class="carousel slide center-block" data-ride="carousel">' . $cr .
-'						<ol class="carousel-indicators">' . $cr .
-					$li . $cr .
-'						</ol>' . $cr .
-'						<div class="carousel-inner" role="listbox">' . $cr .
-							$item . $cr .
-'						</div>' . $cr .
-'						<a class="left carousel-control" href="#carousel1" role="button" data-slide="prev">' . $cr .
-'							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="sr-only">Previous</span>' . $cr .
-'						</a>' . $cr .
-'						<a class="right carousel-control" href="#carousel1" role="button" data-slide="next">' . $cr .
-'							<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span class="sr-only">Next</span>' . $cr .
-'						</a>' . $cr .
+'					<div class="row" id="hdW">' . $cr .
+					$item . $cr .
 '					</div>';
 
 		return $ret;

@@ -21,6 +21,12 @@ PHP5
 	$branchNo = $_REQUEST['branchNo'];	/* 店No */
 	$outID    = $_REQUEST['outItem' ];	/* 出力項目 */
 
+	if(isset($_REQUEST['profDir' ])) {
+		$profDir  = $_REQUEST['profDir'];
+	} else {
+		$profDir  = '';
+	}
+
 	/***** 対象ファイルの抽出 *****/
 	$outFile = array();	//対象ファイル
 	$outItem = array();	//対象項目
@@ -28,29 +34,13 @@ PHP5
 	sess5C::resetOutSect();
 	sess5C::resetOutVals();
 
-	//紹介ページ
-	$fileID = 'PROFILE';
-	$outVal = readTemplateFile($fileID ,$outID ,$branchNo);
-	if(isset($outVal['OUT_FILE_NAME']['fileName'])) {
-		$outFile['PROFILE'] = setProfiles($branchNo);
-
-		$useItem = $outVal['outItem'];
-		$itemMax = count($useItem);
-		for($idx=0 ;$idx<$itemMax ;$idx++) {
-			$item = $useItem[$idx];
-			$outItem[$item] = true;			//対象項目をON
-		}
-	}
-
-	//紹介ページ以外
-	$fileList = siteConst5C::getHtmlFileList();		//出力対象ファイル
-	$idxMax = count($fileList);
-	foreach($fileList as $fileID => $fileName) {
-		//ファイルの中身を検索して当該要素があれば出力対象にする
+	if(strlen($profDir) <= 0) {
+		// 紹介ページ以外の編集時
+		//紹介ページ
+		$fileID = 'PROFILE';
 		$outVal = readTemplateFile($fileID ,$outID ,$branchNo);
-							//print_r($outVal);
 		if(isset($outVal['OUT_FILE_NAME']['fileName'])) {
-			$outFile[$fileID] = $outVal['OUT_FILE_NAME']['fileName'];		//出力対象
+			$outFile['PROFILE'] = setProfiles($branchNo);
 
 			$useItem = $outVal['outItem'];
 			$itemMax = count($useItem);
@@ -59,7 +49,60 @@ PHP5
 				$outItem[$item] = true;			//対象項目をON
 			}
 		}
+
+		//紹介ページ以外
+		$fileList = siteConst5C::getHtmlFileList();		//出力対象ファイル
+		$idxMax = count($fileList);
+		foreach($fileList as $fileID => $fileName) {
+			//ファイルの中身を検索して当該要素があれば出力対象にする
+			$outVal = readTemplateFile($fileID ,$outID ,$branchNo);
+								//print_r($outVal);
+			if(isset($outVal['OUT_FILE_NAME']['fileName'])) {
+				$outFile[$fileID] = $outVal['OUT_FILE_NAME']['fileName'];		//出力対象
+
+				$useItem = $outVal['outItem'];
+				$itemMax = count($useItem);
+				for($idx=0 ;$idx<$itemMax ;$idx++) {
+					$item = $useItem[$idx];
+					$outItem[$item] = true;			//対象項目をON
+				}
+			}
+		}
+	} else {
+		// 紹介ページの編集時
+		//紹介ページ
+		$outVal = readTemplateFile('PROFILE' ,'PROFILE' ,$branchNo);
+		if(isset($outVal['OUT_FILE_NAME']['fileName'])) {
+			$outFile['PROFILE'][$profDir] = $profDir . '.html';
+
+			$useItem = $outVal['outItem'];
+			$itemMax = count($useItem);
+			for($idx=0 ;$idx<$itemMax ;$idx++) {
+				$item = $useItem[$idx];
+				$outItem[$item] = true;			//対象項目をON
+			}
+		}
+
+		//紹介ページ以外
+		$fileList = siteConst5C::getHtmlFileList();		//出力対象ファイル
+		$idxMax = count($fileList);
+		foreach($fileList as $fileID => $fileName) {
+			//ファイルの中身を検索して当該要素があれば出力対象にする
+			$outVal = readTemplateFile($fileID ,$outID ,$branchNo);
+								//print_r($outVal);
+			if(isset($outVal['OUT_FILE_NAME']['fileName'])) {
+				$outFile[$fileID] = $outVal['OUT_FILE_NAME']['fileName'];		//出力対象
+
+				$useItem = $outVal['outItem'];
+				$itemMax = count($useItem);
+				for($idx=0 ;$idx<$itemMax ;$idx++) {
+					$item = $useItem[$idx];
+					$outItem[$item] = true;			//対象項目をON
+				}
+			}
+		}
 	}
+
 
 	//出力する要素をセッションに保持
 	foreach($outItem as $item1 => $val) {

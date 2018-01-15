@@ -121,12 +121,25 @@ class templateConst5C {
 
 		/*	const KWD_PHOTO_SHOW_M_S   = '<!-- PROF_PHOTO_SHOW_M -->';*/		/* 中写真表示ボタン */
 
-
 	const KWD_PHOTO_SHOW_OK  = '<!-- PROF_PHOTO_SHOW_SHOW -->';		// 写真表示 - 表示可
 	const KWD_PHOTO_SHOW_NG  = '<!-- PROF_PHOTO_SHOW_NG -->';		// 写真表示 - 写真NG
 	const KWD_PHOTO_SHOW_NP  = '<!-- PROF_PHOTO_SHOW_NP -->';		// 写真表示 - 写真準備中
 	const KWD_PHOTO_SHOW_NOT = '<!-- PROF_PHOTO_SHOW_NOT -->';		// 写真表示 - 写真なし
 
+	const KWD_QA1  = '<!-- PROF_QA1 -->';	// QA1
+	const KWD_QA2  = '<!-- PROF_QA2 -->';	// QA2
+	const KWD_QA3  = '<!-- PROF_QA3 -->';	// QA3
+	const KWD_QA4  = '<!-- PROF_QA4 -->';	// QA4
+	const KWD_QA5  = '<!-- PROF_QA5 -->';	// QA5
+	const KWD_QA6  = '<!-- PROF_QA6 -->';	// QA6
+	const KWD_QA7  = '<!-- PROF_QA7 -->';	// QA7
+	const KWD_QA8  = '<!-- PROF_QA8 -->';	// QA8
+	const KWD_QA9  = '<!-- PROF_QA9 -->';	// QA9
+	const KWD_QA10 = '<!-- PROF_QA10 -->';	// QA10
+	const KWD_QA11 = '<!-- PROF_QA11 -->';	// QA11
+	const KWD_QA12 = '<!-- PROF_QA12 -->';	// QA12
+	const KWD_QA13 = '<!-- PROF_QA13 -->';	// QA13
+	const KWD_QA14 = '<!-- PROF_QA14 -->';	// QA14
 
 
 	const RECOMM_BEG_LINE = '/***** LIST_BEG *****/';	// オススメのJSプロファイルリスト出力開始位置

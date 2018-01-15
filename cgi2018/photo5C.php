@@ -42,7 +42,7 @@ class photo5C {
 		$this->useList   = null;
 		$this->extList   = null;
 		$this->photoShow = null;
-		$this->photoRootDir = dirname(__FILE__) . '/../photos';
+		$this->photoRootDir = dirname(__FILE__) . '/../photo';
 	}
 
 
@@ -83,7 +83,7 @@ class photo5C {
 			$this->extList[$dir] = array(
 				'1'  => $prof1[dbProfile5C::FLD_PHOTOEXT_1] ,
 				'2'  => $prof1[dbProfile5C::FLD_PHOTOEXT_2] ,
-				'3 ' => $prof1[dbProfile5C::FLD_PHOTOEXT_3] ,
+				'3'  => $prof1[dbProfile5C::FLD_PHOTOEXT_3] ,
 				'4'  => $prof1[dbProfile5C::FLD_PHOTOEXT_4] ,
 				'5'  => $prof1[dbProfile5C::FLD_PHOTOEXT_5] ,
 				'TN' => $prof1[dbProfile5C::FLD_PHOTOEXT_S] ,
@@ -98,21 +98,20 @@ class photo5C {
  * 写真情報の取得
  *
  * @access
- * @param string $id プロファイル識別
+ * @param string $dir プロファイル識別
  * @return
  * @link
  * @see
  * @throws
  * @todo
  */
-	function getDirPhoto($id) {
+	function getDirPhoto($dir) {
 
 		$photoDir = $this->photoRootDir;
 
-		$db  = new dbProfile5C(1 ,null);
-		$val = $db->get($id);
-		$dir = $val[dbProfile5C::FLD_DIR];
-
+		$db  = new dbProfile5C();
+		$val = $db->get(1 ,$dir);
+					//print $dir;
 		$this->useList[$dir] = array(
 			'1'  => $val[dbProfile5C::FLD_PHOTOUSE_1] ,
 			'2'  => $val[dbProfile5C::FLD_PHOTOUSE_2] ,
@@ -126,7 +125,7 @@ class photo5C {
 		$this->extList[$dir] = array(
 			'1'  => $val[dbProfile5C::FLD_PHOTOEXT_1] ,
 			'2'  => $val[dbProfile5C::FLD_PHOTOEXT_2] ,
-			'3 ' => $val[dbProfile5C::FLD_PHOTOEXT_3] ,
+			'3'  => $val[dbProfile5C::FLD_PHOTOEXT_3] ,
 			'4'  => $val[dbProfile5C::FLD_PHOTOEXT_4] ,
 			'5'  => $val[dbProfile5C::FLD_PHOTOEXT_5] ,
 			'TN' => $val[dbProfile5C::FLD_PHOTOEXT_S] ,
@@ -174,8 +173,8 @@ class photo5C {
 		$photoDir = self::photoDir($dir);			// そのプロファイルの写真のrootディレクトリ
 		$extID    = $this->extList[$dir][$imgID];	// その写真の拡張子
 
-		$photoFileName = $photoDir . '/' . $imgID . '.' . $extID;
-
+		$photoFileName = $photoDir . '/' . $dir . $imgID . '.' . $extID;
+						//print 'photo file name:' . $photoFileName . "\n";
 		if(is_file($photoFileName)) {
 			$ret = true;
 		} else {
@@ -202,12 +201,8 @@ class photo5C {
 
 		$showMode = $this->photoShow[$dir];
 
-		if(strcmp($showMode ,dbProfile5C::PHOTO_SHOW_NG) == 0) {
-			// 表示可以外のときは無条件にその状態に設定
-			foreach($imgID as $photoID) {
-				$ret[$photoID] = $showMode;
-			}
-		} else {
+					//print $dir . ' showMode:' . $showMode . "\n";
+		if(strcmp($showMode ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
 			// 表示可のときは各ファイルの有無の状態に応じて設定
 			foreach($imgID as $photoID) {
 				// 使用/非使用の取り出し
@@ -222,6 +217,11 @@ class photo5C {
 				} else {
 					$ret[$photoID] = dbProfile5C::PHOTO_SHOW_NOT;	// 写真ファイルがない、または使用/非使用が非使用であれば　写真ナシ
 				}
+			}
+		} else {
+			// 表示可以外のときは無条件にその状態に設定
+			foreach($imgID as $photoID) {
+				$ret[$photoID] = $showMode;
 			}
 		}
 		return $ret;

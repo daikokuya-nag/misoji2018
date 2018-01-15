@@ -1,0 +1,1 @@
+<?php/********************本日の出勤 Version 1.0PHP52016 Mar. 1 ver 1.0********************/	require_once dirname(__FILE__) . '/../html/htmlWorker5C.php';	$branchNo = $_REQUEST['branchNo'];	$worker = new htmlWorker5C();	$worker->setBranchNo($branchNo);	/***** 出勤データ取得 *****/	$worker->readWorkerList();	$ret = $worker->getWorkerList();	print json_encode($ret);?>

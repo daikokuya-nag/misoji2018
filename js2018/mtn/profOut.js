@@ -19,14 +19,18 @@ var result = $.ajax({
 		contentType : false ,
 
 		cache    : false  ,
-//		dataType : 'json' ,
+		dataType : 'json' ,
 	});
 
 	result.done(function(response) {
 					console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
-//			bldProfHTML(response);			/* HTMLファイル出力 */
+			var profDir = $('#profDir').val();
+
+			writeProfHTMLFile(profDir);
+			$("#editProfDlg").dialog("close");
+
 //			writeProfileNext();
 		} else {
 			alert('長時間操作がなかったため接続が切れました。ログインしなおしてください。');

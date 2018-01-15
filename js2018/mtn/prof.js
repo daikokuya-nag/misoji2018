@@ -805,27 +805,27 @@ HTMLファイル出力
 ********************/
 function bldProfHTML(profDir) {
 
-	$.ajax({
-		type :"post" ,
-		url  :"cgi/ajax/bldProfHTML.php" ,
-		data : {
-			branchNo : BRANCH_NO ,
-			profDir  : profDir
-		} ,
-
-		cache    :false ,
-//		dataType :'json' ,
-
-		success :function(result) {
-					console.debug(result);
-			ret = result;
-					//console.debug(ret['TITLE']);
-		} ,
-
-		error :function(result) {
-					console.debug('error at bldProfHTML:' + result);
-		}
-	});
+//	$.ajax({
+//		type :"post" ,
+//		url  :"cgi/ajax/bldProfHTML.php" ,
+//		data : {
+//			branchNo : BRANCH_NO ,
+//			profDir  : profDir
+//		} ,
+//
+//		cache    :false ,
+////		dataType :'json' ,
+//
+//		success :function(result) {
+//					console.debug(result);
+//			ret = result;
+//					//console.debug(ret['TITLE']);
+//		} ,
+//
+//		error :function(result) {
+//					console.debug('error at bldProfHTML:' + result);
+//		}
+//	});
 }
 
 

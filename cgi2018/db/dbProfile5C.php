@@ -139,6 +139,11 @@ class dbProfile5C {
 		$this->vals = array();
 	}
 
+	function setBranchNo($branchNo) {
+
+		$this->branchNo = $branchNo;
+	}
+
 	function setVal($fld ,$val) {
 
 		$this->vals[$fld] = $val;
@@ -523,7 +528,7 @@ class dbProfile5C {
 
 		/***** 表示可なら写真ファイルの有無の確認 *****/
 		if(strcmp($showData[self::FLD_PHOTO_SHOW] ,self::PHOTO_SHOW_OK) == 0) {
-			$thFilePath = dirname(__FILE__) . '/../../photos/' . $dir . '/' . $dir . '-s.' . $showData[self::FLD_PHOTOEXT_S];
+			$thFilePath = dirname(__FILE__) . '/../../photo/' . $dir . '/' . $dir . 'TN.' . $showData[self::FLD_PHOTOEXT_S];
 			/*** 写真ファイルがなければ「写真なし」 ***/
 			if(!is_file($thFilePath)) {
 				$ret['SHOW'] = self::PHOTO_SHOW_NOT;
@@ -1207,7 +1212,7 @@ class dbProfile5C {
 			$ret['4'] = $this->setUsePhoto($baseDir ,$profData[self::FLD_DIR] ,'4' ,$profData[self::FLD_PHOTOUSE_4] ,$profData[self::FLD_PHOTOEXT_4]);
 			$ret['5'] = $this->setUsePhoto($baseDir ,$profData[self::FLD_DIR] ,'5' ,$profData[self::FLD_PHOTOUSE_5] ,$profData[self::FLD_PHOTOEXT_5]);
 
-			$ret['S'] = $this->setUsePhoto($baseDir ,$profData[self::FLD_DIR] ,'-s' ,$profData[self::FLD_PHOTOUSE_S] ,$profData[self::FLD_PHOTOEXT_S]);
+			$ret['S'] = $this->setUsePhoto($baseDir ,$profData[self::FLD_DIR] ,'TN' ,$profData[self::FLD_PHOTOUSE_S] ,$profData[self::FLD_PHOTOEXT_S]);
 			$ret['M'] = $this->setUsePhoto($baseDir ,$profData[self::FLD_DIR] ,'-m' ,$profData[self::FLD_PHOTOUSE_M] ,$profData[self::FLD_PHOTOEXT_M]);
 
 
