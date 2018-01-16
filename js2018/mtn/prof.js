@@ -916,73 +916,58 @@ function updProfDir() {
 var newDir  = $("#newDir").val();			//更新後
 var currDir = $("#profDirShow").html();		//更新前
 
-var hideDlg = false;
-
 	if(newDir != currDir) {
 		chkIDStr = checkID(newDir)
-		if(chkIDStr.length <= 0) {
-			$.ajax({
-				type :"post" ,
-				url  :"cgiA/ajax/updProfDir.php" ,
-				data : {
-					branchNo : BRANCH_NO ,
-					old      : currDir   ,
-					new      : newDir
-				} ,
-
-				cache    :false ,
-//				dataType :'json' ,
-
-				success :function(result) {
-							console.debug(result);
-					ret = result;
-							//console.debug(ret['TITLE']);
-				} ,
-
-				error :function(result) {
-							console.debug('error at updProfDir:' + result);
-				} ,
-
-				async :false
-			});
-
-			$("#seleImgFile").prop('src' ,'fileSele.php?g=' + groupNo + '&b=' + BRANCH_NO + '&id=' + newDir);
-
-			showProfListAll();		//リスト再表示
-			var bld = AL + ',' + RE;
-			bldProfListHTML(bld);	//アルバムHTML、JSのファイル再出力
-
-			$('#profDir').val(newDir);
-			$('#profDirShow').html(newDir);
-
-			bldProfHTML();			//プロファイルHTMLの再出力
-
-			hideDlg = true;
-		} else {
+		if(chkIDStr.length >= 1) {
 			alert(chkIDStr);
+			return;
 		}
 	}
 
-	if(hideDlg) {
-		hideEditDir();
-	}
+var result  = 	$.ajax({
+		type :"post" ,
+		url  :"../cgi2018/ajax/mtn/updProfDir.php" ,
+		data : {
+			branchNo : BRANCH_NO ,
+			old      : currDir   ,
+			new      : newDir
+		} ,
+
+		cache    : false ,
+		dataType : 'json'
+	});
+
+	result.done(function(response) {
+					//console.debug(response);
+		if(response['SESSCOND'] == SESS_OWN_INTIME) {
+			hideEditDir();
+			$("#editProfDlg").dialog("close");
+			getProfileList();
+			selectWriteFile('ALBUM');		//HTMLファイル再出力
+		} else {
+			jAlert(
+				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
+				'メンテナンス' ,
+				function() {
+					location.href = 'login.html';
+				}
+			);
+		}
+	});
+
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at delNewsItem:' + response.status + ' ' + textStatus);
+	});
+
+	result.always(function() {
+	});
 }
 
 
-/***********************************************************************************************************************/
 /********************
 削除
 ********************/
 function cfmDelDir() {
-
-/*
-	jConfirm('消していいの？' ,'プロファイルの削除' ,function(r) {
-		if(r==true){jAlert('OKをクリックしました。', '確認ダイアログ分岐後');}
-		else{jAlert('Cancelをクリックしました。', '確認ダイアログ分岐後');}
-	});
-*/
-
-	/*	$('.cfmDelPrompt').css('display' ,'block');	*/
 
 	$('#DelDirDlg').css('display' ,'block');
 }
@@ -1000,40 +985,46 @@ function hideDelDir() {
 *******************/
 function delProfDir() {
 
-var currDir  = $("#profDirShow").html();
-
-	$.ajax({
+var currDir = $("#profDirShow").html();
+var result  = $.ajax({
 		type : "post" ,
-		url  : "cgi/ajax/delProfDir.php" ,
+		url  : "../cgi2018/ajax/mtn/delProfDir.php" ,
 		data : {
 			branchNo : BRANCH_NO ,
 			dir      : currDir
 		} ,
-
 		cache    : false  ,
-//		dataType : 'json' ,
+		dataType : 'json'
+	});
 
-		success : function(result) {
-					console.debug(result);
-			ret = result;
-		} ,
-
-		error : function(result) {
-					console.debug('error at delProfDir:' + result);
-		} ,
-
-		complete : function(result) {
-			showProfListAll();		//リスト再表示
-			var bld = AL + ',' + RE;
-			bldProfListHTML(bld);	//アルバムHTML、JSのファイル再出力
-
-			$('#profDir').val('');
-			$('#profDirShow').html('');
-
+	result.done(function(response) {
+					//console.debug(response);
+		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			hideDelDir();
 			$("#editProfDlg").dialog("close");
+			getProfileList();
+			selectWriteFile('ALBUM');		//HTMLファイル再出力
+		} else {
+			jAlert(
+				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
+				'メンテナンス' ,
+				function() {
+					location.href = 'login.html';
+				}
+			);
 		}
 	});
+
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at delNewsItem:' + response.status + ' ' + textStatus);
+	});
+
+	result.always(function() {
+	});
+
+
+
+
 }
 
 

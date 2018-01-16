@@ -149,3 +149,29 @@ div.sendSelectPage {
 
 	float:left;
 }
+
+
+
+div.delPrompt {
+	position: absolute;
+	z-index: 99999;
+	padding: 0px;
+	margin: 0px;
+	min-width: 310px;
+	max-width: 310px;
+	top: 329px;
+	left: 436.5px;
+	display:none;
+}
+
+div.editDirDlg {
+	position: absolute;
+	z-index: 999;
+	padding: 0px;
+	margin: 0px;
+	min-width:
+	310px;
+	max-width: 410px;
+	top: 324px;
+	left: 422.5px;
+}

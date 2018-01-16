@@ -554,20 +554,10 @@ var listMax;
 }
 
 
-/***********************************************************************************************************************/
 /********************
 削除
 ********************/
 function cfmDelNews() {
-
-/*
-	jConfirm('消していいの？' ,'プロファイルの削除' ,function(r) {
-		if(r==true){jAlert('OKをクリックしました。', '確認ダイアログ分岐後');}
-		else{jAlert('Cancelをクリックしました。', '確認ダイアログ分岐後');}
-	});
-*/
-
-	/*	$('.cfmDelPrompt').css('display' ,'block');	*/
 
 	$('#DelNewsDlg').css('display' ,'block');
 }
@@ -585,27 +575,35 @@ function hideDelNews() {
 *******************/
 function delNewsItem() {
 
-var newsNo   = $('#editNewsNo').val();
-var result;
-
-	result = $.ajax({
+var newsNo = $('#editNewsNo').val();
+var result = $.ajax({
 		type : "post" ,
-		url  : "cgi/ajax/delNewsItem.php" ,
+		url  : "../cgi2018/ajax/mtn/delNewsItem.php" ,
 		data : {
 			branchNo : BRANCH_NO ,
 			newsNo   : newsNo
 		} ,
 
-		cache : false
+		cache    : false  ,
+		dataType : 'json'
 	});
 
 	result.done(function(response) {
 					//console.debug(response);
-
-			showNewsList();		/* リスト表示 */
-
+		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			hideDelNews();
 			$("#editNews").dialog("close");
+			getNewsList();		/* 最新のニュースリストを再読み込み */
+			selectWriteFile('NEWS');		//HTMLファイル再出力
+		} else {
+			jAlert(
+				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
+				'メンテナンス' ,
+				function() {
+					location.href = 'login.html';
+				}
+			);
+		}
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {
@@ -614,13 +612,4 @@ var result;
 
 	result.always(function() {
 	});
-}
-
-/********************
-リスト表示
-********************/
-function showNewsList() {
-
-	$("#bldNewsList").prop('disabled' ,true);
-	getNewsList();
 }
