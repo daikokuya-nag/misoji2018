@@ -50,6 +50,7 @@ class fileName5C {
 		// ページファイル
 /*
 		'404'            => array('' ,'404'       ) ,
+		'INDEX'          => array('' ,'index'     ) ,
 		'TOP'            => array('' ,'top'       ) ,
 		'NEWS'           => array('' ,'news'      ) ,
 		'ALBUM'          => array('' ,'album'     ) ,
@@ -65,6 +66,7 @@ class fileName5C {
 */
 		// ページファイルのテスト用
 		'404'            => array('' ,'4042018'       ) ,
+		'INDEX'          => array('' ,'index2018'     ) ,
 		'TOP'            => array('' ,'top2018'       ) ,
 		'NEWS'           => array('' ,'news2018'      ) ,
 		'ALBUM'          => array('' ,'album2018'     ) ,
@@ -80,6 +82,7 @@ class fileName5C {
 
 		// テンプレートファイル
 		'404_TEMPLATE'           => array('' ,'404TEMPLATE'       ) ,
+		'INDEX_TEMPLATE'         => array('' ,'indexTEMPLATE'     ) ,
 		'TOP_TEMPLATE'           => array('' ,'topTEMPLATE'       ) ,
 		'NEWS_TEMPLATE'          => array('' ,'newsTEMPLATE'      ) ,
 		'ALBUM_TEMPLATE'         => array('' ,'albumTEMPLATE'     ) ,

@@ -29,11 +29,21 @@ class siteConst5C {
 
 
 	static $htmlFileID = array(		// ファイル識別
-		'NEWS'    ,
-		'ALBUM'   ,
-		'RECRUIT' ,
-		'SYSTEM'  ,
-		'TOP'
+		'PC' => array(
+			'NEWS'    ,
+			'ALBUM'   ,
+			'RECRUIT' ,
+			'SYSTEM'  ,
+			'TOP'
+		) ,
+
+		'MO' => array(
+			'NEWS'    ,
+			'ALBUM'   ,
+			'RECRUIT' ,
+			'SYSTEM'  ,
+			'INDEX'
+		)
 	);
 
 	static $htmlFile = array(		// ファイル名
@@ -41,7 +51,8 @@ class siteConst5C {
 		'ALBUM'   => 'album.html'   ,
 		'RECRUIT' => 'recruit.html' ,
 		'SYSTEM'  => 'system.html'  ,
-		'TOP'     => 'top.html'
+		'TOP'     => 'top.html'     ,
+		'INDEX'   => 'index.html'
 	);
 
 	static $outItem = array(		// ファイル出力の有無
@@ -49,7 +60,8 @@ class siteConst5C {
 		'ALBUM'   => false ,
 		'RECRUIT' => false ,
 		'SYSTEM'  => false ,
-		'TOP'     => false
+		'TOP'     => false ,
+		'INDEX'   => false
 	);
 
 	static $menuStr = array(		// メニューバーの表示文字列
@@ -57,13 +69,14 @@ class siteConst5C {
 		'ALBUM'   => '女性一覧' ,
 		'RECRUIT' => '求人'     ,
 		'SYSTEM'  => 'システム' ,
-		'TOP'     => 'TOP'
+		'TOP'     => 'TOP'      ,
+		'INDEX'   => 'メニュー'
 	);
 
 
-	static function getHtmlFileIDList() {
+	static function getHtmlFileIDList($device) {
 
-		return self::$htmlFileID;
+		return self::$htmlFileID[$device];
 	}
 
 	static function getHtmlFileList() {

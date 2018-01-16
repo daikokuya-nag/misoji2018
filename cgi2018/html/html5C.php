@@ -35,6 +35,7 @@ class html5C {
 	var $branchNo;			//店No
 	var $fileID;			//出力するHTMLファイルの識別
 	var $profDir;			//プロファイルディレクトリ
+	var $device;			//対象デバイス
 
 	var $templateFileName;	//テンプレートファイル名
 	var $outFileName;		//出力先ファイル名
@@ -63,18 +64,19 @@ class html5C {
  * @throws
  * @todo
  */
-	function html5C($branchNo ,$fileID ,$profDir=null) {
+	function html5C($branchNo ,$device ,$fileID ,$profDir=null) {
 
 		$this->handle = new sql5C();
 		$this->branchNo = $branchNo;
+		$this->device   = $device;
 		$this->fileID   = $fileID;
 		$this->profDir  = $profDir;
 
 		//出力ファイル名の特定
 		if(strcmp($fileID ,'PROFILE') == 0) {
-			$this->outFileName = fileName5C::getFileName('PC' ,$this->fileID ,'' ,$this->branchNo ,$profDir);
+			$this->outFileName = fileName5C::getFileName($this->device ,$this->fileID ,'' ,$this->branchNo ,$profDir);
 		} else {
-			$this->outFileName = fileName5C::getFileName('PC' ,$this->fileID ,'' ,$this->branchNo);
+			$this->outFileName = fileName5C::getFileName($this->device ,$this->fileID ,'' ,$this->branchNo);
 		}
 
 		$templateVals = new templateConst5C();
@@ -99,8 +101,6 @@ class html5C {
 	function getFileSect() {
 
 		$this->fileSect = sess5C::getOutSect($this->fileID);
-
-				//print_r($this->fileSect);
 	}
 
 
@@ -134,7 +134,6 @@ class html5C {
 				//開始キーワードに一致したときはキーワードに応じて変換
 				$cnv = $this->cnvLine($sect1 ,$begKwd);
 			}
-
 			$lineMax = count($cnv);
 			for($lineIdx=0 ;$lineIdx<$lineMax ;$lineIdx++) {
 				$outSect[] = $cnv[$lineIdx];
@@ -160,7 +159,6 @@ class html5C {
 
 		$retKwd = '';
 		foreach($this->begValList as $sectIdx => $begKWD) {
-					//print $sectIdx . ' ' . $begKWD . "\n";
 			if(strcmp($line ,$begKWD) == 0) {
 				//$sectKWD = $this->sectionList[$sectIdx];
 				$retKwd = $sectIdx;		//$begKWD;
@@ -235,13 +233,18 @@ class html5C {
  */
 	private function setRecruit($sect ,$kwd) {
 
+		$outStr = sess5C::getOutVals($kwd);
+		if(strcmp($this->device ,common5C::DEVICE_MO) == 0) {
+			$outStr = mb_convert_encoding($outStr ,common5C::ENCODE_MO ,common5C::ENCODE_DEFAULT);
+		}
+
 		$ret = array();
 		$lineMax = count($sect);
 		for($idx=0 ;$idx<$lineMax ;$idx++) {
 			$line1 = $sect[$idx];
 
 			if(strcmp($line1 ,templateConst5C::RECRUIT_STR_VAL) == 0) {
-				$ret[] = sess5C::getOutVals($kwd);
+				$ret[] = $outStr;
 			} else {
 				if(strcmp($line1 ,$this->begValList[$kwd]) == 0
 				|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
@@ -268,13 +271,18 @@ class html5C {
  */
 	private function setSystem($sect ,$kwd) {
 
+		$systemStr = sess5C::getOutVals($kwd);
+		if(strcmp($this->device ,common5C::DEVICE_MO) == 0) {
+			$systemStr = mb_convert_encoding($systemStr ,common5C::ENCODE_MO ,common5C::ENCODE_DEFAULT);
+		}
+
 		$ret = array();
 		$lineMax = count($sect);
 		for($idx=0 ;$idx<$lineMax ;$idx++) {
 			$line1 = $sect[$idx];
 
 			if(strcmp($line1 ,templateConst5C::SYSTEM_STR_VAL) == 0) {
-				$ret[] = sess5C::getOutVals($kwd);
+				$ret[] = $systemStr;
 			} else {
 				if(strcmp($line1 ,$this->begValList[$kwd]) == 0
 				|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
@@ -324,14 +332,26 @@ class html5C {
 
 		for($idx=0 ;$idx<$idxMax ;$idx++) {
 			$news1 = $newsVal[$idx];
+
+			$title   = $news1[dbNews5C::FLD_TITLE];		//タイトル
+			$digest  = $news1[dbNews5C::FLD_DIGEST];	//概要
+			$content = $news1[dbNews5C::FLD_CONTENT];	//内容
+			$date    = $news1[dbNews5C::FLD_DATE];		//日付
+			if(strcmp($this->device ,common5C::DEVICE_MO) == 0) {
+				$title   = mb_convert_encoding($title   ,common5C::ENCODE_MO ,common5C::ENCODE_DEFAULT);
+				$digest  = mb_convert_encoding($digest  ,common5C::ENCODE_MO ,common5C::ENCODE_DEFAULT);
+				$content = mb_convert_encoding($content ,common5C::ENCODE_MO ,common5C::ENCODE_DEFAULT);
+				$date    = mb_convert_encoding($date    ,common5C::ENCODE_MO ,common5C::ENCODE_DEFAULT);
+			}
+
 			//出力タグへ変換
 			for($detailIdx=0 ;$detailIdx<$detailMax ;$detailIdx++) {
 				$this->detail1 = $detailStr[$detailIdx];
 
-				$this->replaceStr(templateConst5C::KWD_NEWS_TITLE_S   ,$news1[dbNews5C::FLD_TITLE]);	//タイトル
-				$this->replaceStr(templateConst5C::KWD_NEWS_DIGEST_S  ,$news1[dbNews5C::FLD_DIGEST]);	//概要
-				$this->replaceStr(templateConst5C::KWD_NEWS_CONTENT_S ,$news1[dbNews5C::FLD_CONTENT]);	//内容
-				$this->replaceStr(templateConst5C::KWD_NEWS_DATE_S    ,$news1[dbNews5C::FLD_DATE]);		//日付
+				$this->replaceStr(templateConst5C::KWD_NEWS_TITLE_S   ,$title);		//タイトル
+				$this->replaceStr(templateConst5C::KWD_NEWS_DIGEST_S  ,$digest);	//概要
+				$this->replaceStr(templateConst5C::KWD_NEWS_CONTENT_S ,$content);	//内容
+				$this->replaceStr(templateConst5C::KWD_NEWS_DATE_S    ,$date);		//日付
 
 				if(strlen($this->detail1) >= 1) {
 					$tagStr = $tagStr . $this->detail1 . common5C::CSRC_NL_CODE;
@@ -361,8 +381,10 @@ class html5C {
 		$ret = array();
 		$detailStr = array();
 		$lineMax = count($sect);
+
 		for($idx=0 ;$idx<$lineMax ;$idx++) {
 			$line1 = $sect[$idx];
+
 			if(strcmp($line1 ,$this->begValList[$kwd]) == 0
 			|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
 			} else {
@@ -395,6 +417,9 @@ class html5C {
 			}
 		}
 
+		if(strcmp($this->device ,common5C::DEVICE_MO) == 0) {
+			$prof1 = $this->cnvToSJIS($prof1);
+		}
 		$dir  = $prof1[dbProfile5C::FLD_DIR];
 		$name = $prof1[dbProfile5C::FLD_NAME];
 
@@ -425,12 +450,8 @@ class html5C {
 		if(strcmp($photoUse['5'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
 			$photoMax++;
 		}
-		$ret['LARGE'] = $photoMax;
-
-
 
 		//出力タグへ変換
-		$tagStr = '';
 		$detailMax = count($detailStr);
 		for($detailIdx=0 ;$detailIdx<$detailMax ;$detailIdx++) {
 			$this->detail1 = $detailStr[$detailIdx];
@@ -469,7 +490,12 @@ class html5C {
 			//写真表示
 			$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_OK);		/* 表示可 */
 			if($kwdPos >= 0) {
-				$this->setProfPhoto($dir ,$prof1 ,$photoUse);
+				if(strcmp($this->device ,common5C::DEVICE_MO) == 0) {
+					$this->detail1 = str_replace(templateConst5C::KWD_PHOTO_SHOW_OK ,'' ,$this->detail1);
+				} else {
+					$this->setProfPhoto($dir ,$prof1 ,$photoUse);
+				}
+
 			}
 
 			$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_NG);		/* 写真NG */
@@ -503,20 +529,27 @@ class html5C {
 			}
 
 			if(strlen($this->detail1) >= 1) {
-				$tagStr = $tagStr . $this->detail1 . common5C::CSRC_NL_CODE;
+				$ret = $ret . $this->detail1 . common5C::CSRC_NL_CODE;
 			}
 		}
-
-		$ret = $ret . $tagStr;
 
 		return $ret;
 	}
 
+	private function cnvToSJIS($profVal) {
+
+		$cnvVal = $profVal;
+		foreach($profVal as $key => $val) {
+			$cnvVal[$key] = mb_convert_encoding($val ,common5C::ENCODE_MO ,common5C::ENCODE_DEFAULT);
+		}
+
+		return $cnvVal;
+	}
+
+
 	private function setProfPhoto($profID ,$profData ,$photoData) {
 
-				//print 'show mode:' . $photoData['SHOWMODE']['L'];
 		$photoDir = '../photo/';
-				/* print_r($photoData['SHOWMODE']); */
 
 		$photoMax = 0;
 		if(strcmp($photoData['1'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
@@ -674,6 +707,9 @@ class html5C {
 			$prof1 = $profVal[$idx];
 			$dir  = $prof1[dbProfile5C::FLD_DIR];
 			$name = $prof1[dbProfile5C::FLD_NAME];
+			if(strcmp($this->device ,common5C::DEVICE_MO) == 0) {
+				$name = mb_convert_encoding($name ,common5C::ENCODE_MO ,common5C::ENCODE_DEFAULT);
+			}
 
 			$TNNo =
 				'wivesTN2' . $wivesTN[2] . ' ' . 'wivesTN3' . $wivesTN[3] . ' ' . 'wivesTN4' . $wivesTN[4] . ' ' . 'wivesTN5' . $wivesTN[5] . ' ' .
@@ -736,7 +772,6 @@ class html5C {
 
 			//サムネイル表示判定
 			$photoUse = $photoVal->getUsePhoto($dir ,$photoID);
-					print_r($photoUse);
 
 			//出力タグへ変換
 			$tagStr = '';
@@ -872,7 +907,6 @@ class html5C {
 			$line1 = $sect[$idx];
 			if(strcmp($line1 ,templateConst5C::TOP_PAGE_HEADER_STR_VAL) == 0) {
 				$headerVal = sess5C::getOutVals($kwd);
-							//print_r($headerVal);
 				$disp = $this->setTopPageHeaderImg($headerVal);
 				//表示する画像が1枚の時と2枚以上の時で表示タグを分ける
 				if(count($disp) >= 2) {
@@ -1091,13 +1125,20 @@ class html5C {
 		$ret = '';
 
 		$menuVals = sess5C::getOutVals($kwd);
-				//print_r($menuVals);
-				//print $this->fileID;
 
 		$currFileID = $this->fileID;
-		$menuList = siteConst5C::getHtmlFileIDList();
-		$menuStr  = siteConst5C::getMenuStrList();		//メニューに表示する文字列
+		$menuList   = siteConst5C::getHtmlFileIDList($this->device);
+		$menuStrOrg = siteConst5C::getMenuStrList();		//メニューに表示する文字列
 
+		if(strcmp($this->device ,common5C::DEVICE_MO) == 0) {
+			foreach($menuStrOrg as $key => $val) {
+				$menuStr[$key]  = mb_convert_encoding($val ,common5C::ENCODE_MO ,common5C::ENCODE_DEFAULT);
+			}
+		} else {
+			$menuStr = $menuStrOrg;
+		}
+
+		$accKeyStr = 1;
 		$menuMax = count($menuList);
 		for($idx=0 ;$idx<$menuMax ;$idx++) {
 			$targetID = $menuList[$idx];
@@ -1109,7 +1150,7 @@ class html5C {
 			}
 
 			if(strcmp($target ,'OWN_SITE') == 0) {
-				$urlList = fileName5C::getFileName('PC' ,$targetID ,'' ,'');
+				$urlList = fileName5C::getFileName($this->device ,$targetID ,'' ,'');
 				$url = $urlList['fileName'];
 				if(strcmp($this->fileID ,'PROFILE') == 0) {
 					$url = '../' . $url;		//女性紹介ページのときは階層を一つ上がる
@@ -1118,12 +1159,17 @@ class html5C {
 				$url = $menuVals[$targetID]['URL'];
 			}
 
-			if(strcmp($targetID ,$currFileID) == 0) {
-				//自ページの時はリンクを入れない
-				$lineStr = '				<li class="active"><a href="#">' . $menuStr[$targetID] . '<span class="sr-only">(current)</span></a></li>';
+			if(strcmp($this->device ,common5C::DEVICE_MO) == 0) {
+				$lineStr = '<a accesskey="' . $accKeyStr . '" href="' . $url . '">' . $menuStr[$targetID] . '</a><br>';
+				$accKeyStr++;
 			} else {
-				//自ページでないとき
-				$lineStr = '				<li><a href="' . $url . '">' . $menuStr[$targetID] . '</a></li>';
+				if(strcmp($targetID ,$currFileID) == 0) {
+					//自ページの時はリンクを入れない
+					$lineStr = '				<li class="active"><a href="#">' . $menuStr[$targetID] . '<span class="sr-only">(current)</span></a></li>';
+				} else {
+					//自ページでないとき
+					$lineStr = '				<li><a href="' . $url . '">' . $menuStr[$targetID] . '</a></li>';
+				}
 			}
 
 			$ret = $ret . $lineStr . common5C::CSRC_NL_CODE;

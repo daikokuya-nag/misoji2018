@@ -1,6 +1,6 @@
 <?php
 /********************
-出力ファイルの抽出 Version 1.0
+携帯用出力ファイルの抽出 Version 1.0
 PHP5
 2016 Feb. 23 ver 1.0
 ********************/
@@ -36,26 +36,12 @@ PHP5
 
 	if(strlen($profDir) <= 0) {
 		// 紹介ページ以外を編集したとき
-		//紹介ページ
-		$fileID = 'PROFILE';
-		$outVal = readTemplateFile($fileID ,$outID ,$branchNo);
-		if(isset($outVal['OUT_FILE_NAME']['fileName'])) {
-			$outFile['PROFILE'] = setProfiles($branchNo);
-
-			$useItem = $outVal['outItem'];
-			$itemMax = count($useItem);
-			for($idx=0 ;$idx<$itemMax ;$idx++) {
-				$item = $useItem[$idx];
-				$outItem[$item] = true;			//対象項目をON
-			}
-		}
-
 		//紹介ページ以外
 		$fileList = siteConst5C::getHtmlFileList();		//出力対象ファイル
 		$idxMax = count($fileList);
 		foreach($fileList as $fileID => $fileName) {
 			//ファイルの中身を検索して当該要素があれば出力対象にする
-			$outVal = readTemplateFile($fileID ,$outID ,$branchNo);
+			$outVal = readTemplateFileMO($fileID ,$outID ,$branchNo);
 								//print_r($outVal);
 			if(isset($outVal['OUT_FILE_NAME']['fileName'])) {
 				$outFile[$fileID] = $outVal['OUT_FILE_NAME']['fileName'];		//出力対象
@@ -71,7 +57,7 @@ PHP5
 	} else {
 		// 紹介ページを編集したとき
 		//紹介ページ
-		$outVal = readTemplateFile('PROFILE' ,'PROFILE' ,$branchNo);
+		$outVal = readTemplateFileMO('PROFILE' ,'PROFILE' ,$branchNo);
 		if(isset($outVal['OUT_FILE_NAME']['fileName'])) {
 			$outFile['PROFILE'][$profDir] = $profDir . '.html';
 
@@ -88,7 +74,7 @@ PHP5
 		$idxMax = count($fileList);
 		foreach($fileList as $fileID => $fileName) {
 			//ファイルの中身を検索して当該要素があれば出力対象にする
-			$outVal = readTemplateFile($fileID ,$outID ,$branchNo);
+			$outVal = readTemplateFileMO($fileID ,$outID ,$branchNo);
 								//print_r($outVal);
 			if(isset($outVal['OUT_FILE_NAME']['fileName'])) {
 				$outFile[$fileID] = $outVal['OUT_FILE_NAME']['fileName'];		//出力対象
@@ -103,7 +89,6 @@ PHP5
 		}
 	}
 
-
 	//出力する要素をセッションに保持
 	foreach($outItem as $item1 => $val) {
 					//print $item1 . "\n";
@@ -116,34 +101,13 @@ PHP5
 	print json_encode($outFile);
 
 
-	function setProfiles($branchNo) {
-
-		$ret = array();
-
-		$prof = new dbProfile5C();
-		$list = $prof->readShowableProf($branchNo);
-
-		$profList = $list['profInfo'];
-		$idxMax   = $list['count'];
-		for($idx=0 ;$idx<$idxMax ;$idx++) {
-			$prof1 = $profList[$idx];
-			$dir = $prof1[dbProfile5C::FLD_DIR];
-
-			$fileName = $dir . '.html';
-			$ret[$dir] = $fileName;
-		}
-
-		return $ret;
-	}
-
-
-	function readTemplateFile($fileID ,$outID ,$branchNo) {
+	function readTemplateFileMO($fileID ,$outID ,$branchNo) {
 
 		//テンプレートファイル名の抽出
-		$templateFileName = fileName5C::getFileName('PC' ,$fileID . '_TEMPLATE' ,'' ,$branchNo);
+		$templateFileName = fileName5C::getFileName('MO' ,$fileID . '_TEMPLATE' ,'' ,$branchNo);
 		//出力ファイル名の抽出
-		$outFileName = fileName5C::getFileName('PC' ,$fileID ,'' ,$branchNo);
-
+		$outFileName = fileName5C::getFileName('MO' ,$fileID ,'' ,$branchNo);
+					//print $templateFileName['fullPath'] . ' ' . $outFileName['fullPath'] . "\n";
 		//そのファイルの出力項目の取り出し
 		$template = new template5C();
 		$template->read($templateFileName['fullPath']);	//ファイル読み込み

@@ -11,6 +11,7 @@ PHP5
 
 
 	$branchNo = $_REQUEST['branchNo'];	/* 店No */
+	$device   = $_REQUEST['device'  ];	/* 対象デバイス */
 	$fileID   = $_REQUEST['fileID'  ];	/* ファイルID */
 	$profName = $_REQUEST['profName'];	/* ファイル名（要るか？） */
 
@@ -20,9 +21,9 @@ PHP5
 	$vals = sess5C::getOutVals($fileID);
 
 	if(strcmp($fileID ,'PROFILE') == 0) {
-		$out = new html5C($branchNo ,$fileID ,$profName);
+		$out = new html5C($branchNo ,$device ,$fileID ,$profName);
 	} else {
-		$out = new html5C($branchNo ,$fileID);
+		$out = new html5C($branchNo ,$device ,$fileID);
 	}
 
 	$out->getFileSect();

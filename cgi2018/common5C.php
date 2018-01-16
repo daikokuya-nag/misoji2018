@@ -38,10 +38,16 @@ class common5C {
 	const DECO_CSS_STYLE = 'S';	/* style */
 	const DECO_FONT      = 'F';	/* style sheet以外 */
 
+	/* ルートディレクトリ */
 	const DIR_PC = '';
 	const DIR_SP = '';
-	const DIR_MO = '';
+	const DIR_MO = 'mo';
 
+	// 文字コード
+	const ENCODE_DEFAULT = 'UTF-8';
+	const ENCODE_PC = 'UTF-8';
+	const ENCODE_SP = 'UTF-8';
+	const ENCODE_MO = 'SJIS';
 
 /**
  * 不足関数の追加

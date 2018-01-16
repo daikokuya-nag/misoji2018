@@ -1,26 +1,20 @@
 /*************************
-ファイル出力 Version 1.0
+携帯用ファイル出力 Version 1.0
 2016 Jan. 25 ver 1.0
 *************************/
 
-var ALL_OUT_FILES_PC;
-var ALL_WROTE_FILES_PC;
-var ALL_DONE_PC;
-var FROM;
-var PROF_DIR;
-var OUT_ITEM;
+var ALL_OUT_FILES_MO;
+var ALL_WROTE_FILES_MO;
+var ALL_DONE_MO;
 
 /********************
 出力対象ファイルの抽出
 ********************/
-function selectWriteFile(outItem) {
-
-	FROM     = 'other';
-	OUT_ITEM = outItem;
+function selectWriteFileMO(outItem) {
 
 var result = $.ajax({
 		type : "get" ,
-		url  : "../cgi2018/ajax/mtn/selectWriteFile.php" ,
+		url  : "../cgi2018/ajax/mtn/selectWriteFileMO.php" ,
 		data : {
 			branchNo : BRANCH_NO ,
 			outItem  : outItem
@@ -32,11 +26,11 @@ var result = $.ajax({
 
 	result.done(function(response) {
 					console.debug(response);
-		writeHTMLFile(response);
+		writeHTMLFileMO(response);
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {
-					console.debug('error at selectWriteFile:' + response.status + ' ' + textStatus);
+					console.debug('error at selectWriteFileMO:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -46,14 +40,13 @@ var result = $.ajax({
 /********************
 プロファイル編集時の出力対象ファイルの抽出
 ********************/
-function writeProfHTMLFile(profDir) {
+function writeProfHTMLFileMO(profDir) {
 
-	FROM     = 'profile';
-	PROF_DIR = profDir;
+console.debug(profDir);
 
 var result = $.ajax({
 		type : "get" ,
-		url  : "../cgi2018/ajax/mtn/selectWriteFile.php" ,
+		url  : "../cgi2018/ajax/mtn/selectWriteFileMO.php" ,
 		data : {
 			branchNo : BRANCH_NO ,
 			outItem  : 'ALBUM'   ,
@@ -66,11 +59,11 @@ var result = $.ajax({
 
 	result.done(function(response) {
 					console.debug(response);
-		writeHTMLFile(response);
+		writeHTMLFileMO(response);
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {
-					console.debug('error at selectWriteFile:' + response.status + ' ' + textStatus);
+					console.debug('error at selectWriteFileMO:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -81,7 +74,7 @@ var result = $.ajax({
 /********************
 HTMLファイルの出力
 ********************/
-function writeHTMLFile(fileList) {
+function writeHTMLFileMO(fileList) {
 
 var fileID;
 var fileName;
@@ -97,22 +90,24 @@ var profMax = 0;
 		profMax  = Object.keys(profList).length;
 	}
 
-	ALL_OUT_FILES_PC   = idxMax + profMax;		//出力する全ファイル数
-	ALL_WROTE_FILES_PC = 0;
-	ALL_DONE_PC = false;
+	ALL_OUT_FILES_MO   = idxMax + profMax;		//出力する全ファイル数
+	ALL_WROTE_FILES_MO = 0;
+	ALL_DONE_MO = false;
+
+console.debug('全ファイル数:' + ALL_OUT_FILES_MO);
 
 	//紹介ページ以外の出力
 	for(fileID in fileList) {
 		fileName = fileList[fileID]
 				//console.debug(fileID + ' ' + fileName);
-		writeHTMLFileMain(fileID ,'');
+		writeHTMLFileMOMain(fileID ,'');
 	}
 
 	//紹介ページの出力
 	for(fileID in profList) {
 		fileName = profList[fileID]
 				//console.debug(fileID + ' ' + fileName);
-		writeHTMLFileMain('PROFILE' ,fileID);
+		writeHTMLFileMOMain('PROFILE' ,fileID);
 	}
 }
 
@@ -121,14 +116,14 @@ var profMax = 0;
 /********************
 HTMLファイルの出力の本体
 ********************/
-function writeHTMLFileMain(fileID ,profName) {
+function writeHTMLFileMOMain(fileID ,profName) {
 
 var result = $.ajax({
 		type : "post" ,
 		url  : "../cgi2018/ajax/mtn/writeHTMLFile.php" ,
 		data : {
 			branchNo : BRANCH_NO ,
-			device   : 'PC'      ,
+			device   : 'MO'      ,
 			fileID   : fileID    ,
 			profName : profName
 		} ,
@@ -141,20 +136,18 @@ var result = $.ajax({
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {
-					console.debug('error at writeHTMLFileMain:' + response.status + ' ' + textStatus);
+					console.debug('error at writeHTMLFileMOMain:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
-		ALL_WROTE_FILES_PC++;
-		if(ALL_WROTE_FILES_PC >= ALL_OUT_FILES_PC) {
-			if(!ALL_DONE_PC) {
-				ALL_DONE_PC = true;
-
-				if(FROM == 'profile') {
-					writeProfHTMLFileMO(PROF_DIR);
-				} else {
-					selectWriteFileMO(OUT_ITEM);
-				}
+		ALL_WROTE_FILES_MO++;
+		if(ALL_WROTE_FILES_MO >= ALL_OUT_FILES_MO) {
+			if(!ALL_DONE_MO) {
+				ALL_DONE_MO = true;
+				jAlert(
+					'ファイル出力完了' ,
+					'メンテナンス'
+				);
 			}
 		}
 	});

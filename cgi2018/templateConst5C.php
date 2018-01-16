@@ -53,9 +53,7 @@ class templateConst5C {
 
 		'TOP_PAGE_HEADER' => self::TOP_PAGE_HEADER_BEG_LINE ,
 
-		'PAGE_MENU' => self::MENU_BEG_LINE  ,
-
-		'BEG_A' ,'BEG_B' ,'BEG_C'
+		'PAGE_MENU' => self::MENU_BEG_LINE
 	);
 	var $endList = array(			// セクションの終了キーワードリスト
 		'RECRUIT' => self::RECRUIT_END_LINE ,
@@ -67,9 +65,7 @@ class templateConst5C {
 
 		'TOP_PAGE_HEADER' => self::TOP_PAGE_HEADER_END_LINE ,
 
-		'PAGE_MENU' => self::MENU_END_LINE  ,
-
-		'END_A' ,'END_B' ,'END_C'
+		'PAGE_MENU' => self::MENU_END_LINE
 	);
 
 
