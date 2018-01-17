@@ -88,6 +88,7 @@
 <script src="../js2018/parsley/i18n/ja.extra.js"></script>
 
 <script src="../js2018/mtn/writeFile.js?<?php print $vesion; ?>"></script>
+<script src="../js2018/mtn/writeFileMO.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/ctrlSess.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/logoutSess.js?<?php print $vesion; ?>"></script>
 
@@ -324,7 +325,7 @@
 	</div>
 </div>
 <br>
-<div id="divLogout"><input type="button" value="ログアウト" onclick="logout()"></div>
+<div id="divLogout"><input type="button" value="ログアウト" onclick="logout()"></div>&nbsp;&nbsp;&nbsp;&nbsp;<a href="../top2018.html" target="_blank">テスト表示</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="../mo/index2018.html" target="_blank">携帯用テスト表示</a>
 <div id="lastDate">V1R3</div>
 
 
@@ -388,7 +389,7 @@
 		</div>
 	</form>
 
-	<div id="DelNewsDlg" class="cfmDelPrompt ui-draggable" style="position: absolute; z-index: 99999; padding: 0px; margin: 0px; min-width: 310px; max-width: 310px; top: 329px; left: 436.5px;   display:none">
+	<div id="DelNewsDlg" class="cfmDelPrompt ui-draggable delPrompt">
 		<h1 id="popup_titleDelNews" style="cursor: move;">記事の削除</h1>
 		<div id="popup_contentDelNews" class="confirm">
 			<div id="popup_messageDelNews">記事を削除しますか？<br>この操作は取り消せません</div>
@@ -435,7 +436,7 @@
 							<div id="enterProfE">	<!-- 更新 -->
 								<div id="profDirShow"></div><div id="editDir"><input type="button" value="識別子変更" id="editDirBtn" onclick="showEditDir();"  ></div>
 
-								<div id="editDirDlg" class="ui-draggable editDirDlg" style="position: absolute; z-index: 999; padding: 0px; margin: 0px; min-width: 310px; max-width: 410px; top: 324px; left: 422.5px;">
+								<div id="editDirDlg" class="ui-draggable editDirDlg">
 									<h1 id="popup_titleDir" style="cursor: move;">識別子変更</h1>
 									<div id="popup_contentDir" class="prompt">
 										<div id="popup_messageDir">
@@ -718,7 +719,7 @@
 		その他入力
 	</div>
 
-	<div id="DelDirDlg" class="cfmDelPrompt ui-draggable" style="position: absolute; z-index: 99999; padding: 0px; margin: 0px; min-width: 310px; max-width: 310px; top: 329px; left: 436.5px;   display:none">
+	<div id="DelDirDlg" class="cfmDelPrompt ui-draggable delPrompt">
 		<h1 id="popup_titleDelDir" style="cursor: move;">プロファイルの削除</h1>
 		<div id="popup_contentDelDir" class="confirm">
 			<div id="popup_messageDelDir">プロファイル情報を削除しますか？<br>この操作は取り消せません</div>

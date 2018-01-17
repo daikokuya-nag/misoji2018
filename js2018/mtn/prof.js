@@ -435,8 +435,6 @@ console.debug(currID + ' ' + newID);
 }
 
 
-
-
 /********************
 表示順、表示/非表示更新時の出力
 ********************/
@@ -479,126 +477,6 @@ var result = $.ajax({
 	});
 
 	result.always(function() {
-	});
-}
-
-
-/********************
-リスト再表示
-********************/
-function showProfListAll() {
-
-var profListTag;
-
-	$.ajax({
-		type : "get" ,
-		url  : "cgi/ajax/bldProfList.php" ,
-		data : {
-			branchNo : BRANCH_NO
-		} ,
-
-		cache    : false  ,
-		dataType : 'json' ,
-
-		success : function(result) {
-					console.debug(result);
-			profListTag = result;
-					//console.debug(ret['TITLE']);
-		} ,
-
-		error : function(result) {
-					console.debug('error at showProfListAll:' + result);
-		} ,
-
-		complete : function(result) {
-					//alert(newTag['data']);
-			/*** ニュース埋め込み用 ***/
-//			$("#profListD").html(profListTag['news']['data']);
-
-			/*** 定型文埋め込み用 ***/
-//			$("#profListFPD").html(profListTag['news']['data']);
-
-			/*** プロファイルリスト ***/
-			$("#profSeqListD").html(profListTag['prof']['data']);
-
-			$("#profSeqList").tableDnD({
-				onDrop: function(table, row) {
-									//profOrder = $.tableDnD.serialize();
-									//		console.debug(profOrder);
-									//enableWriteProfSeq();
-				}
-			});
-
-			$(".dispProfSW").toggleSwitch();
-		}
-	});
-
-}
-
-/********************
-アルバムHTML、JSのファイル出力
-********************/
-function bldProfListHTML(bld) {
-
-	$.ajax({
-		type :"post" ,
-		url  :"cgi/ajax/bldProfHTML.php" ,
-		data : {
-			branchNo : BRANCH_NO ,
-			bld      : bld       ,
-			profDir  : ''
-		} ,
-
-		cache    :false ,
-//		dataType :'json' ,
-
-		success :function(result) {
-					console.debug(result);
-			ret = result;
-					//console.debug(ret['TITLE']);
-		} ,
-
-		error :function(result) {
-					console.debug('error at bldProfListHTML:' + result);
-		}
-	});
-}
-
-
-
-
-/*******************************************************************************/
-/*******************************************************************************/
-/*******************************************************************************/
-/*******************************************************************************/
-/*******************************************************************************/
-/*******************************************************************************/
-
-
-
-
-function writeProfOrder(profOrder) {
-
-	$.ajax({
-		type : "post" ,
-		url  : "cgi/ajax/writeOrderDebug.php" ,
-		data : {
-			order : profOrder
-		} ,
-
-		cache    : false ,
-
-		success : function(result) {
-					console.debug(result);
-		} ,
-
-		error : function(result) {
-					console.debug('error at writeProfOrder:' + result);
-		} ,
-
-		complete : function(result) {
-					//console.debug(result);
-		}
 	});
 }
 
@@ -800,35 +678,6 @@ var chkResult = '';
 }
 
 
-/********************
-HTMLファイル出力
-********************/
-function bldProfHTML(profDir) {
-
-//	$.ajax({
-//		type :"post" ,
-//		url  :"cgi/ajax/bldProfHTML.php" ,
-//		data : {
-//			branchNo : BRANCH_NO ,
-//			profDir  : profDir
-//		} ,
-//
-//		cache    :false ,
-////		dataType :'json' ,
-//
-//		success :function(result) {
-//					console.debug(result);
-//			ret = result;
-//					//console.debug(ret['TITLE']);
-//		} ,
-//
-//		error :function(result) {
-//					console.debug('error at bldProfHTML:' + result);
-//		}
-//	});
-}
-
-
 /*******************
 識別子変更のpopupを表示
 *******************/
@@ -841,64 +690,9 @@ var currDir = $("#profDirShow").html();
 	$("#newDir").val(currDir);
 	$("#editDirDlg").css('display' ,'block');
 
-					$("#editDirDlg").draggable({ handle: $("#popup_titleDir") });
-					$("#popup_titleDir").css({ cursor: 'move' });
-
-
-
-/*
-$("BODY").append('\
-\
-\
-							<div id="popup_container" class="ui-draggable" style="position: absolute; z-index: 999; padding: 0px; margin: 0px; min-width: 310px; max-width: 310px; top: 324px; left: 422.5px;">\
-								<h1 id="popup_title" style="cursor: move;">Prompt Dialog</h1>\
-								<div id="popup_content" class="prompt">\
-									<div id="popup_message">\
-										Type something:<br>\
-										<input type="text" size="30" id="popup_promptA" name="popup_promptA" style="width: 220px;" value="aaabbbccc">\
-<br>\
-<textarea id="abc" name="abc" cols="60" rows="1" style="color:#ff0000;">dddeeefff</textarea>\
-										<input type="checkbox" size="30" name="aaa" style="width: 220px;" onchange="alert(\'aa\')">\
-<br>\
-										<input type="radio" size="30" name="bbb" style="width: 220px;">\
-										<input type="radio" size="30" name="bbb" style="width: 220px;">\
-									</div>\
-									<div id="popup_panel">\
-										<input type="button" value="&nbsp;OK&nbsp;" id="popup_ok" onclick="alert(\'clicked ok\')">\
-										<input type="button" value="&nbsp;Cancel&nbsp;" id="popup_cancel">\
-									</div>\
-								</div>\
-							</div>\
-						<div style="position: absolute; z-index: 998; top: 0px; left: 0px; width: 100%; height: 1214px; opacity: 0.01; background: rgb(255, 255, 255);"></div>\
-\
-');
-*/
-
-
-/*
-$("BODY").append('\
-						<div style="position: absolute; z-index: 998; top: 0px; left: 0px; width: 100%; height: 1214px; opacity: 0.01; background: rgb(255, 255, 255);"></div>\
-\
-');
-*/
-
-
+	$("#editDirDlg").draggable({ handle: $("#popup_titleDir") });
+	$("#popup_titleDir").css({ cursor: 'move' });
 }
-
-/*
-$(document).ready( function() {
-
-	$("#editDirBtn").click( function() {
-		jPrompt('Type something:',
-				'Prefilled valueあ',
-				'Prompt Dialog',
-				function(r) {
-					if( r ) alert('You entered ' + r);
-				});
-		});
-	});
-*/
-
 
 /*******************
 識別子変更のpopupを非表示
@@ -924,7 +718,7 @@ var currDir = $("#profDirShow").html();		//更新前
 		}
 	}
 
-var result  = 	$.ajax({
+var result = $.ajax({
 		type :"post" ,
 		url  :"../cgi2018/ajax/mtn/updProfDir.php" ,
 		data : {
@@ -940,10 +734,14 @@ var result  = 	$.ajax({
 	result.done(function(response) {
 					//console.debug(response);
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
-			hideEditDir();
-			$("#editProfDlg").dialog("close");
+			$('#profDir').val(newDir);
+			$('#profDirShow').html(newDir);
+
 			getProfileList();
-			selectWriteFile('ALBUM');		//HTMLファイル再出力
+			writeProf();	//HTMLファイル再出力
+
+			$("#editProfDlg").dialog("close");
+			hideEditDir();
 		} else {
 			jAlert(
 				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
@@ -956,7 +754,7 @@ var result  = 	$.ajax({
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {
-			console.debug('error at delNewsItem:' + response.status + ' ' + textStatus);
+			console.debug('error at updProfDir:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -1040,7 +838,6 @@ var i;
 
 	$.ajax({
 		type :"get" ,
-			/*url  :"cgi/ajax/getAllProf.php" ,*/
 		url  : "cgi/ajax/getProfileList.php" ,
 		data : {
 			branchNo : BRANCH_NO
@@ -1068,53 +865,12 @@ var i;
 			if(profMax >= 1) {
 				for(i=0 ;i<profMax ;i++) {
 							/*updProf(groupNo ,branchNo ,profDir[i]);*/
-					bldProfHTML(profDir[i]);
+					//bldProfHTML(profDir[i]);
 				}
 				alert('全件出力完了');
 			}
 
 		}
 	});
-
-}
-
-/*******************
-HTMLファイル更新
-*******************/
-function updProf(groupNo ,branchNo ,profDir) {
-
-	$.ajax({
-		type :"post" ,
-		url  :"cgiA/ajax/bldProfHTML.php" ,
-		data : {
-			groupNo  :groupNo  ,
-			branchNo :branchNo ,
-			profDir  :profDir
-		} ,
-
-		cache    :false ,
-//		dataType :'json' ,
-
-		success :function(result) {
-					console.debug(result);
-			ret = result;
-					//console.debug(ret['TITLE']);
-		} ,
-
-		error :function(result) {
-					console.debug('error at updProf:' + result);
-		}
-	});
-
-}
-
-
-
-/***********************************************************************************************************************/
-
-/*****
-出勤表入力域表示
-*****/
-function showWorkArea() {
 
 }

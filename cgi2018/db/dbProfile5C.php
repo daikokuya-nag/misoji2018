@@ -1318,6 +1318,26 @@ class dbProfile5C {
 	}
 
 
+	/********************
+	ディレクトリ名の変更
+	パラメータ：現状のディレクトリ名
+	　　　　　　新しいディレクトリ名
+	戻り値　　：
+	********************/
+	function updDir($oldDir ,$newDir) {
+
+		$db = $this->handle;
+
+		$fldList = self::FLD_DIR . '=' . $db->setQuote($newDir);
+
+		$where =
+			self::FLD_BRANCH_NO . '=' . $this->branchNo . ' and ' .
+			self::FLD_DIR       . '=' . $db->setQuote($oldDir);
+
+		$db->updateRec(self::TABLE_NAME ,$fldList ,$where);
+	}
+
+
 /*****************************************************************************************************************************/
 	/********************
 	プロファイルデータの読み込みの本体

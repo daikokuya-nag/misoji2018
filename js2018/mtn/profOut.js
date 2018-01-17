@@ -47,64 +47,6 @@ var result = $.ajax({
 	});
 }
 
-
-
-/***** 事後処理 *****/
-function writeProfileNext2(profListTag) {
-
-				//alert(newTag['data']);
-	/*** ニュース埋め込み用 ***/
-	$("#profListD").html(profListTag['news']['data']);
-
-	/*** 定型文埋め込み用 ***/
-	$("#profListFPD").html(profListTag['news']['data']);
-
-	/*** プロファイルリスト ***/
-	$("#profSeqListD").html(profListTag['prof']['data']);
-
-	$("#profSeqList").tableDnD({
-		onDrop: function(table, row) {
-							//profOrder = $.tableDnD.serialize();
-							//		console.debug(profOrder);
-							//enableWriteProfSeq();
-		}
-	});
-
-	$(".dispProfSW").toggleSwitch();
-
-	$("#profSeqList").tableDnD({
-		onDrop: function(table, row) {
-			profOrder = $.tableDnD.serialize();
-					console.debug(profOrder);
-			enableWriteProfSeq();
-		}
-	});
-
-	var newProf  = $('#newProf').val();
-			//imgFileUpload();
-	if(newProf == 'edit') {
-		dlgStr = 'プロファイルの更新完了';
-	} else {
-		dlgStr = 'プロファイルの新規登録完了';
-	}
-	alert(dlgStr);
-
-
-	$("#attF1").replaceWith('<input type="file" name="attF1" id="attF1">');
-	$("#attF2").replaceWith('<input type="file" name="attF2" id="attF2">');
-	$("#attF3").replaceWith('<input type="file" name="attF3" id="attF3">');
-	$("#attF4").replaceWith('<input type="file" name="attF4" id="attF4">');
-	$("#attF5").replaceWith('<input type="file" name="attF5" id="attF5">');
-
-	$("#attTN").replaceWith('<input type="file" name="attTN" id="attTN">');
-	$("#attML").replaceWith('<input type="file" name="attML" id="attML">');
-
-
-	$("#editProfDlg").dialog("close");
-}
-
-
-/********************************************/
 function setVals() {
 
 // FormData オブジェクトを作成
@@ -191,9 +133,8 @@ var photoShow = $('input[name="photoUSE"]:checked').val();
 	/***** 週間出勤表 *****/
 var idF;
 
-			/***** デフォルト分 *****/
+		/***** デフォルト分 *****/
 	idF = '#workDef';
-
 	fd.append("sunF" ,$(idF + '0F').val());
 	fd.append("sunT" ,$(idF + '0T').val());
 	fd.append("sunM" ,$("input[name='workSele0']:checked").val());
@@ -222,9 +163,8 @@ var idF;
 	fd.append("satT" ,$(idF + '6T').val());
 	fd.append("satM" ,$("input[name='workSele6']:checked").val());
 
-			/***** 予定外 *****/
+		/***** 予定外 *****/
 	idF = '#workDiff';
-
 	fd.append("diff1F" ,$(idF + '0F').val());
 	fd.append("diff1T" ,$(idF + '0T').val());
 	fd.append("diff1M" ,$("input[name='workDiff0']:checked").val());
@@ -256,8 +196,7 @@ var idF;
 
 /*** 予定外の日付 ***/
 	idF = '#dateList';
-
-			/***** 差異分 *****/
+		/***** 差異分 *****/
 	fd.append("diffDate1" ,$(idF + '0').val());
 	fd.append("diffDate2" ,$(idF + '1').val());
 	fd.append("diffDate3" ,$(idF + '2').val());
@@ -265,7 +204,6 @@ var idF;
 	fd.append("diffDate5" ,$(idF + '4').val());
 	fd.append("diffDate6" ,$(idF + '5').val());
 	fd.append("diffDate7" ,$(idF + '6').val());
-
 
 	/*** QA ***/
 	fd.append("qa1"  ,$('#qa1').val());
