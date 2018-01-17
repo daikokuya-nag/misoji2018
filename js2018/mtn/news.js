@@ -1,24 +1,23 @@
-/*************************
-ニュース編集 Version 1.0
-2016 Jan. 25 ver 1.0
-*************************/
+/**
+* ニュース編集
+*
+* @version 1.0.1
+* @date 2018.1.17
+*/
 
-var DISP_UPDATED   = false;
-var RESP_NEWS_DISP = false;	//「表示可否反映」ボタンの有効/無効
-var NEWS_NO_LIST;			//ニュースNoのリスト
+
+var RESP_NEWS_DISP = false;			//「表示可否反映」ボタンの有効/無効
+var NEWS_NO_LIST;					//ニュースNoのリスト
 var DISP_NEWS_EDIT_DIALOG = false;	//ニュース編集のダイアログを表示したか
 
-/***** 初期化 *****/
+// 初期化
 $(document).ready(function(){
 
 });
 
-
 $(window).load(function(){
 
-	$("#warnDigest").html('');
-
-	/***** 編集ダイアログの定義 *****/
+	// 編集ダイアログの定義
 	$("#editNews").dialog({
 		autoOpen : false ,
 		modal    : true  ,
@@ -29,10 +28,7 @@ $(window).load(function(){
 				click:function() {
 					var chkEnter = checkNewsEnter();
 					if(chkEnter) {
-								//alert('ok');
 						writeNews();
-					} else {
-						alert('any error');
 					}
 				}
 			} ,
@@ -43,21 +39,6 @@ $(window).load(function(){
 				}
 			}
 		]
-	});
-
-	$.datepicker.setDefaults($.datepicker.regional['ja']);
-	$("#newsDate").datepicker({
-		dateFormat : 'yy-mm-dd' ,
-		inline     : true
-	});
-
-	$("#begDate").datepicker({
-		dateFormat : 'yy-mm-dd' ,
-		inline     : true
-	});
-	$("#endDate").datepicker({
-		dateFormat : 'yy-mm-dd' ,
-		inline     : true
 	});
 
 var dtop = {
@@ -90,18 +71,39 @@ var dtop = {
 	inline    : true
 };
 
+	$.datepicker.setDefaults($.datepicker.regional['ja']);
+	$("#newsDate").datepicker({
+		dateFormat : 'yy-mm-dd' ,
+		inline     : true
+	});
+
+	$("#begDate").datepicker({
+		dateFormat : 'yy-mm-dd' ,
+		inline     : true
+	});
+	$("#endDate").datepicker({
+		dateFormat : 'yy-mm-dd' ,
+		inline     : true
+	});
+
 	$('#dispBegDate').datetimepicker(dtop);
 
 	RESP_NEWS_DISP = false;
 
-	/***** ニュースの読み込み *****/
+	// ニュースの読み込み
 	getNewsList();
+
+	$("#warnDigest").html('');
+	$("#warnContent").html('');
 });
 
 
-/********************
-ニュースリストの読み込み
-********************/
+/**
+* ニュースリストの読み込み
+*
+* @param
+* @return
+*/
 function getNewsList() {
 
 var result = $.ajax({
@@ -111,7 +113,7 @@ var result = $.ajax({
 			branchNo : BRANCH_NO
 		} ,
 
-		cache    : false ,
+		cache    : false  ,
 		dataType : 'json'
 	});
 
@@ -123,7 +125,7 @@ var result = $.ajax({
 		$(".dispNewsSW").toggleSwitch();
 
 		NEWS_NO_LIST = response['newsNoList'];	//ニュースNoリストの保持
-		dispWriteNewsBtn();					//表示可否反映ボタンの初期化
+		dispWriteNewsBtn();						//表示可否反映ボタンの初期化
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {
@@ -135,12 +137,15 @@ var result = $.ajax({
 }
 
 
-/********************
-新規ニュース編集
-********************/
+/**
+* 新規ニュース編集
+*
+* @param
+* @return
+*/
 function newNews() {
 
-/***** 記事日付 *****/
+// 記事日付
 var today = new Date();
 var yy = today.getFullYear();
 
@@ -151,9 +156,8 @@ var mm = ( "00" + mmVal).substr(-2);
 var dd = ( "00" + ddVal).substr(-2);
 var dateStr = yy + '-' + mm + '-' + dd;
 
+//定型文を取り出して本文の初期値にする
 var phraseData;
-
-	//定型文を取り出して本文の初期値にする
 var result = $.ajax({
 		type : "get" ,
 		url  : "../cgi2018/ajax/mtn/getFixPhrase.php" ,
@@ -165,7 +169,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					//console.debug(response);
 		phraseData = response;
 
 		$("#title").val('');
@@ -175,20 +179,20 @@ var result = $.ajax({
 		$("#digest").val('');
 		$("#content").val(phraseData);
 
-		$("#editNewsNo").val($('#newNewsRec').val());	/* 新規 */
+		$("#editNewsNo").val($('#newNewsRec').val());	// 新規の時の値を格納
 
 		$("#dispBegDate").val('');
-
 		$("#begDate").val('');
 		$("#endDate").val('');
+		$("input[name='newsCate']").val(["E"]);			// 記事種類
 
-		$("input[name='newsCate']").val(["E"]);
-
-		$('#delNewsBtn').css('display' ,'none');
+		$('#delNewsBtn').css('display' ,'none');		// 記事削除ボタンを非表示
 
 		$("#editNews").dialog( {
 			title: '新規'
 		});
+
+		$("#enterNews").parsley().reset();
 		$("#editNews").dialog("open");
 
 		setCKEditNews();
@@ -205,24 +209,19 @@ var result = $.ajax({
 }
 
 
-/********************
-既存ニュース編集
-********************/
+/**
+* 既存ニュース編集
+*
+* @param
+* @return
+*/
 function editNews(newsNo) {
-
-	getNewsData(BRANCH_NO ,newsNo ,'E');
-}
-
-/********************
-1件のニュース情報取出し
-********************/
-function getNewsData(branchNo ,newsNo ,mode) {
 
 var result = $.ajax({
 		type : "get" ,
 		url  : "../cgi2018/ajax/mtn/getNews1.php" ,
 		data : {
-			branchNo : branchNo ,
+			branchNo : BRANCH_NO ,
 			newsNo   : newsNo
 		} ,
 
@@ -236,23 +235,25 @@ var result = $.ajax({
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {
-					console.debug('error at getNewsData:' + response.status + ' ' + textStatus);
+					console.debug('error at editNews:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
 	});
 }
 
-
-/********************
-ニュースの編集表示
-********************/
+/**
+* ニュースの編集表示
+*
+* @param {String[]} 編集するニュース情報
+* @return
+*/
 function editNewsSet(newsData) {
 
 var dispBegDT = '';
 var split;
 
-	//表示開始日時があれば、秒を削る
+	//表示開始日時があれば秒を削る
 	if(newsData['dispBegDT']) {
 		split = newsData['dispBegDT'].split(':');
 		dispBegDT = split[0] + ':' + split[1];
@@ -279,6 +280,8 @@ var split;
 	$("#editNews").dialog( {
 		title: '編集 ' + newsData['addDT']
 	});
+
+	$("#enterNews").parsley().reset();
 	$("#editNews").dialog("open");
 
 	setCKEditNews();
@@ -286,20 +289,27 @@ var split;
 	CKEDITOR.instances.content.setData(newsData['content']);
 }
 
+
+/**
+* ckEditorの設定
+*
+* @param
+* @return
+*/
 function setCKEditNews() {
 
 	if(!DISP_NEWS_EDIT_DIALOG) {
-
 		CKEDITOR.replace('digest' ,
 			{
 				height : 120
-			});
+			}
+		);
 
 		CKEDITOR.replace('content' ,
 			{
 				height : 120
-			});
-
+			}
+		);
 
 		CKEDITOR.instances.digest.on("blur", function(e) {
 			CKEDITOR.instances.digest.updateElement();
@@ -309,7 +319,7 @@ function setCKEditNews() {
 			if(str.length >= 1) {
 				msg = '';
 			} else {
-				msg = 'any error';
+				msg = ERR_MSG;
 			}
 			$("#warnDigest").html(msg);
 		});
@@ -322,58 +332,71 @@ function setCKEditNews() {
 			if(str.length >= 1) {
 				msg = '';
 			} else {
-				msg = 'any error';
+				msg = ERR_MSG;
 			}
 			$("#warnContent").html(msg);
 		});
-
 
 		DISP_NEWS_EDIT_DIALOG = true;
 	}
 }
 
 
-/********************
-ニュースの内容チェック
-********************/
+/**
+* ニュースの内容チェック
+*
+* @param
+* @return
+*/
 function checkNewsEnter() {
 
 var str;
 var ret = $("#enterNews").parsley().validate();
+var msg;
 
 	CKEDITOR.instances.digest.updateElement();
 	str = $("#digest").val();
-	if(str.length <= 0) {
+	if(str.length >= 1) {
+		msg = '';
+	} else {
+		msg = ERR_MSG;
 		ret = false;
 	}
+	$("#warnDigest").html(msg);
 
 	CKEDITOR.instances.content.updateElement();
 	str = $("#content").val();
-	if(str.length <= 0) {
+	if(str.length >= 1) {
+		msg = '';
+	} else {
+		msg = ERR_MSG;
 		ret = false;
 	}
+	$("#warnContent").html(msg);
 
 	return ret;
 }
 
 
-/***********************************************************************************************************************/
-/*************************
-表示可否反映
-*************************/
 
-/********************
-「表示可否反映」ボタンの有効化
-********************/
+/**
+* 「表示可否反映」ボタンの有効化
+*
+* @param
+* @return
+*/
 function enableWriteNewsDisp() {
 
 	RESP_NEWS_DISP = true;
 	dispWriteNewsBtn();
 }
 
-/********************
-「表示可否反映」ボタンの表示
-********************/
+/**
+* 「表示可否反映」ボタンの表示
+*
+* @param
+* @return
+*/
 function dispWriteNewsBtn() {
 
 	if(RESP_NEWS_DISP) {
@@ -381,9 +404,14 @@ function dispWriteNewsBtn() {
 	}
 }
 
-/********************
-表示可否反映「ボタン」クリック時
-********************/
+/**
+* 表示可否反映「ボタン」クリック時
+*
+* 表示可否をサーバへ送信
+*
+* @param
+* @return
+*/
 function updNewsDisp() {
 
 var dispCnt = 0;	//表示がONの件数
@@ -395,17 +423,15 @@ var idx;
 var swList = '';	//ON,OFFのリスト
 var result;
 
+	// 各ニュースの表示/非表示の抽出
 	for(idx=0 ;idx<listMax ;idx++) {
 		newsNo = NEWS_NO_LIST[idx];
-
 		currCond = $(idPrefix + newsNo).prop('checked');
 		if(currCond) {
-			/* ON */
-			swList = swList + 'news' + newsNo + '=U&';
+			swList = swList + 'news' + newsNo + '=U&';	// ONのとき
 			dispCnt++;
 		} else {
-			/* OFF */
-			swList = swList + 'news' + newsNo + '=N&';
+			swList = swList + 'news' + newsNo + '=N&';	// OFFのとき
 		}
 	}
 	dataList = swList + $('input[name=branchNo]').serialize();
@@ -423,9 +449,10 @@ var result;
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			selectWriteFile('NEWS');		//出力対象ファイルの抽出→ファイル出力
 		} else {
+			// セッションタイムアウト
 			jAlert(
-				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
-				'メンテナンス' ,
+				TIMEOUT_MSG_STR ,
+				TIMEOUT_MSG_TITLE ,
 				function() {
 					location.href = 'login.html';
 				}
@@ -442,10 +469,12 @@ var result;
 }
 
 
-/***********************************************************************************************************************/
-/*************************
-ニュース出力
-*************************/
+/**
+* ニュース出力
+*
+* @param
+* @return
+*/
 function writeNews() {
 
 var newsNo   = $('#editNewsNo').val();
@@ -461,9 +490,6 @@ var begDate = $('#begDate').val();
 var endDate = $('#endDate').val();
 
 var cate = $("input[name='newsCate']:checked").val();
-
-var reshowTag;
-var newsIDTag;
 
 					//console.debug('書き出すニュースNo:' + newsNo);
 var result = $.ajax({
@@ -498,23 +524,17 @@ var result = $.ajax({
 			selectWriteFile('NEWS');		//出力対象ファイルの抽出→ファイル出力
 		} else {
 			jAlert(
-				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
-				'メンテナンス' ,
+				TIMEOUT_MSG_STR ,
+				TIMEOUT_MSG_TITLE ,
 				function() {
 					location.href = 'login.html';
 				}
 			);
 		}
-
-		//リスト再表示
-//		reshowTag = response['tag'];
-//		newsIDTag = response['id'];
-//
-//		reshowList(newsNo ,tdTag ,newsIDTag);
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {
-			console.debug('error at writeNewsPre:' + response.status + ' ' + textStatus);
+			console.debug('error at writeNews:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
@@ -522,20 +542,24 @@ var result = $.ajax({
 }
 
 
-/********************
-ニュースの再表示
-********************/
+/**
+* ニュースの再表示
+*
+* @param {String} ニュースNo
+* @param {String} 表示する内容のタグ
+* @param {String} 表示するニュースNo
+* @return
+*/
 function reshowList(newsNo ,tdTag ,newsIDTag) {
 
 var newRec  = $('#newNewsRec').val();
 var tdClass = 'td'   + newsIDTag;
 var dispID  = 'news' + newsIDTag;
-
 var listMax;
 
 	if(newsNo == newRec) {
-		/*** 新規ニュース ***/
-			console.debug('新規ニュース追加表示');
+		// 新規ニュース
+					//console.debug('新規ニュース追加表示');
 		$('#newsListD').prepend('<tr id="' + newsIDTag + '">' + tdTag + '</tr>');	//先頭に追加
 		$('.' + tdClass).slideDown("fast");											//行が下がる視覚効果
 		$('#' + dispID).toggleSwitch();
@@ -543,36 +567,44 @@ var listMax;
 		listMax = NEWS_NO_LIST.length;
 		NEWS_NO_LIST[listMax] = newsIDTag;
 	} else {
-		/*** 既存ニュース ***/
+		// 既存ニュース
 					//console.debug('既存ニュース更新表示' + newsIDTag);
 					//console.debug(tdTag);
 		$('#' + newsIDTag).html(tdTag);
-
 		$('.' + tdClass).slideDown("fast");
 		$('#' + dispID).toggleSwitch();
 	}
 }
 
 
-/********************
-削除
-********************/
-function cfmDelNews() {
+/**
+* 削除ダイアログの表示
+*
+* @param
+* @return
+*/
+function showDelNews() {
 
 	$('#DelNewsDlg').css('display' ,'block');
 }
 
-/*******************
-削除のpopupを非表示
-*******************/
+/**
+* 削除ダイアログの非表示
+*
+* @param
+* @return
+*/
 function hideDelNews() {
 
 	$("#DelNewsDlg").css('display' ,'none');
 }
 
-/*******************
-削除の本体
-*******************/
+/**
+* ニュースの削除の本体
+*
+* @param
+* @return
+*/
 function delNewsItem() {
 
 var newsNo = $('#editNewsNo').val();
@@ -593,12 +625,13 @@ var result = $.ajax({
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			hideDelNews();
 			$("#editNews").dialog("close");
-			getNewsList();		/* 最新のニュースリストを再読み込み */
-			selectWriteFile('NEWS');		//HTMLファイル再出力
+			getNewsList();					// 最新のニュースリストを再読み込み
+			selectWriteFile('NEWS');		// HTMLファイル再出力
 		} else {
+			//タイムアウト
 			jAlert(
-				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
-				'メンテナンス' ,
+				TIMEOUT_MSG_STR ,
+				TIMEOUT_MSG_TITLE ,
 				function() {
 					location.href = 'login.html';
 				}

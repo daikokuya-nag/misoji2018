@@ -72,8 +72,8 @@ var str = CKEDITOR.instances.recruitStr.getData();
 				selectWriteFile('RECRUIT');		//出力対象ファイルの抽出→ファイル出力
 			} else {
 				jAlert(
-					'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
-					'メンテナンス' ,
+					TIMEOUT_MSG_STR ,
+					TIMEOUT_MSG_TITLE ,
 					function() {
 						location.href = 'login.html';
 					}

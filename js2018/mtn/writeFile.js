@@ -101,18 +101,26 @@ var profMax = 0;
 	ALL_WROTE_FILES_PC = 0;
 	ALL_DONE_PC = false;
 
-	//紹介ページ以外の出力
-	for(fileID in fileList) {
-		fileName = fileList[fileID]
-				//console.debug(fileID + ' ' + fileName);
-		writeHTMLFileMain(fileID ,'');
-	}
+	if(ALL_OUT_FILES_PC >= 1) {		//出力するファイルがあるとき
+		//紹介ページ以外の出力
+		for(fileID in fileList) {
+			fileName = fileList[fileID]
+					//console.debug(fileID + ' ' + fileName);
+			writeHTMLFileMain(fileID ,'');
+		}
 
-	//紹介ページの出力
-	for(fileID in profList) {
-		fileName = profList[fileID]
-				//console.debug(fileID + ' ' + fileName);
-		writeHTMLFileMain('PROFILE' ,fileID);
+		//紹介ページの出力
+		for(fileID in profList) {
+			fileName = profList[fileID]
+					//console.debug(fileID + ' ' + fileName);
+			writeHTMLFileMain('PROFILE' ,fileID);
+		}
+	} else {						//出力するファイルがないときは何もせずMOへ
+		if(FROM == 'profile') {
+			writeProfHTMLFileMO(PROF_DIR);
+		} else {
+			selectWriteFileMO(OUT_ITEM);
+		}
 	}
 }
 

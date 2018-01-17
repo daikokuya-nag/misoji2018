@@ -11,31 +11,26 @@
 	$logStr = 'use from ' . $_SERVER["REMOTE_ADDR"];
 	logFile5C::general($logStr);
 
-	if($cond == sess5C::NO_ID) {
-		/* セッションデータナシ　ログイン画面へ */
+	if($cond == sess5C::NO_ID) {			// セッションデータナシ　ログイン画面へ
 					logFile5C::general('セッションファイルナシ');
 		header('Location: login.html');
 	}
 
-	if($cond == sess5C::OWN_TIMEOUT) {
-		/* 自IDでタイムアウト　タイムアウトのダイアログ、ログイン画面へ */
+	if($cond == sess5C::OWN_TIMEOUT) {		// 自IDでタイムアウト　タイムアウトのダイアログ、ログイン画面へ
 						logFile5C::general('自ID タイムアウト');
 		header('Location: login.html');
 	}
 
-	if($cond == sess5C::OTHER_TIMEOUT) {
-		/* 他IDでタイムアウト　ログイン画面へ */
+	if($cond == sess5C::OTHER_TIMEOUT) {	// 他IDでタイムアウト　ログイン画面へ
 						logFile5C::general('他ID タイムアウト');
 		header('Location: login.html');
 	}
 
-	if($cond == sess5C::OWN_INTIME) {
-		/* 自IDでログイン中　メンテ画面へ */
+	if($cond == sess5C::OWN_INTIME) {		// 自IDでログイン中　メンテ画面へ
 						logFile5C::general('自ID ログイン中');
 	}
 
-	if($cond == sess5C::OTHER_INTIME) {
-		/* 他IDでログイン中　「他でログイン中」のダイアログ、ログイン不可 */
+	if($cond == sess5C::OTHER_INTIME) {		// 他IDでログイン中　「他でログイン中」のダイアログ、ログイン不可
 						logFile5C::general('他ID ログイン中');
 		header('Location: login.html');
 	}
@@ -74,6 +69,7 @@
 <link href="../css2018/photoDiary.css?<?php print $vesion; ?>" rel="stylesheet">
 <link href="../css2018/fileSele.css" rel="stylesheet">
 
+
 <script src="../js2018/jq/jquery-1.11.2.min.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/jq/jquery-ui-1.10.4.custom.min.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/jq/jquery.tablednd.js?<?php print $vesion; ?>"></script>
@@ -109,7 +105,7 @@
 
 </head>
 <body>
-<input type="hidden" id="branchNo"   name="branchNo" value="<?php print $branchNo; ?>">
+<input type="hidden" id="branchNo"   name="branchNo"   value="<?php print $branchNo; ?>">
 <input type="hidden" id="newNewsRec" name="newNewsRec" value="<?php print dbNews5C::NEW_REC; ?>">
 <input type="hidden" id="newBlogRec" name="newBlogRec" value="<?php print dbMBlog5C::NEW_REC; ?>">
 <div id="tabA">
@@ -125,10 +121,10 @@
 	<!-- ニュース -->
 	<div id="tabsNews" class="tabArea">
 		<div id="tabNewsUsePage" class="resetFloat">
+			使用するニュースページ<br>
 			<div class="selectPage">
-				使用するニュースページ<br>
 				<label><input type="radio" name="useNews" id="useNewsOther" value="OTHER_SITE">外部</label><input type="text" name="newsOuterURL" id="newsOuterURL" class="outerURL"><br>
-				<label><input type="radio" name="useNews" id="useNewsOwn" value="OWN_SITE">内部</label><br>
+				<label><input type="radio" name="useNews" id="useNewsOwn" value="OWN_SITE">内部</label>
 			</div>
 			<div class="sendSelectPage">
 				<input type="button" value="使用ページ反映" id="sendSeleNewsPage" onclick="updUsePage('NEWS');" disabled="disabled">
@@ -162,10 +158,10 @@
 	<!-- プロファイル -->
 	<div id="tabsProfile" class="tabArea">
 		<div id="tabProfileUsePage" class="resetFloat">
+			使用するプロファイルページ<br>
 			<div class="selectPage">
-				使用するプロファイルページ<br>
 				<label><input type="radio" name="useProfile" id="useProfileOther" value="OTHER_SITE">外部</label><input type="text" name="profileOuterURL" id="profileOuterURL" class="outerURL"><br>
-				<label><input type="radio" name="useProfile" id="useProfileOwn" value="OWN_SITE">内部</label><br>
+				<label><input type="radio" name="useProfile" id="useProfileOwn" value="OWN_SITE">内部</label>
 			</div>
 			<div class="sendSelectPage">
 				<input type="button" value="使用ページ反映" id="sendSeleProfPage" onclick="updUsePage('ALBUM');" disabled="disabled">
@@ -199,10 +195,10 @@
 	<!-- システム -->
 	<div id="tabsSystem" class="tabArea">
 		<div id="tabSystemUsePage" class="resetFloat">
+			使用するシステムページ<br>
 			<div class="selectPage">
-				使用するシステムページ<br>
 				<label><input type="radio" name="useSystemPage" id="useSystemPageOther" value="OTHER_SITE">外部</label><input type="text" name="systemOuterURL" id="systemOuterURL" class="outerURL"><br>
-				<label><input type="radio" name="useSystemPage" id="useSystemPageOwn" value="OWN_SITE">内部</label><br>
+				<label><input type="radio" name="useSystemPage" id="useSystemPageOwn" value="OWN_SITE">内部</label>
 			</div>
 			<div class="sendSelectPage">
 				<input type="button" value="使用ページ反映" id="sendSeleSystemPage" onclick="updUsePage('SYSTEM');" disabled="disabled">
@@ -231,10 +227,10 @@
 	<!-- 求人 -->
 	<div id="tabsRecruit" class="tabArea">
 		<div id="tabRecruitUsePage" class="resetFloat">
+			使用する求人ページ<br>
 			<div class="selectPage">
-				使用する求人ページ<br>
 				<label><input type="radio" name="useRecruitPage" id="useRecruitPageOther" value="OTHER_SITE">外部</label><input type="text" name="recruitOuterURL" id="recruitOuterURL" class="outerURL"><br>
-				<label><input type="radio" name="useRecruitPage" id="useRecruitPageOwn" value="OWN_SITE">内部</label><br>
+				<label><input type="radio" name="useRecruitPage" id="useRecruitPageOwn" value="OWN_SITE">内部</label>
 			</div>
 			<div class="sendSelectPage">
 				<input type="button" value="使用ページ反映" id="sendSeleRecruitPage" onclick="updUsePage('RECRUIT');" disabled="disabled">
@@ -341,7 +337,7 @@
 				</tr>
 				<tr>
 					<td>記事日付<span class="required">*</span></td>
-					<td><input type="text" id="newsDate" name="newsDate" size="35" value=""></td>
+					<td><input type="text" id="newsDate" name="newsDate" size="35" value="" required=""></td>
 				</tr>
 				<tr class="NOTUSE">
 					<td>期間</td>
@@ -385,7 +381,7 @@
 					</td>
 				</tr>
 			</table>
-			<div class="delNews"><input type="button" value="削除" id="delNewsBtn" onclick="cfmDelNews();"></div>
+			<div class="delNews"><input type="button" value="削除" id="delNewsBtn" onclick="showDelNews();"></div>
 		</div>
 	</form>
 
@@ -431,7 +427,7 @@
 						<td class="profItemAA">識別子<span class="required">*</span></td>
 						<td>
 							<div id="enterProfN">	<!-- 新規 -->
-								<input type="text" id="profDir" name="profDir" size="35" value="" required="" >
+								<input type="text" id="profDir" name="profDir" size="35" value="" required="" data-parsley-type="alphanum">
 							</div>
 							<div id="enterProfE">	<!-- 更新 -->
 								<div id="profDirShow"></div><div id="editDir"><input type="button" value="識別子変更" id="editDirBtn" onclick="showEditDir();"  ></div>
@@ -740,12 +736,17 @@
 <div id="selectImgFile" title="画像選択">
 	<div id="imgList" class="imgList resetFloat"></div>
 	<input type="button" value="新規画像" onclick="seleNewImg();">
+
 	<div id="seleNewImg">
-		<hr>
-		<input type="file" name="imgFileSele" id="imgFileSele"><br>
-		タイトル：<input type="text" name="imgTitle" id="imgTitle"><br>
-		<input type="button" value="追加" id="addNewImgBtn" onclick="addNewImg();" disabled="disabled">
+		<form id="enterNewImgFile" data-parsley-validate data-parsley-trigger="keyup focusout change input">
+			<hr>
+			<input type="file" name="imgFileSele" id="imgFileSele"><br>
+			<div id="warnImgFile" class="parsley-errors-list filled"></div>
+			タイトル：<input type="text" name="imgTitle" id="imgTitle" required=""><br>
+			<input type="button" value="追加" id="addNewImgBtn" onclick="addNewImg();" disabled="disabled">
+		</form>
 	</div>
+
 </div>
 
 

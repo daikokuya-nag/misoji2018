@@ -2,50 +2,16 @@
 共通
 ********************/
 
+body{
+	margin:10px;
+	font-family:"Arial";
+}
+
 div.tabArea {
 	padding-left:10px !important;
 	padding-right:10px !important;
 }
 
-
-body{
-	margin:10px;
-	font-family:"Arial";
-}
-.demoHeaders {
-	margin-top: 2em;
-}
-#dialog-link {
-	padding: .4em 1em .4em 20px;
-	text-decoration: none;
-	position: relative;
-}
-#dialog-link span.ui-icon {
-	margin: 0 5px 0 0;
-	position: absolute;
-	left: .2em;
-	top: 50%;
-	margin-top: -8px;
-}
-#icons {
-	margin: 0;
-	padding: 0;
-}
-#icons li {
-	margin: 2px;
-	position: relative;
-	padding: 4px 0;
-	cursor: pointer;
-	float: left;
-	list-style: none;
-}
-#icons span.ui-icon {
-	float: left;
-	margin: 0 4px;
-}
-.fakewindowcontain .ui-widget-overlay {
-	position: absolute;
-}
 
 div#divLogout {
 	float:left;
@@ -58,15 +24,7 @@ div#lastDate {
 }
 
 
-
-tr.NOTUSE {
-	display:none;
-}
-
-div.NOTUSE {
-	display:none;
-}
-
+/* 必須入力項目 */
 span.required {
 	color:#ff0000;
 	font-weight:bold;
@@ -121,7 +79,7 @@ div.resetFloat:after {
 
 
 
-div.grayPanel {
+.grayPanel {
 	background : #000;
 	opacity : 0.1;
 	width  : 100%;
@@ -134,25 +92,24 @@ div.grayPanel {
 }
 
 
-.outerURL {
+/* 外部サイトの使用の有無 */
+.selectPage {
+	float:left;
+}
+.sendSelectPage {
+	float:left;
+	margin-left:20px;
+}
 
+/* 外部サイト使用時のURL入力 */
+.outerURL {
 	width:500px;
 }
 
 
-div.selectPage {
 
-	float:left;
-}
-
-div.sendSelectPage {
-
-	float:left;
-}
-
-
-
-div.delPrompt {
+/* 削除確認プロンプト */
+.delPrompt {
 	position: absolute;
 	z-index: 99999;
 	padding: 0px;
@@ -164,7 +121,8 @@ div.delPrompt {
 	display:none;
 }
 
-div.editDirDlg {
+/* 女性の識別子変更プロンプト */
+.editDirDlg {
 	position: absolute;
 	z-index: 999;
 	padding: 0px;
@@ -174,4 +132,22 @@ div.editDirDlg {
 	max-width: 410px;
 	top: 324px;
 	left: 422.5px;
+}
+
+
+/* 要素の非表示 */
+.NOTUSE {
+	display:none;
+}
+
+/* 入力エラーメッセージ */
+.parsley-errors-list {
+	color:#d00;
+	font-size:0.9em;
+	font-weight:bold;
+}
+
+input[type="file"] {
+
+	font-size:0.9em;
 }

@@ -96,19 +96,24 @@ var profMax = 0;
 
 console.debug('全ファイル数:' + ALL_OUT_FILES_MO);
 
-	//紹介ページ以外の出力
-	for(fileID in fileList) {
-		fileName = fileList[fileID]
-				//console.debug(fileID + ' ' + fileName);
-		writeHTMLFileMOMain(fileID ,'');
+	if(ALL_OUT_FILES_MO >= 1) {		//出力するファイルがあるとき
+		//紹介ページ以外の出力
+		for(fileID in fileList) {
+			fileName = fileList[fileID]
+					//console.debug(fileID + ' ' + fileName);
+			writeHTMLFileMOMain(fileID ,'');
+		}
+
+		//紹介ページの出力
+		for(fileID in profList) {
+			fileName = profList[fileID]
+					//console.debug(fileID + ' ' + fileName);
+			writeHTMLFileMOMain('PROFILE' ,fileID);
+		}
+	} else {
+		dispDoneMsg();
 	}
 
-	//紹介ページの出力
-	for(fileID in profList) {
-		fileName = profList[fileID]
-				//console.debug(fileID + ' ' + fileName);
-		writeHTMLFileMOMain('PROFILE' ,fileID);
-	}
 }
 
 
@@ -144,11 +149,17 @@ var result = $.ajax({
 		if(ALL_WROTE_FILES_MO >= ALL_OUT_FILES_MO) {
 			if(!ALL_DONE_MO) {
 				ALL_DONE_MO = true;
-				jAlert(
-					'ファイル出力完了' ,
-					'メンテナンス'
-				);
+				dispDoneMsg();
 			}
 		}
 	});
+}
+
+
+function dispDoneMsg() {
+
+	jAlert(
+		'ファイル出力完了' ,
+		'メンテナンス'
+	);
 }

@@ -69,5 +69,4 @@ new function(){
 		checkFontSize(footerFixed);
 	});
 	addEvent(window,"resize",footerFixed);
-	
 }

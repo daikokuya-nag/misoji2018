@@ -30,9 +30,6 @@ $(window).load(function(){
 					var chkEnter = checkProfEnter();
 					if(chkEnter) {
 						writeProf();
-					} else {
-alert('any error');
-						//alert(chkEnter);
 					}
 				}
 			} ,
@@ -105,10 +102,6 @@ function newProf() {
 var result;
 
 	$('#newProf').val('new');
-
-//	$('#enterProfN').css('display' ,'block');
-//	$('#enterProfE').css('display' ,'none');
-//	$('#delDir').css('display' ,'none');
 
 	setShowProfDir('');
 
@@ -192,9 +185,10 @@ var chk = false;
 		setProfArea('NEW');
 
 		$("#editProfDlg").dialog( {
-			title: '新規'
+			title : '新規'
 		});
 
+		$("#enterProfile").parsley().reset();
 		$("#editProfDlg").dialog("open");
 
 		setCKEditProf();
@@ -299,9 +293,10 @@ var result = $.ajax({
 		setProfArea('EDIT');
 
 		$("#editProfDlg").dialog( {
-			title: '編集 '	// + newsData['NO']
+			title : '編集 '
 		});
 
+		$("#enterProfile").parsley().reset();
 		$("#editProfDlg").dialog("open");
 
 		setCKEditProf();
@@ -463,8 +458,8 @@ var result = $.ajax({
 			selectWriteFile('ALBUM');		//出力対象ファイルの抽出→ファイル出力
 		} else {
 			jAlert(
-				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
-				'メンテナンス' ,
+				TIMEOUT_MSG_STR ,
+				TIMEOUT_MSG_TITLE ,
 				function() {
 					location.href = 'login.html';
 				}
@@ -589,10 +584,8 @@ function setShowProfDir(dir) {
 		$('#enterProfE').css('display' ,'block');
 
 		$('#delDirBtn').css('display' ,'inline');	//block
-				//$('#delDir').css('display' ,'none');
 	}
 	$('#profDir').val(dir);
-		//$('#profDirShow').val(dir);
 	$('#profDirShow').html(dir);
 }
 
@@ -604,47 +597,30 @@ function checkProfEnter() {
 
 var str;
 var ret = $("#enterProfile").parsley().validate();
+var msg;
 
-//	CKEDITOR.instances.mastComment.updateElement();
-//	str = $("#mastComment").val();
-//	if(str.length <= 0) {
-//		ret = false;
-//	}
-//
-//	CKEDITOR.instances.appComment.updateElement();
-//	str = $("#appComment").val();
-//	if(str.length <= 0) {
-//		ret = false;
-//	}
-
-	return ret;
-}
-
-
-/********************
-識別子の入力チェック
-********************/
-function checkID(profDir) {
-
-var chk = profDir.match(/[^0-9a-zA-Z_]+/);
-
-var chkResult;
-var ret = "";
-
-	if(chk) {
-		/* 半角英数以外の文字があるとき */
-		ret = "識別子は半角英数字のみを入力してください";
+	CKEDITOR.instances.mastComment.updateElement();
+	str = $("#mastComment").val();
+	if(str.length >= 1) {
+		msg = '';
 	} else {
-		/* 半角英数のみのとき */
-		chkResult = checkIDDir(profDir);
-		if(chkResult == 'ALREADY') {
-			ret = "指定された識別子は既に使われています";
-		}
+		msg = ERR_MSG;
+		ret = false;
 	}
+	$("#warnMastComment").html(msg);
+
+	CKEDITOR.instances.appComment.updateElement();
+	str = $("#appComment").val();
+	if(str.length >= 1) {
+		msg = '';
+	} else {
+		msg = ERR_MSG;
+		ret = false;
+	}
+	$("#warnAppComment").html(msg);
 
 	return ret;
 }
-
 
 function checkIDDir(profDir) {
 
@@ -744,8 +720,8 @@ var result = $.ajax({
 			hideEditDir();
 		} else {
 			jAlert(
-				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
-				'メンテナンス' ,
+				TIMEOUT_MSG_STR ,
+				TIMEOUT_MSG_TITLE ,
 				function() {
 					location.href = 'login.html';
 				}
@@ -759,6 +735,30 @@ var result = $.ajax({
 
 	result.always(function() {
 	});
+}
+
+/********************
+識別子の入力チェック
+********************/
+function checkID(profDir) {
+
+var chk = profDir.match(/[^0-9a-zA-Z_]+/);
+
+var chkResult;
+var ret = "";
+
+	if(chk) {
+		/* 半角英数以外の文字があるとき */
+		ret = "識別子は半角英数字のみを入力してください";
+	} else {
+		/* 半角英数のみのとき */
+		chkResult = checkIDDir(profDir);
+		if(chkResult == 'ALREADY') {
+			ret = "指定された識別子は既に使われています";
+		}
+	}
+
+	return ret;
 }
 
 
@@ -804,8 +804,8 @@ var result  = $.ajax({
 			selectWriteFile('ALBUM');		//HTMLファイル再出力
 		} else {
 			jAlert(
-				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
-				'メンテナンス' ,
+				TIMEOUT_MSG_STR ,
+				TIMEOUT_MSG_TITLE ,
 				function() {
 					location.href = 'login.html';
 				}

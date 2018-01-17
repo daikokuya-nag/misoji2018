@@ -30,12 +30,15 @@ var result = $.ajax({
 
 			writeProfHTMLFile(profDir);
 			$("#editProfDlg").dialog("close");
-
-//			writeProfileNext();
 		} else {
-			alert('長時間操作がなかったため接続が切れました。ログインしなおしてください。');
-			$("#editProfDlg").dialog("close");
-			location.href = 'login.html';
+			jAlert(
+				TIMEOUT_MSG_STR ,
+				TIMEOUT_MSG_TITLE ,
+				function() {
+					$("#editProfDlg").dialog("close");
+					location.href = 'login.html';
+				}
+			);
 		}
 	});
 

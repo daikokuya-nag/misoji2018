@@ -1,50 +1,48 @@
+/**
+* メンテ共通関数
+*
+* @version 1.0.1
+* @date 2018.1.17
+*/
 
-var EXT_LIST = [];
+var EXT_LIST = [];		// 画像の拡張子のリスト
+var USE_PAGE = {};		// 自サイト、外部サイトのいずれを使うか
+var RADIO_NAME     = {NEWS:'useNews'       ,ALBUM:'useProfile'      ,RECRUIT:'useRecruitPage'   ,SYSTEM:'useSystemPage'};	// ラジオボタン名
+var ID_PREFIX      = {NEWS:'tabsNews'      ,ALBUM:'tabsProfile'     ,RECRUIT:'tabsRecruit'      ,SYSTEM:'tabsSystem'};		// tabのプレフィクス
+var OUTER_URL_FORM = {NEWS:'newsOuterURL'  ,ALBUM:'profileOuterURL' ,RECRUIT:'recruitOuterURL'  ,SYSTEM:'systemOuterURL'};	// 外部サイトの入力域
+var GRAY_PANEL_ID  = {NEWS:'grayPanelNews' ,ALBUM:'grayPanelProf'   ,RECRUIT:'grayPanelRecruit' ,SYSTEM:'grayPanelSystem'};	// 外部サイト使用時の、入力不可領域のマスク
 
-var USE_PAGE = {};
-var RADIO_NAME     = {NEWS:'useNews'       ,ALBUM:'useProfile'      ,RECRUIT:'useRecruitPage'   ,SYSTEM:'useSystemPage'};
-var ID_PREFIX      = {NEWS:'tabsNews'      ,ALBUM:'tabsProfile'     ,RECRUIT:'tabsRecruit'      ,SYSTEM:'tabsSystem'};
-var OUTER_URL_FORM = {NEWS:'newsOuterURL'  ,ALBUM:'profileOuterURL' ,RECRUIT:'recruitOuterURL'  ,SYSTEM:'systemOuterURL'};
-var GRAY_PANEL_ID  = {NEWS:'grayPanelNews' ,ALBUM:'grayPanelProf'   ,RECRUIT:'grayPanelRecruit' ,SYSTEM:'grayPanelSystem'};
+var EDIT_AREA        = {NEWS:'tabNewsMain' ,ALBUM:'tabProfMain'     ,RECRUIT:'tabRecruitMain'   ,SYSTEM:'tabSystemMain'};	// 入力項目範囲
+var EDIT_AREA_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0};	// 入力域の高さ
+var TAB_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0};		// tabの高さ
 
-var EDIT_AREA        = {NEWS:'tabNewsMain' ,ALBUM:'tabProfMain'     ,RECRUIT:'tabRecruitMain'   ,SYSTEM:'tabSystemMain'};
-var EDIT_AREA_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0};
+var DISP_SYSTEM_TAB  = false;	// システムタブを表示したか
+var DISP_RECRUIT_TAB = false;	// 求人タブを表示したか
 
-var TAB_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0};
+var ERR_MSG = 'この値は必須です';	// 
 
-
-var DISP_SYSTEM_TAB  = false;	//システムタブを表示したか
-var DISP_RECRUIT_TAB = false;	//求人タブを表示したか
+var TIMEOUT_MSG_STR   = '長時間操作がなかったため接続が切れました。ログインしなおしてください。';
+var TIMEOUT_MSG_TITLE = 'メンテナンス';
 
 $(document).ready(function(){
 
-					/*
-						CKEDITOR.on('instanceReady', function(){
-							$.each( CKEDITOR.instances, function(instance) {
-								CKEDITOR.instances[instance].on("change", function(e) {
-									for(instance in CKEDITOR.instances)
-										CKEDITOR.instances[instance].updateElement();
-								});
+var width = $(".tabArea").width();
 
-								CKEDITOR.instances[instance].on("blur", function(e) {
-									for(instance in CKEDITOR.instances)
-										CKEDITOR.instances[instance].updateElement();
-								});
-							});
-						});
-					*/
-
+	// タブシステムの定義
 	$("#tabA").tabs(
 		{
-			//heightStyle : "fill"
+					//heightStyle : "fill"
 			activate : function(event, ui) {
-				console.debug(ui.newPanel.selector);
+					//console.debug(ui.newPanel.selector);
+
+				// 選択されたタブの初回表示時に高さを定義する
 				var selectedPanel = ui.newPanel.selector;
 				if(selectedPanel == "#tabsNews") {
 					if(TAB_HEIGHT['news'] == 0) {
 						setNewsTabHeight();
 					}
 				}
+
 				if(selectedPanel == "#tabsProfile") {
 					if(TAB_HEIGHT['profile'] == 0) {
 						setProfTabHeight();
@@ -52,12 +50,15 @@ $(document).ready(function(){
 				}
 
 				if(selectedPanel == "#tabsRecruit") {
+					$("#warnRecruitStr").html('');
 					setCKEditRecruit();
 					if(TAB_HEIGHT['recruit'] == 0) {
 						setRecruitTabHeight();
 					}
 				}
+
 				if(selectedPanel == "#tabsSystem") {
+					$("#warnSystemStr").html('');
 					setCKEditSystem();
 					if(TAB_HEIGHT['system'] == 0) {
 						setSystemTabHeight();
@@ -67,85 +68,73 @@ $(document).ready(function(){
 		}
 	);
 
+	// タブの中身調整
+	// タブの高さ
+	$(".tabArea").height(700);
+	$(".tabArea").css('overflow' ,'auto');
 
-	/***** タブの中身調整 *****/
-	setTabHeight();
-	setTabBottom();
+	// 下ボタンの調整
+	$(".tabBottomBtn").width(width + 'px');
 
 	setNewsTabHeight();
 
-	/***** ファイル選択時 *****/
+	// 画像選択
+
+	// 選択された画像の正当性のチェックをどこで行うか、要再検討
 	$("#imgFileSele").change(function () {
 		fileSele(this);
 	});
 
-
+	// 外部/内部いずれのサイトを使うか
 	$("input[name='useNews']").change(function() {
-
 		$("#sendSeleNewsPage").prop('disabled' ,false);
 		USE_PAGE['NEWS']['USE'] = $(this).val();
 		setUsePage('NEWS');
 	});
 
 	$("input[name='useProfile']").change(function() {
-
 		$("#sendSeleProfPage").prop('disabled' ,false);
 		USE_PAGE['ALBUM']['USE'] = $(this).val();
 		setUsePage('ALBUM');
 	});
 
 	$("input[name='useRecruitPage']").change(function() {
-
 		$("#sendSeleRecruitPage").prop('disabled' ,false);
 		USE_PAGE['RECRUIT']['USE'] = $(this).val();
 		setUsePage('RECRUIT');
 	});
 
 	$("input[name='useSystemPage']").change(function() {
-
 		$("#sendSeleSystemPage").prop('disabled' ,false);
 		USE_PAGE['SYSTEM']['USE'] = $(this).val();
 		setUsePage('SYSTEM');
 	});
 
+	// 画像リストの読み込み
 	readImgList();
 });
 
 
 $(window).load(function(){
 
-	/***** 画像選択ダイアログの定義 *****/
-	initSelectImgFileDlg();
-
-	readUsePage();
-
+	initSelectImgFileDlg();		// 画像選択ダイアログの定義
+	readUsePage();				// 使用するページの読み込み
 });
 
 
-/***** 高さ調整 *****/
-function setTabHeight() {
-	$(".tabArea").height(700);
-	$(".tabArea").css('overflow' ,'auto');
-}
-
-/***** 下ボタンの調整 *****/
-function setTabBottom() {
-
-var width = $(".tabArea").width();
-
-	$(".tabBottomBtn").width(width + 'px');
-}
-
-
-
-/***** 新着情報パネルの高さ調整 *****/
+/**
+* 新着情報パネルの高さ調整
+*
+* @param
+* @return
+*/
 function setNewsTabHeight() {
 
 							//console.debug('set news tab height');
-var areaH     = $("#tabsNews").height();			//領域の高さ
-var areaSeleH = $("#tabNewsUsePage").height();	//使用ページ選択の高さ
-var areaTopH  = $("#tabNewsTop").height();		//上ボタンの高さ
-var areaBtmH  = $("#tabNewsBottom").height();	//下ボタンの高さ
+var areaH     = $("#tabsNews").height();		// 領域の高さ
+var areaSeleH = $("#tabNewsUsePage").height();	// 使用ページ選択の高さ
+var areaTopH  = $("#tabNewsTop").height();		// 上ボタンの高さ
+var areaBtmH  = $("#tabNewsBottom").height();	// 下ボタンの高さ
 
 var height = areaH - (areaSeleH + areaTopH + areaBtmH);
 var grayPanelID = GRAY_PANEL_ID['news'];
@@ -159,8 +148,12 @@ var grayPanelID = GRAY_PANEL_ID['news'];
 	$("#" + grayPanelID).height(height);
 }
 
-
-/***** プロファイルパネルの高さ調整 *****/
+/**
+* プロファイルパネルの高さ調整
+*
+* @param
+* @return
+*/
 function setProfTabHeight() {
 
 							//console.debug('set prof tab height');
@@ -181,8 +174,12 @@ var grayPanelID = GRAY_PANEL_ID['profile'];
 	$("#" + grayPanelID).height(height);
 }
 
-
-/***** 求人パネルの高さ調整 *****/
+/**
+* 求人パネルの高さ調整
+*
+* @param
+* @return
+*/
 function setRecruitTabHeight() {
 
 							//console.debug('set recruit tab height');
@@ -224,7 +221,12 @@ var btmPB    = $("#cke_recruitStr .cke_bottom").css("padding-bottom");
 }
 
 
-/***** システムパネルの高さ調整 *****/
+/**
+* システムパネルの高さ調整
+*
+* @param
+* @return
+*/
 function setSystemTabHeight() {
 
 							//console.debug('set system tab height');
@@ -265,18 +267,21 @@ var btmPB    = $("#cke_systemStr .cke_bottom").css("padding-bottom");
 	$("#cke_systemStr .cke_contents").height(height + 'px');
 }
 
-
+/**
+* 求人パネルのckEditorの調整
+*
+* @param
+* @return
+*/
 function setCKEditRecruit() {
 
 	if(!DISP_RECRUIT_TAB) {
-
 		CKEDITOR.replace('recruitStr' ,
 			{
 				height : 120
 			});
 
-
-		CKEDITOR.instances.recruitStr.on("blur", function(e) {
+		CKEDITOR.instances.recruitStr.on("blur" ,function(e) {
 			CKEDITOR.instances.recruitStr.updateElement();
 			var str = $("#recruitStr").val();
 			var msg;
@@ -284,18 +289,22 @@ function setCKEditRecruit() {
 			if(str.length >= 1) {
 				msg = '';
 			} else {
-				msg = 'any error';
+				msg = ERR_MSG;
 			}
 			$("#warnRecruitStr").html(msg);
 		});
-
 
 		DISP_RECRUIT_TAB = true;
 	}
 }
 
+/**
+* システムパネルのckEditorの調整
+*
+* @param
+* @return
+*/
 function setCKEditSystem() {
-
 
 	if(!DISP_SYSTEM_TAB) {
 		CKEDITOR.replace('systemStr' ,
@@ -303,8 +312,7 @@ function setCKEditSystem() {
 				height : 120
 			});
 
-
-		CKEDITOR.instances.systemStr.on("blur", function(e) {
+		CKEDITOR.instances.systemStr.on("blur" ,function(e) {
 			CKEDITOR.instances.systemStr.updateElement();
 			var str = $("#systemStr").val();
 			var msg;
@@ -312,11 +320,10 @@ function setCKEditSystem() {
 			if(str.length >= 1) {
 				msg = '';
 			} else {
-				msg = 'any error';
+				msg = ERR_MSG;
 			}
 			$("#warnSystemStr").html(msg);
 		});
-
 
 		DISP_SYSTEM_TAB = true;
 	}
@@ -324,9 +331,12 @@ function setCKEditSystem() {
 
 
 
-/************************************** 画像選択 **************************************/
-
-/***** 画像選択時の妥当性チェック *****/
+/**
+* 画像選択時の妥当性チェック
+*
+* @param {Object} 選択したファイルオブジェクト
+* @return
+*/
 function fileSele(obj) {
 
 var fileAttr = obj.files[0];
@@ -334,58 +344,51 @@ var fileAttr = obj.files[0];
 var name = fileAttr.name;
 				//var size = fileAttr.size;
 var type = fileAttr.type;
-var str = '';
+var msgImgFile;
 
 	if(type == 'image/jpeg'
 	|| type == 'image/png'
 	|| type == 'image/gif') {
-//		$("#strImgFile").html('');	//選択していないときのエラーメッセージを非表示
-//		$('#newFile').parsley().reset();
-//		$('.imgTypeCaution').html(str);
+		msgImgFile = '';
 		$("#imgTitle").val(name);
-
 		$("#addNewImgBtn").prop('disabled' ,false);
 	} else {
-		/* ファイル形式が指定以外だったとき */
-		//選択したファイル名をリセット
-
-//		$('#imgFileSele').parsley().reset();
-
-		/*****
-		1. 仮のファイル選択ボタンを生成し、
-		2. 元のファイル選択ボタンを削除し、
-		3. 仮のファイル選択ボタンを新しいファイル選択ボタンにする
-		*****/
-		$('#imgFileSele').after('<input type="file" name="imgFileSele" id="tempImgFileSele" data-parsley-required="true" data-parsley-trigger="focusout submit change">');
-		$('#imgFileSele').remove();
-		$('#tempImgFileSele').attr('id','imgFileSele');
-
-		$('#imgFileSele').on("change", function () {
-			fileSele(this);
-		});
-
-
-//		$('#newFile').parsley({
-//			successClass : "has-success",
-//			errorClass   : "has-error"  ,
-//
-//			errorsWrapper : '<div class="invalid-message"></div>',
-//			errorTemplate : '<span></span>'
-//		});
-//		$("#newFile").parsley().isValid();
-
-		str = 'jpg、png、gifのいずれかの形式のファイルを選択してください';
-//		$('.imgTypeCaution').html(str);
-
+		msgImgFile = '画像はjpgファイルかgifファイルを選択してください';
 		$("#addNewImgBtn").prop('disabled' ,true);
 	}
 
-console.debug('str:' + str);
+	$("#warnImgFile").html(msgImgFile);
+}
+
+/**
+* ファイル選択ボタンの再定義
+*
+* @param
+* @return
+*/
+function resetFileSelector() {
+
+	/*****
+	1. 仮のファイル選択ボタンを生成し、
+	2. 元のファイル選択ボタンを削除し、
+	3. 仮のファイル選択ボタンを新しいファイル選択ボタンにする
+	*****/
+	$('#imgFileSele').after('<input type="file" name="imgFileSele" id="tempImgFileSele" data-parsley-required="true" data-parsley-trigger="focusout submit change">');
+	$('#imgFileSele').remove();
+	$('#tempImgFileSele').attr('id','imgFileSele');
+
+	$('#imgFileSele').on("change", function () {
+		fileSele(this);
+	});
 }
 
 
-
-/***** 画像選択ダイアログの定義 *****/
+/**
+* 画像選択ダイアログの定義
+*
+* @param
+* @return
+*/
 function initSelectImgFileDlg() {
 
 	$("#selectImgFile").dialog({
@@ -396,13 +399,7 @@ function initSelectImgFileDlg() {
 			{
 				text  : "出力",
 				click : function() {
-					var chkEnter = checkSeleImg();
-					if(chkEnter) {
-							//alert('OK');
-					} else {
-							//alert('any error');
-						//alert(chkEnter);
-					}
+					checkSeleImg();
 				}
 			} ,
 			{
@@ -416,11 +413,14 @@ function initSelectImgFileDlg() {
 }
 
 
-
-/***** 画像リスト取得 *****/
+/**
+* 画像リスト取得
+*
+* @param
+* @return
+*/
 function readImgList() {
 
-var branchNo = $('#branchNo').val();
 var result;
 var dispList;
 var extList;
@@ -433,7 +433,7 @@ var extS2;
 		type : "get" ,
 		url  : "../cgi2018/ajax/mtn/getImgFiles.php" ,
 		data : {
-			branchNo : branchNo
+			branchNo : BRANCH_NO
 		} ,
 
 		cache    : false ,
@@ -464,24 +464,63 @@ var extS2;
 
 
 
-/***** 新規画像選択 *****/
+/**
+* 新規画像選択領域表示
+*
+* @param
+* @return
+*/
 function seleNewImg() {
 
 	$("#seleNewImg").show();
 }
 
-/***** 画像追加 *****/
+/**
+* 画像追加
+*
+* @param
+* @return
+*/
 function addNewImg() {
 
-var fd = new FormData();
-var result
+var str;
+var enterTitle = $("#enterNewImgFile").parsley().validate();
+var enterFile;
+
+var msgTitle;
+var msgImgFile;
+
+var imgVal;
+var fileType;
+
+var fd;
+var result;
 
 	if($("#imgFileSele").val() !== '') {
-		fd.append("newFile"  ,$("#imgFileSele").prop("files")[0]);
-		fd.append("branchNo" ,$('#branchNo').val());
+		imgVal = $("#imgFileSele").prop("files")[0];
+					//console.debug(imgVal);
+		fileType = imgVal.type;
+					//console.debug(fileType);
+
+		if(fileType == 'image/jpeg'
+		|| fileType == 'image/png'
+		|| fileType == 'image/gif') {
+			msgImgFile = '';
+			enterFile  = true;
+		} else {
+			msgImgFile = '画像はjpgファイルかgifファイルを選択してください';
+			enterFile  = false;
+		}
+		$("#warnImgFile").html(msgImgFile);
+	}
+
+	if(enterFile && enterTitle) {
+		fd = new FormData();
+
+		fd.append("newFile"  ,imgVal);
+		fd.append("branchNo" ,BRANCH_NO);
 		fd.append("title"    ,$('#imgTitle').val());
 		fd.append("class"    ,$("#imgClass").val());
-
 
 				//console.debug('file upload beg');
 		result = ajaxUploadNewImg(fd);
@@ -500,11 +539,15 @@ var result
 		result.always(function() {
 		});
 	}
-
 }
 
 
-/***** 画像のアップロード *****/
+/**
+* 画像のアップロード
+*
+* @param {Object} 画像ファイル情報
+* @return
+*/
 function ajaxUploadNewImg(fd) {
 
 var jqXHR;
@@ -514,7 +557,7 @@ var jqXHR;
 		url  : "../cgi2018/ajax/mtn/uploadImg.php" ,
 
 		dataType    : "text",
-		data        : fd ,
+		data        : fd    ,
 		processData : false ,
 		contentType : false ,
 
@@ -541,13 +584,12 @@ var imgNo;
 		}
 	}
 
+	$("#enterNewImgFile").parsley().reset();	// validateリセット
 	$("#selectImgFile").dialog("open");
 }
 
 
 function checkSeleImg() {
-
-var branchNo = $('#branchNo').val();
 
 /***** 選択されいてる画像 *****/
 var selectedImg = $("input[name='seleImg']:checked").val();
@@ -564,7 +606,7 @@ var ext;
 		ext  = EXT_LIST[selectedImg];
 			console.debug(ext);
 
-		tagStr = '<img src="../img/' + branchNo +  '/' + imgClass + '/' + selectedImg + '.' + ext + '">';
+		tagStr = '<img src="../img/' + BRANCH_NO +  '/' + imgClass + '/' + selectedImg + '.' + ext + '">';
 		$('#topImgTN' + param1).html(tagStr);
 
 		$('#topImg' + param1).val(selectedImg);
@@ -722,8 +764,8 @@ var result = $.ajax({
 			selectWriteFile('PAGE_MENU');		//出力対象ファイルの抽出→ファイル出力			//pageID
 		} else {
 			jAlert(
-				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
-				'メンテナンス' ,
+				TIMEOUT_MSG_STR ,
+				TIMEOUT_MSG_TITLE ,
 				function() {
 					location.href = 'login.html';
 				}

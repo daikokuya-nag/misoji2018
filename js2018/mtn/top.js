@@ -4,7 +4,6 @@ TOPページ編集 Version 1.1
 
 /***** 初期化 *****/
 $(document).ready(function(){
-
 });
 
 /***** 表示順のドロップ時の動作 *****/
@@ -225,8 +224,8 @@ var result = $.ajax({
 			selectWriteFile('TOP_PAGE_HEADER');		//出力対象ファイルの抽出→ファイル出力
 		} else {
 			jAlert(
-				'長時間操作がなかったため接続が切れました。ログインしなおしてください。' ,
-				'メンテナンス' ,
+				TIMEOUT_MSG_STR ,
+				TIMEOUT_MSG_TITLE ,
 				function() {
 					location.href = 'login.html';
 				}
