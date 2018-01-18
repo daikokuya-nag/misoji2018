@@ -90,6 +90,7 @@ class templateConst5C {
 	const KWD_ZODIAC_S    = '<!-- PROF_ZODIAC -->';			// 星座
 	const KWD_BLOODTYPE_S = '<!-- PROF_BLOODTYPE -->';		// 血液型
 
+	const KWD_1PHRASE_S   = '<!-- PROF_1PHRASE -->';		// ひとこと
 	const KWD_HEIGHT_S    = '<!-- PROF_HEIGHT -->';			// 身長
 	const KWD_SIZES_S     = '<!-- PROF_SIZES -->';			// スリーサイズ
 

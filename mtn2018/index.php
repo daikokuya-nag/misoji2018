@@ -454,6 +454,11 @@
 						<td><input type="text" id="profName" name="profName" size="35" value="" required=""></td>
 					</tr>
 					<tr class="profItemA">
+						<td class="profItemAA">ひとこと</td>
+						<td><input type="text" id="prof1Phrase" name="prof1Phrase" size="35" value=""></td>
+					</tr>
+
+					<tr class="profItemA">
 						<td class="profItemAA">年齢</td>
 						<td><input type="text" id="profAge" name="profAge" size="35" value=""></td>
 					</tr>

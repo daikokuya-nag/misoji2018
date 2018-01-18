@@ -36,9 +36,10 @@ PHP5
 		$prof->setVal(dbProfile5C::FLD_NEWFACE ,$postVals['newFace' ]);		/* 新人 */
 		$prof->setVal(dbProfile5C::FLD_NAME    ,$postVals['profName']);		/* 名前 */
 
-		$prof->setVal(dbProfile5C::FLD_AGE     ,$postVals['profAge'   ]);	/* 年齢 */
-		$prof->setVal(dbProfile5C::FLD_HEIGHT  ,$postVals['profHeight']);	/* 身長 */
-		$prof->setVal(dbProfile5C::FLD_SIZES   ,$postVals['profSize'  ]);	/* スリーサイズ */
+		$prof->setVal(dbProfile5C::FLD_AGE     ,$postVals['profAge'    ]);	/* 年齢 */
+		$prof->setVal(dbProfile5C::FLD_1PHRASE ,$postVals['prof1Phrase']);	/* ひとこと */
+		$prof->setVal(dbProfile5C::FLD_HEIGHT  ,$postVals['profHeight' ]);	/* 身長 */
+		$prof->setVal(dbProfile5C::FLD_SIZES   ,$postVals['profSize'   ]);	/* スリーサイズ */
 
 		$prof->setVal(dbProfile5C::FLD_ZODIAC    ,$postVals['profZodiac']);		/* 星座 */
 		$prof->setVal(dbProfile5C::FLD_BLOODTYPE ,$postVals['profBloodType']);	/* 血液型 */

@@ -109,10 +109,11 @@ var result;
 
 	$("input[name='newFace']").val(['N']);		/* 新人 ON */
 
-	$('#profName'  ).val('');
-	$('#profAge'   ).val('');
-	$('#profHeight').val('');
-	$('#profSize'  ).val('');
+	$('#profName'   ).val('');
+	$('#profAge'    ).val('');
+	$('#prof1Phrase').val('');
+	$('#profHeight' ).val('');
+	$('#profSize'   ).val('');
 
 	$('#profZodiac').val('');
 	$('#profBloodType').val('');
@@ -235,8 +236,10 @@ var result = $.ajax({
 			$("#newFace").prop("checked", false);
 		}
 
-		$('#profName'  ).val(response['name']);
-		$('#profAge'   ).val(response['age']);
+		$('#profName'   ).val(response['name']);
+		$('#profAge'    ).val(response['age']);
+		$('#prof1Phrase').val(response['phrase1']);
+
 		$('#profHeight').val(response['height']);
 		$('#profSize'  ).val(response['sizes']);
 		$('#profZodiac').val(response['zodiac']);
@@ -599,25 +602,25 @@ var str;
 var ret = $("#enterProfile").parsley().validate();
 var msg;
 
-	CKEDITOR.instances.mastComment.updateElement();
-	str = $("#mastComment").val();
-	if(str.length >= 1) {
-		msg = '';
-	} else {
-		msg = ERR_MSG;
-		ret = false;
-	}
-	$("#warnMastComment").html(msg);
-
-	CKEDITOR.instances.appComment.updateElement();
-	str = $("#appComment").val();
-	if(str.length >= 1) {
-		msg = '';
-	} else {
-		msg = ERR_MSG;
-		ret = false;
-	}
-	$("#warnAppComment").html(msg);
+//	CKEDITOR.instances.mastComment.updateElement();
+//	str = $("#mastComment").val();
+//	if(str.length >= 1) {
+//		msg = '';
+//	} else {
+//		msg = ERR_MSG;
+//		ret = false;
+//	}
+//	$("#warnMastComment").html(msg);
+//
+//	CKEDITOR.instances.appComment.updateElement();
+//	str = $("#appComment").val();
+//	if(str.length >= 1) {
+//		msg = '';
+//	} else {
+//		msg = ERR_MSG;
+//		ret = false;
+//	}
+//	$("#warnAppComment").html(msg);
 
 	return ret;
 }
@@ -819,10 +822,6 @@ var result  = $.ajax({
 
 	result.always(function() {
 	});
-
-
-
-
 }
 
 

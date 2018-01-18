@@ -26,6 +26,7 @@ class dbProfile5C {
 	const FLD_NAME       = 'name';		/* 名前 */
 	const FLD_AGE        = 'age';		/* 年齢 */
 
+	const FLD_1PHRASE    = 'phrase1';	/* ひとこと */
 	const FLD_HEIGHT     = 'height';	/* 身長 */
 	const FLD_SIZES      = 'sizes';		/* スリーサイズ */
 	const FLD_ZODIAC     = 'zodiac';	/* 星座 */
@@ -159,8 +160,8 @@ class dbProfile5C {
 		$db = $this->handle;
 
 		$fldArr = array(
-			self::FLD_DIR     ,self::FLD_DISP_SEQ  ,self::FLD_DISP ,
-			self::FLD_NAME    ,self::FLD_AGE   ,
+			self::FLD_DIR     ,self::FLD_DISP_SEQ ,self::FLD_DISP ,
+			self::FLD_NAME    ,self::FLD_AGE   , self::FLD_1PHRASE ,
 			self::FLD_HEIGHT  ,self::FLD_SIZES , self::FLD_ZODIAC ,self::FLD_BLOODTYPE ,
 			self::FLD_NEWFACE ,self::FLD_WORK_TIME ,self::FLD_WORK_DAY ,self::FLD_REST_DAY ,self::FLD_MASTERS_COMMENT ,self::FLD_APPEAL_COMMENT ,
 			self::FLD_PHOTO_SHOW ,
@@ -221,8 +222,8 @@ class dbProfile5C {
 
 		$fldArr = array(
 			self::FLD_DIR     ,self::FLD_DISP_SEQ ,self::FLD_DISP ,
-			self::FLD_NAME    ,self::FLD_AGE   ,
-			self::FLD_HEIGHT  ,self::FLD_SIZES , self::FLD_ZODIAC , self::FLD_BLOODTYPE ,
+			self::FLD_NAME    ,self::FLD_AGE   , self::FLD_1PHRASE ,
+			self::FLD_HEIGHT  ,self::FLD_SIZES , self::FLD_ZODIAC ,self::FLD_BLOODTYPE ,
 			self::FLD_NEWFACE ,self::FLD_WORK_TIME ,self::FLD_WORK_DAY ,self::FLD_REST_DAY ,self::FLD_MASTERS_COMMENT ,self::FLD_APPEAL_COMMENT ,
 			self::FLD_PHOTO_SHOW ,
 
@@ -451,8 +452,8 @@ class dbProfile5C {
 
 		$fldArr = array(
 			self::FLD_DISP_SEQ   ,self::FLD_DISP  ,
-			self::FLD_NAME       ,self::FLD_AGE   ,
-			self::FLD_HEIGHT     ,self::FLD_SIZES , self::FLD_ZODIAC , self::FLD_BLOODTYPE ,
+			self::FLD_NAME       ,self::FLD_AGE   ,self::FLD_1PHRASE ,
+			self::FLD_HEIGHT     ,self::FLD_SIZES ,self::FLD_ZODIAC , self::FLD_BLOODTYPE ,
 			self::FLD_NEWFACE    ,self::FLD_WORK_TIME ,self::FLD_WORK_DAY ,self::FLD_REST_DAY ,self::FLD_MASTERS_COMMENT ,self::FLD_APPEAL_COMMENT ,
 			self::FLD_PHOTO_SHOW ,self::FLD_PCD ,
 
@@ -585,6 +586,7 @@ class dbProfile5C {
 			self::FLD_NAME => '' ,				/* 名前 */
 			self::FLD_AGE  => '' ,				/* 年齢 */
 
+			self::FLD_1PHRASE => '' ,			/* ひとこと */
 			self::FLD_HEIGHT  => '' ,			/* 身長 */
 			self::FLD_SIZES   => '' ,			/* スリーサイズ */
 			self::FLD_ZODIAC  => '' ,			/* 星座 */
@@ -797,6 +799,7 @@ class dbProfile5C {
 			self::FLD_NEWFACE . '=' . $db->setQuote($vals[self::FLD_NEWFACE]) . ',' .
 			self::FLD_NAME    . '=' . $db->setQuote($vals[self::FLD_NAME   ]) . ',' .
 			self::FLD_AGE     . '=' . $db->setQuote($vals[self::FLD_AGE    ]) . ',' .
+			self::FLD_1PHRASE . '=' . $db->setQuote($vals[self::FLD_1PHRASE]) . ',' .
 			self::FLD_HEIGHT  . '=' . $db->setQuote($vals[self::FLD_HEIGHT ]) . ',' .
 			self::FLD_SIZES   . '=' . $db->setQuote($vals[self::FLD_SIZES  ]) . ',' .
 			self::FLD_ZODIAC  . '=' . $db->setQuote($vals[self::FLD_ZODIAC ]) . ',' .
@@ -927,6 +930,7 @@ class dbProfile5C {
 			self::FLD_NEWFACE ,
 			self::FLD_NAME    ,
 			self::FLD_AGE     ,
+			self::FLD_1PHRASE ,
 			self::FLD_HEIGHT  ,
 			self::FLD_SIZES   ,
 			self::FLD_ZODIAC  ,
@@ -960,6 +964,7 @@ class dbProfile5C {
 			$db->setQuote($vals[self::FLD_NEWFACE]) . ',' .
 			$db->setQuote($vals[self::FLD_NAME   ]) . ',' .
 			$db->setQuote($vals[self::FLD_AGE    ]) . ',' .
+			$db->setQuote($vals[self::FLD_1PHRASE]) . ',' .
 			$db->setQuote($vals[self::FLD_HEIGHT ]) . ',' .
 			$db->setQuote($vals[self::FLD_SIZES  ]) . ',' .
 			$db->setQuote($vals[self::FLD_ZODIAC ]) . ',' .

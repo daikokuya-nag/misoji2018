@@ -67,9 +67,10 @@ var appComment  = CKEDITOR.instances.appComment.getData();
 	fd.append("profZodiac"    ,$('#profZodiac'   ).val());
 	fd.append("profBloodType" ,$('#profBloodType').val());
 
-	fd.append("profAge"    ,$('#profAge'   ).val());
-	fd.append("profHeight" ,$('#profHeight').val());
-	fd.append("profSize"   ,$('#profSize'  ).val());
+	fd.append("profAge"     ,$('#profAge'    ).val());
+	fd.append("prof1Phrase" ,$('#prof1Phrase').val());
+	fd.append("profHeight"  ,$('#profHeight' ).val());
+	fd.append("profSize"    ,$('#profSize'   ).val());
 
 	fd.append("mastComment" ,mastComment);
 	fd.append("appComment"  ,appComment);

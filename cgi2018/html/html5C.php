@@ -467,6 +467,7 @@ class html5C {
 			$this->replaceStr(templateConst5C::KWD_NAME_S     ,$name);		//名前
 			$this->replaceStr(templateConst5C::KWD_PROF_DIR_S ,$dir);		//ディレクトリ
 
+			$this->replaceLine(templateConst5C::KWD_1PHRASE_S   ,$prof1[dbProfile5C::FLD_1PHRASE]);		//ひとこと
 			$this->replaceLine(templateConst5C::KWD_AGE_S       ,$prof1[dbProfile5C::FLD_AGE]);			//年齢
 			$this->replaceLine(templateConst5C::KWD_ZODIAC_S    ,$prof1[dbProfile5C::FLD_ZODIAC]);		//星座
 			$this->replaceLine(templateConst5C::KWD_BLOODTYPE_S ,$prof1[dbProfile5C::FLD_BLOODTYPE]);	//血液型
