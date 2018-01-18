@@ -40,13 +40,13 @@ var width = $(".tabArea").width();
 				// 選択されたタブの初回表示時に高さを定義する
 				var selectedPanel = ui.newPanel.selector;
 				if(selectedPanel == "#tabsNews") {
-					if(TAB_HEIGHT['news'] == 0) {
+					if(TAB_HEIGHT['NEWS'] == 0) {
 						setNewsTabHeight();
 					}
 				}
 
 				if(selectedPanel == "#tabsProfile") {
-					if(TAB_HEIGHT['profile'] == 0) {
+					if(TAB_HEIGHT['ALBUM'] == 0) {
 						setProfTabHeight();
 					}
 				}
@@ -54,7 +54,7 @@ var width = $(".tabArea").width();
 				if(selectedPanel == "#tabsRecruit") {
 					$("#warnRecruitStr").html('');
 					setCKEditRecruit();
-					if(TAB_HEIGHT['recruit'] == 0) {
+					if(TAB_HEIGHT['RECRUIT'] == 0) {
 						setRecruitTabHeight();
 					}
 				}
@@ -62,7 +62,7 @@ var width = $(".tabArea").width();
 				if(selectedPanel == "#tabsSystem") {
 					$("#warnSystemStr").html('');
 					setCKEditSystem();
-					if(TAB_HEIGHT['system'] == 0) {
+					if(TAB_HEIGHT['SYSTEM'] == 0) {
 						setSystemTabHeight();
 					}
 				}
@@ -143,7 +143,7 @@ var grayPanelID = GRAY_PANEL_ID['news'];
 
 				//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);
 	$("#tabNewsMid").height(height + 'px');
-	TAB_HEIGHT['news'] = height;
+	TAB_HEIGHT['NEWS'] = height;
 
 	height = $("#" + EDIT_AREA['news']).height();
 	EDIT_AREA_HEIGHT['news'] = height;
@@ -169,7 +169,7 @@ var grayPanelID = GRAY_PANEL_ID['profile'];
 
 				//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);
 	$("#tabProfMid").height(height + 'px');
-	TAB_HEIGHT['profile'] = height;
+	TAB_HEIGHT['ALBUM'] = height;
 
 	height = $("#" + EDIT_AREA['profile']).height();
 	EDIT_AREA_HEIGHT['profile'] = height;
@@ -195,7 +195,7 @@ var grayPanelID = GRAY_PANEL_ID['recruit'];
 
 				//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);
 	$("#tabRecruitMid").height(height + 'px');
-	TAB_HEIGHT['recruit'] = height;
+	TAB_HEIGHT['RECRUIT'] = height;
 
 	height = $("#" + EDIT_AREA['recruit']).height();
 	EDIT_AREA_HEIGHT['recruit'] = height;
@@ -242,7 +242,7 @@ var grayPanelID = GRAY_PANEL_ID['system'];
 
 				//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);
 	$("#tabSystemMid").height(height + 'px');
-	TAB_HEIGHT['system'] = height;
+	TAB_HEIGHT['SYSTEM'] = height;
 
 	height = $("#" + EDIT_AREA['system']).height();
 	EDIT_AREA_HEIGHT['system'] = height;
