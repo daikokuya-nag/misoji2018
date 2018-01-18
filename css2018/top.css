@@ -1,20 +1,3 @@
 /********************
 TOPページ
 ********************/
-
-#hdW {
-	overflow: hidden;
-	position: relative;
-}
-
-
-#hdW img.imgTop {
-	top: 0;
-	left: 0;
-}
-
-
-#hdW img.img2 {
-	top: 0;
-	position: absolute;	/*relative;*/
-}

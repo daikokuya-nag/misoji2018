@@ -30,9 +30,9 @@ class dateTime5C {
 
 	const STAMP = 'stamp';	// タイムスタンプ 
 
-			/*const DATE_SEP' ,'-');*/
-	const DATE_SEP = '/';
-	const TIME_SEP = ':';
+	const DATE_SEP  = '/';
+	const DATE_SEP2 = '-';
+	const TIME_SEP  = ':';
 
 	const ONE_DAY_SEC = 86400;	// 1日の秒数
 
@@ -466,8 +466,14 @@ class dateTime5C {
  */
 	public static function divideDTStr($dateTime) {
 
-		$divData  = explode(' ' ,$dateTime);
-		$dateData = explode(self::DATE_SEP ,$divData[0]);	/* 日付データの分割 */
+		$divData   = explode(' ' ,$dateTime);
+
+		$dateData1 = explode(self::DATE_SEP ,$divData[0]);	/* 日付データの分割 */
+		if(count($dateData1) <= 1) {
+			$dateData = explode(self::DATE_SEP2 ,$dateData1[0]);
+		} else {
+			$dateData = $dateData1;
+		}
 		$timeData = explode(self::TIME_SEP ,$divData[1]);	/* 時刻データの分割 */
 
 		$ret[self::YEAR ] = intval($dateData[0]);		/* 年の値（4桁）  	2005 など */

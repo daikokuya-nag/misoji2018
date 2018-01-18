@@ -17,6 +17,7 @@
 	require_once dirname(__FILE__) . '/../siteConst5C.php';
 	require_once dirname(__FILE__) . '/../photo5C.php';
 	require_once dirname(__FILE__) . '/../strings5C.php';
+	require_once dirname(__FILE__) . '/../dateTime5C.php';
 
 /**
  * HTMLファイル生成
@@ -337,6 +338,12 @@ class html5C {
 			$digest  = $news1[dbNews5C::FLD_DIGEST];	//概要
 			$content = $news1[dbNews5C::FLD_CONTENT];	//内容
 			$date    = $news1[dbNews5C::FLD_DATE];		//日付
+
+
+			$divideDT = dateTime5C::divideDTStr($news1[dbNews5C::FLD_ADD_DT]);			//日付からIDを生成
+			$newsID  = $divideDT[dateTime5C::YEAR] . $divideDT[dateTime5C::MONTH] . $divideDT[dateTime5C::DAY] .
+						$divideDT[dateTime5C::HOUR] . $divideDT[dateTime5C::MIN] . $divideDT[dateTime5C::SEC];
+
 			if(strcmp($this->device ,common5C::DEVICE_MO) == 0) {
 				$title   = mb_convert_encoding($title   ,common5C::ENCODE_MO ,common5C::ENCODE_DEFAULT);
 				$digest  = mb_convert_encoding($digest  ,common5C::ENCODE_MO ,common5C::ENCODE_DEFAULT);
@@ -352,6 +359,7 @@ class html5C {
 				$this->replaceStr(templateConst5C::KWD_NEWS_DIGEST_S  ,$digest);	//概要
 				$this->replaceStr(templateConst5C::KWD_NEWS_CONTENT_S ,$content);	//内容
 				$this->replaceStr(templateConst5C::KWD_NEWS_DATE_S    ,$date);		//日付
+				$this->replaceStr(templateConst5C::KWD_NEWS_ID_S      ,$newsID);	//ID
 
 				if(strlen($this->detail1) >= 1) {
 					$tagStr = $tagStr . $this->detail1 . common5C::CSRC_NL_CODE;
@@ -1067,9 +1075,9 @@ class html5C {
 		$cr = common5C::CSRC_NL_CODE;
 
 		$ret = 
-'					<div class="row" id="hdW">' . $cr .
-					$item . $cr .
-'					</div>';
+			'					<div class="row" id="hdW">' . $cr .
+								$item . $cr .
+			'					</div>';
 
 		return $ret;
 	}

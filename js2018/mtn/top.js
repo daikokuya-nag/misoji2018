@@ -172,7 +172,7 @@ var imgTag;
 		imgTag = '';
 		if(fileExist[paramIdx] == 1) {
 			if(imgNoList[paramIdx].length >= 1) {
-				imgTag = '<img src="../img/1/TOP_HEADER/' + imgNo + '.' + imgExtList[imgNo] + '">';
+				imgTag = '<img src="../img/1/TOP_HEADER/' + imgNo + '.' + imgExtList[imgNo] + '" class="img-responsive">';
 			}
 		}
 
@@ -180,7 +180,7 @@ var imgTag;
 		$("#topImg" + seqID).val(imgNo);
 
 		ret = ret +
-		'<tr id="topImg-' + seqID + '">' +
+		'<tr class="topImg" id="topImg-' + seqID + '">' +
 			'<td class="topImgTN" id="topImgTN' + seqID + '">' + imgTag + '</td>' +
 			'<td class="topImgSele"><input type="button" value="画像選択" name="attTopImg' + seqID + '" id="attTopImg' + seqID + '" onclick="showSeleImg(\'TOP_HEADER\' ,\'' + seqID + '\')"><br><div id="currTopImg' + seqID + '">&nbsp;</div></td>' +
 			'<td class="topImgDisp"><input type="checkbox" name="useTopImg' + seqID + '" id="useTopImg' + seqID + '" class="useTopImg" value="U" onchange="enableWriteTopImgSeq();"></td>' +

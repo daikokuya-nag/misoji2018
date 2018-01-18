@@ -78,7 +78,7 @@ div.resetFloat:after {
 
 
 
-
+/* 操作不可のマスク */
 .grayPanel {
 	background : #000;
 	opacity : 0.1;
@@ -151,3 +151,51 @@ input[type="file"] {
 
 	font-size:0.9em;
 }
+
+
+/* TOPタブ */
+/* 画像選択 */
+table.topImgSele {
+
+	border-collapse:collapse;
+}
+
+tr.topImg {
+
+	margin:5px;
+	padding:5px;
+}
+
+td.topImgTN {
+	width:400px;
+	max-width:400px;
+
+	padding-left:3px;
+	padding-bottom:3px;
+	border-left:2px solid #f0f;
+	border-top:2px solid #f0f;
+	border-bottom:2px solid #f0f;
+}
+
+td.topImgSele {
+
+	padding-bottom:3px;
+	border-top:2px solid #f0f;
+	border-bottom:2px solid #f0f;
+}
+
+td.topImgDisp {
+
+	padding-bottom:3px;
+	padding-right:3px;
+	border-top:2px solid #f0f;
+	border-bottom:2px solid #f0f;
+	border-right:2px solid #f0f;
+}
+
+td.topImgTN img {
+
+	max-width:400px;
+}
+
+

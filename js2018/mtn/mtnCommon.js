@@ -13,8 +13,8 @@ var OUTER_URL_FORM = {NEWS:'newsOuterURL'  ,ALBUM:'profileOuterURL' ,RECRUIT:'re
 var GRAY_PANEL_ID  = {NEWS:'grayPanelNews' ,ALBUM:'grayPanelProf'   ,RECRUIT:'grayPanelRecruit' ,SYSTEM:'grayPanelSystem'};	// 外部サイト使用時の、入力不可領域のマスク
 
 var EDIT_AREA        = {NEWS:'tabNewsMain' ,ALBUM:'tabProfMain'     ,RECRUIT:'tabRecruitMain'   ,SYSTEM:'tabSystemMain'};	// 入力項目範囲
-var EDIT_AREA_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0};	// 入力域の高さ
-var TAB_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0};		// tabの高さ
+var EDIT_AREA_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0};		// 入力域の高さ
+var TAB_HEIGHT       = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0};		// tabの高さ
 
 var DISP_SYSTEM_TAB  = false;	// システムタブを表示したか
 var DISP_RECRUIT_TAB = false;	// 求人タブを表示したか
@@ -23,6 +23,8 @@ var ERR_MSG = 'この値は必須です';	//
 
 var TIMEOUT_MSG_STR   = '長時間操作がなかったため接続が切れました。ログインしなおしてください。';
 var TIMEOUT_MSG_TITLE = 'メンテナンス';
+var SELECTABLE_IMG_FILE = '画像はjpgまたはgifファイルを選択してください';
+
 
 $(document).ready(function(){
 
@@ -353,7 +355,7 @@ var msgImgFile;
 		$("#imgTitle").val(name);
 		$("#addNewImgBtn").prop('disabled' ,false);
 	} else {
-		msgImgFile = '画像はjpgファイルかgifファイルを選択してください';
+		msgImgFile = SELECTABLE_IMG_FILE;
 		$("#addNewImgBtn").prop('disabled' ,true);
 	}
 
@@ -508,7 +510,7 @@ var result;
 			msgImgFile = '';
 			enterFile  = true;
 		} else {
-			msgImgFile = '画像はjpgファイルかgifファイルを選択してください';
+			msgImgFile = SELECTABLE_IMG_FILE;
 			enterFile  = false;
 		}
 		$("#warnImgFile").html(msgImgFile);
@@ -585,6 +587,11 @@ var imgNo;
 	}
 
 	$("#enterNewImgFile").parsley().reset();	// validateリセット
+
+	//ファイル選択ボタンのリセット
+	resetFileSelector();
+	$("#warnImgFile").html('');
+
 	$("#selectImgFile").dialog("open");
 }
 
@@ -638,34 +645,10 @@ var result = $.ajax({
 		USE_PAGE['RECRUIT'] = response['RECRUIT'];
 		USE_PAGE['SYSTEM' ] = response['SYSTEM' ];
 
-		var pageID;
-		var radioName;
-		var usePage;
-
-		pageID    = 'NEWS';
-		radioName = RADIO_NAME[pageID];
-		usePage   = USE_PAGE[pageID]['USE'];
-		$("input[name='" + radioName + "']").val([usePage]);
-		setUsePage(pageID);
-
-		pageID    = 'ALBUM';
-		radioName = RADIO_NAME[pageID];
-		usePage   = USE_PAGE[pageID]['USE'];
-		$("input[name='" + radioName + "']").val([usePage]);
-		setUsePage(pageID);
-
-		pageID    = 'RECRUIT';
-		radioName = RADIO_NAME[pageID];
-		usePage   = USE_PAGE[pageID]['USE'];
-		$("input[name='" + radioName + "']").val([usePage]);
-		setUsePage(pageID);
-
-		pageID    = 'SYSTEM';
-		radioName = RADIO_NAME[pageID];
-		usePage   = USE_PAGE[pageID]['USE'];
-		$("input[name='" + radioName + "']").val([usePage]);
-		setUsePage(pageID);
-
+		setUsePage('NEWS');
+		setUsePage('ALBUM');
+		setUsePage('RECRUIT');
+		setUsePage('SYSTEM');
 
 		$("input[name='newsOuterURL']").change(function() {
 			$("#sendSeleNewsPage").prop('disabled' ,false);
@@ -695,15 +678,15 @@ var result = $.ajax({
 
 function setUsePage(pageID) {
 
-var usePage      = USE_PAGE[pageID]['USE'];
-var otherURL     = USE_PAGE[pageID]['USEPAGE'];
-var idPrefix     = ID_PREFIX[pageID];
+var usePage  = USE_PAGE[pageID]['USE'];
+var idPrefix = ID_PREFIX[pageID];
+
 var outerURLForm = OUTER_URL_FORM[pageID];
 var grayPanelID  = GRAY_PANEL_ID[pageID];
-var editArea       = EDIT_AREA[pageID];
-var editAreaHeight = EDIT_AREA_HEIGHT[pageID];
+var editArea     = EDIT_AREA[pageID];
 
-	$("#" + outerURLForm).val(otherURL);
+	$("#" + outerURLForm).val(USE_PAGE[pageID]['USEPAGE']);
+	$("input[name='" + RADIO_NAME[pageID] + "']").val([usePage]);
 
 console.debug(usePage);
 
@@ -733,13 +716,8 @@ console.debug(usePage);
 
 function updUsePage(pageID) {
 
-var branchNo = $('#branchNo').val();
-
-var radioName    = RADIO_NAME[pageID];
-var outerURLForm = OUTER_URL_FORM[pageID];
-
-var usePage  = $("input[name='" + radioName + "']:checked").val();
-var outerURL = $("#" + outerURLForm).val();
+var usePage  = $("input[name='" + RADIO_NAME[pageID] + "']:checked").val();
+var outerURL = $("#" + OUTER_URL_FORM[pageID]).val();
 
 console.debug(usePage);
 console.debug(outerURL);
@@ -748,9 +726,9 @@ var result = $.ajax({
 		type : "post" ,
 		url  : "../cgi2018/ajax/mtn/writeUsePage.php" ,
 		data : {
-			branchNo : branchNo ,
-			pageID   : pageID   ,
-			usePage  : usePage  ,
+			branchNo : BRANCH_NO ,
+			pageID   : pageID    ,
+			usePage  : usePage   ,
 			outerURL : outerURL
 		} ,
 

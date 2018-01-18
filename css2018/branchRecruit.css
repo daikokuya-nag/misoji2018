@@ -1,0 +1,11 @@
+@charset "utf-8";
+/**********
+求人
+**********/
+
+h1 {
+  background-color: #ef0d92;
+  color: #fff;
+  margin-top: 10px;
+  padding: 4px;
+}

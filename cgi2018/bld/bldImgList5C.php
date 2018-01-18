@@ -66,17 +66,19 @@ class bldImgList5C {
 		$class = $img1[dbImage5C::FLD_CLASS  ];
 		$ext   = $img1[dbImage5C::FLD_ORG_EXT];
 
-		$seleStr = '<input type="radio" name="seleImg" id="seleImg' . $imgNo . '" value="' . $imgNo . '">';
+		$btnID   = 'seleImg' . $imgNo;
+		$seleStr = '<input type="radio" name="seleImg" id="' . $btnID . '" value="' . $imgNo . '">';
 
 		$photoFile = '../img/' . $branchNo . '/' . $class . '/' . $imgNo . '.' . $ext;
-		$imgStr = '<img src="' . $photoFile . '" width="110" height="145">';
+		$imgStr    = '<img src="' . $photoFile . '" width="300">';		// height="145"
+		$labelStr  = '<label for="' . $btnID . '">' . $imgStr . '</label>';
 
 		//ファイルの有無
 		$filePath = dirname(__FILE__) . '/../' . $photoFile;
 		if(is_file($filePath)) {
 			$ret = '<div id="img-' . $imgNo . '" class="img ui-state-default">' .
-				'<div class="tnOut">' . $seleStr . '</div>' .
-				'<div class="tnOut">' . $imgStr  . '</div>' .
+				'<div class="tnOut">' . $seleStr  . '</div>' .
+				'<div class="tnOut">' . $labelStr . '</div>' .
 				'</div>';
 		} else {
 			$ret = '';

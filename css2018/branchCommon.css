@@ -34,26 +34,34 @@ h2 {
 div.topInfo {
   border: 1px solid #aaaaaa;
   margin-bottom: 15px;
+  background-color: #ea91c5;
 }
-
-
 
 
 /***** ニュース *****/
-#newsDigestList {
-  background-color: #ffffff;
-  padding: 5px;
-  margin-bottom: 10px;
-  height:430px;
-  overflow:scroll;
-}
-
 div.newsDigestO {
   border: 1px solid #0000ff;
   margin-top: 10px;
   margin-bottom: 5px;
   padding-bottom: 5px;
 }
+
+div.newsContentO {
+  border: 1px solid #0000ff;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+
+
+div.newsDate {
+	float:left;
+}
+
+div.newsTitle {
+	float:left;
+}
+
 
 /*** 期間中 ***/
 div.newsInTerm {
@@ -103,13 +111,12 @@ div.newsShevronXS {
 }
 
 div.newsOut {
-  background-color: #ea91c5;
   min-height: 500px;
 }
 
 @media (min-width: 992px) {
   div.newsOut {
-    overflow: scroll;
+    overflow: auto;
     height: 500px;
   }
 }
@@ -173,7 +180,7 @@ div.pdList1 {
 }
 
 div.workerTN div.caption {
-  font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", serif;	/*  "mmyNew"; */
+  font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", serif;
   font-size: 20px;
   padding-left: 0px;
   padding-right: 0px;
@@ -192,10 +199,12 @@ div.todayWorksOut {
 div.wivesList {
   border: 1px solid #aaaaaa;
   margin-bottom: 10px;
+  overflow:scroll;
+  height: 500px;
 }
 
 div.wivesList div.wifeName {
-  font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", serif;	/*  "mmyNew"; */
+  font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", serif;
   background: none;
   font-size: 20px;
   margin-top: 5px;
@@ -234,6 +243,19 @@ div.moreWives {
   float:right;
   margin-right:20px;
 }
+
+
+div.wivesList {
+  min-height: 500px;
+}
+
+@media (min-width: 992px) {
+  div.wivesList {
+    overflow: auto;
+    height: 500px;
+  }
+}
+
 
 
 div.moreWives a:link {
@@ -280,34 +302,6 @@ table.priceList td {
   padding:5px;
 }
 
-td.priceAL {
-  width:30%;
-  text-align:right;
-  border:1px solid #777;
-}
-
-td.priceAY {
-  width:70%;
-  text-align:right;
-  border:1px solid #777;
-}
-
-
-table.priceB {
-  margin-bottom:10px;
-}
-
-td.priceBL {
-  width:30%;
-  text-align:left;
-  border:1px solid #777;
-}
-
-td.priceBY {
-  width:70%;
-  text-align:right;
-  border:1px solid #777;
-}
 
 div.priceStr {
   text-align:left;
@@ -327,10 +321,6 @@ div.rightBar img {
   display:none;
 }
 
-
-#todaysWorksList div {
-/*  display:none;*/
-}
 
 
 /***** 写メ日記 *****/
@@ -454,31 +444,16 @@ div.recruitStr {
 
 
 @media (min-width: 1200px) {
-  div.topInfo1, div.topInfo4 {
-    margin-right: 4px;
-  }
-  div.topInfo2, div.topInfo5 {
-    margin-right: 3px;
-  }
-
   div.topInfo {
-    width: 288px;
     overflow: scroll;
     height: 500px;
     margin-bottom: 10px;
   }
 
-
   div.todayWorksOut3, div.todayWorksOut6 {
     float: right;
     margin-left: 0px;
   }
-
-
-  div.wivesList {
-    width: 872px;
-  }
-
 
   div.photoDiaryList {
     width: 872px;
@@ -489,7 +464,6 @@ div.recruitStr {
 @media (min-width: 992px) {
   div.topInfo1, div.topInfo3, div.topInfo5 {
     margin-left: 0px;
-    margin-right: 3px;
   }
   div.topInfo2, div.topInfo4, div.topInfo6 {
     margin-left: 0px;
@@ -497,20 +471,8 @@ div.recruitStr {
   }
 
   div.topInfo {
-    width: 320px;
     margin-bottom: 6px;
   }
-
-
-  div.todayWorksOut {
-    height: 458px;
-  }
-
-
-  div.wivesList {
-    width: 643px;
-  }
-
 
   div.photoDiaryList {
     width: 643px;

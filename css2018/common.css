@@ -1,1 +1,91 @@
-/**********各ページ共通**********/@font-face {  font-family: "mmyNew";  src: url("../font/mmyNew.woff") format('woff');}body {  text-align:center;  margin:0px;}.clearFix:after {  content: "";  clear: both;  display: block;  height: 0;  font-size:0;  visibility:hidden;}footer {  font-size:18px;}footer #copy {  margin-bottom:20px;}hr {  border-top:1px solid #777;}/***** 色 *****/.colorRed {  color: #ff0000;}.colorBlue {  color: #0000ff;}.colorOrange {  color: #ffa500;}.colorGreen {  color: #00ff00;}.colorFuchsia {  color: #ff00ff;}.cautionA {  color:#f00;}/**********2017.10.2 田村**********//**********画像選択のダイアログ**********/#selectIMG .modal-header {  padding:0 15px 0;  background-color:#eee;  text-align:center;}#selectIMG h4 {  padding:0px;}#selectIMG .modal-dialog {  width:555px;}div.imgItem {  border:1px dotted #555;  padding-left:5px;  padding-right:5px;}
+/* 各ページ共通 */
+@font-face {
+  font-family: "mmyNew";
+  src: url("../font/mmyNew.woff") format('woff');
+}
+
+body {
+  text-align:center;
+  margin:0px;
+}
+
+.clearFix:after {
+  content: "";
+  clear: both;
+  display: block;
+  height: 0;
+  font-size:0;
+  visibility:hidden;
+}
+
+
+/* フッタ */
+footer {
+  font-size:18px;
+}
+
+footer #copy {
+  margin-bottom:20px;
+}
+
+#footer {
+  margin-top: 10px;
+  padding-top: 20px;
+
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+
+hr {
+  border-top:1px solid #777;
+}
+
+
+
+/***** 色 *****/
+.colorRed {
+  color: #ff0000;
+}
+
+.colorBlue {
+  color: #0000ff;
+}
+
+.colorOrange {
+  color: #ffa500;
+}
+
+.colorGreen {
+  color: #00ff00;
+}
+
+.colorFuchsia {
+  color: #ff00ff;
+}
+
+.cautionA {
+  color:#f00;
+}
+
+
+/* 画像選択のダイアログ */
+#selectIMG .modal-header {
+  padding:0 15px 0;
+  background-color:#eee;
+  text-align:center;
+}
+
+#selectIMG h4 {
+  padding:0px;
+}
+
+#selectIMG .modal-dialog {
+  width:555px;
+}
+
+div.imgItem {
+  border:1px dotted #555;
+  padding-left:5px;
+  padding-right:5px;
+}
