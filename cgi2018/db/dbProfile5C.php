@@ -32,9 +32,9 @@ class dbProfile5C {
 	const FLD_ZODIAC     = 'zodiac';	/* 星座 */
 	const FLD_BLOODTYPE  = 'bloodType';	/* 血液型 */
 
-	const FLD_NEWFACE    = 'newFace';	/* 新人 */
-	const FLD_WORK_DAY   = 'workDay';	/* 出勤日 */
-	const FLD_REST_DAY   = 'restDay';	/* 公休日 */
+	const FLD_NEWFACE    = 'newFace';		/* 新人 */
+	const FLD_WORK_REST  = 'workRest';		/* 出勤/公休区分 */
+	const FLD_WORK_REST_STR   = 'workRestStr';	/* 出勤/公休内容 */
 	const FLD_WORK_TIME  = 'workTime';	/* 出勤時間 */
 	const FLD_MASTERS_COMMENT = 'mastersComment';	/* 店長のコメント */
 	const FLD_APPEAL_COMMENT  = 'appealComment';	/* アピールコメント */
@@ -62,19 +62,19 @@ class dbProfile5C {
 	const FLD_PCD = 'pcd';	/* ログインパスコード */
 
 		/*** Bデータ ***/
-	const FLD_B1  = 'B1';
-	const FLD_B2  = 'B2';
-	const FLD_B3  = 'B3';
-	const FLD_B4  = 'B4';
-	const FLD_B5  = 'B5';
-	const FLD_B6  = 'B6';
-	const FLD_B7  = 'B7';
-	const FLD_B8  = 'B8';
-	const FLD_B9  = 'B9';
-	const FLD_B10 = 'B10';
-	const FLD_B11 = 'B11';
-	const FLD_B12 = 'B12';
-	const FLD_B13 = 'B13';
+	const FLD_B1  = 'B_height';
+	const FLD_B2  = 'B_figure';
+	const FLD_B3  = 'B_bust';
+	const FLD_B4  = 'B_hip';
+	const FLD_B5  = 'B_age';
+	const FLD_B6  = 'B_hair';
+	const FLD_B7  = 'B_eye';
+	const FLD_B8  = 'B_type';
+	const FLD_B9  = 'B_tb';
+	const FLD_B10 = 'B_char';
+	const FLD_B11 = 'B_experi';
+	const FLD_B12 = 'B_style';
+	const FLD_B13 = 'B_uHair';
 
 
 		/*** QA ***/
@@ -163,7 +163,7 @@ class dbProfile5C {
 			self::FLD_DIR     ,self::FLD_DISP_SEQ ,self::FLD_DISP ,
 			self::FLD_NAME    ,self::FLD_AGE   , self::FLD_1PHRASE ,
 			self::FLD_HEIGHT  ,self::FLD_SIZES , self::FLD_ZODIAC ,self::FLD_BLOODTYPE ,
-			self::FLD_NEWFACE ,self::FLD_WORK_TIME ,self::FLD_WORK_DAY ,self::FLD_REST_DAY ,self::FLD_MASTERS_COMMENT ,self::FLD_APPEAL_COMMENT ,
+			self::FLD_NEWFACE ,self::FLD_WORK_TIME ,self::FLD_WORK_REST ,self::FLD_WORK_REST_STR ,self::FLD_MASTERS_COMMENT ,self::FLD_APPEAL_COMMENT ,
 			self::FLD_PHOTO_SHOW ,
 
 			self::FLD_PHOTOUSE_1 ,self::FLD_PHOTOUSE_2 ,self::FLD_PHOTOUSE_3 ,self::FLD_PHOTOUSE_4 ,self::FLD_PHOTOUSE_5 ,
@@ -224,7 +224,7 @@ class dbProfile5C {
 			self::FLD_DIR     ,self::FLD_DISP_SEQ ,self::FLD_DISP ,
 			self::FLD_NAME    ,self::FLD_AGE   , self::FLD_1PHRASE ,
 			self::FLD_HEIGHT  ,self::FLD_SIZES , self::FLD_ZODIAC ,self::FLD_BLOODTYPE ,
-			self::FLD_NEWFACE ,self::FLD_WORK_TIME ,self::FLD_WORK_DAY ,self::FLD_REST_DAY ,self::FLD_MASTERS_COMMENT ,self::FLD_APPEAL_COMMENT ,
+			self::FLD_NEWFACE ,self::FLD_WORK_TIME ,self::FLD_WORK_REST ,self::FLD_WORK_REST_STR ,self::FLD_MASTERS_COMMENT ,self::FLD_APPEAL_COMMENT ,
 			self::FLD_PHOTO_SHOW ,
 
 			self::FLD_PHOTOUSE_1 ,self::FLD_PHOTOUSE_2 ,self::FLD_PHOTOUSE_3 ,self::FLD_PHOTOUSE_4 ,self::FLD_PHOTOUSE_5 ,
@@ -454,7 +454,7 @@ class dbProfile5C {
 			self::FLD_DISP_SEQ   ,self::FLD_DISP  ,
 			self::FLD_NAME       ,self::FLD_AGE   ,self::FLD_1PHRASE ,
 			self::FLD_HEIGHT     ,self::FLD_SIZES ,self::FLD_ZODIAC , self::FLD_BLOODTYPE ,
-			self::FLD_NEWFACE    ,self::FLD_WORK_TIME ,self::FLD_WORK_DAY ,self::FLD_REST_DAY ,self::FLD_MASTERS_COMMENT ,self::FLD_APPEAL_COMMENT ,
+			self::FLD_NEWFACE    ,self::FLD_WORK_TIME ,self::FLD_WORK_REST ,self::FLD_WORK_REST_STR ,self::FLD_MASTERS_COMMENT ,self::FLD_APPEAL_COMMENT ,
 			self::FLD_PHOTO_SHOW ,self::FLD_PCD ,
 
 			self::FLD_PHOTOUSE_1 ,self::FLD_PHOTOUSE_2 ,self::FLD_PHOTOUSE_3 ,self::FLD_PHOTOUSE_4 ,self::FLD_PHOTOUSE_5 ,
@@ -592,8 +592,8 @@ class dbProfile5C {
 			self::FLD_ZODIAC  => '' ,			/* 星座 */
 			self::FLD_BLOODTYPE => '' ,			/* 血液型 */
 
-			self::FLD_WORK_DAY => '' ,			/* 出勤日 */
-			self::FLD_REST_DAY => '' ,			/* 公休日 */
+			self::FLD_WORK_REST => '' ,			/* 出勤日 */
+			self::FLD_WORK_REST_STR => '' ,			/* 公休日 */
 			self::FLD_MASTERS_COMMENT => '' ,	/* コメント */
 			self::FLD_APPEAL_COMMENT  => '' ,
 
@@ -670,7 +670,7 @@ class dbProfile5C {
 	パラメータ：ディレクトリ
 	戻り値　　：
 	********************/
-	function upd($branchNo ,$dir) {
+	function upd($dir) {
 
 		$updDT = dateTime5C::getCurrDT();
 
@@ -829,7 +829,7 @@ class dbProfile5C {
 
 
 		$where =
-			self::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .
+			self::FLD_BRANCH_NO . '=' . $this->branchNo . ' and ' .
 			self::FLD_DIR       . '=' . $db->setQuote($dir);
 
 		$db->updateRec(self::TABLE_NAME ,$fldList ,$where);

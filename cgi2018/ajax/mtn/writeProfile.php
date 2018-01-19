@@ -50,6 +50,7 @@ PHP5
 
 		$prof->setVal(dbProfile5C::FLD_PCD ,$postVals['profPCode']);		/* パスコード */
 
+		$prof->setBranchNo($branchNo);
 
 		/*** Bデータ ***/
 		if(isset($postVals['ba'])) {
@@ -185,10 +186,10 @@ PHP5
 
 		if(strcmp($newProf ,'edit') == 0) {
 			/*** 既存 ***/
-			$prof->upd($branchNo ,$dir);
+			$prof->upd($dir);
 		} else {
 			/*** 新規 ***/
-			$prof->add($branchNo ,$dir);
+			$prof->add($dir);
 		}
 	}
 
