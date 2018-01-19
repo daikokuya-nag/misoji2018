@@ -1,9 +1,5 @@
+@charset "utf-8";
 /* 各ページ共通 */
-@font-face {
-  font-family: "mmyNew";
-  src: url("../font/mmyNew.woff") format('woff');
-}
-
 body {
   text-align:center;
   margin:0px;

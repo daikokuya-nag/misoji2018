@@ -1,6 +1,5 @@
-/**********
-popup window
-**********/
+@charset "utf-8";
+/* popup window */
 #dialog-overlay {
   /* set it to fill the whil screen */
   width:100%;height:100%;

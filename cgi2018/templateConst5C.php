@@ -103,7 +103,7 @@ class templateConst5C {
 	const KWD_DIARY_URI_S = '<!-- PROF_DIARY_URI -->';		// 日記URL
 	const KWD_NEW_FACE_S  = '<!-- PROF_NEW_FACE -->';		// 新人
 
-	const KWD_DIR_FOR_DIARY_S = '<!-- PROF_DIR_FOR_DIARY -->';		// 日記のディレクトリ新人
+	const KWD_DIR_FOR_DIARY_S = '<!-- PROF_DIR_FOR_DIARY -->';		// 日記のディレクトリ
 
 	const KWD_PHOTO_SHOW_L_S   = '<!-- PROFILE_DISPLAY_PHOTO_L -->';	// 大写真表示
 	const KWD_PHOTO_SHOW_M_S   = '<!-- PROFILE_DISPLAY_PHOTO_M -->';	// 中写真表示

@@ -1,0 +1,171 @@
+@charset "utf-8";
+/**********
+紹介ページ
+**********/
+/* タイトル */
+h1 {
+  margin-top:5px;
+  font-family: "fontsA";
+  font-size:36px;
+}
+
+h2 {
+  margin-top:0px;
+  font-size:25px;    /* 18 */
+  font-weight: bold;
+  padding: 6px;
+  background-color:#c8a063;
+  font-family: "fontsA";
+}
+
+
+/* 出勤表 */
+table#weekWorkList {
+  display:none;
+  margin-bottom:20px;
+  border:none;
+  font-family: "fontsA";
+  font-weight:bold;
+  font-size:22px;
+
+  text-align:center;
+  padding-top:50px;
+
+  padding-top:5px;
+  line-height:20px;
+  width:100%;
+}
+
+table#weekWorkList td {
+  border:1px solid #000000;
+}
+table#weekWorkList th {
+  border:1px solid #000000;
+}
+
+table#weekWorkList th.workDate {
+  padding:10px;
+  padding-top:8px;
+  padding-bottom:8px;
+  text-align:center;
+  width:30%;
+}
+
+table#weekWorkList td.workTime {
+  padding-top:5px;
+  padding-bottom:5px;
+}
+
+table#weekWorkList th.daySat {
+  color:#0000ff;
+}
+
+table#weekWorkList th.daySun {
+  color:#ff0000;
+}
+
+table#weekWorkList span.dow {
+  letter-spacing:-4px;
+}
+
+table#weekWorkList td.nowork {
+  background-color:#ddd;
+}
+
+/* プロファイル */
+table#profileData {
+  width:100%;
+  font-family: "fontsA";
+}
+
+tr.profileLine th {
+  border:1px solid #000000;
+  padding:5px;
+  font-size:22px;
+  width:30%;
+}
+
+tr.profileLine td {
+  border:1px solid #000000;
+  padding:5px;
+  font-size:22px;
+  font-weight:bold;
+  width:70%;
+}
+
+div#profileOut {
+  margin-bottom: 20px;
+}
+
+/* 店長のコメント */
+div#mastersCommentD {
+  font-size:18px;
+}
+
+/* アピールコメント */
+div#appealCommentD {
+  font-size:18px;
+}
+
+
+/* QA */
+table#QAData th {
+}
+
+div#qaAns {
+  margin-bottom:20px;
+}
+
+table#QAData {
+  width:100%;
+}
+
+tr.QALine {
+  border:1px solid #000000;
+  font-size:22px;
+  font-size:18px;
+}
+
+tr.QALine th {
+  font-family: "fontsA";
+  font-size:22px;
+  font-weight:bold;
+
+  padding:5px;
+  width:30%;
+  letter-spacing:-1px;
+}
+
+tr.QALine td {
+  padding:5px;
+  border:1px solid #000000;
+  width:70%;
+}
+
+
+/* カルーセル */
+div.carousel-inner {
+/*  width:350px;*/
+}
+
+div#carousel1 {
+  max-width:325px;
+}
+
+.carousel-control {
+  width:20px;
+}
+
+ol.carousel-indicators {
+  display: none;
+}
+
+
+/* 区切り線 */
+div#line2 {
+  border-top: 3px double #c8a063;
+  margin-top: 10px;
+  padding-top: 10px;
+  margin-right: 15px;
+  margin-left: 15px;
+}

@@ -479,6 +479,10 @@ class html5C {
 			$this->replaceLine(templateConst5C::KWD_MASTERS_COMMENT_S ,$prof1[dbProfile5C::FLD_MASTERS_COMMENT]);	//店長コメント
 			$this->replaceLine(templateConst5C::KWD_APPEAL_COMMENT_S  ,$prof1[dbProfile5C::FLD_APPEAL_COMMENT]);	//アピールコメント
 
+			//写メ日記へのリンクは実ファイルの有無で表示/非表示を判断して良いか再考
+					//$this->replaceLine(templateConst5C::KWD_DIR_FOR_DIARY_S  ,$prof1[dbProfile5C::FLD_APPEAL_COMMENT]);	//日記ディレクトリ
+			$this->replaceLine(templateConst5C::KWD_DIR_FOR_DIARY_S  ,'');
+
 			//QA
 			$this->replaceLine(templateConst5C::KWD_QA1  ,$prof1[dbProfile5C::FLD_QA1 ]);
 			$this->replaceLine(templateConst5C::KWD_QA2  ,$prof1[dbProfile5C::FLD_QA2 ]);
