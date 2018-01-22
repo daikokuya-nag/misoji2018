@@ -155,18 +155,18 @@ input[type="file"] {
 
 /* TOPタブ */
 /* 画像選択 */
-table.topImgSele {
+table.headerImgSele {
 
 	border-collapse:collapse;
 }
 
-tr.topImg {
+tr.headerImg {
 
 	margin:5px;
 	padding:5px;
 }
 
-td.topImgTN {
+td.headerImgTN {
 	width:400px;
 	max-width:400px;
 
@@ -177,14 +177,14 @@ td.topImgTN {
 	border-bottom:2px solid #f0f;
 }
 
-td.topImgSele {
+td.headerImgSele {
 
 	padding-bottom:3px;
 	border-top:2px solid #f0f;
 	border-bottom:2px solid #f0f;
 }
 
-td.topImgDisp {
+td.headerImgDisp {
 
 	padding-bottom:3px;
 	padding-right:3px;
@@ -193,9 +193,14 @@ td.topImgDisp {
 	border-right:2px solid #f0f;
 }
 
-td.topImgTN img {
+td.headerImgTN img {
 
 	max-width:400px;
 }
 
 
+div.tabHeaderEnter {
+
+	width:50%;
+	float:left;
+}

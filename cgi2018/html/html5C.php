@@ -212,6 +212,15 @@ class html5C {
 			$ret = $this->setTopPageHeader($sect1 ,$begKwd);
 		}
 
+		if(strcmp($begKwd ,'OTHER_PAGE_HEADER') == 0) {
+			$ret = $this->setOtherPageHeader($sect1 ,$begKwd);
+		}
+
+		if(strcmp($begKwd ,'PAGE_HEADER') == 0) {
+			$ret = $this->setTopPageHeader($sect1 ,$begKwd);
+			$ret = $this->setOtherPageHeader($sect1 ,$begKwd);
+		}
+
 		if(strcmp($begKwd ,'PAGE_MENU') == 0) {
 			$ret = $this->setPageMenu($sect1 ,$begKwd);
 		}
@@ -474,8 +483,10 @@ class html5C {
 			$this->replaceLine(templateConst5C::KWD_HEIGHT_S    ,$prof1[dbProfile5C::FLD_HEIGHT]);		//身長
 			$this->replaceLine(templateConst5C::KWD_SIZES_S     ,$prof1[dbProfile5C::FLD_SIZES]);		//スリーサイズ
 			$this->replaceLine(templateConst5C::KWD_WORK_TIME_S ,$prof1[dbProfile5C::FLD_WORK_TIME]);	//出勤時間
+/*
 			$this->replaceLine(templateConst5C::KWD_WORK_DAY_S  ,$prof1[dbProfile5C::FLD_WORK_DAY]);	//出勤日
 			$this->replaceLine(templateConst5C::KWD_REST_DAY_S  ,$prof1[dbProfile5C::FLD_REST_DAY]);	//公休日
+*/
 			$this->replaceLine(templateConst5C::KWD_MASTERS_COMMENT_S ,$prof1[dbProfile5C::FLD_MASTERS_COMMENT]);	//店長コメント
 			$this->replaceLine(templateConst5C::KWD_APPEAL_COMMENT_S  ,$prof1[dbProfile5C::FLD_APPEAL_COMMENT]);	//アピールコメント
 
@@ -919,7 +930,7 @@ class html5C {
 		for($idx=0 ;$idx<$lineMax ;$idx++) {
 			$line1 = $sect[$idx];
 			if(strcmp($line1 ,templateConst5C::TOP_PAGE_HEADER_STR_VAL) == 0) {
-				$headerVal = sess5C::getOutVals($kwd);
+				$headerVal = sess5C::getOutVals('TOP_PAGE_HEADER');
 				$disp = $this->setTopPageHeaderImg($headerVal);
 				//表示する画像が1枚の時と2枚以上の時で表示タグを分ける
 				if(count($disp) >= 2) {
@@ -954,7 +965,7 @@ class html5C {
  */
 	private function setTopPageHeaderImg($headerVal) {
 
-		$imgDir  = 'img/' . $this->branchNo . '/TOP_HEADER/';
+		$imgDir  = 'img/' . $this->branchNo . '/HEADER/';
 		$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
 
 		$expSeq = explode(':' ,$headerVal['SEQ']);
@@ -1087,6 +1098,86 @@ class html5C {
 		return $ret;
 	}
 
+
+/**
+ * TOPページ以外のヘッダの変換
+ *
+ * @access
+ * @param string $sect セクション情報
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	private function setOtherPageHeader($sect ,$kwd) {
+
+		$ret = array();
+		$lineMax = count($sect);
+		for($idx=0 ;$idx<$lineMax ;$idx++) {
+			$line1 = $sect[$idx];
+			if(strcmp($line1 ,templateConst5C::OTHER_PAGE_HEADER_STR_VAL) == 0) {
+				$headerVal = sess5C::getOutVals('OTHER_PAGE_HEADER');
+				$disp = $this->setOtherPageHeaderImg($headerVal);
+				$ret[] = '<img src="' . $disp . '" class="img-responsive center-block" id="topImg">';
+			} else {
+				if(strcmp($line1 ,$this->begValList[$kwd]) == 0
+				|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
+				} else {
+					$ret[] = $line1;
+				}
+			}
+		}
+
+		return $ret;
+	}
+
+/**
+ * TOPページ以外に表示する画像の取得
+ *
+ * @access
+ * @param string $headerVal 画像指定情報
+ * @return array 画像ファイルへのパス
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	private function setOtherPageHeaderImg($headerVal) {
+
+		$imgDir  = 'img/' . $this->branchNo . '/HEADER/';
+		$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
+
+		$expNo  = $headerVal['NO' ];
+		$imgList = $headerVal['IMGLIST'];
+		$imgMax = count($imgList);
+
+		//画像番号のファイルの有無を調べる
+		$dispImgNo1 = $expNo;
+		$fileExist  = false;
+		for($imgIdx=0 ;$imgIdx<$imgMax ;$imgIdx++) {
+			$img1 = $imgList[$imgIdx];
+			if($dispImgNo1 == $img1[dbImage5C::FLD_IMG_NO]) {
+				$ext = $img1[dbImage5C::FLD_ORG_EXT];
+				$imgFullPath = $imgRoot . $dispImgNo1 . '.' . $ext;
+				$imgDispPath = $imgDir  . $dispImgNo1 . '.' . $ext;
+				if(is_file($imgFullPath)) {
+					$fileExist = true;
+					break;
+				}
+			}
+		}
+
+		//画像ファイルがあればtrue
+		if($fileExist) {
+			$imgPath = $imgDispPath;
+		} else {
+			$imgPath = '';
+		}
+
+		return $imgPath;
+	}
 
 
 /**

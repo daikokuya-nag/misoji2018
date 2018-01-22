@@ -40,6 +40,9 @@ class templateConst5C {
 	const TOP_PAGE_HEADER_BEG_LINE = '<!-- TOP_PAGE_HEADER_BEG -->';	// TOPページのヘッダの開始
 	const TOP_PAGE_HEADER_END_LINE = '<!-- TOP_PAGE_HEADER_END -->';	// TOPページのヘッダの終了
 
+	const OTHER_PAGE_HEADER_BEG_LINE = '<!-- OTHER_PAGE_HEADER_BEG -->';	// TOPページ以外のヘッダの開始
+	const OTHER_PAGE_HEADER_END_LINE = '<!-- OTHER_PAGE_HEADER_END -->';	// TOPページ以外のヘッダの終了
+
 	const MENU_BEG_LINE = '<!-- MENU_BEG -->';		// メニュー項目の開始
 	const MENU_END_LINE = '<!-- MENU_END -->';		// メニュー項目の終了
 
@@ -51,7 +54,8 @@ class templateConst5C {
 		'PROFILE' => self::PROFILE_BEG_LINE ,
 		'ALBUM'   => self::ALBUM_BEG_LINE   ,
 
-		'TOP_PAGE_HEADER' => self::TOP_PAGE_HEADER_BEG_LINE ,
+		'TOP_PAGE_HEADER'   => self::TOP_PAGE_HEADER_BEG_LINE   ,
+		'OTHER_PAGE_HEADER' => self::OTHER_PAGE_HEADER_BEG_LINE ,
 
 		'PAGE_MENU' => self::MENU_BEG_LINE
 	);
@@ -63,17 +67,19 @@ class templateConst5C {
 		'PROFILE' => self::PROFILE_END_LINE ,
 		'ALBUM'   => self::ALBUM_END_LINE   ,
 
-		'TOP_PAGE_HEADER' => self::TOP_PAGE_HEADER_END_LINE ,
+		'TOP_PAGE_HEADER'   => self::TOP_PAGE_HEADER_END_LINE   ,
+		'OTHER_PAGE_HEADER' => self::OTHER_PAGE_HEADER_END_LINE ,
 
 		'PAGE_MENU' => self::MENU_END_LINE
 	);
 
 
-	const RECRUIT_STR_VAL         = '<!-- RECRUIT_STR -->';				// 求人内容
-	const SYSTEM_STR_VAL          = '<!-- SYSTEM_STR -->';				// 料金内容
-	const ALBUM_STR_VAL           = '<!-- ALBUM_STR -->';				// アルバム内容
-	const TOP_PAGE_HEADER_STR_VAL = '<!-- TOP_PAGE_HEADER_STR -->';		// TOPページヘッダの内容
-	const MENU_STR_VAL            = '<!-- MENU_STR -->';				// メニューの内容
+	const RECRUIT_STR_VAL           = '<!-- RECRUIT_STR -->';				// 求人内容
+	const SYSTEM_STR_VAL            = '<!-- SYSTEM_STR -->';				// 料金内容
+	const ALBUM_STR_VAL             = '<!-- ALBUM_STR -->';				// アルバム内容
+	const TOP_PAGE_HEADER_STR_VAL   = '<!-- TOP_PAGE_HEADER_STR -->';		// TOPページヘッダの内容
+	const OTHER_PAGE_HEADER_STR_VAL = '<!-- OTHER_PAGE_HEADER_STR -->';		// TOPページ以外のヘッダの内容
+	const MENU_STR_VAL              = '<!-- MENU_STR -->';				// メニューの内容
 
 
 	const KWD_NEWS_TITLE_S    = '<!-- NEWS_TITLE -->';			// ニュースタイトル

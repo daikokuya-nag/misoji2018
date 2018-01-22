@@ -98,8 +98,11 @@ class dbPageParam5C {
 			self::FLD_ADD_DT ,self::FLD_UPD_DT
 		);
 		$where =
-			self::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .
-			self::FLD_PAGE_ID   . '=' . $db->setQuote($pageID);
+			self::FLD_BRANCH_NO . '=' . $branchNo;
+
+		if(strlen($pageID) >= 1) {
+			$where = $where . ' and ' . self::FLD_PAGE_ID . '=' . $db->setQuote($pageID);
+		}
 
 		if(is_null($obj)) {
 			//項目識別の指定がなければ抽出する項目に追加

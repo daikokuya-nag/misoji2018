@@ -105,14 +105,14 @@ var profMax = 0;
 		//紹介ページ以外の出力
 		for(fileID in fileList) {
 			fileName = fileList[fileID]
-					//console.debug(fileID + ' ' + fileName);
+					console.debug(fileID + ' ' + fileName);
 			writeHTMLFileMain(fileID ,'');
 		}
 
 		//紹介ページの出力
 		for(fileID in profList) {
 			fileName = profList[fileID]
-					//console.debug(fileID + ' ' + fileName);
+					console.debug(fileID + ' ' + fileName);
 			writeHTMLFileMain('PROFILE' ,fileID);
 		}
 	} else {						//出力するファイルがないときは何もせずMOへ

@@ -326,6 +326,38 @@ class sess5C {
 			$val['IMGLIST'] = $imgList['imgInfo'];
 		}
 
+		if(strcmp($ID ,'OTHER_PAGE_HEADER') == 0) {
+			$db = new dbPageParam5C();
+			$dbVal = $db->readAll($branchNo ,'OTHER' ,'HEADER');
+
+			$dbVal1 = $dbVal['pageVal'][0];
+			$val['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+			$val['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+			$val['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+
+			$handle = $db->getHandle();
+			$dbImgList = new dbImage5C($handle);
+
+			$imgList = $dbImgList->readShowable($branchNo);
+			$val['IMGLIST'] = $imgList['imgInfo'];
+		}
+
+		if(strcmp($ID ,'PAGE_HEADER') == 0) {
+			$db = new dbPageParam5C();
+			$dbVal = $db->readAll($branchNo ,'' ,'HEADER');
+
+			$dbVal1 = $dbVal['pageVal'][0];
+			$val['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+			$val['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+			$val['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+
+			$handle = $db->getHandle();
+			$dbImgList = new dbImage5C($handle);
+
+			$imgList = $dbImgList->readShowable($branchNo);
+			$val['IMGLIST'] = $imgList['imgInfo'];
+		}
+
 		if(strcmp($ID ,'PAGE_MENU'  ) == 0) {
 			$db = new dbPageParam5C();
 			$dbVal  = $db->readByObj($branchNo ,'USEPAGE');

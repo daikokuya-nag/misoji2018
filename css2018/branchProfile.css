@@ -5,7 +5,6 @@
 /* タイトル */
 h1 {
   margin-top:5px;
-  font-family: "fontsA";
   font-size:36px;
 }
 
@@ -102,9 +101,17 @@ div#mastersCommentD {
   font-size:18px;
 }
 
+div#mastersCommentD p {
+  text-align:left;
+}
+
 /* アピールコメント */
 div#appealCommentD {
   font-size:18px;
+}
+
+div#appealCommentD p {
+  text-align:left;
 }
 
 

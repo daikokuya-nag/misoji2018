@@ -191,6 +191,7 @@ class bldProfile5C {
 		/* 写真 */
 		$photoUse = $photoVal['TN'];
 
+		$photoFile = '../photo/tnNP.jpg';
 		if(strcmp($photoUse ,dbProfile5C::PHOTO_SHOW_NG ) == 0) {	/* NG */
 			$photoFile = '../photo/tnNG.jpg';
 		}

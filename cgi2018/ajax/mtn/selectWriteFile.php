@@ -9,6 +9,7 @@ PHP5
 	require_once dirname(__FILE__) . '/../../template5C.php';
 	require_once dirname(__FILE__) . '/../../siteConst5C.php';
 	require_once dirname(__FILE__) . '/../../fileName5C.php';
+	require_once dirname(__FILE__) . '/../../strings5C.php';
 
 	require_once dirname(__FILE__) . '/../../sess/sess5C.php';
 	require_once dirname(__FILE__) . '/../../db/dbProfile5C.php';
@@ -49,14 +50,17 @@ PHP5
 				$outItem[$item] = true;			//対象項目をON
 			}
 		}
+						//print 'OUT_ID:' . $outID . "\n";
 
 		//紹介ページ以外
 		$fileList = siteConst5C::getHtmlFileList();		//出力対象ファイル
 		$idxMax = count($fileList);
 		foreach($fileList as $fileID => $fileName) {
+						//print 'fileID:' . $fileID . "\n";
 			//ファイルの中身を検索して当該要素があれば出力対象にする
 			$outVal = readTemplateFile($fileID ,$outID ,$branchNo);
 								//print_r($outVal);
+
 			if(isset($outVal['OUT_FILE_NAME']['fileName'])) {
 				$outFile[$fileID] = $outVal['OUT_FILE_NAME']['fileName'];		//出力対象
 
@@ -151,10 +155,10 @@ PHP5
 		$outItem = $template->sectItems();
 		$hit = false;
 		$idxMax = count($outItem);
-
 		for($idx=0 ;$idx<$idxMax ;$idx++) {
 			$id1 = $outItem[$idx];
-			if(strcmp($id1 ,$outID) == 0) {
+			if(strcmp($id1 ,$outID) == 0
+			|| strings5C::existStr($id1 ,$outID) >= 0) {
 				$hit = true;
 				break;
 			}
@@ -162,7 +166,6 @@ PHP5
 
 		//対象項目が1つ以上あればそのファイルを出力対象に追加する
 		if($idxMax >= 1 && $hit) {
-				//print '対象ファイル' . "\n";
 			$ret = array(
 				'TEMPORARY_FILE_NAME' => $templateFileName ,
 				'OUT_FILE_NAME'       => $outFileName

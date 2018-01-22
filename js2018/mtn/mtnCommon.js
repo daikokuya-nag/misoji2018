@@ -570,21 +570,36 @@ var jqXHR;
 }
 
 
-function showSeleImg(imgClass ,param1) {
+function showSeleImg(imgClass ,place ,param1) {
 
 var imgNo;
 
-	$("#imgClass").val(imgClass);
-	$("#imgParam1").val(param1);
-
 	$("input[name='seleImg']").prop("checked", false);
+	if(place == 'TOP') {
+		$("#imgClass").val(imgClass);
+		$("#place").val(place);
+		$("#imgParam1").val(param1);
 
-	if(imgClass == 'TOP_HEADER') {
-		imgNo = $('#topImg' + param1).val();
-		if(imgNo.length >= 1) {
-			$("#seleImg" + imgNo).prop("checked", true);
+		imgNo = $('#headerTopImg' + param1).val();
+		if(imgNo) {
+			if(imgNo.length >= 1) {
+				$("#seleImg" + imgNo).prop("checked", true);
+			}
 		}
 	}
+
+	if(place == 'OTHER') {
+		$("#imgClass").val(imgClass);
+		$("#place").val(place);
+
+		imgNo = $('#headerOtherImg').val();
+		if(imgNo) {
+			if(imgNo.length >= 1) {
+				$("#seleImg" + imgNo).prop("checked", true);
+			}
+		}
+	}
+
 
 	$("#enterNewImgFile").parsley().reset();	// validateリセット
 
@@ -600,7 +615,7 @@ function checkSeleImg() {
 
 /***** 選択されいてる画像 *****/
 var selectedImg = $("input[name='seleImg']:checked").val();
-var imgClass    = $("#imgClass").val();
+var place       = $("#place").val();
 
 var param1;
 var tagStr;
@@ -608,17 +623,30 @@ var ext;
 
 	console.debug(selectedImg);
 
-	if(imgClass = 'TOP_HEADER') {
+console.debug(place);
+
+	if(place == 'TOP') {
 		param1 = $("#imgParam1").val();
 		ext  = EXT_LIST[selectedImg];
+			console.debug('top');
 			console.debug(ext);
 
-		tagStr = '<img src="../img/' + BRANCH_NO +  '/' + imgClass + '/' + selectedImg + '.' + ext + '">';
-		$('#topImgTN' + param1).html(tagStr);
+		tagStr = '<img src="../img/' + BRANCH_NO +  '/HEADER/' + selectedImg + '.' + ext + '">';
+		$('#headerTopImgTN' + param1).html(tagStr);
+		$('#headerTopImg' + param1).val(selectedImg);
+		$("#bldHeaderImgDispSeq").prop('disabled' ,false);
+	}
 
-		$('#topImg' + param1).val(selectedImg);
+	if(place == 'OTHER') {
+		param1 = $("#imgParam1").val();
+		ext  = EXT_LIST[selectedImg];
+			console.debug('other');
+			console.debug(ext);
 
-		$("#bldTopImgDispSeq").prop('disabled' ,false);
+		tagStr = '<img src="../img/' + BRANCH_NO +  '/HEADER/' + selectedImg + '.' + ext + '">';
+		$('#headerOtherImgTN').html(tagStr);
+		$('#headerOtherImg').val(selectedImg);
+		$("#bldHeaderImgDispSeq").prop('disabled' ,false);
 	}
 }
 
