@@ -1172,6 +1172,9 @@ class html5C {
 		//画像ファイルがあればtrue
 		if($fileExist) {
 			$imgPath = $imgDispPath;
+			if(strcmp($this->fileID ,'PROFILE') == 0) {
+				$imgPath = '../' . $imgPath;		//女性紹介ページのときは階層を一つ上がる
+			}
 		} else {
 			$imgPath = '';
 		}
