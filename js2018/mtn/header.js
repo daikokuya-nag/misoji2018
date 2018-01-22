@@ -252,16 +252,17 @@ var fileExist = '0';
 		}
 	}
 
-	//画像Noの保持
-	$("#headerOtherImg").val(imgNo);
-
 	trTag =
-	'<tr class="headerImg" id="headerOtherImg' + '">' +
+	'<tr class="headerImg" id="headerOtherImgT">' +
 		'<td class="headerImgTN" id="headerOtherImgTN">' + imgTag + '</td>' +
 		'<td class="headerImgSele"><input type="button" value="画像選択" name="attHeaderOtherImg" id="attHeaderOtherImg" onclick="showSeleImg(\'HEADER\' ,\'OTHER\')"><br><div id="currOtherImg">&nbsp;</div></td>' +
 	'</tr>';
-
 	$('#headerOtherImgList').html(trTag);
+
+	//画像Noの保持
+	$("#headerOtherImg").val(imgNo);
+
+	seleOther = $('#headerOtherImg').val();
 }
 
 
