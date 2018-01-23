@@ -46,6 +46,12 @@ class templateConst5C {
 	const MENU_BEG_LINE = '<!-- MENU_BEG -->';		// メニュー項目の開始
 	const MENU_END_LINE = '<!-- MENU_END -->';		// メニュー項目の終了
 
+	const DECO_CSS_VER_BEG_LINE = '<!-- DECO_CSS_BEG -->';		// cssのバージョンの開始
+	const DECO_CSS_VER_END_LINE = '<!-- DECO_CSS_END -->';		// cssのバージョンの終了
+
+	const DECO_CSS_VAL_BEG_LINE = '/* DECO_CSS_BEG */';		// cssの開始
+	const DECO_CSS_VAL_END_LINE = '/* DECO_CSS_END */';		// cssの終了
+
 	var $begList = array(			// セクションの開始キーワードリスト
 		'RECRUIT' => self::RECRUIT_BEG_LINE ,
 		'SYSTEM'  => self::SYSTEM_BEG_LINE  ,
@@ -57,7 +63,10 @@ class templateConst5C {
 		'TOP_PAGE_HEADER'   => self::TOP_PAGE_HEADER_BEG_LINE   ,
 		'OTHER_PAGE_HEADER' => self::OTHER_PAGE_HEADER_BEG_LINE ,
 
-		'PAGE_MENU' => self::MENU_BEG_LINE
+		'PAGE_MENU' => self::MENU_BEG_LINE ,
+
+		'DECORATION_VER' => self::DECO_CSS_VER_BEG_LINE ,
+		'DECORATION_VAL' => self::DECO_CSS_VAL_BEG_LINE
 	);
 	var $endList = array(			// セクションの終了キーワードリスト
 		'RECRUIT' => self::RECRUIT_END_LINE ,
@@ -70,18 +79,24 @@ class templateConst5C {
 		'TOP_PAGE_HEADER'   => self::TOP_PAGE_HEADER_END_LINE   ,
 		'OTHER_PAGE_HEADER' => self::OTHER_PAGE_HEADER_END_LINE ,
 
-		'PAGE_MENU' => self::MENU_END_LINE
+		'PAGE_MENU' => self::MENU_END_LINE ,
+
+		'DECORATION_VER' => self::DECO_CSS_VER_END_LINE ,
+		'DECORATION_VAL' => self::DECO_CSS_VAL_END_LINE
 	);
 
 
 	const RECRUIT_STR_VAL           = '<!-- RECRUIT_STR -->';				// 求人内容
 	const SYSTEM_STR_VAL            = '<!-- SYSTEM_STR -->';				// 料金内容
-	const ALBUM_STR_VAL             = '<!-- ALBUM_STR -->';				// アルバム内容
+	const ALBUM_STR_VAL             = '<!-- ALBUM_STR -->';					// アルバム内容
 	const TOP_PAGE_HEADER_STR_VAL   = '<!-- TOP_PAGE_HEADER_STR -->';		// TOPページヘッダの内容
 	const OTHER_PAGE_HEADER_STR_VAL = '<!-- OTHER_PAGE_HEADER_STR -->';		// TOPページ以外のヘッダの内容
-	const MENU_STR_VAL              = '<!-- MENU_STR -->';				// メニューの内容
+	const MENU_STR_VAL              = '<!-- MENU_STR -->';					// メニューの内容
 
+	const DECO_CSS_VER_VAL          = '<!-- DECO_CSS_VER_STR -->';			// 装飾CSSのバージョン
+	const DECO_CSS_VAL_STR          = '/* DECO_CSS_VAL_STR */';				// 装飾CSSの内容
 
+	//ニュース
 	const KWD_NEWS_TITLE_S    = '<!-- NEWS_TITLE -->';			// ニュースタイトル
 	const KWD_NEWS_CATEGORY_S = '<!-- NEWS_CATEGORY -->';		// ニュース種類
 	const KWD_NEWS_DIGEST_S   = '<!-- NEWS_DIGEST -->';			// ニュース概要
@@ -89,7 +104,7 @@ class templateConst5C {
 	const KWD_NEWS_DATE_S     = '<!-- NEWS_DATE -->';			// ニュース日付
 	const KWD_NEWS_ID_S       = '<!-- NEWS_ID -->';				// ニュースID
 
-
+	//プロファイル
 	const KWD_PROF_DIR_S  = '<!-- PROF_DIR -->';			// プロファイルディレクトリ
 	const KWD_NAME_S      = '<!-- PROF_NAME -->';			// 名前
 	const KWD_AGE_S       = '<!-- PROF_AGE -->';			// 年齢

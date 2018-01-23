@@ -67,6 +67,8 @@
 <link href="../css2018/news.css?<?php print $vesion; ?>" rel="stylesheet">
 <link href="../css2018/prof.css?<?php print $vesion; ?>" rel="stylesheet">
 <link href="../css2018/photoDiary.css?<?php print $vesion; ?>" rel="stylesheet">
+<link href="../css2018/decoration.css?<?php print $vesion; ?>" rel="stylesheet">
+
 <link href="../css2018/fileSele.css" rel="stylesheet">
 
 
@@ -89,6 +91,7 @@
 <script src="../js2018/mtn/logoutSess.js?<?php print $vesion; ?>"></script>
 
 <script src="../js2018/mtn/mtnCommon.js?<?php print $vesion; ?>"></script>
+<script src="../js2018/mtn/imgSelector.js?<?php print $vesion; ?>"></script>
 
 <script src="../js2018/mtn/news.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/fixPhrase.js?<?php print $vesion; ?>"></script>
@@ -99,6 +102,7 @@
 <script src="../js2018/mtn/system.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/recruit.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/header.js?<?php print $vesion; ?>"></script>
+<script src="../js2018/mtn/decoration.js?<?php print $vesion; ?>"></script>
 <script>
 	var BRANCH_NO = "<?php print $branchNo; ?>";
 </script>
@@ -110,6 +114,7 @@
 <input type="hidden" id="newBlogRec" name="newBlogRec" value="<?php print dbMBlog5C::NEW_REC; ?>">
 <div id="tabA">
 	<ul>
+		<li><a href="#tabsDecoration">装飾</a></li>
 		<li><a href="#tabsHeader">ヘッダ</a></li>
 		<li><a href="#tabsNews">ニュース</a></li>
 		<li><a href="#tabsProfile">プロファイル</a></li>
@@ -315,7 +320,7 @@
 					<tbody id="headerOtherImgList">
 						<tr id="headerOtherImg">
 							<td class="headerOtherImgTN" id="headerOtherImgTN">aaa</td>
-							<td class="headerOtherImgSele"><input type="button" value="画像選択" name="attHeaderOtherImg" id="attHeaderOtherImg" onclick="showSeleImg('TOP_OTHER')"></td>
+							<td class="headerOtherImgSele"><input type="button" value="画像選択" name="attHeaderOtherImg" id="attHeaderOtherImg" onclick="showSeleImg('OTHER_HEADER')"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -323,14 +328,68 @@
 			</div>
 		</div>
 
-
-
 		<div id="tabHeaderBottom" class="tabBottomBtn">
 			<hr>
 			<input type="button" value="出力" id="bldHeaderImgDispSeq" onclick="updHeaderImgSeq();" disabled="disabled">
 		</div>
 	</div>
 
+	<!-- 装飾 -->
+	<div id="tabsDecoration" class="tabArea">
+		<div id="tabRecruitUsePage" class="resetFloat">
+			ページ背景<br>
+			<div class="selectPage">
+				<label><input type="radio" name="usePageBG" id="usePageBGNotuse" value="N">使用しない</label>&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" name="usePageBG" id="usePageBGColor"  value="C">色</label><input type="color" id="pageBGColor" name="pageBGColor">&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" name="usePageBG" id="usePageBGImage"  value="I">画像</label>
+
+				<table class="decoBGImgSele">
+					<thead>
+						<tr>
+							<th class="decoBGImgTN">画像ファイル</th>
+							<th class="decoBGImgDisp">表示</th>
+						</tr>
+					</thead>
+					<tbody id="decoBGImgList">
+						<tr id="decoBGImg">
+							<td class="decoBGImgTN" id="decoBGImgTN">aaa</td>
+							<td class="decoBGImgSele"><input type="button" value="画像選択" name="attDecoBGImg" id="attDecoBGImg" onclick="showSeleImg('ALL_BG')"></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="hidden" id="decoBGImg" value="">
+			</div>
+
+
+<!--
+			<div class="sendSelectPage">
+				<input type="button" value="使用ページ反映" id="sendSeleRecruitPage" onclick="updUsePage('RECRUIT');" disabled="disabled">
+			</div>
+-->
+
+
+		</div>
+		<hr>
+
+<!--
+		<div id="tabRecruitMain">
+			<div id="tabRecruitTop">
+				求人内容<span class="required">*</span>
+			</div>
+
+			<div id="tabSystemMid" class="tabMid">
+				<textarea id="recruitStr" name="recruitStr" cols="60" rows="4"></textarea>
+				<div id="warnRecruitStr" class="parsley-errors-list filled"></div>
+			</div>
+		</div>
+		<div class="grayPanel" id="grayPanelRecruit"></div>
+-->
+
+		<div id="tabRecruitBottom" class="tabBottomBtn">
+			<hr>
+			<input type="button" value="出力" id="bldRecruitInfo" onclick="writeDecoVal();">
+		</div>
+	</div>
 
 
 	<div id="tabsBlog" class="tabArea NOTUSE">
@@ -763,9 +822,9 @@
 
 <!-- --------------------------------------------------------------------------- -->
 <!-- --画像選択--------------------------------------------------------------- -->
-<input type="hidden" name="imgClass" id="imgClass" value="">
-<input type="hidden" name="place" id="place" value="">
-<input type="hidden" name="imgParam1" id="imgParam1" value="">
+			<!-- <input type="hidden" name="imgClass" id="imgClass" value=""> -->
+			<!-- <input type="hidden" name="place" id="place" value=""> -->
+			<!-- <input type="hidden" name="imgParam1" id="imgParam1" value=""> -->
 <div id="selectImgFile" title="画像選択">
 	<div id="imgList" class="imgList resetFloat"></div>
 	<input type="button" value="新規画像" onclick="seleNewImg();">

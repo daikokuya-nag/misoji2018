@@ -225,6 +225,11 @@ class html5C {
 			$ret = $this->setPageMenu($sect1 ,$begKwd);
 		}
 
+		if(strcmp($begKwd ,'DECORATION_VER') == 0
+		|| strcmp($begKwd ,'DECORATION_VAL') == 0) {
+			$ret = $this->setDecoration($sect1 ,$begKwd);
+		}
+
 		return $ret;
 	}
 
@@ -1285,6 +1290,96 @@ class html5C {
 		return $ret;
 	}
 
+/**
+ * 装飾の変換
+ *
+ * @access
+ * @param string $sect セクション情報
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	function setDecoration($sect ,$kwd) {
+
+		$decoVal = sess5C::getOutVals('DECORATION');
+
+		$ret = array();
+		$lineMax = count($sect);
+		for($idx=0 ;$idx<$lineMax ;$idx++) {
+			$line1 = $sect[$idx];
+
+			// バージョン情報
+			$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::DECO_CSS_VER_VAL);
+			if($kwdPos >= 0) {
+				$ret[] = str_replace(templateConst5C::DECO_CSS_VER_VAL ,$decoVal['VERSION'] ,$line1);
+				continue;
+			}
+
+			// 装飾データ
+			$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::DECO_CSS_VAL_STR);
+			if($kwdPos >= 0) {
+				$cssStr = $this->setCssStr($decoVal);
+				$ret[] = str_replace(templateConst5C::DECO_CSS_VAL_STR ,$cssStr ,$line1);
+				continue;
+			}
+
+			if(strcmp($line1 ,$this->begValList[$kwd]) == 0
+			|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
+			} else {
+				$ret[] = $line1;
+			}
+		}
+
+		return $ret;
+	}
+
+
+	private function setCssStr($decoVal) {
+
+		$ret = '';
+
+		$use = $decoVal['USE'];
+		if(strcmp($use ,'I') == 0) {
+			$imgDir  = 'img/' . $this->branchNo . '/DECO/';
+			$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
+
+			$imgList = $decoVal['IMGLIST'];
+			$imgMax = count($imgList);
+
+			//画像番号のファイルの有無を調べる
+			$fileExist  = false;
+			for($imgIdx=0 ;$imgIdx<$imgMax ;$imgIdx++) {
+				$img1 = $imgList[$imgIdx];
+				if($decoVal['IMGNO'] == $img1[dbImage5C::FLD_IMG_NO]) {
+					$ext = $img1[dbImage5C::FLD_ORG_EXT];
+					$imgFullPath = $imgRoot . $decoVal['IMGNO'] . '.' . $ext;
+					$imgDispPath = $imgDir  . $decoVal['IMGNO'] . '.' . $ext;
+					if(is_file($imgFullPath)) {
+						$fileExist = true;
+						break;
+					}
+				}
+			}
+
+			//画像ファイルがあればtrue
+			if($fileExist) {
+				$imgDispPath = '../' . $imgDispPath;
+				$ret = 'body {background-image:url(' . $imgDispPath .  ');}';
+			} else {
+				$ret = '';
+			}
+		}
+
+		if(strcmp($use ,'C') == 0) {
+			$ret = 'body {background-color:' . $decoVal['COLOR'] .  ';}';
+		}
+
+		return $ret;
+	}
+
 
 /**
  * ファイル出力
@@ -1299,7 +1394,7 @@ class html5C {
  * @throws
  * @todo
  */
-	function outFile() {
+	private function outFile() {
 
 		$outSect = array();
 		$lineMax = count($this->outSect);

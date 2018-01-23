@@ -21,13 +21,13 @@ function enableWriteTopImgSeq() {
 
 $(window).load(function(){
 
-	/***** ヘッダ画像リストの読み込み *****/
+	/***** 現在のヘッダ画像の読み込み *****/
 	getHeaderImgList();
 });
 
 
 /********************
-ヘッダ画像リストの読み込み
+現在のヘッダ画像の読み込み
 ********************/
 function getHeaderImgList() {
 
@@ -261,8 +261,6 @@ var fileExist = '0';
 
 	//画像Noの保持
 	$("#headerOtherImg").val(imgNo);
-
-	seleOther = $('#headerOtherImg').val();
 }
 
 

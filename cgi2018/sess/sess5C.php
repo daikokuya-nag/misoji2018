@@ -279,6 +279,7 @@ class sess5C {
 	static function setOutVals($ID ,$branchNo) {
 
 		$val = '';
+		$outID = $ID;
 
 		if(strcmp($ID ,'RECRUIT') == 0) {
 			$db = new dbGeneral5C();
@@ -372,7 +373,29 @@ class sess5C {
 			}
 		}
 
-		$_SESSION[self::OUTDATA][$ID] = $val;
+		if(strcmp($ID ,'DECORATION_VER') == 0
+		|| strcmp($ID ,'DECORATION_VAL') == 0) {
+			$db = new dbPageParam5C();
+
+			//ページの背景指定
+			$dbVal = $db->readAll($branchNo ,'ALL' ,'DECO');
+
+			$dbVal1 = $dbVal['pageVal'][0];
+			$val['USE'    ] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+			$val['COLOR'  ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+			$val['IMGNO'  ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+			$val['VERSION'] = $dbVal1[dbPageParam5C::FLD_VALUE4];
+
+			$handle = $db->getHandle();
+			$dbImgList = new dbImage5C($handle);
+
+			$imgList = $dbImgList->readShowable($branchNo);
+			$val['IMGLIST'] = $imgList['imgInfo'];
+
+			$outID = 'DECORATION';
+		}
+
+		$_SESSION[self::OUTDATA][$outID] = $val;
 	}
 
 /**

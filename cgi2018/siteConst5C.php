@@ -52,7 +52,9 @@ class siteConst5C {
 		'RECRUIT' => 'recruit.html' ,
 		'SYSTEM'  => 'system.html'  ,
 		'TOP'     => 'top.html'     ,
-		'INDEX'   => 'index.html'
+		'INDEX'   => 'index.html'   ,
+
+		'COMMON_CSS' => 'branchCommon.css'
 	);
 
 	static $outItem = array(		// ファイル出力の有無
@@ -61,7 +63,9 @@ class siteConst5C {
 		'RECRUIT' => false ,
 		'SYSTEM'  => false ,
 		'TOP'     => false ,
-		'INDEX'   => false
+		'INDEX'   => false ,
+
+		'COMMON_CSS' => false
 	);
 
 	static $menuStr = array(		// メニューバーの表示文字列

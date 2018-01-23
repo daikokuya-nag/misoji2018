@@ -106,7 +106,7 @@ class dbImage5C {
 	パラメータ：-
 	戻り値　　：画像リスト
 	********************/
-	function readShowable($branchNo) {
+	function readShowable($branchNo ,$imgClass=null) {
 
 		$db = $this->handle;
 
@@ -119,6 +119,10 @@ class dbImage5C {
 		$where =
 			self::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .
 			self::FLD_USE_MARK  . '=' . $db->setQuote(self::DISP_ON);	/* 表示可のレコード */
+
+		if(!is_null($imgClass)) {
+			$where = $where . ' and ' . self::FLD_CLASS  . '=' . $db->setQuote($imgClass);	//画像分類の指定があれば追加
+		}
 
 		$ret = $this->readMain($fldArr ,$where);
 

@@ -63,7 +63,10 @@ class fileName5C {
 		'INQUIRY'        => array('' ,'inquiry'   ) ,
 		'QUESTIONNAIRE'  => array('' ,'questionnaire') ,
 		'MASTERSBLOG'    => array('' ,'mastersBlog'  ) ,
+
+		'COMMON_CSS'     => array('css2018/' ,'branchCommon' ,'css') ,
 */
+
 		// ページファイルのテスト用
 		'404'            => array('' ,'4042018'       ) ,
 		'INDEX'          => array('' ,'index2018'     ) ,
@@ -79,6 +82,8 @@ class fileName5C {
 		'INQUIRY'        => array('' ,'inquiry2018'   ) ,
 		'QUESTIONNAIRE'  => array('' ,'questionnaire2018') ,
 		'MASTERSBLOG'    => array('' ,'mastersBlog2018'  ) ,
+
+		'COMMON_CSS'     => array('css2018/' ,'branchCommon' ,'css') ,
 
 		// テンプレートファイル
 		'404_TEMPLATE'           => array('' ,'404TEMPLATE'       ) ,
@@ -98,6 +103,8 @@ class fileName5C {
 
 		'PROFILE'           => array('profile2018/' ,'profile'        ) ,
 		'PROFILE_TEMPLATE'  => array('profile2018/' ,'profileTEMPLATE') ,
+
+		'COMMON_CSS_TEMPLATE' => array('css2018/' ,'branchCommonTEMPLATE' ,'css')
 	);
 
 
@@ -155,7 +162,6 @@ class fileName5C {
 			}
 
 			$fileName = $fileName . '.' . $ext;
-
 			/***** ディレクトリとファイル名の連結 *****/
 			$baseDirBase = realpath(dirname(__FILE__) . '/..') . '/';
 

@@ -20,11 +20,11 @@ class bldImgList5C {
 	　　　　　　プロファイルデータ
 	戻り値　　：タグ
 	********************/
-	function bldSeqList($branchNo) {
+	function bldSeqList($branchNo ,$imgClass=null) {
 
 		$img = new dbImage5C();
 
-		$imgList = $img->readShowable($branchNo);
+		$imgList = $img->readShowable($branchNo ,$imgClass);
 
 		$imgVals = $imgList['imgInfo'];
 		$listMax = $imgList['count'  ];

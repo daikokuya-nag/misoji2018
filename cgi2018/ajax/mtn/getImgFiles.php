@@ -10,9 +10,10 @@ PHP5
 	require_once dirname(__FILE__) . '/../../bld/bldImgList5C.php';
 
 	$branchNo = $_REQUEST['branchNo'];	/* 店No */
+	$imgClass = $_REQUEST['img'     ];	/* 画像種別 */
 
 	/*** 表示順 ***/
-	$ret['SEQ'] = bldImgList5C::bldSeqList($branchNo);
+	$ret['SEQ'] = bldImgList5C::bldSeqList($branchNo ,$imgClass);
 
 	print json_encode($ret);
 ?>
