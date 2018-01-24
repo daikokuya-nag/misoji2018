@@ -230,6 +230,14 @@ class html5C {
 			$ret = $this->setDecoration($sect1 ,$begKwd);
 		}
 
+
+		if(strcmp($begKwd ,'RECRUIT_AREA') == 0) {
+			$ret = $this->setRecruitArea($sect1 ,$begKwd);
+		}
+		if(strcmp($begKwd ,'SYSTEM_AREA') == 0) {
+			$ret = $this->setSystemArea($sect1 ,$begKwd);
+		}
+
 		return $ret;
 	}
 
@@ -1381,6 +1389,125 @@ class html5C {
 	}
 
 
+
+
+	function setRecruitArea($sect ,$kwd) {
+
+		$ret  = array();
+		$temp = array();
+
+		$disp = '';
+		$lineMax = count($sect);
+		for($idx=0 ;$idx<$lineMax ;$idx++) {
+			$line1 = $sect[$idx];
+			$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::RECRUIT_VAL);
+			if($kwdPos >= 0) {
+				$val  = sess5C::getOutVals('RECRUIT_AREA');
+				$disp = $this->setTopImg($val);
+				if(strlen($disp) >= 1) {
+					$temp[] = '<img src="' . $disp . '" class="img-responsive center-block">';
+				}
+			} else {
+				if(strcmp($line1 ,$this->begValList[$kwd]) == 0
+				|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
+				} else {
+					$temp[] = $line1;
+				}
+			}
+		}
+
+		if(strlen($disp) >= 1) {
+			$ret = $temp;
+		}
+
+		return $ret;
+	}
+
+	function setSystemArea($sect ,$kwd) {
+
+		$ret  = array();
+		$temp = array();
+
+		$disp = '';
+		$lineMax = count($sect);
+		for($idx=0 ;$idx<$lineMax ;$idx++) {
+			$line1 = $sect[$idx];
+			$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::SYSTEM_VAL);
+			if($kwdPos >= 0) {
+				$val  = sess5C::getOutVals('SYSTEM_AREA');
+				$disp = $this->setTopImg($val);
+				if(strlen($disp) >= 1) {
+					$temp[] = '<img src="' . $disp . '" class="img-responsive center-block">';
+				}
+			} else {
+				if(strcmp($line1 ,$this->begValList[$kwd]) == 0
+				|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
+				} else {
+					$temp[] = $line1;
+				}
+			}
+		}
+
+		if(strlen($disp) >= 1) {
+			$ret = $temp;
+		}
+
+		return $ret;
+	}
+
+
+
+/**
+ * TOPページに表示する画像の取得
+ *
+ * @access
+ * @param string $headerVal 画像指定情報
+ * @return array 画像ファイルへのパス
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	private function setTopImg($headerVal) {
+
+		$imgDir  = 'img/' . $this->branchNo . '/TOP/';
+		$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
+
+		$expNo  = $headerVal['NO' ];
+		$imgList = $headerVal['IMGLIST'];
+		$imgMax = count($imgList);
+
+		//画像番号のファイルの有無を調べる
+		$dispImgNo1 = $expNo;
+		$fileExist  = false;
+		for($imgIdx=0 ;$imgIdx<$imgMax ;$imgIdx++) {
+			$img1 = $imgList[$imgIdx];
+			if($dispImgNo1 == $img1[dbImage5C::FLD_IMG_NO]) {
+				$ext = $img1[dbImage5C::FLD_ORG_EXT];
+				$imgFullPath = $imgRoot . $dispImgNo1 . '.' . $ext;
+				$imgDispPath = $imgDir  . $dispImgNo1 . '.' . $ext;
+				if(is_file($imgFullPath)) {
+					$fileExist = true;
+					break;
+				}
+			}
+		}
+
+		//画像ファイルがあればtrue
+		if($fileExist) {
+			$imgPath = $imgDispPath;
+		} else {
+			$imgPath = '';
+		}
+
+		return $imgPath;
+	}
+
+
+
+
+
+
 /**
  * ファイル出力
  *
@@ -1394,7 +1521,7 @@ class html5C {
  * @throws
  * @todo
  */
-	private function outFile() {
+	function outFile() {
 
 		$outSect = array();
 		$lineMax = count($this->outSect);

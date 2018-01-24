@@ -52,6 +52,13 @@ class templateConst5C {
 	const DECO_CSS_VAL_BEG_LINE = '/* DECO_CSS_BEG */';		// cssの開始
 	const DECO_CSS_VAL_END_LINE = '/* DECO_CSS_END */';		// cssの終了
 
+
+	const RECRUIT_AREA_BEG_LINE = '<!-- RECRUIT_AREA_BEG -->';	// 求人の開始
+	const RECRUIT_AREA_END_LINE = '<!-- RECRUIT_AREA_END -->';	// 求人の終了
+
+	const SYSTEM_AREA_BEG_LINE = '<!-- SYSTEM_AREA_BEG -->';		// 料金の開始
+	const SYSTEM_AREA_END_LINE = '<!-- SYSTEM_AREA_END -->';		// 料金の終了
+
 	var $begList = array(			// セクションの開始キーワードリスト
 		'RECRUIT' => self::RECRUIT_BEG_LINE ,
 		'SYSTEM'  => self::SYSTEM_BEG_LINE  ,
@@ -66,7 +73,10 @@ class templateConst5C {
 		'PAGE_MENU' => self::MENU_BEG_LINE ,
 
 		'DECORATION_VER' => self::DECO_CSS_VER_BEG_LINE ,
-		'DECORATION_VAL' => self::DECO_CSS_VAL_BEG_LINE
+		'DECORATION_VAL' => self::DECO_CSS_VAL_BEG_LINE ,
+
+		'RECRUIT_AREA' => self::RECRUIT_AREA_BEG_LINE ,
+		'SYSTEM_AREA'  => self::SYSTEM_AREA_BEG_LINE
 	);
 	var $endList = array(			// セクションの終了キーワードリスト
 		'RECRUIT' => self::RECRUIT_END_LINE ,
@@ -82,7 +92,10 @@ class templateConst5C {
 		'PAGE_MENU' => self::MENU_END_LINE ,
 
 		'DECORATION_VER' => self::DECO_CSS_VER_END_LINE ,
-		'DECORATION_VAL' => self::DECO_CSS_VAL_END_LINE
+		'DECORATION_VAL' => self::DECO_CSS_VAL_END_LINE ,
+
+		'RECRUIT_AREA' => self::RECRUIT_AREA_END_LINE ,
+		'SYSTEM_AREA'  => self::SYSTEM_AREA_END_LINE
 	);
 
 
@@ -170,6 +183,10 @@ class templateConst5C {
 	const RECOMM_PHOTO_SHOW = 'PROF_PHOTO_SHOW';	// オススメの写真表示区分
 
 	const RECOMM_JS_VER = 'JS_VER';			// オススメJSのバージョン
+
+	//TOPページ
+	const RECRUIT_VAL = '<!-- RECRUIT_VAL -->';				// 求人内容
+	const SYSTEM_VAL  = '<!-- SYSTEM_VAL -->';				// 料金内容
 
 	function getSectList() {
 

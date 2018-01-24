@@ -99,6 +99,7 @@
 <script src="../js2018/mtn/prof.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/profOut.js?<?php print $vesion; ?>"></script>
 
+<script src="../js2018/mtn/top.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/system.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/recruit.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/header.js?<?php print $vesion; ?>"></script>
@@ -115,7 +116,10 @@
 <div id="tabA">
 	<ul>
 		<li><a href="#tabsDecoration">装飾</a></li>
+
 		<li><a href="#tabsHeader">ヘッダ</a></li>
+
+		<li><a href="#tabsTop">TOP</a></li>
 		<li><a href="#tabsNews">ニュース</a></li>
 		<li><a href="#tabsProfile">プロファイル</a></li>
 		<li><a href="#tabsRecruit">求人</a></li>
@@ -318,7 +322,7 @@
 						</tr>
 					</thead>
 					<tbody id="headerOtherImgList">
-						<tr id="headerOtherImg">
+						<tr id="headerOtherImgT">
 							<td class="headerOtherImgTN" id="headerOtherImgTN">aaa</td>
 							<td class="headerOtherImgSele"><input type="button" value="画像選択" name="attHeaderOtherImg" id="attHeaderOtherImg" onclick="showSeleImg('OTHER_HEADER')"></td>
 						</tr>
@@ -331,6 +335,60 @@
 		<div id="tabHeaderBottom" class="tabBottomBtn">
 			<hr>
 			<input type="button" value="出力" id="bldHeaderImgDispSeq" onclick="updHeaderImgSeq();" disabled="disabled">
+		</div>
+	</div>
+
+	<!-- TOP -->
+	<div id="tabsTop" class="tabArea">
+		<div class="tabTopImgEnter">
+			<div id="tabTopSystem">
+				システム
+			</div>
+			<div id="tabTopSystemMid" class="tabMid">
+				<table class="topSystemImgSele">
+					<thead>
+						<tr>
+							<th class="topSystemImgTN">画像ファイル</th>
+							<th class="topSystemImgDisp">表示</th>
+						</tr>
+					</thead>
+					<tbody id="topSystemImgList">
+						<tr id="topSystemImg">
+							<td class="topSystemImgTN" id="topSystemImgTN">aaa</td>
+							<td class="topSystemImgSele"><input type="button" value="画像選択" name="attTopSystemImg" id="attTopSystemImg" onclick="showSeleImg('TOP' ,'SYSTEM')"></td>
+							<td class="topImgDisp"><input type="checkbox" name="useTopSystemImg" id="useTopSystemImg" class="useTopImg" value="U"></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="hidden" id="topSystemImg" value="">
+			</div>
+
+			<div id="tabTopRecruit">
+				求人
+			</div>
+			<div id="tabTopRecruitMid" class="tabMid">
+				<table class="topRecruitImgSele">
+					<thead>
+						<tr>
+							<th class="topRecruitImgTN">画像ファイル</th>
+							<th class="topRecruitImgDisp">表示</th>
+						</tr>
+					</thead>
+					<tbody id="topRecruitImgList">
+						<tr id="topRecruitImg">
+							<td class="topRecruitImgTN" id="topRecruitImgTN">aaa</td>
+							<td class="topRecruitImgSele"><input type="button" value="画像選択" name="attTopRecruitImg" id="attTopRecruitImg" onclick="showSeleImg('TOP' ,'RECRUIT')"></td>
+							<td class="topImgDisp"><input type="checkbox" name="useTopRecruitImg" id="useTopRecruitImg" class="useTopImg" value="U"></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="hidden" id="topRecruitImg" value="">
+			</div>
+		</div>
+
+		<div id="tabTopBottom" class="tabBottomBtn">
+			<hr>
+			<input type="button" value="出力" id="bldTopImg" onclick="updTopImg();">		<!--  disabled="disabled" -->
 		</div>
 	</div>
 

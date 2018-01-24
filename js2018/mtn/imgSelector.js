@@ -60,6 +60,10 @@ console.debug(imgClass);
 		IMG_SELECTOR = 'DECO';
 	}
 
+	if(imgClass == 'TOP') {
+		IMG_SELECTOR = 'TOP';
+	}
+
 	IMG_CLASS = imgClass;
 	if(place) {
 		IMG_PLACE = place;
@@ -152,7 +156,22 @@ function showImgDlg() {
 	}
 
 	if(IMG_CLASS == 'ALL_BG') {
-		imgNo = $('#headerOtherImg').val();
+		imgNo = $('#decoBGImg').val();
+		if(imgNo) {
+			if(imgNo.length >= 1) {
+				$("#seleImg" + imgNo).prop("checked", true);
+			}
+		}
+	}
+
+	if(IMG_CLASS == 'TOP') {
+		if(IMG_PLACE == 'SYSTEM') {
+			imgNo = $('#topSystemImg').val();
+		}
+		if(IMG_PLACE == 'RECRUIT') {
+			imgNo = $('#topRecruitImg').val();
+		}
+
 		if(imgNo) {
 			if(imgNo.length >= 1) {
 				$("#seleImg" + imgNo).prop("checked", true);
@@ -236,6 +255,30 @@ var ext;
 		tagStr = '<img src="../img/' + BRANCH_NO +  '/DECO/' + selectedImg + '.' + ext + '">';
 		$('#decoBGImgTN').html(tagStr);
 		$('#decoBGImg').val(selectedImg);
+	}
+
+	if(IMG_CLASS == 'TOP') {
+		if(IMG_PLACE == 'SYSTEM') {
+			ext = EXT_LIST[selectedImg];
+				console.debug('top system');
+				console.debug(ext);
+
+			tagStr = '<img src="../img/' + BRANCH_NO +  '/TOP/' + selectedImg + '.' + ext + '">';
+			$('#topSystemImgTN').html(tagStr);
+			$('#topSystemImg').val(selectedImg);
+		}
+
+		if(IMG_PLACE == 'RECRUIT') {
+			ext = EXT_LIST[selectedImg];
+				console.debug('top recruit');
+				console.debug(ext);
+
+			tagStr = '<img src="../img/' + BRANCH_NO +  '/TOP/' + selectedImg + '.' + ext + '">';
+			$('#topRecruitImgTN').html(tagStr);
+			$('#topRecruitImg').val(selectedImg);
+		}
+
+		$("#bldTopImg").prop('disabled' ,false);
 	}
 }
 

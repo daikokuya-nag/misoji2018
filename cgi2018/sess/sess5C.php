@@ -359,7 +359,7 @@ class sess5C {
 			$val['IMGLIST'] = $imgList['imgInfo'];
 		}
 
-		if(strcmp($ID ,'PAGE_MENU'  ) == 0) {
+		if(strcmp($ID ,'PAGE_MENU') == 0) {
 			$db = new dbPageParam5C();
 			$dbVal  = $db->readByObj($branchNo ,'USEPAGE');
 
@@ -394,6 +394,40 @@ class sess5C {
 
 			$outID = 'DECORATION';
 		}
+
+
+		if(strcmp($ID ,'RECRUIT_AREA') == 0) {
+			$db = new dbPageParam5C();
+			$dbVal = $db->readAll($branchNo ,'TOP' ,'RECRUIT');
+
+			$dbVal1 = $dbVal['pageVal'][0];
+			$val['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+			$val['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+			$val['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+
+			$handle = $db->getHandle();
+			$dbImgList = new dbImage5C($handle);
+
+			$imgList = $dbImgList->readShowable($branchNo);
+			$val['IMGLIST'] = $imgList['imgInfo'];
+		}
+
+		if(strcmp($ID ,'SYSTEM_AREA') == 0) {
+			$db = new dbPageParam5C();
+			$dbVal = $db->readAll($branchNo ,'TOP' ,'SYSTEM');
+
+			$dbVal1 = $dbVal['pageVal'][0];
+			$val['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+			$val['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+			$val['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+
+			$handle = $db->getHandle();
+			$dbImgList = new dbImage5C($handle);
+
+			$imgList = $dbImgList->readShowable($branchNo);
+			$val['IMGLIST'] = $imgList['imgInfo'];
+		}
+
 
 		$_SESSION[self::OUTDATA][$outID] = $val;
 	}
