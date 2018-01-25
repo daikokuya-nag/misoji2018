@@ -1,24 +1,26 @@
-/*************************
-料金表 Version 1.0
-2016 Jan. 25 ver 1.0
-*************************/
+/**
+* 料金表
+*
+* @version 1.0.1
+* @date 2018.1.17
+*/
 
 var SYSTEM_STR;
 
-/***** 初期化 *****/
 $(document).ready(function(){
 
-	/***** 料金表データの読み込み *****/
 	getPriceVal();
 });
 
 $(window).load(function(){
 });
 
-
-/********************
-料金表情報の読み込み
-********************/
+/**
+* 料金表情報の読み込み
+*
+* @param
+* @return
+*/
 function getPriceVal() {
 
 var result;
@@ -48,9 +50,12 @@ var str;
 	});
 }
 
-/********************
-料金表情報の出力
-********************/
+/**
+* 料金表情報の出力
+*
+* @param
+* @return
+*/
 function writePriceVal() {
 
 var result;

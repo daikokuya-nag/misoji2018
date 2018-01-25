@@ -1,27 +1,30 @@
-/*************************
-TOPページ編集 Version 1.1
-*************************/
+/**
+* TOPページ編集
+*
+* @version 1.0.1
+* @date 2018.1.24
+*/
 
-/***** 初期化 *****/
 $(document).ready(function(){
 });
 
 
 $(window).load(function(){
 
-	/***** 現在のTOPページで使用する画像の読み込み *****/
-	getTopImgList();
+	getTopValList();	// 現在のTOPページで使用する画像の読み込み
 });
 
-
-/********************
-現在のTOPページの画像の読み込み
-********************/
-function getTopImgList() {
+/**
+* 現在のTOPページの画像の読み込み
+*
+* @param
+* @return
+*/
+function getTopValList() {
 
 var result = $.ajax({
 		type : "get" ,
-		url  : "../cgi2018/ajax/mtn/getTopImg.php" ,
+		url  : "../cgi2018/ajax/mtn/getTopVal.php" ,
 		data : {
 			branchNo : BRANCH_NO
 		} ,
@@ -36,18 +39,25 @@ var result = $.ajax({
 		setTopImg(response['system' ] ,response['extList'] ,'SYSTEM');
 		setTopImg(response['recruit'] ,response['extList'] ,'RECRUIT');
 
+		setTopArea(response['area']);
+
 		$(".useTopImg").toggleSwitch();
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {
-			console.debug('error at getTopImgList:' + response.status + ' ' + textStatus);
+			console.debug('error at getTopValList:' + response.status + ' ' + textStatus);
 	});
 
 	result.always(function() {
 	});
 }
 
-
+/**
+* TOPページの画像の表示
+*
+* @param
+* @return
+*/
 function setTopImg(imgVals ,extList ,imgID) {
 
 var pageVal   = imgVals['pageVal'];
@@ -108,23 +118,43 @@ var fileExist = '0';
 	}
 }
 
+/**
+* TOPページの区画の色
+*
+* @param
+* @return
+*/
+function setTopArea(areaVals) {
 
-/********************
-表示画像出力
-********************/
+	$("#areaTitleStr").val(areaVals['titleColor']);
+	$("#areaTitleBG" ).val(areaVals['titleBGColor']);
+	$("#areaBG"      ).val(areaVals['areaBGColor']);
+}
+
+/**
+* 表示画像出力
+*
+* @param
+* @return
+*/
 function updTopImg() {
 
 var seleSystem  = $('#topSystemImg' ).val();
 var seleRecruit = $('#topRecruitImg').val();
 
+var titleColor   = $("#areaTitleStr").val();
+var titleBGColor = $("#areaTitleBG" ).val();
+var areaBGColor  = $("#areaBG"      ).val();
+
 var dispSW   = $(".useTopImg").serialize();
-var sendData = dispSW + '&branchNo=' + BRANCH_NO + '&system=' + seleSystem + '&recruit=' + seleRecruit;
+var sendData = dispSW + '&branchNo=' + BRANCH_NO + '&system=' + seleSystem + '&recruit=' + seleRecruit +
+				'&titleColor=' +  titleColor + '&titleBGColor=' + titleBGColor + '&areaBGColor=' +  areaBGColor;
 
 console.debug(sendData);
 
 var result = $.ajax({
 		type : "post" ,
-		url  : "../cgi2018/ajax/mtn/writeTopImgDisp.php" ,
+		url  : "../cgi2018/ajax/mtn/writeTopVal.php" ,
 		data : sendData ,
 		cache    : false ,
 		dataType : 'json'
@@ -136,13 +166,13 @@ var result = $.ajax({
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			selectWriteFile('TOP');		//出力対象ファイルの抽出→ファイル出力
 		} else {
-//			jAlert(
-//				TIMEOUT_MSG_STR ,
-//				TIMEOUT_MSG_TITLE ,
-//				function() {
-//					location.href = 'login.html';
-//				}
-//			);
+			jAlert(
+				TIMEOUT_MSG_STR ,
+				TIMEOUT_MSG_TITLE ,
+				function() {
+					location.href = 'login.html';
+				}
+			);
 		}
 	});
 

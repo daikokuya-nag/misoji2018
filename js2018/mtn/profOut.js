@@ -1,11 +1,16 @@
-/*************************
-プロファイル出力 Version 1.1
-2016 Mar. 3  ver 1.0
-*************************/
+/**
+* プロファイル出力
+*
+* @version 1.0.1
+* @date 2018.1.19
+*/
 
-/********************
-セッション状態の取得
-********************/
+/**
+* 出力
+*
+* @param
+* @return
+*/
 function writeProf() {
 
 var vals = setVals();
@@ -30,7 +35,7 @@ var result = $.ajax({
 
 			writeProfHTMLFile(profDir);
 			$("#editProfDlg").dialog("close");
-		} else {
+		} else {	// セッションタイムアウトの時
 			jAlert(
 				TIMEOUT_MSG_STR ,
 				TIMEOUT_MSG_TITLE ,
@@ -50,9 +55,14 @@ var result = $.ajax({
 	});
 }
 
+/**
+* 出力データの編集
+*
+* @param
+* @return
+*/
 function setVals() {
 
-// FormData オブジェクトを作成
 var fd = new FormData();
 
 var mastComment = CKEDITOR.instances.mastComment.getData();
@@ -84,10 +94,7 @@ var newFace = $("#newFace:checked").val();
 			console.debug('新人' + newFace);
 	fd.append("newFace"  ,newFace);
 
-
-/***** 写真使用 *****/
-var useP;
-
+var useP;	// 写真使用
 	useP = setPhotoUse('#useP1');
 	fd.append("useP1" ,useP);
 	useP = setPhotoUse('#useP2');
@@ -104,9 +111,7 @@ var useP;
 	useP = setPhotoUse('#useML');
 	fd.append("useML" ,useP);
 
-
-	/*** 写真表示 ***/
-var photoShow = $('input[name="photoUSE"]:checked').val();
+var photoShow = $('input[name="photoUSE"]:checked').val();	// 写真表示
 				//console.debug('photoShow:' + photoShow);
 	fd.append("photoShow" ,photoShow);
 
@@ -134,10 +139,9 @@ var photoShow = $('input[name="photoUSE"]:checked').val();
 //		fd.append("attML", $("#attML").prop("files")[0]);
 //	}
 
-	/***** 週間出勤表 *****/
-var idF;
+var idF;	// 週間出勤表
 
-		/***** デフォルト分 *****/
+		// デフォルト分
 	idF = '#workDef';
 	fd.append("sunF" ,$(idF + '0F').val());
 	fd.append("sunT" ,$(idF + '0T').val());
@@ -167,7 +171,7 @@ var idF;
 	fd.append("satT" ,$(idF + '6T').val());
 	fd.append("satM" ,$("input[name='workSele6']:checked").val());
 
-		/***** 予定外 *****/
+		// 予定外
 	idF = '#workDiff';
 	fd.append("diff1F" ,$(idF + '0F').val());
 	fd.append("diff1T" ,$(idF + '0T').val());
@@ -197,10 +201,8 @@ var idF;
 	fd.append("diff7T" ,$(idF + '6T').val());
 	fd.append("diff7M" ,$("input[name='workDiff6']:checked").val());
 
-
-/*** 予定外の日付 ***/
+		// 予定外の日付
 	idF = '#dateList';
-		/***** 差異分 *****/
 	fd.append("diffDate1" ,$(idF + '0').val());
 	fd.append("diffDate2" ,$(idF + '1').val());
 	fd.append("diffDate3" ,$(idF + '2').val());
@@ -209,7 +211,7 @@ var idF;
 	fd.append("diffDate6" ,$(idF + '5').val());
 	fd.append("diffDate7" ,$(idF + '6').val());
 
-	/*** QA ***/
+	// QA
 	fd.append("qa1"  ,$('#qa1').val());
 	fd.append("qa2"  ,$('#qa2').val());
 	fd.append("qa3"  ,$('#qa3').val());
@@ -224,7 +226,6 @@ var idF;
 	fd.append("qa12" ,$('#qa12').val());
 	fd.append("qa13" ,$('#qa13').val());
 	fd.append("qa14" ,$('#qa14').val());
-
 
 var bDataVal;
 
@@ -247,14 +248,20 @@ var bDataVal;
 }
 
 
+/**
+* 写真使用/非使用の設定
+*
+* @param
+* @return
+*/
 function setPhotoUse(photoID) {
 
 var ret = '';
 
 	if($(photoID).prop('checked')) {
-		ret = 'U';	/* 写真使用 */
+		ret = 'U';	// 写真使用
 	} else {
-		ret = 'N';	/* 写真非使用 */
+		ret = 'N';	// 写真非使用
 	}
 
 	return ret;

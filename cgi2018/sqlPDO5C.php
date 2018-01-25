@@ -1,6 +1,6 @@
 <?php
 /**
- * SQL関数群
+ * SQL関数 PDO版
  *
  * @version 1.0.1
  * @copyright
@@ -22,27 +22,26 @@
  */
 class sql5C {
 
-	/***** 実行結果 *****/
-	const RET_NO_ERROR  = 0;	/* エラーナシ */
-	const CONNECT_ERROR = 1;	/* DB接続エラー */
-	const OPEN_ERROR    = 2;	/* DB選択エラー */
-	const ANY_ERROR     = 3;	/* 何かのエラー */
+	// 実行結果
+	const RET_NO_ERROR  = 0;	// エラーナシ
+	const CONNECT_ERROR = 1;	// DB接続エラー
+	const OPEN_ERROR    = 2;	// DB選択エラー
+	const ANY_ERROR     = 3;	// 何かのエラー
 
-		/***** DBロック *****/
-	const LOCK_TIMEOUT   = 4;	/* 指定した時間内にロックできなかった */
-	const LOCK_ANY_ERROR = 5;	/* 何かのエラー */
+	// DBロックの結果
+	const LOCK_TIMEOUT   = 4;	// 指定した時間内にロックできなかった
+	const LOCK_ANY_ERROR = 5;	// 何かのエラー
 
-		/***** トランザクション *****/
-	const TRANS_BEGIN_ERR    = 6;	/* トランザクション開始エラー */
-	const TRANS_WRITE_ERR    = 7;	/* トランザクション書き込みエラー */
-	const TRANS_ROLLBACK_ERR = 8;	/* トランザクションロールバックエラー */
+	// トランザクションの結果
+	const TRANS_BEGIN_ERR    = 6;	// 開始エラー
+	const TRANS_WRITE_ERR    = 7;	// 書き込みエラー
+	const TRANS_ROLLBACK_ERR = 8;	// ロールバックエラー
 
 
-	/***** ログ出力 *****/
-	const LOG_OUTPUT  = 1;
-	const LOG_NOT_OUT = 0;
-
-	const LOG_DEFAULT = 1;
+	// ログ出力
+	const LOG_OUTPUT  = 1;	//出力する
+	const LOG_NOT_OUT = 0;	//出力しない
+	const LOG_DEFAULT = 1;	//ログ出力の既定値
 
 	const TRUE  = 1;
 	const FALSE = 0;
@@ -53,11 +52,11 @@ class sql5C {
 	var $connectID = null;
 	var $stmt;
 
-	var $result;	/* 実行結果 */
-	var $rows;		/* 実行結果の行数 */
+	var $result;	// 実行結果
+	var $rows;		// 実行結果の行数
 
-	var $errStr;	/* エラーメッセージ */
-	var $errID;		/* エラーID */
+	var $errStr;	// エラーメッセージ
+	var $errID;		// エラーID
 
 /**
  * コンストラクタ(DB接続)
@@ -72,10 +71,10 @@ class sql5C {
  */
 	function sql5C() {
 
-		$this->errStr = '';					/* エラーメッセージ */
-		$this->errID = self::RET_NO_ERR;	/* エラーID */
+		$this->errStr = '';					// エラーメッセージ
+		$this->errID = self::RET_NO_ERR;	// エラーID
 
-		/***** MySQLへ接続 *****/
+		// MySQLへ接続
 		$dsn      = 'mysql:dbname=' . sqlConst5C::DBNAME . ';host=' . sqlConst5C::LOCATIONURL;
 		$user     = sqlConst5C::USER;
 		$password = sqlConst5C::DBPASS;
@@ -210,27 +209,27 @@ class sql5C {
  */
 	function selectRec($table ,$list ,$cond='' ,$order='' ,$other='' ,$printLog=self::LOG_DEFAULT) {
 
-		/***** 取り出すフィールドの設定 *****/
+		// 取り出すフィールドの設定
 		$sqlStr = 'select ' . $list . ' from ' . $table;
 
-		/***** 条件があれば指定 *****/
+		// 条件があれば指定
 		if(strlen($cond) >= 1) {
 			$sqlStr = $sqlStr . ' where ' . $cond;
 		}
 
-		/***** 順序があれば指定 *****/
+		// 抽出順序があれば指定
 		if(strlen($order) >= 1) {
 			$sqlStr = $sqlStr . ' order by ' . $order;
 		}
 
-		/***** その他のパラメータがあれば指定 *****/
+		// その他のパラメータがあれば指定
 		if(strlen($other) >= 1) {
 			$sqlStr = $sqlStr . ' ' . $other;
 		}
 
 		$this->execute($sqlStr ,$printLog);
 
-		/* エラーがなければ内容取り出し */
+		// エラーがなければ内容取り出し
 		if($this->errID == self::RET_NO_ERR) {
 			$stmt = $this->stmt;
 
@@ -459,15 +458,6 @@ class sql5C {
 	}
 
 
-
-
-
-
-
-
-
-
-/*********************** ロック ***********************/
 /**
  * DBロック
  *
@@ -658,15 +648,6 @@ class sql5C {
 	}
 
 
-
-
-
-
-
-
-
-
-
 /**
  * オートインクリメントのリセット
  *
@@ -687,7 +668,5 @@ class sql5C {
 
 		return $result;
 	}
-
-
 }
 ?>

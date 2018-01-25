@@ -10,9 +10,7 @@ var RESP_NEWS_DISP = false;			//「表示可否反映」ボタンの有効/無�
 var NEWS_NO_LIST;					//ニュースNoのリスト
 var DISP_NEWS_EDIT_DIALOG = false;	//ニュース編集のダイアログを表示したか
 
-// 初期化
 $(document).ready(function(){
-
 });
 
 $(window).load(function(){
@@ -468,7 +466,6 @@ var result;
 	});
 }
 
-
 /**
 * ニュース出力
 *
@@ -575,7 +572,6 @@ var listMax;
 		$('#' + dispID).toggleSwitch();
 	}
 }
-
 
 /**
 * 削除ダイアログの表示

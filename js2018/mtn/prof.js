@@ -1,25 +1,24 @@
-/*************************
-プロファイル編集 Version 1.1
-*************************/
+/**
+* プロファイル編集
+*
+* @version 1.0.1
+* @date 2018.1.23
+*/
 
-var CURR_AREA_NO = 0;
-var DISP_PROF_EDIT_DIALOG = false;	//女性情報編集のダイアログを表示したか
+var CURR_AREA_NO = 0;				// 編集領域の表示
+var DISP_PROF_EDIT_DIALOG = false;	// 女性情報編集のダイアログを表示したか
 
-/***** 初期化 *****/
 $(document).ready(function(){
-
 });
 
-/***** 表示順のドロップ時の動作 *****/
-$(document).on('sortstop' ,'#profSeqListD' ,function(){
+$(document).on('sortstop' ,'#profSeqListD' ,function(){		// 表示順のドロップ時の動作
 
 	enableWriteProfSeq();
 });
 
 $(window).load(function(){
 
-	/***** 編集ダイアログの定義 *****/
-	$("#editProfDlg").dialog({
+	$("#editProfDlg").dialog({		// 編集ダイアログの定義
 		autoOpen: false ,
 		modal : true ,
 		width : 1220 ,		//1020
@@ -42,14 +41,16 @@ $(window).load(function(){
 		]
 	});
 
-	/***** プロファイルリストの読み込み *****/
 	getProfileList();
 });
 
 
-/********************
-プロファイルリストの読み込み
-********************/
+/**
+* プロファイルリストの読み込み
+*
+* @param
+* @return
+*/
 function getProfileList() {
 
 var result = $.ajax({
@@ -82,21 +83,23 @@ var result = $.ajax({
 	});
 }
 
+/**
+* 出力ボタンの有効化
+*
+* @param
+* @return
+*/
 function enableWriteProfSeq() {
 
 	$("#bldProfList").prop('disabled' ,false);
 }
 
-function enableWriteProfSeq() {
-
-	$("#bldProfList").prop('disabled' ,false);
-}
-
-
-/********************************************************************************/
-/********************
-新規プロファイル編集
-********************/
+/**
+* 新規プロファイル編集
+*
+* @param
+* @return
+*/
 function newProf() {
 
 var result;
@@ -107,7 +110,7 @@ var result;
 
 	$('#profDir').val('');
 
-	$("input[name='newFace']").val(['N']);		/* 新人 ON */
+	$("input[name='newFace']").val(['N']);		// 新人 ON
 
 	$('#profName'   ).val('');
 	$('#profAge'    ).val('');
@@ -205,10 +208,12 @@ var chk = false;
 	});
 }
 
-
-/********************
-既存プロファイル編集
-********************/
+/**
+* 既存プロファイル編集
+*
+* @param
+* @return
+*/
 function editProf(dir) {
 
 	$('#newProf').val('edit');
@@ -248,7 +253,6 @@ var result = $.ajax({
 		$('#mastComment').val(response['mastersComment']);
 		$('#appComment' ).val(response['appealComment' ]);
 
-
 		$('#qa1' ).val(response['QA1' ]);
 		$('#qa2' ).val(response['QA2' ]);
 		$('#qa3' ).val(response['QA3' ]);
@@ -264,12 +268,10 @@ var result = $.ajax({
 		$('#qa13').val(response['QA13']);
 		$('#qa14').val(response['QA14']);
 
-
 		$('#profPCode').val(response['pcd']);
 
 		$('#profWorkDiff').html(response["workTag"]["workDiff"]);
 		$('#profWorkList').html(response["workTag"]["workList"]);
-
 
 		bVal = response['B1'];
 		if(bVal == null) {
@@ -288,7 +290,6 @@ var result = $.ajax({
 			bVal = '';
 		}
 		$('input[name="profBC"]').val([bVal]);
-
 
 			//$("#seleImgFile").prop('src' ,'fileSele.php?g=' + groupNo + '&b=' + BRANCH_NO + '&id=' + dir);
 
@@ -315,11 +316,15 @@ var result = $.ajax({
 	});
 }
 
-
+/**
+* ckeditorの表示、動作の定義
+*
+* @param
+* @return
+*/
 function setCKEditProf() {
 
 	if(!DISP_PROF_EDIT_DIALOG) {
-
 		CKEDITOR.replace('mastComment' ,
 			{
 				height : 120
@@ -329,7 +334,6 @@ function setCKEditProf() {
 			{
 				height : 120
 			});
-
 
 		CKEDITOR.instances.mastComment.on("blur", function(e) {
 			CKEDITOR.instances.mastComment.updateElement();
@@ -357,34 +361,26 @@ function setCKEditProf() {
 			$("#warnAppComment").html(msg);
 		});
 
-
 		DISP_PROF_EDIT_DIALOG = true;
 	}
 }
 
-
-
-/*****
-入力域の初期表示
-*****/
+/**
+* 入力域の初期表示
+*
+* @param
+* @return
+*/
 function setProfArea(mode) {
 
 var dispArea = ['none' ,'none' ,'none' ,'none'];
 var btnDisp  = [false  ,false  ,false  ,false];
 
-	if(mode == 'EDIT') {
-		/* 既存女性の編集 */
-		CURR_AREA_NO = 0;
-	} else {
-		/* 新規女性 */
-		CURR_AREA_NO = 0;
-	}
-
+	CURR_AREA_NO = 0;
 	dispArea[CURR_AREA_NO] = 'block';
 	btnDisp[CURR_AREA_NO ] = true;
 
-
-	/* 初期状態で表示するエリアのボタンをdisable */
+	// 初期状態で表示するエリアのボタンをdisable
 	$('#showAreaBtn0').prop('disabled' ,btnDisp[0]);
 	$('#showAreaBtn1').prop('disabled' ,btnDisp[1]);
 //	$('#showAreaBtn2').prop('disabled' ,btnDisp[2]);
@@ -396,9 +392,12 @@ var btnDisp  = [false  ,false  ,false  ,false];
 //	$('#profArea3').css('display' ,dispArea[3]);
 }
 
-/********************
-入力域表示
-********************/
+/**
+* 入力域表示
+*
+* @param
+* @return
+*/
 function showArea(newAreaNo) {
 
 var btnDisp = [false ,false ,false ,false];
@@ -408,7 +407,7 @@ var btnDisp = [false ,false ,false ,false];
 var currID = '#profArea' + CURR_AREA_NO;
 var newID  = '#profArea' + newAreaNo;
 
-console.debug(currID + ' ' + newID);
+					//console.debug(currID + ' ' + newID);
 
 	/* ボタン表示 */
 	$('#showAreaBtn0').prop('disabled' ,btnDisp[0]);
@@ -416,16 +415,15 @@ console.debug(currID + ' ' + newID);
 //	$('#showAreaBtn2').prop('disabled' ,btnDisp[2]);
 //	$('#showAreaBtn3').prop('disabled' ,btnDisp[3]);
 
-
 	if(newAreaNo > CURR_AREA_NO) {
-		/* 今より下を表示 */
-		$(newID).slideToggle("slow");		/* 閉じる */
-		$(currID).slideToggle("slow");		/* 開く */
+		// 今より下を表示
+		$(newID).slideToggle("slow");		// 閉じる
+		$(currID).slideToggle("slow");		// 開く
 			console.debug('↓' + currID + ' ' + newID);
 	} else {
-		/* 今より上を表示 */
-		$(newID).slideToggle("slow");		/* 閉じる */
-		$(currID).slideToggle("slow");		/* 開く */
+		// 今より上を表示
+		$(newID).slideToggle("slow");		// 閉じる
+		$(currID).slideToggle("slow");		// 開く
 			console.debug('↑' + currID + ' ' + newID);
 	}
 	CURR_AREA_NO = newAreaNo;
@@ -433,16 +431,17 @@ console.debug(currID + ' ' + newID);
 }
 
 
-/********************
-表示順、表示/非表示更新時の出力
-********************/
+/**
+* 表示順、表示/非表示更新時の出力
+*
+* @param
+* @return
+*/
 function updProfSeq() {
 
 var dispSW    = $(".dispProfSW").serialize();
 var profOrder = $("#profSeqListD").sortable('serialize');
-
-var dataVal = profOrder + '&branchNo=' + BRANCH_NO + '&' + dispSW;
-
+var dataVal   = profOrder + '&branchNo=' + BRANCH_NO + '&' + dispSW;
 			//console.debug(dataVal);
 
 var result = $.ajax({
@@ -478,7 +477,12 @@ var result = $.ajax({
 	});
 }
 
-
+/**
+* 写真表示の設定
+*
+* @param
+* @return
+*/
 function setFileSeleVals(dir ,profData) {
 
 var str;
@@ -500,7 +504,7 @@ var show;
 	}
 	$('input[name="photoUSE"]').val([str]);
 
-
+	// 写真の有無の設定
 	str = setExistStr(profData['existF1']);
 	$('#currF1').html(str);
 
@@ -522,7 +526,7 @@ var show;
 	str = setExistStr(profData['existML']);
 	$('#currML').html(str);
 
-
+	// その写真を表示するか否かの設定
 	chk = setUseVal(profData['useF1']);
 	$("#useP1").prop("checked", chk);
 
@@ -545,7 +549,12 @@ var show;
 	$("#useML").prop("checked", chk);
 }
 
-
+/**
+* 写真の有無の設定
+*
+* @param
+* @return
+*/
 function setExistStr(extVal) {
 
 var str;
@@ -559,6 +568,12 @@ var str;
 	return str;
 }
 
+/**
+* その写真を表示するか否かの設定
+*
+* @param
+* @return
+*/
 function setUseVal(useVal) {
 
 var chk;
@@ -572,17 +587,22 @@ var chk;
 	return chk;
 }
 
-
+/**
+* 識別子の入力/表示の設定
+*
+* @param
+* @return
+*/
 function setShowProfDir(dir) {
 
 	if(dir.length <= 0) {
-		/***** 新規 *****/
+		// 新規時は入力
 		$('#enterProfN').css('display' ,'block');
 		$('#enterProfE').css('display' ,'none');
 
 		$('#delDirBtn').css('display' ,'none');
 	} else {
-		/***** 更新 *****/
+		// 更新時は表示
 		$('#enterProfN').css('display' ,'none');
 		$('#enterProfE').css('display' ,'block');
 
@@ -592,35 +612,15 @@ function setShowProfDir(dir) {
 	$('#profDirShow').html(dir);
 }
 
-
-/********************
-プロファイルの内容チェック
-********************/
+/**
+* プロファイルの内容チェック
+*
+* @param
+* @return
+*/
 function checkProfEnter() {
 
-var str;
 var ret = $("#enterProfile").parsley().validate();
-var msg;
-
-//	CKEDITOR.instances.mastComment.updateElement();
-//	str = $("#mastComment").val();
-//	if(str.length >= 1) {
-//		msg = '';
-//	} else {
-//		msg = ERR_MSG;
-//		ret = false;
-//	}
-//	$("#warnMastComment").html(msg);
-//
-//	CKEDITOR.instances.appComment.updateElement();
-//	str = $("#appComment").val();
-//	if(str.length >= 1) {
-//		msg = '';
-//	} else {
-//		msg = ERR_MSG;
-//		ret = false;
-//	}
-//	$("#warnAppComment").html(msg);
 
 	return ret;
 }
@@ -657,14 +657,15 @@ var chkResult = '';
 }
 
 
-/*******************
-識別子変更のpopupを表示
-*******************/
+/**
+* 識別子変更のダイアログの表示
+*
+* @param
+* @return
+*/
 function showEditDir() {
 
 var currDir = $("#profDirShow").html();
-
-//	$("#popup_overlay").css('display' ,'block');
 
 	$("#newDir").val(currDir);
 	$("#editDirDlg").css('display' ,'block');
@@ -673,17 +674,23 @@ var currDir = $("#profDirShow").html();
 	$("#popup_titleDir").css({ cursor: 'move' });
 }
 
-/*******************
-識別子変更のpopupを非表示
-*******************/
+/**
+* 識別子変更のダイアログの終了
+*
+* @param
+* @return
+*/
 function hideEditDir() {
 
 	$("#editDirDlg").css('display' ,'none');
 }
 
-/*******************
-識別子変更の本体
-*******************/
+/**
+* 識別子変更
+*
+* @param
+* @return
+*/
 function updProfDir() {
 
 var newDir  = $("#newDir").val();			//更新後
@@ -740,9 +747,12 @@ var result = $.ajax({
 	});
 }
 
-/********************
-識別子の入力チェック
-********************/
+/**
+* 識別子の入力チェック
+*
+* @param
+* @return
+*/
 function checkID(profDir) {
 
 var chk = profDir.match(/[^0-9a-zA-Z_]+/);
@@ -751,10 +761,10 @@ var chkResult;
 var ret = "";
 
 	if(chk) {
-		/* 半角英数以外の文字があるとき */
+		// 半角英数以外の文字があるとき
 		ret = "識別子は半角英数字のみを入力してください";
 	} else {
-		/* 半角英数のみのとき */
+		// 半角英数のみのとき
 		chkResult = checkIDDir(profDir);
 		if(chkResult == 'ALREADY') {
 			ret = "指定された識別子は既に使われています";
@@ -764,26 +774,34 @@ var ret = "";
 	return ret;
 }
 
-
-/********************
-削除
-********************/
+/**
+* 削除
+*
+* @param
+* @return
+*/
 function cfmDelDir() {
 
 	$('#DelDirDlg').css('display' ,'block');
 }
 
-/*******************
-削除のpopupを非表示
-*******************/
+/**
+* 削除処理の終了
+*
+* @param
+* @return
+*/
 function hideDelDir() {
 
 	$("#DelDirDlg").css('display' ,'none');
 }
 
-/*******************
-削除の本体
-*******************/
+/**
+* 削除の本体
+*
+* @param
+* @return
+*/
 function delProfDir() {
 
 var currDir = $("#profDirShow").html();
@@ -825,7 +843,9 @@ var result  = $.ajax({
 }
 
 
-/***********************************************************************************************************************/
+/*
+ここから下は未実装
+*/
 /********************
 全プロファイル一括更新
 ********************/

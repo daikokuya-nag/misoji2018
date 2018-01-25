@@ -238,6 +238,12 @@ class html5C {
 			$ret = $this->setSystemArea($sect1 ,$begKwd);
 		}
 
+
+		if(strcmp($begKwd ,'TOP_CSS_VER') == 0
+		|| strcmp($begKwd ,'TOP_CSS_VAL') == 0) {
+			$ret = $this->setTop($sect1 ,$begKwd);
+		}
+
 		return $ret;
 	}
 
@@ -1504,8 +1510,72 @@ class html5C {
 	}
 
 
+/**
+ * TOPページの装飾の変換
+ *
+ * @access
+ * @param string $sect セクション情報
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	function setTop($sect ,$kwd) {
+
+		$decoVal = sess5C::getOutVals('TOP');
+
+		$ret = array();
+		$lineMax = count($sect);
+		for($idx=0 ;$idx<$lineMax ;$idx++) {
+			$line1 = $sect[$idx];
+
+			// バージョン情報
+			$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::TOP_CSS_VER_VAL);
+			if($kwdPos >= 0) {
+				$ret[] = str_replace(templateConst5C::TOP_CSS_VER_VAL ,$decoVal['VERSION'] ,$line1);
+				continue;
+			}
+
+			// 装飾データ
+			$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::TOP_CSS_VAL_STR);
+			if($kwdPos >= 0) {
+				$lineBreak = common5C::CSRC_NL_CODE;
+
+				$cssStr = '.topInfo {' . $lineBreak .
+						'  background-color:' . $decoVal['AREA_BGCOLOR'] . ';' . $lineBreak .
+						'}' . $lineBreak .
+
+						'.topInfo h2 {' . $lineBreak .
+						'  background-color:' . $decoVal['TITLE_BGCOLOR'] . ';' . $lineBreak .
+						'  color:'            . $decoVal['TITLE_COLOR'  ] . ';' . $lineBreak .
+						'}' . $lineBreak .
+
+						'.topInfo div.thumbnail {' . $lineBreak .
+						'  background-color:' . $decoVal['AREA_BGCOLOR'] . ';' . $lineBreak .
+						'}';
 
 
+
+
+
+
+
+
+				$ret[] = str_replace(templateConst5C::TOP_CSS_VAL_STR ,$cssStr ,$line1);
+				continue;
+			}
+
+			if(strcmp($line1 ,$this->begValList[$kwd]) == 0
+			|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
+			} else {
+				$ret[] = $line1;
+			}
+		}
+
+		return $ret;
+	}
 
 
 /**

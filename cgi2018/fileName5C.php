@@ -49,41 +49,43 @@ class fileName5C {
 	static $fileIDList = array(			// 取得するファイルの識別
 		// ページファイル
 /*
-		'404'            => array('' ,'404'       ) ,
-		'INDEX'          => array('' ,'index'     ) ,
-		'TOP'            => array('' ,'top'       ) ,
-		'NEWS'           => array('' ,'news'      ) ,
-		'ALBUM'          => array('' ,'album'     ) ,
-		'RECRUIT'        => array('' ,'recruit'   ) ,
-		'SCHEDULE'       => array('' ,'schedule'  ) ,
-		'SYSTEM'         => array('' ,'system'    ) ,
-		'SYSTEML'        => array('' ,'system'    ) ,
-		'LINK'           => array('' ,'link'      ) ,
-		'MAILMEMBER'     => array('' ,'mailmember') ,
-		'INQUIRY'        => array('' ,'inquiry'   ) ,
-		'QUESTIONNAIRE'  => array('' ,'questionnaire') ,
-		'MASTERSBLOG'    => array('' ,'mastersBlog'  ) ,
+		'404'           => array('' ,'404'       ) ,
+		'INDEX'         => array('' ,'index'     ) ,
+		'TOP'           => array('' ,'top'       ) ,
+		'NEWS'          => array('' ,'news'      ) ,
+		'ALBUM'         => array('' ,'album'     ) ,
+		'RECRUIT'       => array('' ,'recruit'   ) ,
+		'SCHEDULE'      => array('' ,'schedule'  ) ,
+		'SYSTEM'        => array('' ,'system'    ) ,
+		'SYSTEML'       => array('' ,'system'    ) ,
+		'LINK'          => array('' ,'link'      ) ,
+		'MAILMEMBER'    => array('' ,'mailmember') ,
+		'INQUIRY'       => array('' ,'inquiry'   ) ,
+		'QUESTIONNAIRE' => array('' ,'questionnaire') ,
+		'MASTERSBLOG'   => array('' ,'mastersBlog'  ) ,
 
-		'COMMON_CSS'     => array('css2018/' ,'branchCommon' ,'css') ,
+		'COMMON_CSS'    => array('css2018/' ,'branchCommon' ,'css') ,
+		'TOP_CSS'       => array('css2018/' ,'branchTop'    ,'css') ,
 */
 
 		// ページファイルのテスト用
-		'404'            => array('' ,'4042018'       ) ,
-		'INDEX'          => array('' ,'index2018'     ) ,
-		'TOP'            => array('' ,'top2018'       ) ,
-		'NEWS'           => array('' ,'news2018'      ) ,
-		'ALBUM'          => array('' ,'album2018'     ) ,
-		'RECRUIT'        => array('' ,'recruit2018'   ) ,
-		'SCHEDULE'       => array('' ,'schedule2018'  ) ,
-		'SYSTEM'         => array('' ,'system2018'    ) ,
-		'SYSTEML'        => array('' ,'system2018'    ) ,
-		'LINK'           => array('' ,'link2018'      ) ,
-		'MAILMEMBER'     => array('' ,'mailmember2018') ,
-		'INQUIRY'        => array('' ,'inquiry2018'   ) ,
-		'QUESTIONNAIRE'  => array('' ,'questionnaire2018') ,
-		'MASTERSBLOG'    => array('' ,'mastersBlog2018'  ) ,
+		'404'           => array('' ,'4042018'       ) ,
+		'INDEX'         => array('' ,'index2018'     ) ,
+		'TOP'           => array('' ,'top2018'       ) ,
+		'NEWS'          => array('' ,'news2018'      ) ,
+		'ALBUM'         => array('' ,'album2018'     ) ,
+		'RECRUIT'       => array('' ,'recruit2018'   ) ,
+		'SCHEDULE'      => array('' ,'schedule2018'  ) ,
+		'SYSTEM'        => array('' ,'system2018'    ) ,
+		'SYSTEML'       => array('' ,'system2018'    ) ,
+		'LINK'          => array('' ,'link2018'      ) ,
+		'MAILMEMBER'    => array('' ,'mailmember2018') ,
+		'INQUIRY'       => array('' ,'inquiry2018'   ) ,
+		'QUESTIONNAIRE' => array('' ,'questionnaire2018') ,
+		'MASTERSBLOG'   => array('' ,'mastersBlog2018'  ) ,
 
-		'COMMON_CSS'     => array('css2018/' ,'branchCommon' ,'css') ,
+		'COMMON_CSS'    => array('css2018/' ,'branchCommon' ,'css') ,
+		'TOP_CSS'       => array('css2018/' ,'branchTop'    ,'css') ,
 
 		// テンプレートファイル
 		'404_TEMPLATE'           => array('' ,'404TEMPLATE'       ) ,
@@ -104,7 +106,8 @@ class fileName5C {
 		'PROFILE'           => array('profile2018/' ,'profile'        ) ,
 		'PROFILE_TEMPLATE'  => array('profile2018/' ,'profileTEMPLATE') ,
 
-		'COMMON_CSS_TEMPLATE' => array('css2018/' ,'branchCommonTEMPLATE' ,'css')
+		'COMMON_CSS_TEMPLATE' => array('css2018/' ,'branchCommonTEMPLATE' ,'css') ,
+		'TOP_CSS_TEMPLATE'    => array('css2018/' ,'branchTopTEMPLATE'    ,'css')
 	);
 
 

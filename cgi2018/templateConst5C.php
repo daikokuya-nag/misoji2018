@@ -59,6 +59,13 @@ class templateConst5C {
 	const SYSTEM_AREA_BEG_LINE = '<!-- SYSTEM_AREA_BEG -->';		// 料金の開始
 	const SYSTEM_AREA_END_LINE = '<!-- SYSTEM_AREA_END -->';		// 料金の終了
 
+	const TOP_CSS_VER_BEG_LINE = '<!-- TOP_CSS_BEG -->';		// topページのcssのバージョンの開始
+	const TOP_CSS_VER_END_LINE = '<!-- TOP_CSS_END -->';		// topページのcssのバージョンの終了
+
+	const TOP_CSS_VAL_BEG_LINE = '/* TOP_CSS_BEG */';		// topページのcssの開始
+	const TOP_CSS_VAL_END_LINE = '/* TOP_CSS_END */';		// topページのcssの終了
+
+
 	var $begList = array(			// セクションの開始キーワードリスト
 		'RECRUIT' => self::RECRUIT_BEG_LINE ,
 		'SYSTEM'  => self::SYSTEM_BEG_LINE  ,
@@ -76,7 +83,10 @@ class templateConst5C {
 		'DECORATION_VAL' => self::DECO_CSS_VAL_BEG_LINE ,
 
 		'RECRUIT_AREA' => self::RECRUIT_AREA_BEG_LINE ,
-		'SYSTEM_AREA'  => self::SYSTEM_AREA_BEG_LINE
+		'SYSTEM_AREA'  => self::SYSTEM_AREA_BEG_LINE  ,
+
+		'TOP_CSS_VER' => self::TOP_CSS_VER_BEG_LINE ,
+		'TOP_CSS_VAL' => self::TOP_CSS_VAL_BEG_LINE
 	);
 	var $endList = array(			// セクションの終了キーワードリスト
 		'RECRUIT' => self::RECRUIT_END_LINE ,
@@ -95,7 +105,10 @@ class templateConst5C {
 		'DECORATION_VAL' => self::DECO_CSS_VAL_END_LINE ,
 
 		'RECRUIT_AREA' => self::RECRUIT_AREA_END_LINE ,
-		'SYSTEM_AREA'  => self::SYSTEM_AREA_END_LINE
+		'SYSTEM_AREA'  => self::SYSTEM_AREA_END_LINE  ,
+
+		'TOP_CSS_VER' => self::TOP_CSS_VER_END_LINE ,
+		'TOP_CSS_VAL' => self::TOP_CSS_VAL_END_LINE
 	);
 
 
@@ -185,9 +198,22 @@ class templateConst5C {
 	const RECOMM_JS_VER = 'JS_VER';			// オススメJSのバージョン
 
 	//TOPページ
-	const RECRUIT_VAL = '<!-- RECRUIT_VAL -->';				// 求人内容
-	const SYSTEM_VAL  = '<!-- SYSTEM_VAL -->';				// 料金内容
+	const RECRUIT_VAL     = '<!-- RECRUIT_VAL -->';				// 求人内容
+	const SYSTEM_VAL      = '<!-- SYSTEM_VAL -->';				// 料金内容
+	const TOP_CSS_VER_VAL = '<!-- TOP_CSS_VER_STR -->';			// CSSのバージョン
+	const TOP_CSS_VAL_STR = '/* TOP_CSS_VAL_STR */';			// CSSの内容
 
+/**
+ * セクションキーワードの取得
+ *
+ * @access
+ * @param
+ * @return array[] セクション毎のキーワードリスト
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	function getSectList() {
 
 		$ret = array(

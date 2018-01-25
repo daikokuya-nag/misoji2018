@@ -23,8 +23,19 @@
  */
 class works5C {
 
+	var $fldList = array(			// 出勤情報テーブルのフィールドリスト
+		0 => array('F' => profile5C::WORK_DEF_SUN_F_S ,'T' => profile5C::WORK_DEF_SUN_T_S ,'MO' => profile5C::WORK_DEF_SUN_MO_S) ,
+		1 => array('F' => profile5C::WORK_DEF_MON_F_S ,'T' => profile5C::WORK_DEF_MON_T_S ,'MO' => profile5C::WORK_DEF_MON_MO_S) ,
+		2 => array('F' => profile5C::WORK_DEF_TUE_F_S ,'T' => profile5C::WORK_DEF_TUE_T_S ,'MO' => profile5C::WORK_DEF_TUE_MO_S) ,
+		3 => array('F' => profile5C::WORK_DEF_WED_F_S ,'T' => profile5C::WORK_DEF_WED_T_S ,'MO' => profile5C::WORK_DEF_WED_MO_S) ,
+		4 => array('F' => profile5C::WORK_DEF_THU_F_S ,'T' => profile5C::WORK_DEF_THU_T_S ,'MO' => profile5C::WORK_DEF_THU_MO_S) ,
+		5 => array('F' => profile5C::WORK_DEF_FRI_F_S ,'T' => profile5C::WORK_DEF_FRI_T_S ,'MO' => profile5C::WORK_DEF_FRI_MO_S) ,
+		6 => array('F' => profile5C::WORK_DEF_SAT_F_S ,'T' => profile5C::WORK_DEF_SAT_T_S ,'MO' => profile5C::WORK_DEF_SAT_MO_S)
+	);
+
+
 /**
- * ファイル名の取得
+ * 出勤情報テーブルのフィールド取得
  *
  * @access
  * @param int $dow 曜日
@@ -35,42 +46,8 @@ class works5C {
  * @todo
  */
 	function getDOWIdx($dow) {
-		if($dow == 0) {
-			$ret['F' ] = profile5C::WORK_DEF_SUN_F_S;
-			$ret['T' ] = profile5C::WORK_DEF_SUN_T_S;
-			$ret['MO'] = profile5C::WORK_DEF_SUN_MO_S;
-		}
-		if($dow == 1) {
-			$ret['F' ] = profile5C::WORK_DEF_MON_F_S;
-			$ret['T' ] = profile5C::WORK_DEF_MON_T_S;
-			$ret['MO'] = profile5C::WORK_DEF_MON_MO_S;
-		}
-		if($dow == 2) {
-			$ret['F' ] = profile5C::WORK_DEF_TUE_F_S;
-			$ret['T' ] = profile5C::WORK_DEF_TUE_T_S;
-			$ret['MO'] = profile5C::WORK_DEF_TUE_MO_S;
-		}
-		if($dow == 3) {
-			$ret['F' ] = profile5C::WORK_DEF_WED_F_S;
-			$ret['T' ] = profile5C::WORK_DEF_WED_T_S;
-			$ret['MO'] = profile5C::WORK_DEF_WED_MO_S;
-		}
-		if($dow == 4) {
-			$ret['F' ] = profile5C::WORK_DEF_THU_F_S;
-			$ret['T' ] = profile5C::WORK_DEF_THU_T_S;
-			$ret['MO'] = profile5C::WORK_DEF_THU_MO_S;
-		}
-		if($dow == 5) {
-			$ret['F' ] = profile5C::WORK_DEF_FRI_F_S;
-			$ret['T' ] = profile5C::WORK_DEF_FRI_T_S;
-			$ret['MO'] = profile5C::WORK_DEF_FRI_MO_S;
-		}
-		if($dow == 6) {
-			$ret['F' ] = profile5C::WORK_DEF_SAT_F_S;
-			$ret['T' ] = profile5C::WORK_DEF_SAT_T_S;
-			$ret['MO'] = profile5C::WORK_DEF_SAT_MO_S;
-		}
 
+		$ret = self::fldList[$dow];
 		return $ret;
 	}
 

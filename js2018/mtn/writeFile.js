@@ -1,18 +1,23 @@
-/*************************
-ファイル出力 Version 1.0
-2016 Jan. 25 ver 1.0
-*************************/
+/**
+* PC用ファイル出力
+*
+* @version 1.0.1
+* @date 2018.1.23
+*/
 
-var ALL_OUT_FILES_PC;
-var ALL_WROTE_FILES_PC;
-var ALL_DONE_PC;
-var FROM;
-var PROF_DIR;
-var OUT_ITEM;
+var ALL_OUT_FILES_PC;		// 出力するファイル数
+var ALL_WROTE_FILES_PC;		// 出力したファイル数
+var ALL_DONE_PC;			// PC用のファイルをすべて出力したか
+var FROM;					// ファイル出力の呼び出し元
+var PROF_DIR;				// プロファイルディレクトリ
+var OUT_ITEM;				// 出力用途
 
-/********************
-出力対象ファイルの抽出
-********************/
+/**
+* 出力対象ファイルの抽出
+*
+* @param
+* @return
+*/
 function selectWriteFile(outItem) {
 
 	FROM     = 'other';
@@ -43,9 +48,12 @@ var result = $.ajax({
 	});
 }
 
-/********************
-プロファイル編集時の出力対象ファイルの抽出
-********************/
+/**
+* プロファイル編集時の出力対象ファイルの抽出
+*
+* @param
+* @return
+*/
 function writeProfHTMLFile(profDir) {
 
 	FROM     = 'profile';
@@ -77,10 +85,12 @@ var result = $.ajax({
 	});
 }
 
-
-/********************
-HTMLファイルの出力
-********************/
+/**
+* HTMLファイルの出力
+*
+* @param
+* @return
+*/
 function writeHTMLFile(fileList) {
 
 var fileID;
@@ -99,7 +109,7 @@ var profMax = 0;
 
 	ALL_OUT_FILES_PC   = idxMax + profMax;		//出力する全ファイル数
 	ALL_WROTE_FILES_PC = 0;
-	ALL_DONE_PC = false;
+	ALL_DONE_PC        = false;
 
 	if(ALL_OUT_FILES_PC >= 1) {		//出力するファイルがあるとき
 		//紹介ページ以外の出力
@@ -124,11 +134,12 @@ var profMax = 0;
 	}
 }
 
-
-
-/********************
-HTMLファイルの出力の本体
-********************/
+/**
+* HTMLファイルの出力の本体
+*
+* @param
+* @return
+*/
 function writeHTMLFileMain(fileID ,profName) {
 
 var result = $.ajax({
@@ -157,7 +168,6 @@ var result = $.ajax({
 		if(ALL_WROTE_FILES_PC >= ALL_OUT_FILES_PC) {
 			if(!ALL_DONE_PC) {
 				ALL_DONE_PC = true;
-
 				if(FROM == 'profile') {
 					writeProfHTMLFileMO(PROF_DIR);
 				} else {

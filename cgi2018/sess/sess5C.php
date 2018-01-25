@@ -428,6 +428,21 @@ class sess5C {
 			$val['IMGLIST'] = $imgList['imgInfo'];
 		}
 
+		if(strcmp($ID ,'TOP_CSS_VER') == 0
+		|| strcmp($ID ,'TOP_CSS_VAL') == 0) {
+			$db = new dbPageParam5C();
+
+			//TOPページの背景指定
+			$dbVal = $db->readAll($branchNo ,'TOP' ,'AREA');
+
+			$dbVal1 = $dbVal['pageVal'][0];
+			$val['AREA_BGCOLOR' ] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+			$val['TITLE_BGCOLOR'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+			$val['TITLE_COLOR'  ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+			$val['VERSION'      ] = $dbVal1[dbPageParam5C::FLD_VALUE4];
+
+			$outID = 'TOP';
+		}
 
 		$_SESSION[self::OUTDATA][$outID] = $val;
 	}

@@ -1,15 +1,20 @@
-/*************************
-携帯用ファイル出力 Version 1.0
-2016 Jan. 25 ver 1.0
-*************************/
+/**
+* 携帯用ファイル出力
+*
+* @version 1.0.1
+* @date 2018.1.17
+*/
 
-var ALL_OUT_FILES_MO;
-var ALL_WROTE_FILES_MO;
-var ALL_DONE_MO;
+var ALL_OUT_FILES_MO;		// 出力するファイル数
+var ALL_WROTE_FILES_MO;		// 出力したファイル数
+var ALL_DONE_MO;			// PC用のファイルをすべて出力したか
 
-/********************
-出力対象ファイルの抽出
-********************/
+/**
+* 出力対象ファイルの抽出
+*
+* @param
+* @return
+*/
 function selectWriteFileMO(outItem) {
 
 var result = $.ajax({
@@ -37,9 +42,12 @@ var result = $.ajax({
 	});
 }
 
-/********************
-プロファイル編集時の出力対象ファイルの抽出
-********************/
+/**
+* プロファイル編集時の出力対象ファイルの抽出
+*
+* @param
+* @return
+*/
 function writeProfHTMLFileMO(profDir) {
 
 console.debug(profDir);
@@ -70,10 +78,12 @@ var result = $.ajax({
 	});
 }
 
-
-/********************
-HTMLファイルの出力
-********************/
+/**
+* HTMLファイルの出力
+*
+* @param
+* @return
+*/
 function writeHTMLFileMO(fileList) {
 
 var fileID;
@@ -94,7 +104,7 @@ var profMax = 0;
 	ALL_WROTE_FILES_MO = 0;
 	ALL_DONE_MO = false;
 
-console.debug('全ファイル数:' + ALL_OUT_FILES_MO);
+				//console.debug('全ファイル数:' + ALL_OUT_FILES_MO);
 
 	if(ALL_OUT_FILES_MO >= 1) {		//出力するファイルがあるとき
 		//紹介ページ以外の出力
@@ -113,14 +123,14 @@ console.debug('全ファイル数:' + ALL_OUT_FILES_MO);
 	} else {
 		dispDoneMsg();
 	}
-
 }
 
-
-
-/********************
-HTMLファイルの出力の本体
-********************/
+/**
+* HTMLファイルの出力の本体
+*
+* @param
+* @return
+*/
 function writeHTMLFileMOMain(fileID ,profName) {
 
 var result = $.ajax({
@@ -155,7 +165,12 @@ var result = $.ajax({
 	});
 }
 
-
+/**
+* 出力完了メッセージ表示
+*
+* @param
+* @return
+*/
 function dispDoneMsg() {
 
 	jAlert(

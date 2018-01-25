@@ -236,7 +236,7 @@ class logFile5C {
 	}
 
 /**
- * ロックファイル設定
+ * ロック設定
  *
  * @access
  * @param string $lockFileName ロックファイル名
@@ -255,7 +255,7 @@ class logFile5C {
 	}
 
 /**
- * ロックファイル解除
+ * ロック解除
  *
  * @access
  * @param string $lockFileName ロックファイル名

@@ -1,13 +1,14 @@
-/*************************
-ヘッダ編集 Version 1.1
-*************************/
+/**
+* ヘッダ編集
+*
+* @version 1.0.1
+* @date 2018.1.23
+*/
 
-/***** 初期化 *****/
 $(document).ready(function(){
 });
 
-/***** 表示順のドロップ時の動作 *****/
-$(document).on('sortstop' ,'#headerTopImgList' ,function(){
+$(document).on('sortstop' ,'#headerTopImgList' ,function(){		// 表示順のドロップ時の動作の定義
 
 	enableWriteTopImgSeq();
 });
@@ -17,18 +18,17 @@ function enableWriteTopImgSeq() {
 	$("#bldHeaderImgDispSeq").prop('disabled' ,false);
 }
 
-
-
 $(window).load(function(){
 
-	/***** 現在のヘッダ画像の読み込み *****/
 	getHeaderImgList();
 });
 
-
-/********************
-現在のヘッダ画像の読み込み
-********************/
+/**
+* 現在のヘッダ画像の読み込み
+*
+* @param
+* @return
+*/
 function getHeaderImgList() {
 
 var result = $.ajax({
@@ -57,8 +57,12 @@ var result = $.ajax({
 	});
 }
 
-
-
+/**
+* TOPページのヘッダ画像の表示
+*
+* @param
+* @return
+*/
 function setHeaderTop(headerVals ,extList) {
 
 var pageVal    = headerVals['pageVal'];
@@ -160,6 +164,12 @@ var fileExist = ['0' ,'0' ,'0' ,'0'];
 	$("#headerTopImgList").sortable();
 }
 
+/**
+* TOPページのヘッダ画像の表示タグの定義
+*
+* @param
+* @return
+*/
 function setTRImgTag(seqList ,imgNoList ,fileExist ,imgExtList) {
 
 var ret = '';
@@ -210,7 +220,12 @@ var imgTag;
 	return ret;
 }
 
-
+/**
+* TOPページ以外のヘッダ画像の表示
+*
+* @param
+* @return
+*/
 function setHeaderOther(otherVals ,extList) {
 
 var pageVal    = otherVals['pageVal'];
@@ -263,10 +278,12 @@ var fileExist = '0';
 	$("#headerOtherImg").val(imgNo);
 }
 
-
-/********************
-表示順、表示/非表示更新時の出力
-********************/
+/**
+* 表示順、表示/非表示更新時の出力
+*
+* @param
+* @return
+*/
 function updHeaderImgSeq() {
 
 var dispSW   = $(".useHeaderTopImg").serialize();

@@ -18,8 +18,8 @@ class fileUpload5C {
 /**
  * 画像ファイル保存
  *
- * @param string[] $fileINFO ファイル情報
- * @param string   $fileName ファイル名
+ * @param string[] $fileINFO アップロードされたファイル情報
+ * @param string   $fileName サーバ上のファイル名
  * @param int      $branchNo 店No
  * @param string   $subDir   サブディレクトリ
  * @return string[] ファイル拡張子

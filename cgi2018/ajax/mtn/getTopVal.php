@@ -16,10 +16,12 @@ PHP5
 	$extList     = bldImgList5C::bldSeqList($branchNo);
 	$recruitVals = readTopImg($pageParam ,$branchNo ,$extList['extList'] ,'RECRUIT');
 	$systemVals  = readTopImg($pageParam ,$branchNo ,$extList['extList'] ,'SYSTEM');
+	$areaVals    = readTopVal($pageParam ,$branchNo ,'AREA');
 
 	$ret['extList'] = $extList['extList'];
 	$ret['recruit'] = $recruitVals;
 	$ret['system' ] = $systemVals;
+	$ret['area'   ] = $areaVals;
 
 	print json_encode($ret);
 
@@ -57,6 +59,17 @@ PHP5
 			$fileExist = $fileExist . '0';
 		}
 		$ret['fileExist'] = $fileExist;
+
+		return $ret;
+	}
+
+	function readTopVal($pageParam ,$branchNo ,$obj) {
+
+		$pageVals = $pageParam->readAll($branchNo ,'TOP' ,$obj);
+		$ret['pageVal'] = $pageVals['pageVal'][0];
+		$ret['areaBGColor' ] = $pageVals['pageVal'][0]['value1'];
+		$ret['titleBGColor'] = $pageVals['pageVal'][0]['value2'];
+		$ret['titleColor'  ] = $pageVals['pageVal'][0]['value3'];
 
 		return $ret;
 	}

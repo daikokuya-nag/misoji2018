@@ -1,22 +1,25 @@
-/*************************
-画面装飾 Version 1.1
-*************************/
+/**
+* 画面装飾編集
+*
+* @version 1.0.1
+* @date 2018.1.23
+*/
 
-/***** 初期化 *****/
 $(document).ready(function(){
 });
 
 
 $(window).load(function(){
 
-	/***** 装飾データの読み込み *****/
 	getDecoVals();
 });
 
-
-/********************
-装飾データの読み込み
-********************/
+/**
+* 装飾データの読み込み
+*
+* @param
+* @return
+*/
 function getDecoVals() {
 
 var result = $.ajax({
@@ -31,7 +34,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					//console.debug(response);
 
 		setAllBGImg(response['vals'] ,response['extList']);
 	});
@@ -45,6 +48,12 @@ var result = $.ajax({
 }
 
 
+/**
+* 現在の装飾データの表示
+*
+* @param
+* @return
+*/
 function setAllBGImg(otherVals ,extList) {
 
 var pageVal = otherVals['pageVal'];
@@ -108,9 +117,12 @@ var fileExist = '0';
 }
 
 
-/********************
-装飾指定の出力
-********************/
+/**
+* 装飾指定の出力
+*
+* @param
+* @return
+*/
 function writeDecoVal() {
 
 var useBG = $("input[name='usePageBG']:checked").val();	//背景の使用
@@ -134,17 +146,17 @@ var result = $.ajax({
 	result.done(function(response) {
 					console.debug(response);
 
-//		if(response['SESSCOND'] == SESS_OWN_INTIME) {
+		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			selectWriteFile('DECORATION');		//出力対象ファイルの抽出→ファイル出力
-//		} else {
-//			jAlert(
-//				TIMEOUT_MSG_STR ,
-//				TIMEOUT_MSG_TITLE ,
-//				function() {
-//					location.href = 'login.html';
-//				}
-//			);
-//		}
+		} else {
+			jAlert(
+				TIMEOUT_MSG_STR ,
+				TIMEOUT_MSG_TITLE ,
+				function() {
+					location.href = 'login.html';
+				}
+			);
+		}
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {

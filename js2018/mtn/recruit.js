@@ -1,24 +1,26 @@
-/*************************
-求人 Version 1.0
-2016 Jan. 25 ver 1.0
-*************************/
+/**
+* 求人
+*
+* @version 1.0.1
+* @date 2018.1.17
+*/
 
 var RECRUIT_STR;
 
-/***** 初期化 *****/
 $(document).ready(function(){
 
-	/***** 求人内容データの読み込み *****/
 	getRecruitVal();
 });
 
 $(window).load(function(){
 });
 
-
-/********************
-求人内容の読み込み
-********************/
+/**
+* 求人内容の読み込み
+*
+* @param
+* @return
+*/
 function getRecruitVal() {
 
 var result = $.ajax({
@@ -45,9 +47,12 @@ var result = $.ajax({
 	});
 }
 
-/********************
-求人内容の出力
-********************/
+/**
+* 求人内容の出力
+*
+* @param
+* @return
+*/
 function writeRecruitVal() {
 
 var result;

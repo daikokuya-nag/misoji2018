@@ -52,6 +52,8 @@ class common5C {
 /**
  * 不足関数の追加
  *
+ * PHP5以降を想定していたがPHP4以前のバージョンのシステムがあったため、不足分の追加
+ *
  * @access
  * @param
  * @return

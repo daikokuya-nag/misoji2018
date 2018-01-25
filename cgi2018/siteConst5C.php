@@ -54,7 +54,8 @@ class siteConst5C {
 		'TOP'     => 'top.html'     ,
 		'INDEX'   => 'index.html'   ,
 
-		'COMMON_CSS' => 'branchCommon.css'
+		'COMMON_CSS' => 'branchCommon.css' ,
+		'TOP_CSS'    => 'branchTop.css'
 	);
 
 	static $outItem = array(		// ファイル出力の有無
@@ -65,7 +66,8 @@ class siteConst5C {
 		'TOP'     => false ,
 		'INDEX'   => false ,
 
-		'COMMON_CSS' => false
+		'COMMON_CSS' => false ,
+		'TOP_CSS'    => false
 	);
 
 	static $menuStr = array(		// メニューバーの表示文字列
@@ -78,11 +80,33 @@ class siteConst5C {
 	);
 
 
+/**
+ * 使用するファイルIDの取得
+ *
+ * @access
+ * @param string 対象デバイス
+ * @return string[] ファイルID
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	static function getHtmlFileIDList($device) {
 
 		return self::$htmlFileID[$device];
 	}
 
+/**
+ * 使用するファイル名の取得
+ *
+ * @access
+ * @param
+ * @return string[] ファイル名
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	static function getHtmlFileList() {
 
 		return self::$htmlFile;
@@ -93,6 +117,17 @@ class siteConst5C {
 		return self::$outItem;
 	}
 
+/**
+ * メニュー表示文字の取得
+ *
+ * @access
+ * @param
+ * @return string[] メニュー表示文字
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
 	static function getMenuStrList() {
 
 		return self::$menuStr;

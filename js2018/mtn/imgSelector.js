@@ -32,6 +32,7 @@ function initSelectImgFileDlg() {
 				text  : "出力",
 				click : function() {
 					checkSeleImg();
+					$(this).dialog("close");
 				}
 			} ,
 			{

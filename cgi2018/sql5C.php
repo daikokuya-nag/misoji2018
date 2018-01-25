@@ -1,6 +1,6 @@
 <?php
 /**
- * SQL関数群
+ * SQL関数
  *
  * @version 1.0.1
  * @copyright
@@ -13,7 +13,7 @@
 	require_once dirname(__FILE__) . '/logFile5C.php';
 
 /**
- * SQL関数群
+ * SQL関数
  *
  * @copyright
  * @license

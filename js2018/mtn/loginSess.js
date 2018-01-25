@@ -1,8 +1,10 @@
-/********************/
-/* ログイン */
-/********************/
+/**
+* ログイン
+*
+* @version 1.0.1
+* @date 2018.1.5
+*/
 
-/***** 初期化 *****/
 jQuery(document).ready(function(){
 });
 
@@ -17,6 +19,12 @@ $(window).load(function(){
 	init();
 });
 
+/**
+* セッション状態の取得
+*
+* @param
+* @return
+*/
 function init() {
 
 var sess;
@@ -44,13 +52,17 @@ var result;
 	});
 }
 
+/**
+* ログイン
+*
+* @param
+* @return
+*/
 function login() {
 
 var sess;
 var goLogin = 0;
-var result;
-
-	result = getSess();
+var result = getSess();
 
 	result.done(function(response) {
 					//console.debug(response);
@@ -100,6 +112,12 @@ var result;
 	});
 }
 
+/**
+* ログイン本体
+*
+* @param
+* @return
+*/
 function loginMain() {
 
 var id2 = $('#id2').val();

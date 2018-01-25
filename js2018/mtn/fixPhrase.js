@@ -1,13 +1,13 @@
-/*************************
-定型文編集 Version 1.0
-2013 July 04 ver 1.0
-*************************/
+/**
+* 定型文編集
+*
+* @version 1.0.1
+* @date 2018.1.4
+*/
 
-var DISP_FIX_PHRASE_EDIT_DIALOG = false;	//定型文編集のダイアログを表示したか
+var DISP_FIX_PHRASE_EDIT_DIALOG = false;	// 定型文編集のダイアログを表示したか
 
-/***** 初期化 *****/
 $(document).ready(function(){
-
 });
 
 
@@ -35,9 +35,12 @@ $(window).load(function(){
 });
 
 
-/********************
-定型文編集ダイアログ表示
-********************/
+/**
+* 定型文編集ダイアログ表示
+*
+* @param
+* @return
+*/
 function editFixPhrase() {
 
 var phraseData;
@@ -75,6 +78,12 @@ var result;
 	});
 }
 
+/**
+* ckEditorの定義
+*
+* @param
+* @return
+*/
 function setCKEditFixPhrase() {
 
 	if(!DISP_FIX_PHRASE_EDIT_DIALOG) {
@@ -103,10 +112,12 @@ function setCKEditFixPhrase() {
 	}
 }
 
-
-/********************
-定型文書き出し
-********************/
+/**
+* 定型文書き出し
+*
+* @param
+* @return
+*/
 function writeFixPhrase() {
 
 var phraseStr = CKEDITOR.instances.fixPhraseStr.getData();

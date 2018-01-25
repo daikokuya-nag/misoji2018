@@ -34,7 +34,7 @@ h2 {
 }
 
 
-div.topInfo {
+.topInfo {
   border: 1px solid #aaaaaa;
   margin-bottom: 15px;
   background-color: #ea91c5;
@@ -191,7 +191,7 @@ div.workerTN div.caption {
 
 
 
-div.todayWorksOut {
+.todayWorksOut {
   overflow: scroll;
   height: 500px;
   background-color: #ea91c5;
@@ -447,13 +447,13 @@ div.recruitStr {
 
 
 @media (min-width: 1200px) {
-  div.topInfo {
+  .topInfo {
     overflow: scroll;
     height: 500px;
     margin-bottom: 10px;
   }
 
-  div.todayWorksOut3, div.todayWorksOut6 {
+  .todayWorksOut3, .todayWorksOut6 {
     float: right;
     margin-left: 0px;
   }
@@ -465,15 +465,15 @@ div.recruitStr {
 
 
 @media (min-width: 992px) {
-  div.topInfo1, div.topInfo3, div.topInfo5 {
+  .topInfo1, .topInfo3, .topInfo5 {
     margin-left: 0px;
   }
-  div.topInfo2, div.topInfo4, div.topInfo6 {
+  .topInfo2, .topInfo4, .topInfo6 {
     margin-left: 0px;
     margin-right: 0px;
   }
 
-  div.topInfo {
+  .topInfo {
     margin-bottom: 6px;
   }
 
