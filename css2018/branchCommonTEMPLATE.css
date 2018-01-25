@@ -13,8 +13,6 @@
     background-color: #f00;
 }
 
-
-
 #allArea {
   margin: 0 auto;
 }
@@ -43,7 +41,7 @@ h2 {
 
 /***** ニュース *****/
 div.newsDigestO {
-  border: 1px solid #0000ff;
+  border-bottom: 1px solid #0000ff;
   margin-top: 10px;
   margin-bottom: 5px;
   padding-bottom: 5px;

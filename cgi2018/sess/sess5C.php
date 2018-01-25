@@ -278,37 +278,47 @@ class sess5C {
  */
 	static function setOutVals($ID ,$branchNo) {
 
-		$val = '';
-		$outID = $ID;
+		$val   = array();
+		$outID = array();
 
 		if(strcmp($ID ,'RECRUIT') == 0) {
 			$db = new dbGeneral5C();
 			$dbVal = $db->read($branchNo ,dbGeneral5C::CATE_RECRUIT);
-			$val = $dbVal['vals'][0][dbGeneral5C::FLD_STR];
+
+			$outID[] = $ID;
+			$val[]   = $dbVal['vals'][0][dbGeneral5C::FLD_STR];
 		}
 
 		if(strcmp($ID ,'SYSTEM') == 0) {
 			$db = new dbGeneral5C();
 			$dbVal = $db->read($branchNo ,dbGeneral5C::CATE_SYSTEM);
-			$val = $dbVal['vals'][0][dbGeneral5C::FLD_STR];
+
+			$outID[] = $ID;
+			$val[]   = $dbVal['vals'][0][dbGeneral5C::FLD_STR];
 		}
 
 		if(strcmp($ID ,'NEWS') == 0) {
 			$db = new dbNews5C();
 			$dbVal = $db->readShowable($branchNo ,'');
-			$val = $dbVal['newsInfo'];
+
+			$outID[] = $ID;
+			$val[]   = $dbVal['newsInfo'];
 		}
 
 		if(strcmp($ID ,'PROFILE') == 0) {
 			$db = new dbProfile5C();
 			$dbVal = $db->readShowableProf($branchNo);
-			$val = $dbVal['profInfo'];
+
+			$outID[] = $ID;
+			$val[]   = $dbVal['profInfo'];
 		}
 
 		if(strcmp($ID ,'ALBUM') == 0) {
 			$db = new dbProfile5C();
 			$dbVal = $db->readShowableProf($branchNo);
-			$val = $dbVal['profInfo'];
+
+			$outID[] = $ID;
+			$val[]   = $dbVal['profInfo'];
 		}
 
 		if(strcmp($ID ,'TOP_PAGE_HEADER') == 0) {
@@ -316,15 +326,18 @@ class sess5C {
 			$dbVal = $db->readAll($branchNo ,'TOP' ,'HEADER');
 
 			$dbVal1 = $dbVal['pageVal'][0];
-			$val['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-			$val['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-			$val['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+			$valTmp['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+			$valTmp['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+			$valTmp['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
 
 			$handle = $db->getHandle();
 			$dbImgList = new dbImage5C($handle);
 
 			$imgList = $dbImgList->readShowable($branchNo);
-			$val['IMGLIST'] = $imgList['imgInfo'];
+			$valTmp['IMGLIST'] = $imgList['imgInfo'];
+
+			$outID[] = $ID;
+			$val[]   = $valTmp;
 		}
 
 		if(strcmp($ID ,'OTHER_PAGE_HEADER') == 0) {
@@ -332,15 +345,18 @@ class sess5C {
 			$dbVal = $db->readAll($branchNo ,'OTHER' ,'HEADER');
 
 			$dbVal1 = $dbVal['pageVal'][0];
-			$val['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-			$val['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-			$val['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+			$valTmp['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+			$valTmp['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+			$valTmp['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
 
 			$handle = $db->getHandle();
 			$dbImgList = new dbImage5C($handle);
 
 			$imgList = $dbImgList->readShowable($branchNo);
-			$val['IMGLIST'] = $imgList['imgInfo'];
+			$valTmp['IMGLIST'] = $imgList['imgInfo'];
+
+			$outID[] = $ID;
+			$val[]   = $valTmp;
 		}
 
 		if(strcmp($ID ,'PAGE_HEADER') == 0) {
@@ -348,30 +364,20 @@ class sess5C {
 			$dbVal = $db->readAll($branchNo ,'' ,'HEADER');
 
 			$dbVal1 = $dbVal['pageVal'][0];
-			$val['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-			$val['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-			$val['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+			$valTmp['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+			$valTmp['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+			$valTmp['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
 
 			$handle = $db->getHandle();
 			$dbImgList = new dbImage5C($handle);
 
 			$imgList = $dbImgList->readShowable($branchNo);
-			$val['IMGLIST'] = $imgList['imgInfo'];
+			$valTmp['IMGLIST'] = $imgList['imgInfo'];
+
+			$outID[] = $ID;
+			$val[]   = $valTmp;
 		}
 
-		if(strcmp($ID ,'PAGE_MENU') == 0) {
-			$db = new dbPageParam5C();
-			$dbVal  = $db->readByObj($branchNo ,'USEPAGE');
-
-			$pageVal = $dbVal['pageVal'];
-			$recMax  = $dbVal['count'  ];
-			for($idx=0 ;$idx<$recMax ;$idx++) {
-				$dbVal1 = $pageVal[$idx];
-				$pageID = $dbVal1[dbPageParam5C::FLD_PAGE_ID];
-				$val[$pageID]['SITE'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-				$val[$pageID]['URL' ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-			}
-		}
 
 		if(strcmp($ID ,'DECORATION_VER') == 0
 		|| strcmp($ID ,'DECORATION_VAL') == 0) {
@@ -381,52 +387,83 @@ class sess5C {
 			$dbVal = $db->readAll($branchNo ,'ALL' ,'DECO');
 
 			$dbVal1 = $dbVal['pageVal'][0];
-			$val['USE'    ] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-			$val['COLOR'  ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-			$val['IMGNO'  ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
-			$val['VERSION'] = $dbVal1[dbPageParam5C::FLD_VALUE4];
+			$valTmp['USE'    ] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+			$valTmp['COLOR'  ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+			$valTmp['IMGNO'  ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+			$valTmp['VERSION'] = $dbVal1[dbPageParam5C::FLD_VALUE4];
 
 			$handle = $db->getHandle();
 			$dbImgList = new dbImage5C($handle);
 
 			$imgList = $dbImgList->readShowable($branchNo);
-			$val['IMGLIST'] = $imgList['imgInfo'];
+			$valTmp['IMGLIST'] = $imgList['imgInfo'];
 
-			$outID = 'DECORATION';
+			$outID[] = 'DECORATION';
+			$val[]   = $valTmp;
 		}
 
 
-		if(strcmp($ID ,'RECRUIT_AREA') == 0) {
+		if(strcmp($ID ,'PAGE_MENU'      ) == 0
+		|| strcmp($ID ,'RECRUIT_AREA'   ) == 0
+		|| strcmp($ID ,'SYSTEM_AREA'    ) == 0
+		|| strcmp($ID ,'PHOTODIARY_AREA') == 0) {
 			$db = new dbPageParam5C();
-			$dbVal = $db->readAll($branchNo ,'TOP' ,'RECRUIT');
+			$dbVal  = $db->readByObj($branchNo ,'USEPAGE');
 
-			$dbVal1 = $dbVal['pageVal'][0];
-			$val['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-			$val['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-			$val['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+			$pageVal = $dbVal['pageVal'];
+			$recMax  = $dbVal['count'  ];
+			for($idx=0 ;$idx<$recMax ;$idx++) {
+				$dbVal1 = $pageVal[$idx];
+				$pageID = $dbVal1[dbPageParam5C::FLD_PAGE_ID];
+				$valTmpA[$pageID]['SITE'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+				$valTmpA[$pageID]['URL' ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+			}
+			if(isset($valTmpA)) {
+				$outID[] = 'PAGE_MENU';
+				$val[]   = $valTmpA;
+			}
 
-			$handle = $db->getHandle();
-			$dbImgList = new dbImage5C($handle);
+			if(strcmp($ID ,'PAGE_MENU') == 0
+			|| strcmp($ID ,'RECRUIT_AREA') == 0) {
+				$db = new dbPageParam5C();
+				$dbVal = $db->readAll($branchNo ,'TOP' ,'RECRUIT');
 
-			$imgList = $dbImgList->readShowable($branchNo);
-			$val['IMGLIST'] = $imgList['imgInfo'];
+				$dbVal1 = $dbVal['pageVal'][0];
+				$valTmpB['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+				$valTmpB['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+				$valTmpB['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+
+				$handle = $db->getHandle();
+				$dbImgList = new dbImage5C($handle);
+
+				$imgList = $dbImgList->readShowable($branchNo);
+				$valTmpB['IMGLIST'] = $imgList['imgInfo'];
+
+				$outID[] = 'RECRUIT_AREA';
+				$val[]   = $valTmpB;
+			}
+
+			if(strcmp($ID ,'PAGE_MENU') == 0
+			|| strcmp($ID ,'SYSTEM_AREA') == 0) {
+				$db = new dbPageParam5C();
+				$dbVal = $db->readAll($branchNo ,'TOP' ,'SYSTEM');
+
+				$dbVal1 = $dbVal['pageVal'][0];
+				$valTmpC['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+				$valTmpC['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+				$valTmpC['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+
+				$handle = $db->getHandle();
+				$dbImgList = new dbImage5C($handle);
+
+				$imgList = $dbImgList->readShowable($branchNo);
+				$valTmpC['IMGLIST'] = $imgList['imgInfo'];
+
+				$outID[] = 'SYSTEM_AREA';
+				$val[]   = $valTmpC;
+			}
 		}
 
-		if(strcmp($ID ,'SYSTEM_AREA') == 0) {
-			$db = new dbPageParam5C();
-			$dbVal = $db->readAll($branchNo ,'TOP' ,'SYSTEM');
-
-			$dbVal1 = $dbVal['pageVal'][0];
-			$val['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-			$val['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-			$val['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
-
-			$handle = $db->getHandle();
-			$dbImgList = new dbImage5C($handle);
-
-			$imgList = $dbImgList->readShowable($branchNo);
-			$val['IMGLIST'] = $imgList['imgInfo'];
-		}
 
 		if(strcmp($ID ,'TOP_CSS_VER') == 0
 		|| strcmp($ID ,'TOP_CSS_VAL') == 0) {
@@ -436,15 +473,20 @@ class sess5C {
 			$dbVal = $db->readAll($branchNo ,'TOP' ,'AREA');
 
 			$dbVal1 = $dbVal['pageVal'][0];
-			$val['AREA_BGCOLOR' ] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-			$val['TITLE_BGCOLOR'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-			$val['TITLE_COLOR'  ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
-			$val['VERSION'      ] = $dbVal1[dbPageParam5C::FLD_VALUE4];
+			$valTmp['AREA_BGCOLOR' ] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+			$valTmp['TITLE_BGCOLOR'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+			$valTmp['TITLE_COLOR'  ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+			$valTmp['VERSION'      ] = $dbVal1[dbPageParam5C::FLD_VALUE4];
 
-			$outID = 'TOP';
+			$outID[] = 'TOP';
+			$val[]   = $valTmp;
 		}
 
-		$_SESSION[self::OUTDATA][$outID] = $val;
+		$idxMax = count($outID);
+		for($idx=0 ;$idx<$idxMax ;$idx++) {
+			$sessKey = $outID[$idx];
+			$_SESSION[self::OUTDATA][$sessKey] = $val[$idx];
+		}
 	}
 
 /**

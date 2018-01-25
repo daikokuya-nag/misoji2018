@@ -11,15 +11,17 @@ PHP5
 
 	$branchNo = $_REQUEST['branchNo'];	/* 店No */
 
-	$ret[dbPageParam5C::PAGE_PROFILE]['USE'] = dbPageParam5C::OWN;
-	$ret[dbPageParam5C::PAGE_NEWS   ]['USE'] = dbPageParam5C::OWN;
-	$ret[dbPageParam5C::PAGE_RECRUIT]['USE'] = dbPageParam5C::OWN;
-	$ret[dbPageParam5C::PAGE_SYSTEM ]['USE'] = dbPageParam5C::OWN;
+	$ret[dbPageParam5C::PAGE_PROFILE   ]['USE'] = dbPageParam5C::OWN;
+	$ret[dbPageParam5C::PAGE_NEWS      ]['USE'] = dbPageParam5C::OWN;
+	$ret[dbPageParam5C::PAGE_RECRUIT   ]['USE'] = dbPageParam5C::OWN;
+	$ret[dbPageParam5C::PAGE_SYSTEM    ]['USE'] = dbPageParam5C::OWN;
+	$ret[dbPageParam5C::PAGE_PHOTODIARY]['USE'] = dbPageParam5C::OTHER;
 
-	$ret[dbPageParam5C::PAGE_PROFILE][dbPageParam5C::OBJ_USE_PAGE] = '';
-	$ret[dbPageParam5C::PAGE_NEWS   ][dbPageParam5C::OBJ_USE_PAGE] = '';
-	$ret[dbPageParam5C::PAGE_RECRUIT][dbPageParam5C::OBJ_USE_PAGE] = '';
-	$ret[dbPageParam5C::PAGE_SYSTEM ][dbPageParam5C::OBJ_USE_PAGE] = '';
+	$ret[dbPageParam5C::PAGE_PROFILE   ][dbPageParam5C::OBJ_USE_PAGE] = '';
+	$ret[dbPageParam5C::PAGE_NEWS      ][dbPageParam5C::OBJ_USE_PAGE] = '';
+	$ret[dbPageParam5C::PAGE_RECRUIT   ][dbPageParam5C::OBJ_USE_PAGE] = '';
+	$ret[dbPageParam5C::PAGE_SYSTEM    ][dbPageParam5C::OBJ_USE_PAGE] = '';
+	$ret[dbPageParam5C::PAGE_PHOTODIARY][dbPageParam5C::OBJ_USE_PAGE] = '';
 
 
 	$handle  = new sql5C();

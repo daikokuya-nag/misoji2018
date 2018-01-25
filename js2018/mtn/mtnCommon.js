@@ -7,14 +7,14 @@
 
 var EXT_LIST = [];		// 画像の拡張子のリスト
 var USE_PAGE = {};		// 自サイト、外部サイトのいずれを使うか
-var RADIO_NAME     = {NEWS:'useNews'       ,ALBUM:'useProfile'      ,RECRUIT:'useRecruitPage'   ,SYSTEM:'useSystemPage'};	// ラジオボタン名
-var ID_PREFIX      = {NEWS:'tabsNews'      ,ALBUM:'tabsProfile'     ,RECRUIT:'tabsRecruit'      ,SYSTEM:'tabsSystem'};		// tabのプレフィクス
-var OUTER_URL_FORM = {NEWS:'newsOuterURL'  ,ALBUM:'profileOuterURL' ,RECRUIT:'recruitOuterURL'  ,SYSTEM:'systemOuterURL'};	// 外部サイトの入力域
-var GRAY_PANEL_ID  = {NEWS:'grayPanelNews' ,ALBUM:'grayPanelProf'   ,RECRUIT:'grayPanelRecruit' ,SYSTEM:'grayPanelSystem'};	// 外部サイト使用時の、入力不可領域のマスク
+var RADIO_NAME     = {NEWS:'useNews'       ,ALBUM:'useProfile'      ,RECRUIT:'useRecruitPage'   ,SYSTEM:'useSystemPage'   ,PHOTODIARY:'usePhotoDiaryPage'};		// ラジオボタン名
+var ID_PREFIX      = {NEWS:'tabsNews'      ,ALBUM:'tabsProfile'     ,RECRUIT:'tabsRecruit'      ,SYSTEM:'tabsSystem'      ,PHOTODIARY:'tabsPhotoDiary'};		// tabのプレフィクス
+var OUTER_URL_FORM = {NEWS:'newsOuterURL'  ,ALBUM:'profileOuterURL' ,RECRUIT:'recruitOuterURL'  ,SYSTEM:'systemOuterURL'  ,PHOTODIARY:'photoDiaryOuterURL'};	// 外部サイトの入力域
+var GRAY_PANEL_ID  = {NEWS:'grayPanelNews' ,ALBUM:'grayPanelProf'   ,RECRUIT:'grayPanelRecruit' ,SYSTEM:'grayPanelSystem' ,PHOTODIARY:'grayPanelPhotoDiary'};	// 外部サイト使用時の、入力不可領域のマスク
 
-var EDIT_AREA        = {NEWS:'tabNewsMain' ,ALBUM:'tabProfMain'     ,RECRUIT:'tabRecruitMain'   ,SYSTEM:'tabSystemMain'};	// 入力項目範囲
-var EDIT_AREA_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0};		// 入力域の高さ
-var TAB_HEIGHT       = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0};		// tabの高さ
+var EDIT_AREA        = {NEWS:'tabNewsMain' ,ALBUM:'tabProfMain'     ,RECRUIT:'tabRecruitMain'   ,SYSTEM:'tabSystemMain'   ,PHOTODIARY:'tabSystemMain'};			// 入力項目範囲
+var EDIT_AREA_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0 ,PHOTODIARY:0};		// 入力域の高さ
+var TAB_HEIGHT       = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0 ,PHOTODIARY:0};		// tabの高さ
 
 var DISP_SYSTEM_TAB  = false;	// システムタブを表示したか
 var DISP_RECRUIT_TAB = false;	// 求人タブを表示したか
@@ -111,6 +111,15 @@ var width = $(".tabArea").width();
 		USE_PAGE['SYSTEM']['USE'] = $(this).val();
 		setUsePage('SYSTEM');
 	});
+
+				//現在、写メ日記は外部のみのためボタン制御は入れない
+				/*
+				$("input[name='usePhotoDiaryPage']").change(function() {
+					$("#sendSelePhotoDiaryPage").prop('disabled' ,false);
+					USE_PAGE['PHOTODIARY']['USE'] = $(this).val();
+					setUsePage('PHOTODIARY');
+				});
+				*/
 });
 
 
@@ -348,11 +357,13 @@ var result = $.ajax({
 		USE_PAGE['ALBUM'  ] = response['PROFILE'];	//PROFIEのみALBUMと読み替える
 		USE_PAGE['RECRUIT'] = response['RECRUIT'];
 		USE_PAGE['SYSTEM' ] = response['SYSTEM' ];
+		USE_PAGE['PHOTODIARY'] = response['PHOTODIARY'];
 
 		setUsePage('NEWS');
 		setUsePage('ALBUM');
 		setUsePage('RECRUIT');
 		setUsePage('SYSTEM');
+		setUsePage('PHOTODIARY');
 
 		$("input[name='newsOuterURL']").change(function() {
 			$("#sendSeleNewsPage").prop('disabled' ,false);
@@ -369,6 +380,13 @@ var result = $.ajax({
 		$("input[name='recruitOuterURL']").change(function() {
 			$('#sendSeleRecruitPage').prop('disabled' ,false);
 		});
+
+				//現在、写メ日記は外部のみのためボタン制御は入れない
+				/*
+				$("input[name='photoDiaryOuterURL']").change(function() {
+					$('#sendSelePhotoDiaryPage').prop('disabled' ,false);
+				});
+				*/
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {

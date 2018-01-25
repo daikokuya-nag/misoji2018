@@ -31,11 +31,12 @@ class dbPageParam5C {
 
 
 	/***** ページ識別 *****/
-	const PAGE_TOP     = 'TOP';
-	const PAGE_PROFILE = 'PROFILE';
-	const PAGE_NEWS    = 'NEWS';
-	const PAGE_RECRUIT = 'RECRUIT';
-	const PAGE_SYSTEM  = 'SYSTEM';
+	const PAGE_TOP        = 'TOP';
+	const PAGE_PROFILE    = 'PROFILE';
+	const PAGE_NEWS       = 'NEWS';
+	const PAGE_RECRUIT    = 'RECRUIT';
+	const PAGE_SYSTEM     = 'SYSTEM';
+	const PAGE_PHOTODIARY = 'PHOTODIARY';
 
 
 	/***** 項目識別 *****/

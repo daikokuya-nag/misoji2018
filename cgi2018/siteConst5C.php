@@ -34,6 +34,7 @@ class siteConst5C {
 			'ALBUM'   ,
 			'RECRUIT' ,
 			'SYSTEM'  ,
+			'PHOTODIARY' ,
 			'TOP'
 		) ,
 
@@ -42,6 +43,7 @@ class siteConst5C {
 			'ALBUM'   ,
 			'RECRUIT' ,
 			'SYSTEM'  ,
+			'PHOTODIARY' ,
 			'INDEX'
 		)
 	);
@@ -52,6 +54,7 @@ class siteConst5C {
 		'RECRUIT' => 'recruit.html' ,
 		'SYSTEM'  => 'system.html'  ,
 		'TOP'     => 'top.html'     ,
+		'PHOTODIARY' => 'photoDiary.html' ,
 		'INDEX'   => 'index.html'   ,
 
 		'COMMON_CSS' => 'branchCommon.css' ,
@@ -64,6 +67,7 @@ class siteConst5C {
 		'RECRUIT' => false ,
 		'SYSTEM'  => false ,
 		'TOP'     => false ,
+		'PHOTODIARY' => false ,
 		'INDEX'   => false ,
 
 		'COMMON_CSS' => false ,
@@ -76,6 +80,7 @@ class siteConst5C {
 		'RECRUIT' => '求人'     ,
 		'SYSTEM'  => 'システム' ,
 		'TOP'     => 'TOP'      ,
+		'PHOTODIARY' => '写メ日記'      ,
 		'INDEX'   => 'メニュー'
 	);
 

@@ -59,6 +59,9 @@ class templateConst5C {
 	const SYSTEM_AREA_BEG_LINE = '<!-- SYSTEM_AREA_BEG -->';		// 料金の開始
 	const SYSTEM_AREA_END_LINE = '<!-- SYSTEM_AREA_END -->';		// 料金の終了
 
+	const PHOTODIARY_AREA_BEG_LINE = '<!-- PHOTODIARY_AREA_BEG -->';		// 写メ日記の開始
+	const PHOTODIARY_AREA_END_LINE = '<!-- PHOTODIARY_AREA_END -->';		// 写メ日記の終了
+
 	const TOP_CSS_VER_BEG_LINE = '<!-- TOP_CSS_BEG -->';		// topページのcssのバージョンの開始
 	const TOP_CSS_VER_END_LINE = '<!-- TOP_CSS_END -->';		// topページのcssのバージョンの終了
 
@@ -82,8 +85,9 @@ class templateConst5C {
 		'DECORATION_VER' => self::DECO_CSS_VER_BEG_LINE ,
 		'DECORATION_VAL' => self::DECO_CSS_VAL_BEG_LINE ,
 
-		'RECRUIT_AREA' => self::RECRUIT_AREA_BEG_LINE ,
-		'SYSTEM_AREA'  => self::SYSTEM_AREA_BEG_LINE  ,
+		'RECRUIT_AREA'    => self::RECRUIT_AREA_BEG_LINE    ,
+		'SYSTEM_AREA'     => self::SYSTEM_AREA_BEG_LINE     ,
+		'PHOTODIARY_AREA' => self::PHOTODIARY_AREA_BEG_LINE ,
 
 		'TOP_CSS_VER' => self::TOP_CSS_VER_BEG_LINE ,
 		'TOP_CSS_VAL' => self::TOP_CSS_VAL_BEG_LINE
@@ -104,8 +108,9 @@ class templateConst5C {
 		'DECORATION_VER' => self::DECO_CSS_VER_END_LINE ,
 		'DECORATION_VAL' => self::DECO_CSS_VAL_END_LINE ,
 
-		'RECRUIT_AREA' => self::RECRUIT_AREA_END_LINE ,
-		'SYSTEM_AREA'  => self::SYSTEM_AREA_END_LINE  ,
+		'RECRUIT_AREA'    => self::RECRUIT_AREA_END_LINE    ,
+		'SYSTEM_AREA'     => self::SYSTEM_AREA_END_LINE     ,
+		'PHOTODIARY_AREA' => self::PHOTODIARY_AREA_END_LINE ,
 
 		'TOP_CSS_VER' => self::TOP_CSS_VER_END_LINE ,
 		'TOP_CSS_VAL' => self::TOP_CSS_VAL_END_LINE
@@ -202,6 +207,7 @@ class templateConst5C {
 	const SYSTEM_VAL      = '<!-- SYSTEM_VAL -->';				// 料金内容
 	const TOP_CSS_VER_VAL = '<!-- TOP_CSS_VER_STR -->';			// CSSのバージョン
 	const TOP_CSS_VAL_STR = '/* TOP_CSS_VAL_STR */';			// CSSの内容
+	const PHOTODIARY_VAL  = '<!-- PHOTODIARY_VAL -->';			// 写メ日記内容
 
 /**
  * セクションキーワードの取得

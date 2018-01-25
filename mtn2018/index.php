@@ -102,6 +102,7 @@
 <script src="../js2018/mtn/top.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/system.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/recruit.js?<?php print $vesion; ?>"></script>
+
 <script src="../js2018/mtn/header.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/decoration.js?<?php print $vesion; ?>"></script>
 <script>
@@ -124,6 +125,7 @@
     <li><a href="#tabsProfile">プロファイル</a></li>
     <li><a href="#tabsRecruit">求人</a></li>
     <li><a href="#tabsSystem">システム</a></li>
+    <li><a href="#tabsPhotoDiary">写メ日記</a></li>
   </ul>
 
   <!-- ***** タブの中身の定義 ***** -->
@@ -264,6 +266,23 @@
       <input type="button" value="出力" id="bldRecruitInfo" onclick="writeRecruitVal();">  <!--  disabled="disabled" -->
     </div>
   </div>
+
+
+  <!-- 写メ日記 -->
+  <div id="tabsPhotoDiary" class="tabArea">
+    <div id="tabPhotoDiaryUsePage" class="resetFloat">
+      使用する写メ日記ページ<br>
+      <div class="selectPage">
+        <label><input type="radio" name="usePhotoDiaryPage" id="usePhotoDiaryPageOther" value="OTHER_SITE">外部</label><input type="text" name="photoDiaryOuterURL" id="photoDiaryOuterURL" class="outerURL"><br>
+        <label><input type="radio" name="usePhotoDiaryPage" id="usePhotoDiaryPageOwn" value="OWN_SITE" disabled="disabled">内部</label>
+      </div>
+      <div class="sendSelectPage">
+        <input type="button" value="使用ページ反映" id="sendSelePhotoDiaryPage" onclick="updUsePage('PHOTODIARY');">
+      </div>
+    </div>
+    <hr>
+  </div>
+
 
   <!-- ヘッダ -->
   <div id="tabsHeader" class="tabArea">

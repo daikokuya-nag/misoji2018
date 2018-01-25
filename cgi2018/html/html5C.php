@@ -237,6 +237,9 @@ class html5C {
 		if(strcmp($begKwd ,'SYSTEM_AREA') == 0) {
 			$ret = $this->setSystemArea($sect1 ,$begKwd);
 		}
+		if(strcmp($begKwd ,'PHOTODIARY_AREA') == 0) {
+			$ret = $this->setPhotoDiaryArea($sect1 ,$begKwd);
+		}
 
 
 		if(strcmp($begKwd ,'TOP_CSS_VER') == 0
@@ -1395,9 +1398,35 @@ class html5C {
 	}
 
 
-
-
 	function setRecruitArea($sect ,$kwd) {
+
+		$menuVals = sess5C::getOutVals('PAGE_MENU');
+		$menuList = siteConst5C::getHtmlFileIDList($this->device);
+
+		$url = '';
+		$menuMax = count($menuList);
+		for($idx=0 ;$idx<$menuMax ;$idx++) {
+			$targetID = $menuList[$idx];
+
+			if(strcmp($targetID ,'RECRUIT') == 0) {
+				if(isset($menuVals[$targetID])) {
+					$target = $menuVals[$targetID]['SITE'];
+				} else {
+					$target = 'OWN_SITE';
+				}
+
+				if(strcmp($target ,'OWN_SITE') == 0) {
+					$urlList = fileName5C::getFileName($this->device ,$targetID ,'' ,'');
+					$url = $urlList['fileName'];
+					if(strcmp($this->fileID ,'PROFILE') == 0) {
+						$url = '../' . $url;		//女性紹介ページのときは階層を一つ上がる
+					}
+				} else {
+					$url = $menuVals[$targetID]['URL'];
+				}
+				break;
+			}
+		}
 
 		$ret  = array();
 		$temp = array();
@@ -1411,7 +1440,12 @@ class html5C {
 				$val  = sess5C::getOutVals('RECRUIT_AREA');
 				$disp = $this->setTopImg($val);
 				if(strlen($disp) >= 1) {
-					$temp[] = '<img src="' . $disp . '" class="img-responsive center-block">';
+					$imgStr = '<img src="' . $disp . '" class="img-responsive center-block">';
+					if(strlen($url) >= 1) {
+						$temp[] = '<a href="' . $url . '">' . $imgStr . '</a>';
+					} else {
+						$temp[] = $imgStr;
+					}
 				}
 			} else {
 				if(strcmp($line1 ,$this->begValList[$kwd]) == 0
@@ -1431,6 +1465,34 @@ class html5C {
 
 	function setSystemArea($sect ,$kwd) {
 
+		$menuVals = sess5C::getOutVals('PAGE_MENU');
+		$menuList = siteConst5C::getHtmlFileIDList($this->device);
+
+		$url = '';
+		$menuMax = count($menuList);
+		for($idx=0 ;$idx<$menuMax ;$idx++) {
+			$targetID = $menuList[$idx];
+
+			if(strcmp($targetID ,'SYSTEM') == 0) {
+				if(isset($menuVals[$targetID])) {
+					$target = $menuVals[$targetID]['SITE'];
+				} else {
+					$target = 'OWN_SITE';
+				}
+
+				if(strcmp($target ,'OWN_SITE') == 0) {
+					$urlList = fileName5C::getFileName($this->device ,$targetID ,'' ,'');
+					$url = $urlList['fileName'];
+					if(strcmp($this->fileID ,'PROFILE') == 0) {
+						$url = '../' . $url;		//女性紹介ページのときは階層を一つ上がる
+					}
+				} else {
+					$url = $menuVals[$targetID]['URL'];
+				}
+				break;
+			}
+		}
+
 		$ret  = array();
 		$temp = array();
 
@@ -1443,7 +1505,12 @@ class html5C {
 				$val  = sess5C::getOutVals('SYSTEM_AREA');
 				$disp = $this->setTopImg($val);
 				if(strlen($disp) >= 1) {
-					$temp[] = '<img src="' . $disp . '" class="img-responsive center-block">';
+					$imgStr = '<img src="' . $disp . '" class="img-responsive center-block">';
+					if(strlen($url) >= 1) {
+						$temp[] = '<a href="' . $url . '">' . $imgStr . '</a>';
+					} else {
+						$temp[] = $imgStr;
+					}
 				}
 			} else {
 				if(strcmp($line1 ,$this->begValList[$kwd]) == 0
@@ -1461,6 +1528,63 @@ class html5C {
 		return $ret;
 	}
 
+
+	function setPhotoDiaryArea($sect ,$kwd) {
+
+		$menuVals = sess5C::getOutVals('PAGE_MENU');
+		$menuList = siteConst5C::getHtmlFileIDList($this->device);
+
+		$url = '';
+		$menuMax = count($menuList);
+		for($idx=0 ;$idx<$menuMax ;$idx++) {
+			$targetID = $menuList[$idx];
+
+			if(strcmp($targetID ,'PHOTODIARY') == 0) {
+				if(isset($menuVals[$targetID])) {
+					$target = $menuVals[$targetID]['SITE'];
+				} else {
+					$target = 'OWN_SITE';
+				}
+
+				if(strcmp($target ,'OWN_SITE') == 0) {
+					$urlList = fileName5C::getFileName($this->device ,$targetID ,'' ,'');
+					$url = $urlList['fileName'];
+					if(strcmp($this->fileID ,'PROFILE') == 0) {
+						$url = '../' . $url;		//女性紹介ページのときは階層を一つ上がる
+					}
+				} else {
+					$url = $menuVals[$targetID]['URL'];
+				}
+				break;
+			}
+		}
+
+		$ret  = array();
+		$temp = array();
+
+		if(strlen($url) >= 1) {
+			$lineMax = count($sect);
+			for($idx=0 ;$idx<$lineMax ;$idx++) {
+				$line1 = $sect[$idx];
+				$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::PHOTODIARY_VAL);
+				if($kwdPos >= 0) {
+					$temp[] = str_replace(templateConst5C::PHOTODIARY_VAL ,$url ,$line1);
+				} else {
+					if(strcmp($line1 ,$this->begValList[$kwd]) == 0
+					|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
+					} else {
+						$temp[] = $line1;
+					}
+				}
+			}
+		}
+
+		if(count($temp) >= 1) {
+			$ret = $temp;
+		}
+
+		return $ret;
+	}
 
 
 /**
@@ -1554,14 +1678,11 @@ class html5C {
 
 						'.topInfo div.thumbnail {' . $lineBreak .
 						'  background-color:' . $decoVal['AREA_BGCOLOR'] . ';' . $lineBreak .
+						'}' . $lineBreak .
+
+						'.sideBar {' . $lineBreak .
+						'  background-color:' . $decoVal['AREA_BGCOLOR'] . ';' . $lineBreak .
 						'}';
-
-
-
-
-
-
-
 
 				$ret[] = str_replace(templateConst5C::TOP_CSS_VAL_STR ,$cssStr ,$line1);
 				continue;
