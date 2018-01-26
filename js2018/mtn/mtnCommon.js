@@ -354,7 +354,7 @@ var result = $.ajax({
 	result.done(function(response) {
 					console.debug(response);
 		USE_PAGE['NEWS'   ] = response['NEWS'   ];
-		USE_PAGE['ALBUM'  ] = response['PROFILE'];	//PROFIEのみALBUMと読み替える
+		USE_PAGE['ALBUM'  ] = response['ALBUM'  ];	//PROFIEのみALBUMと読み替える
 		USE_PAGE['RECRUIT'] = response['RECRUIT'];
 		USE_PAGE['SYSTEM' ] = response['SYSTEM' ];
 		USE_PAGE['PHOTODIARY'] = response['PHOTODIARY'];
@@ -410,7 +410,7 @@ var editArea     = EDIT_AREA[pageID];
 	$("#" + outerURLForm).val(USE_PAGE[pageID]['USEPAGE']);
 	$("input[name='" + RADIO_NAME[pageID] + "']").val([usePage]);
 
-console.debug(usePage);
+console.debug(pageID + ' ' + usePage);
 
 	if(usePage == 'OWN_SITE') {
 		//内部サイトの時
