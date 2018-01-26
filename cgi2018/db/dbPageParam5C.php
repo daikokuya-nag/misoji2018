@@ -32,6 +32,7 @@ class dbPageParam5C {
 
 	/***** ページ識別 *****/
 	const PAGE_TOP        = 'TOP';
+	const PAGE_ALBUM      = 'ALBUM';
 	const PAGE_PROFILE    = 'PROFILE';
 	const PAGE_NEWS       = 'NEWS';
 	const PAGE_RECRUIT    = 'RECRUIT';
