@@ -514,6 +514,33 @@ class sess5C {
 			$val[]   = $valTmp;
 		}
 
+/*
+当面使用しない
+		if(strcmp($ID ,'ALBUM_CSS_VER') == 0
+		|| strcmp($ID ,'ALBUM_CSS_VAL') == 0) {
+			$db = new dbPageParam5C();
+
+			//ページの背景指定
+			$dbVal = $db->readAll($branchNo ,'ALL' ,'DECO');
+
+			$dbVal1 = $dbVal['pageVal'][0];
+			$valTmp['USE'    ] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+			$valTmp['COLOR'  ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+			$valTmp['IMGNO'  ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+			$valTmp['VERSION'] = $dbVal1[dbPageParam5C::FLD_VALUE4];
+
+			$handle = $db->getHandle();
+			$dbImgList = new dbImage5C($handle);
+
+			$imgList = $dbImgList->readShowable($branchNo);
+			$valTmp['IMGLIST'] = $imgList['imgInfo'];
+
+			$outID[] = 'ALBUM';
+			$val[]   = $valTmp;
+		}
+*/
+
+
 		$idxMax = count($outID);
 		for($idx=0 ;$idx<$idxMax ;$idx++) {
 			$sessKey = $outID[$idx];

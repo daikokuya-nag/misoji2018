@@ -1755,6 +1755,13 @@ class html5C {
 			if($kwdPos >= 0) {
 				$lineBreak = common5C::CSRC_NL_CODE;
 
+
+				// 背景色の明るさ
+				$brightness = funcs5C::getBrightness($decoVal['AREA_BGCOLOR']);
+				// 明るさを反転反転
+				$reverse = 255 - $brightness;
+				$dec = dechex($reverse);
+
 				$cssStr = '.topInfo {' . $lineBreak .
 						'  background-color:' . $decoVal['AREA_BGCOLOR'] . ';' . $lineBreak .
 						'}' . $lineBreak .
@@ -1766,6 +1773,9 @@ class html5C {
 
 						'.topInfo div.thumbnail {' . $lineBreak .
 						'  background-color:' . $decoVal['AREA_BGCOLOR'] . ';' . $lineBreak .
+						'}' . $lineBreak .
+						'.topInfo div.thumbnail * {' . $lineBreak .
+						'  color:#' . $dec . $dec . $dec . ';' . $lineBreak .
 						'}' . $lineBreak .
 
 						'.sideBar {' . $lineBreak .
