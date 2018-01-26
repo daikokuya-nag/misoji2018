@@ -219,6 +219,10 @@ class templateConst5C {
 	// サイドバー
 	const SIDEBAR_IMG = '<!-- SIDEBAR_IMG -->';					// サイドバーの画像
 
+
+	const TEL_NO_DISP = '<!-- TEL_NO_DISP -->';					// 電話番号表示
+	const TEL_NO_CALL = '<!-- TEL_NO_CALL -->';					// 架電
+
 /**
  * セクションキーワードの取得
  *

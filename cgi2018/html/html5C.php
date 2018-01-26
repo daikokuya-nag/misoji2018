@@ -579,6 +579,9 @@ class html5C {
 				}
 			}
 
+			$this->detail1 = str_replace(templateConst5C::TEL_NO_DISP ,siteConst5C::TEL_NO_DISP ,$this->detail1);	// 電話番号表示
+			$this->detail1 = str_replace(templateConst5C::TEL_NO_CALL ,siteConst5C::TEL_NO_CALL ,$this->detail1);	// 架電
+
 			if(strlen($this->detail1) >= 1) {
 				$ret = $ret . $this->detail1 . common5C::CSRC_NL_CODE;
 			}
