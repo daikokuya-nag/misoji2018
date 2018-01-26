@@ -105,6 +105,7 @@
 
 <script src="../js2018/mtn/header.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/decoration.js?<?php print $vesion; ?>"></script>
+<script src="../js2018/mtn/sideBar.js?<?php print $vesion; ?>"></script>
 <script>
   var BRANCH_NO = "<?php print $branchNo; ?>";
 </script>
@@ -116,16 +117,16 @@
 <input type="hidden" id="newBlogRec" name="newBlogRec" value="<?php print dbMBlog5C::NEW_REC; ?>">
 <div id="tabA">
   <ul>
-    <li><a href="#tabsDecoration">装飾</a></li>
-
-    <li><a href="#tabsHeader">ヘッダ</a></li>
-
     <li><a href="#tabsTop">TOP</a></li>
     <li><a href="#tabsNews">ニュース</a></li>
     <li><a href="#tabsProfile">プロファイル</a></li>
     <li><a href="#tabsRecruit">求人</a></li>
     <li><a href="#tabsSystem">システム</a></li>
     <li><a href="#tabsPhotoDiary">写メ日記</a></li>
+
+    <li><a href="#tabsHeader">ヘッダ</a></li>
+    <li><a href="#tabsSideBar">サイドバー</a></li>
+    <li><a href="#tabsDecoration">装飾</a></li>
   </ul>
 
   <!-- ***** タブの中身の定義 ***** -->
@@ -372,7 +373,7 @@
             </tr>
           </thead>
           <tbody id="topSystemImgList">
-            <tr id="topSystemImg">
+            <tr id="topSystemImgT">
               <td class="topSystemImgTN" id="topSystemImgTN">aaa</td>
               <td class="topSystemImgSele"><input type="button" value="画像選択" name="attTopSystemImg" id="attTopSystemImg" onclick="showSeleImg('TOP' ,'SYSTEM')"></td>
               <td class="topImgDisp"><input type="checkbox" name="useTopSystemImg" id="useTopSystemImg" class="useTopImg" value="U"></td>
@@ -394,7 +395,7 @@
             </tr>
           </thead>
           <tbody id="topRecruitImgList">
-            <tr id="topRecruitImg">
+            <tr id="topRecruitImgT">
               <td class="topRecruitImgTN" id="topRecruitImgTN">aaa</td>
               <td class="topRecruitImgSele"><input type="button" value="画像選択" name="attTopRecruitImg" id="attTopRecruitImg" onclick="showSeleImg('TOP' ,'RECRUIT')"></td>
               <td class="topImgDisp"><input type="checkbox" name="useTopRecruitImg" id="useTopRecruitImg" class="useTopImg" value="U"></td>
@@ -479,6 +480,46 @@
     <div id="tabRecruitBottom" class="tabBottomBtn">
       <hr>
       <input type="button" value="出力" id="bldRecruitInfo" onclick="writeDecoVal();">
+    </div>
+  </div>
+
+
+  <!-- サイドバー -->
+  <div id="tabsSideBar" class="tabArea">
+    <div class="tabSideBarImgEnter">
+      <div id="tabSideBarImg1Mid" class="tabMid">
+        <table class="sideBarImgSele">
+          <thead>
+            <tr>
+              <th class="sideBarImgTN">画像区分</th>
+              <th class="sideBarImgTN">ファイル</th>
+              <th class="sideBarImgDisp">表示</th>
+            </tr>
+          </thead>
+          <tbody id="sideBarSystemImgList">
+            <tr id="sideBarImg">
+              <td class="sideBarImgTN">1</td>
+              <td class="sideBarImgTN" id="sideBarImgTN1"></td>
+              <td class="sideBarImgSele"><input type="button" value="画像選択" name="attSideBarImg1" id="attSideBarImg1" onclick="showSeleImg('SIDEBAR' ,'1')"></td>
+              <td class="sideBarImgDisp"><input type="checkbox" name="useSideBarImg1" id="useSideBarImg1" class="useSideBarImg" value="U"></td>
+            </tr>
+
+            <tr id="topRecruitImg">
+              <td class="sideBarImgTN">2</td>
+              <td class="sideBarImgTN" id="sideBarImgTN2"></td>
+              <td class="sideBarImgSele"><input type="button" value="画像選択" name="attSideBarImg2" id="attSideBarImg2" onclick="showSeleImg('SIDEBAR' ,'2')"></td>
+              <td class="sideBarImgDisp"><input type="checkbox" name="useSideBarImg2" id="useSideBarImg2" class="useSideBarImg" value="U"></td>
+            </tr>
+          </tbody>
+        </table>
+        <input type="hidden" id="sideBarImg1" value="">
+        <input type="hidden" id="sideBarImg2" value="">
+      </div>
+    </div>
+
+    <div id="tabSideBarBottom" class="tabBottomBtn">
+      <hr>
+      <input type="button" value="出力" id="bldSideBarImg" onclick="updSideBarImg();">    <!--  disabled="disabled" -->
     </div>
   </div>
 

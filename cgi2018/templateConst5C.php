@@ -68,6 +68,9 @@ class templateConst5C {
 	const TOP_CSS_VAL_BEG_LINE = '/* TOP_CSS_BEG */';		// topページのcssの開始
 	const TOP_CSS_VAL_END_LINE = '/* TOP_CSS_END */';		// topページのcssの終了
 
+	const SIDEBAR_R_BEG_LINE = '<!-- SIDEBAR_R_BEG -->';			// 右サイドバーの開始
+	const SIDEBAR_R_END_LINE = '<!-- SIDEBAR_R_END -->';			// 右サイドバーの終了
+
 
 	var $begList = array(			// セクションの開始キーワードリスト
 		'RECRUIT' => self::RECRUIT_BEG_LINE ,
@@ -90,7 +93,9 @@ class templateConst5C {
 		'PHOTODIARY_AREA' => self::PHOTODIARY_AREA_BEG_LINE ,
 
 		'TOP_CSS_VER' => self::TOP_CSS_VER_BEG_LINE ,
-		'TOP_CSS_VAL' => self::TOP_CSS_VAL_BEG_LINE
+		'TOP_CSS_VAL' => self::TOP_CSS_VAL_BEG_LINE ,
+
+		'SIDEBAR_R' => self::SIDEBAR_R_BEG_LINE
 	);
 	var $endList = array(			// セクションの終了キーワードリスト
 		'RECRUIT' => self::RECRUIT_END_LINE ,
@@ -113,7 +118,9 @@ class templateConst5C {
 		'PHOTODIARY_AREA' => self::PHOTODIARY_AREA_END_LINE ,
 
 		'TOP_CSS_VER' => self::TOP_CSS_VER_END_LINE ,
-		'TOP_CSS_VAL' => self::TOP_CSS_VAL_END_LINE
+		'TOP_CSS_VAL' => self::TOP_CSS_VAL_END_LINE ,
+
+		'SIDEBAR_R' => self::SIDEBAR_R_END_LINE
 	);
 
 
@@ -208,6 +215,9 @@ class templateConst5C {
 	const TOP_CSS_VER_VAL = '<!-- TOP_CSS_VER_STR -->';			// CSSのバージョン
 	const TOP_CSS_VAL_STR = '/* TOP_CSS_VAL_STR */';			// CSSの内容
 	const PHOTODIARY_VAL  = '<!-- PHOTODIARY_VAL -->';			// 写メ日記内容
+
+	// サイドバー
+	const SIDEBAR_IMG = '<!-- SIDEBAR_IMG -->';					// サイドバーの画像
 
 /**
  * セクションキーワードの取得

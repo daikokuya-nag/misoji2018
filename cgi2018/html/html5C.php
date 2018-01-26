@@ -247,6 +247,11 @@ class html5C {
 			$ret = $this->setTop($sect1 ,$begKwd);
 		}
 
+		if(strcmp($begKwd ,'SIDEBAR_R') == 0
+		|| strcmp($begKwd ,'SIDEBAR_L') == 0) {
+			$ret = $this->setSideBar($sect1 ,$begKwd);
+		}
+
 		return $ret;
 	}
 
@@ -1697,6 +1702,89 @@ class html5C {
 
 		return $ret;
 	}
+
+
+
+	function setSideBar($sect ,$kwd) {
+
+		$ret  = array();
+
+		$disp = '';
+		$lineMax = count($sect);
+		for($idx=0 ;$idx<$lineMax ;$idx++) {
+			$line1 = $sect[$idx];
+			$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::SIDEBAR_IMG);
+			if($kwdPos >= 0) {
+				$val  = sess5C::getOutVals($kwd);
+				$disp = $this->setSideBarImg($val[0] ,$val['IMGLIST']);
+				if(strlen($disp) >= 1) {
+					$ret[] = '<img src="' . $disp . '" class="img-responsive center-block">';
+				}
+
+				if(count($val) >= 2) {
+					$disp = $this->setSideBarImg($val[1] ,$val['IMGLIST']);
+					if(strlen($disp) >= 1) {
+						$ret[] = '<img src="' . $disp . '" class="img-responsive center-block">';
+					}
+				}
+			} else {
+				if(strcmp($line1 ,$this->begValList[$kwd]) == 0
+				|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
+				} else {
+					$ret[] = $line1;
+				}
+			}
+		}
+
+		return $ret;
+	}
+
+/**
+ * サイドバーに表示する画像の取得
+ *
+ * @access
+ * @param string $headerVal 画像指定情報
+ * @return array 画像ファイルへのパス
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	private function setSideBarImg($headerVal ,$imgList) {
+
+		$imgDir  = 'img/' . $this->branchNo . '/SIDEBAR/';
+		$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
+
+		$expNo  = $headerVal['IMGNO' ];
+		$imgMax = count($imgList);
+
+		//画像番号のファイルの有無を調べる
+		$dispImgNo1 = $expNo;
+		$fileExist  = false;
+		for($imgIdx=0 ;$imgIdx<$imgMax ;$imgIdx++) {
+			$img1 = $imgList[$imgIdx];
+			if($dispImgNo1 == $img1[dbImage5C::FLD_IMG_NO]) {
+				$ext = $img1[dbImage5C::FLD_ORG_EXT];
+				$imgFullPath = $imgRoot . $dispImgNo1 . '.' . $ext;
+				$imgDispPath = $imgDir  . $dispImgNo1 . '.' . $ext;
+				if(is_file($imgFullPath)) {
+					$fileExist = true;
+					break;
+				}
+			}
+		}
+
+		//画像ファイルがあればtrue
+		if($fileExist) {
+			$imgPath = $imgDispPath;
+		} else {
+			$imgPath = '';
+		}
+
+		return $imgPath;
+	}
+
+
 
 
 /**

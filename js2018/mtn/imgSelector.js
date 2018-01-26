@@ -65,6 +65,10 @@ console.debug(imgClass);
 		IMG_SELECTOR = 'TOP';
 	}
 
+	if(imgClass == 'SIDEBAR') {
+		IMG_SELECTOR = 'SIDEBAR';
+	}
+
 	IMG_CLASS = imgClass;
 	if(place) {
 		IMG_PLACE = place;
@@ -180,6 +184,16 @@ function showImgDlg() {
 		}
 	}
 
+	if(IMG_CLASS == 'SIDEBAR') {
+			imgNo = $('#sideBarImg' + IMG_PLACE).val();
+
+		if(imgNo) {
+			if(imgNo.length >= 1) {
+				$("#seleImg" + imgNo).prop("checked", true);
+			}
+		}
+	}
+
 
 	$("#enterNewImgFile").parsley().reset();	// validateリセット
 
@@ -280,6 +294,17 @@ var ext;
 		}
 
 		$("#bldTopImg").prop('disabled' ,false);
+	}
+
+	if(IMG_CLASS == 'SIDEBAR') {
+		ext = EXT_LIST[selectedImg];
+			console.debug('side bar');
+			console.debug(ext);
+
+		tagStr = '<img src="../img/' + BRANCH_NO +  '/SIDEBAR/' + selectedImg + '.' + ext + '">';
+		$('#sideBarImgTN' + IMG_PLACE).html(tagStr);
+		$('#sideBarImg' + IMG_PLACE).val(selectedImg);
+		$("#bldSideBarImg").prop('disabled' ,false);
 	}
 }
 

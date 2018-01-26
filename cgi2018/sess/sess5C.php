@@ -482,6 +482,38 @@ class sess5C {
 			$val[]   = $valTmp;
 		}
 
+		if(strcmp($ID ,'SIDEBAR_R') == 0
+		|| strcmp($ID ,'SIDEBAR_L') == 0) {
+			$db = new dbPageParam5C();
+			$dbVal = $db->readAll($branchNo ,$ID);
+
+			$dbVal1 = $dbVal['pageVal'][0];
+			$imgVal = array(
+				'USE'   => $dbVal1[dbPageParam5C::FLD_VALUE2] ,
+				'IMGNO' => $dbVal1[dbPageParam5C::FLD_VALUE3]
+			);
+			$valTmp[0] = $imgVal;
+
+			if(isset($dbVal['pageVal'][1])) {
+				$dbVal1 = $dbVal['pageVal'][1];
+				$imgVal = array(
+					'USE'   => $dbVal1[dbPageParam5C::FLD_VALUE2] ,
+					'IMGNO' => $dbVal1[dbPageParam5C::FLD_VALUE3]
+				);
+				$valTmp[1] = $imgVal;
+			}
+
+
+			$handle = $db->getHandle();
+			$dbImgList = new dbImage5C($handle);
+
+			$imgList = $dbImgList->readShowable($branchNo);
+			$valTmp['IMGLIST'] = $imgList['imgInfo'];
+
+			$outID[] = $ID;
+			$val[]   = $valTmp;
+		}
+
 		$idxMax = count($outID);
 		for($idx=0 ;$idx<$idxMax ;$idx++) {
 			$sessKey = $outID[$idx];
