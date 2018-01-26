@@ -1293,8 +1293,8 @@ class html5C {
 				$accKeyStr++;
 			} else {
 				if(strcmp($targetID ,$currFileID) == 0) {
-					//自ページの時はリンクを入れない
-					$lineStr = '				<li class="active"><a href="#">' . $menuStr[$targetID] . '<span class="sr-only">(current)</span></a></li>';
+					//自ページの時
+					$lineStr = '				<li class="active"><a href="' . $url . '">' . $menuStr[$targetID] . '<span class="sr-only">(current)</span></a></li>';
 				} else {
 					//自ページでないとき
 					$lineStr = '				<li><a href="' . $url . '">' . $menuStr[$targetID] . '</a></li>';

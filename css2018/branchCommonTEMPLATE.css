@@ -5,16 +5,13 @@
   src: url("../fonts/fontsA.woff") format('woff');
 }
 
-.navbar-default {
-  border-color: #fff;
-}
-
-.navbar-toggle .icon-bar {
-    background-color: #f00;
-}
-
 #allArea {
   margin: 0 auto;
+}
+
+.navbar {
+  margin-top:5px;
+  margin-bottom:5px;
 }
 
 h2 {
@@ -29,6 +26,7 @@ h2 {
 
 #mainArea {
   margin-bottom:10px;
+  padding-left:0px;
 }
 
 
