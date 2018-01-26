@@ -90,8 +90,16 @@ iframe.diaryFrame {
   padding-bottom:10px;
 }
 
+/* フッタ */
+.footerCaution {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+
+  border-bottom: 1px solid #ccc;
+}
+
 
 /* 追加分 */
 /* TOP_CSS_BEG */
 /* TOP_CSS_VAL_STR */
-/* TOP_CSS_BEG */
+/* TOP_CSS_END */

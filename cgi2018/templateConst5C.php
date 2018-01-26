@@ -71,6 +71,12 @@ class templateConst5C {
 	const SIDEBAR_R_BEG_LINE = '<!-- SIDEBAR_R_BEG -->';			// 右サイドバーの開始
 	const SIDEBAR_R_END_LINE = '<!-- SIDEBAR_R_END -->';			// 右サイドバーの終了
 
+	const ALBUM_CSS_VER_BEG_LINE = '<!-- ALBUM_CSS_BEG -->';		// アルバムページのcssのバージョンの開始
+	const ALBUM_CSS_VER_END_LINE = '<!-- ALBUM_CSS_END -->';		// アルバムページのcssのバージョンの終了
+
+	const ALBUM_CSS_VAL_BEG_LINE = '/* ALBUM_CSS_BEG */';		// アルバムページのcssの開始
+	const ALBUM_CSS_VAL_END_LINE = '/* ALBUM_CSS_END */';		// アルバムページのcssの終了
+
 
 	var $begList = array(			// セクションの開始キーワードリスト
 		'RECRUIT' => self::RECRUIT_BEG_LINE ,
@@ -95,7 +101,10 @@ class templateConst5C {
 		'TOP_CSS_VER' => self::TOP_CSS_VER_BEG_LINE ,
 		'TOP_CSS_VAL' => self::TOP_CSS_VAL_BEG_LINE ,
 
-		'SIDEBAR_R' => self::SIDEBAR_R_BEG_LINE
+		'SIDEBAR_R' => self::SIDEBAR_R_BEG_LINE ,
+
+		'ALBUM_CSS_VER' => self::ALBUM_CSS_VER_BEG_LINE ,
+		'ALBUM_CSS_VAL' => self::ALBUM_CSS_VAL_BEG_LINE
 	);
 	var $endList = array(			// セクションの終了キーワードリスト
 		'RECRUIT' => self::RECRUIT_END_LINE ,
@@ -120,7 +129,10 @@ class templateConst5C {
 		'TOP_CSS_VER' => self::TOP_CSS_VER_END_LINE ,
 		'TOP_CSS_VAL' => self::TOP_CSS_VAL_END_LINE ,
 
-		'SIDEBAR_R' => self::SIDEBAR_R_END_LINE
+		'SIDEBAR_R' => self::SIDEBAR_R_END_LINE ,
+
+		'ALBUM_CSS_VER' => self::ALBUM_CSS_VER_END_LINE ,
+		'ALBUM_CSS_VAL' => self::ALBUM_CSS_VAL_END_LINE
 	);
 
 
@@ -219,7 +231,11 @@ class templateConst5C {
 	// サイドバー
 	const SIDEBAR_IMG = '<!-- SIDEBAR_IMG -->';					// サイドバーの画像
 
+	// アルバムページ
+	const ALBUM_CSS_VER_VAL = '<!-- ALBUM_CSS_VER_STR -->';			// CSSのバージョン
+	const ALBUM_CSS_VAL_STR = '/* ALBUM_CSS_VAL_STR */';			// CSSの内容
 
+	// 全ページ共通
 	const TEL_NO_DISP = '<!-- TEL_NO_DISP -->';					// 電話番号表示
 	const TEL_NO_CALL = '<!-- TEL_NO_CALL -->';					// 架電
 

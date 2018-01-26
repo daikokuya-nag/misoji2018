@@ -225,6 +225,7 @@ class html5C {
 			$ret = $this->setPageMenu($sect1 ,$begKwd);
 		}
 
+		// 装飾
 		if(strcmp($begKwd ,'DECORATION_VER') == 0
 		|| strcmp($begKwd ,'DECORATION_VAL') == 0) {
 			$ret = $this->setDecoration($sect1 ,$begKwd);
@@ -1346,8 +1347,15 @@ class html5C {
 			// 装飾データ
 			$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::DECO_CSS_VAL_STR);
 			if($kwdPos >= 0) {
-				$cssStr = $this->setCssStr($decoVal);
+				$cssStr = $this->setDecorationCssStr($decoVal);
 				$ret[] = str_replace(templateConst5C::DECO_CSS_VAL_STR ,$cssStr ,$line1);
+				continue;
+			}
+
+			$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::ALBUM_CSS_VAL_STR);
+			if($kwdPos >= 0) {
+				$cssStr = $this->setAlbumDecoCssStr($decoVal);
+				$ret[] = str_replace(templateConst5C::ALBUM_CSS_VAL_STR ,$cssStr ,$line1);
 				continue;
 			}
 
@@ -1362,11 +1370,12 @@ class html5C {
 	}
 
 
-	private function setCssStr($decoVal) {
+	private function setDecorationCssStr($decoVal) {
 
 		$ret = '';
 
 		$use = $decoVal['USE'];
+		// 画像を使用するとき
 		if(strcmp($use ,'I') == 0) {
 			$imgDir  = 'img/' . $this->branchNo . '/DECO/';
 			$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
@@ -1398,8 +1407,79 @@ class html5C {
 			}
 		}
 
+		// 色を使用するとき
 		if(strcmp($use ,'C') == 0) {
-			$ret = 'body {background-color:' . $decoVal['COLOR'] .  ';}';
+			$lineBreak = common5C::CSRC_NL_CODE;
+
+			// 指定色の明るさ
+			$brightness = funcs5C::getBrightness($decoVal['COLOR']);
+			// 明るさを反転反転
+			$reverse = 255 - $brightness;
+			$dec = dechex($reverse);
+
+			$ret =
+				'body {background-color:' . $decoVal['COLOR'] .  ';}' . $lineBreak .
+				'* {color:#' . $dec . $dec . $dec . ';}' . $lineBreak .
+				'a {color:#' . $dec . $dec . $dec . ';}';
+		}
+
+		return $ret;
+	}
+
+
+	private function setAlbumDecoCssStr($decoVal) {
+
+		$ret = '';
+
+		$use = $decoVal['USE'];
+		// 画像を使用するとき
+		if(strcmp($use ,'I') == 0) {
+			$imgDir  = 'img/' . $this->branchNo . '/DECO/';
+			$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
+
+			$imgList = $decoVal['IMGLIST'];
+			$imgMax = count($imgList);
+
+			//画像番号のファイルの有無を調べる
+			$fileExist  = false;
+			for($imgIdx=0 ;$imgIdx<$imgMax ;$imgIdx++) {
+				$img1 = $imgList[$imgIdx];
+				if($decoVal['IMGNO'] == $img1[dbImage5C::FLD_IMG_NO]) {
+					$ext = $img1[dbImage5C::FLD_ORG_EXT];
+					$imgFullPath = $imgRoot . $decoVal['IMGNO'] . '.' . $ext;
+					$imgDispPath = $imgDir  . $decoVal['IMGNO'] . '.' . $ext;
+					if(is_file($imgFullPath)) {
+						$fileExist = true;
+						break;
+					}
+				}
+			}
+
+			//画像ファイルがあればtrue
+			if($fileExist) {
+				$imgDispPath = '../' . $imgDispPath;
+				$ret = 'body {background-image:url(' . $imgDispPath .  ');}';
+			} else {
+				$ret = '';
+			}
+		}
+
+		// 色を使用するとき
+		if(strcmp($use ,'C') == 0) {
+			$lineBreak = common5C::CSRC_NL_CODE;
+
+			// 指定色の明るさ
+			$brightness = funcs5C::getBrightness($decoVal['COLOR']);
+			// 明るさを反転反転
+			$reverse = 255 - $brightness;
+			$dec = dechex($reverse);
+
+			$ret =
+				'div.thumbnail {' . $lineBreak .
+				'  background-color:' . $decoVal['COLOR'] . ';' . $lineBreak .
+				'}' . $lineBreak .
+				'* {color:#' . $dec . $dec . $dec . ';}' . $lineBreak .
+				'a {color:#' . $dec . $dec . $dec . ';}';
 		}
 
 		return $ret;
@@ -1786,8 +1866,6 @@ class html5C {
 
 		return $imgPath;
 	}
-
-
 
 
 /**

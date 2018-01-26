@@ -111,5 +111,31 @@ class funcs5C {
 
 		return $ret;
 	}
+
+/**
+ * 色の明るさの取得
+ *
+ * @access
+ * @param string $color #から始まる7桁のカラーコード
+ * @return int 明るさ(0～255)
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	function getBrightness($color) {
+
+		$r = substr($color ,1 ,2);
+		$g = substr($color ,3 ,2);
+		$b = substr($color ,5 ,2);
+
+		$rDec = hexdec($r);
+		$gDec = hexdec($g);
+		$bDec = hexdec($b);
+
+		$brightness = $rDec * 0.21 + $gDec * 0.72 + $bDec * 0.07;
+
+		return $brightness;
+	}
 }
 ?>

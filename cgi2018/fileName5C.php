@@ -66,6 +66,7 @@ class fileName5C {
 
 		'COMMON_CSS'    => array('css2018/' ,'branchCommon' ,'css') ,
 		'TOP_CSS'       => array('css2018/' ,'branchTop'    ,'css') ,
+		'ALBUM_CSS'     => array('css2018/' ,'branchAlbum'  ,'css') ,
 */
 
 		// ページファイルのテスト用
@@ -86,6 +87,7 @@ class fileName5C {
 
 		'COMMON_CSS'    => array('css2018/' ,'branchCommon' ,'css') ,
 		'TOP_CSS'       => array('css2018/' ,'branchTop'    ,'css') ,
+		'ALBUM_CSS'     => array('css2018/' ,'branchAlbum'  ,'css') ,
 
 		// テンプレートファイル
 		'404_TEMPLATE'           => array('' ,'404TEMPLATE'       ) ,
@@ -107,7 +109,8 @@ class fileName5C {
 		'PROFILE_TEMPLATE'  => array('profile2018/' ,'profileTEMPLATE') ,
 
 		'COMMON_CSS_TEMPLATE' => array('css2018/' ,'branchCommonTEMPLATE' ,'css') ,
-		'TOP_CSS_TEMPLATE'    => array('css2018/' ,'branchTopTEMPLATE'    ,'css')
+		'TOP_CSS_TEMPLATE'    => array('css2018/' ,'branchTopTEMPLATE'    ,'css') ,
+		'ALBUM_CSS_TEMPLATE'  => array('css2018/' ,'branchAlbumTEMPLATE'  ,'css')
 	);
 
 

@@ -58,7 +58,8 @@ class siteConst5C {
 		'INDEX'   => 'index.html'   ,
 
 		'COMMON_CSS' => 'branchCommon.css' ,
-		'TOP_CSS'    => 'branchTop.css'
+		'TOP_CSS'    => 'branchTop.css'    ,
+		'ALBUM_CSS'  => 'branchAlbum.css'
 	);
 
 	static $outItem = array(		// ファイル出力の有無
@@ -71,7 +72,8 @@ class siteConst5C {
 		'INDEX'   => false ,
 
 		'COMMON_CSS' => false ,
-		'TOP_CSS'    => false
+		'TOP_CSS'    => false ,
+		'ALBUM_CSS'  => false
 	);
 
 	static $menuStr = array(		// メニューバーの表示文字列
@@ -80,7 +82,7 @@ class siteConst5C {
 		'RECRUIT' => '求人'     ,
 		'SYSTEM'  => 'システム' ,
 		'TOP'     => 'TOP'      ,
-		'PHOTODIARY' => '写メ日記'      ,
+		'PHOTODIARY' => '写メ日記' ,
 		'INDEX'   => 'メニュー'
 	);
 
