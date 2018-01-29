@@ -133,7 +133,7 @@
   <!-- ニュース -->
   <div id="tabsNews" class="tabArea">
     <div id="tabNewsUsePage" class="resetFloat">
-      使用するニュースページ<br>
+      <div class="sheetTitle">使用するニュースページ</div>
       <div class="selectPage">
         <label><input type="radio" name="useNews" id="useNewsOther" value="OTHER_SITE">外部</label><input type="text" name="newsOuterURL" id="newsOuterURL" class="outerURL"><br>
         <label><input type="radio" name="useNews" id="useNewsOwn" value="OWN_SITE">内部</label>
@@ -145,6 +145,7 @@
     <hr>
 
     <div id="tabNewsMain">
+      <div class="sheetTitle">現在のニュース</div>
       <div id="tabNewsTop">
         <input type="button" value="新規ニュース" onclick="newNews()">&nbsp;&nbsp;
         <input type="button" value="定型文編集" onclick="editFixPhrase()">
@@ -170,7 +171,7 @@
   <!-- プロファイル -->
   <div id="tabsProfile" class="tabArea">
     <div id="tabProfileUsePage" class="resetFloat">
-      使用するプロファイルページ<br>
+      <div class="sheetTitle">使用するプロファイルページ</div>
       <div class="selectPage">
         <label><input type="radio" name="useProfile" id="useProfileOther" value="OTHER_SITE">外部</label><input type="text" name="profileOuterURL" id="profileOuterURL" class="outerURL"><br>
         <label><input type="radio" name="useProfile" id="useProfileOwn" value="OWN_SITE">内部</label>
@@ -182,6 +183,7 @@
     <hr>
 
     <div id="tabProfMain">
+      <div class="sheetTitle">プロファイル一覧</div>
       <div id="tabProfTop">
         <input type="button" value="新規プロファイル" onclick="newProf()"><br><br>
       </div>
@@ -207,7 +209,7 @@
   <!-- システム -->
   <div id="tabsSystem" class="tabArea">
     <div id="tabSystemUsePage" class="resetFloat">
-      使用するシステムページ<br>
+      <div class="sheetTitle">使用するシステムページ</div>
       <div class="selectPage">
         <label><input type="radio" name="useSystemPage" id="useSystemPageOther" value="OTHER_SITE">外部</label><input type="text" name="systemOuterURL" id="systemOuterURL" class="outerURL"><br>
         <label><input type="radio" name="useSystemPage" id="useSystemPageOwn" value="OWN_SITE">内部</label>
@@ -219,6 +221,7 @@
     <hr>
 
     <div id="tabSystemMain">
+      <div class="sheetTitle">システムページの内容</div>
       <div id="tabSystemTop">
         システム内容<span class="required">*</span>
       </div>
@@ -239,7 +242,7 @@
   <!-- 求人 -->
   <div id="tabsRecruit" class="tabArea">
     <div id="tabRecruitUsePage" class="resetFloat">
-      使用する求人ページ<br>
+      <div class="sheetTitle">使用する求人ページ</div>
       <div class="selectPage">
         <label><input type="radio" name="useRecruitPage" id="useRecruitPageOther" value="OTHER_SITE">外部</label><input type="text" name="recruitOuterURL" id="recruitOuterURL" class="outerURL"><br>
         <label><input type="radio" name="useRecruitPage" id="useRecruitPageOwn" value="OWN_SITE">内部</label>
@@ -251,6 +254,7 @@
     <hr>
 
     <div id="tabRecruitMain">
+      <div class="sheetTitle">求人ページの内容</div>
       <div id="tabRecruitTop">
         求人内容<span class="required">*</span>
       </div>
@@ -272,7 +276,7 @@
   <!-- 写メ日記 -->
   <div id="tabsPhotoDiary" class="tabArea">
     <div id="tabPhotoDiaryUsePage" class="resetFloat">
-      使用する写メ日記ページ<br>
+      <div class="sheetTitle">使用する写メ日記ページ</div>
       <div class="selectPage">
         <label><input type="radio" name="usePhotoDiaryPage" id="usePhotoDiaryPageOther" value="OTHER_SITE">外部</label><input type="text" name="photoDiaryOuterURL" id="photoDiaryOuterURL" class="outerURL"><br>
         <label><input type="radio" name="usePhotoDiaryPage" id="usePhotoDiaryPageOwn" value="OWN_SITE" disabled="disabled">内部</label>
@@ -288,9 +292,7 @@
   <!-- ヘッダ -->
   <div id="tabsHeader" class="tabArea">
     <div class="tabHeaderEnter">
-      <div id="tabHeaderTop">
-        TOP
-      </div>
+      <div class="sheetTitle">TOP</div>
       <div id="tabHeaderTopMid" class="tabMid">
         <table class="headerImgSele">
           <thead>
@@ -330,9 +332,7 @@
     </div>
 
     <div class="tabHeaderEnter">
-      <div id="tabHeaderOther">
-        TOP以外
-      </div>
+      <div class="sheetTitle">TOP以外</div>
       <div id="tabHeaderOtherMid" class="tabMid">
         <table class="headerOtherImgSele">
           <thead>
@@ -361,61 +361,48 @@
   <!-- TOP -->
   <div id="tabsTop" class="tabArea">
     <div class="tabTopImgEnter">
-      <div id="tabTopSystem">
-        システム
-      </div>
       <div id="tabTopSystemMid" class="tabMid">
+        <div class="sheetTitle">画像</div>
         <table class="topSystemImgSele">
           <thead>
             <tr>
-              <th class="topSystemImgTN">画像ファイル</th>
-              <th class="topSystemImgDisp">表示</th>
+              <th>区分</th>
+              <th>現在の画像</th>
+              <th></th>
+              <th>表示</th>
             </tr>
           </thead>
           <tbody id="topSystemImgList">
             <tr id="topSystemImgT">
+              <td class="topSystemImgTN">システム</td>
               <td class="topSystemImgTN" id="topSystemImgTN">aaa</td>
               <td class="topSystemImgSele"><input type="button" value="画像選択" name="attTopSystemImg" id="attTopSystemImg" onclick="showSeleImg('TOP' ,'SYSTEM')"></td>
               <td class="topImgDisp"><input type="checkbox" name="useTopSystemImg" id="useTopSystemImg" class="useTopImg" value="U"></td>
             </tr>
-          </tbody>
-        </table>
-        <input type="hidden" id="topSystemImg" value="">
-      </div>
 
-      <div id="tabTopRecruit">
-        求人
-      </div>
-      <div id="tabTopRecruitMid" class="tabMid">
-        <table class="topRecruitImgSele">
-          <thead>
-            <tr>
-              <th class="topRecruitImgTN">画像ファイル</th>
-              <th class="topRecruitImgDisp">表示</th>
-            </tr>
-          </thead>
-          <tbody id="topRecruitImgList">
             <tr id="topRecruitImgT">
+              <td class="topSystemImgTN">求人</td>
               <td class="topRecruitImgTN" id="topRecruitImgTN">aaa</td>
               <td class="topRecruitImgSele"><input type="button" value="画像選択" name="attTopRecruitImg" id="attTopRecruitImg" onclick="showSeleImg('TOP' ,'RECRUIT')"></td>
               <td class="topImgDisp"><input type="checkbox" name="useTopRecruitImg" id="useTopRecruitImg" class="useTopImg" value="U"></td>
             </tr>
           </tbody>
         </table>
-        <input type="hidden" id="topRecruitImg" value="">
+        <input type="hidden" id="topSystemImg" value="">
+        <input type="hidden" id="topSystemImg" value="">
       </div>
 
       <hr>
-      区画<br>
+      <div class="sheetTitle">区画</div>
       <table>
         <tr>
-          <td>タイトル文字色</td><td><input type="color" id="areaTitleStr" name="areaTitleStr"></td>
+          <th>タイトル文字色</th><td><input type="color" id="areaTitleStr" name="areaTitleStr"></td>
         </tr>
         <tr>
-          <td>タイトル背景色</td><td><input type="color" id="areaTitleBG" name="areaTitleBG"></td>
+          <th>タイトル背景色</th><td><input type="color" id="areaTitleBG" name="areaTitleBG"></td>
         </tr>
         <tr>
-          <td>区画背景色</td><td><input type="color" id="areaBG" name="areaBG"></td>
+          <th>区画背景色</th><td><input type="color" id="areaBG" name="areaBG"></td>
         </tr>
       </table>
     </div>
@@ -429,22 +416,16 @@
   <!-- 装飾 -->
   <div id="tabsDecoration" class="tabArea">
     <div id="tabRecruitUsePage" class="resetFloat">
-      ページ背景<br>
+      <div class="sheetTitle">ページ背景</div>
       <div class="selectPage">
         <label><input type="radio" name="usePageBG" id="usePageBGNotuse" value="N">使用しない</label>&nbsp;&nbsp;&nbsp;
         <label><input type="radio" name="usePageBG" id="usePageBGColor"  value="C">色</label><input type="color" id="pageBGColor" name="pageBGColor">&nbsp;&nbsp;&nbsp;
         <label><input type="radio" name="usePageBG" id="usePageBGImage"  value="I">画像</label>
 
         <table class="decoBGImgSele">
-          <thead>
-            <tr>
-              <th class="decoBGImgTN">画像ファイル</th>
-              <th class="decoBGImgDisp">表示</th>
-            </tr>
-          </thead>
           <tbody id="decoBGImgList">
             <tr id="decoBGImg">
-              <td class="decoBGImgTN" id="decoBGImgTN">aaa</td>
+              <td class="decoBGImgTN" id="decoBGImgTN"></td>
               <td class="decoBGImgSele"><input type="button" value="画像選択" name="attDecoBGImg" id="attDecoBGImg" onclick="showSeleImg('ALL_BG')"></td>
             </tr>
           </tbody>
@@ -487,13 +468,15 @@
   <!-- サイドバー -->
   <div id="tabsSideBar" class="tabArea">
     <div class="tabSideBarImgEnter">
+      <div class="sheetTitle">表示する内容</div>
       <div id="tabSideBarImg1Mid" class="tabMid">
         <table class="sideBarImgSele">
           <thead>
             <tr>
-              <th class="sideBarImgTN">画像区分</th>
-              <th class="sideBarImgTN">ファイル</th>
-              <th class="sideBarImgDisp">表示</th>
+              <th>画像区分</th>
+              <th>現在の画像</th>
+              <th></th>
+              <th>表示</th>
             </tr>
           </thead>
           <tbody id="sideBarSystemImgList">
