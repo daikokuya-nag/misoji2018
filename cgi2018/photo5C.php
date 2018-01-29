@@ -162,13 +162,15 @@ class photo5C {
  * @access
  * @param string $dir プロファイル識別
  * @param string $imgID 写真識別
- * @return boolean 写真ファイルの有無
+ * @return boolean 写真ファイル名
  * @link
  * @see
  * @throws
  * @todo
  */
-	function isExistImgFile($dir ,$imgID) {
+	function existImgFile($dir ,$imgID) {
+
+		$ret = '';
 
 		$photoDir = self::photoDir($dir);			// そのプロファイルの写真のrootディレクトリ
 		$extID    = $this->extList[$dir][$imgID];	// その写真の拡張子
@@ -176,9 +178,20 @@ class photo5C {
 		$photoFileName = $photoDir . '/' . $dir . $imgID . '.' . $extID;
 						//print 'photo file name:' . $photoFileName . "\n";
 		if(is_file($photoFileName)) {
-			$ret = true;
+			$ret = $dir . $imgID;
 		} else {
-			$ret = false;
+			// 新版がなければ旧版を探す
+			if(strcmp($imgID ,'TN') == 0) {
+				$fileName = 'thumbNail';
+			} else {
+				$fileName = 'largePhoto' . $imgID;
+			}
+
+			$photoFileName = $photoDir . '/' . $fileName . '.' . $extID;
+						//print 'photo file name:' . $photoFileName . "\n";
+			if(is_file($photoFileName)) {
+				$ret = $fileName;
+			}
 		}
 
 		return $ret;
@@ -210,18 +223,20 @@ class photo5C {
 				if(isset($this->useList[$dir][$photoID])) {
 					$use = $this->useList[$dir][$photoID];
 				}
-				$exist = $this->isExistImgFile($dir ,$photoID);		// 写真ファイルの有無
+				$exist = $this->existImgFile($dir ,$photoID);		// 写真ファイルの有無
 
-				if($use && $exist) {
-					$ret[$photoID] = dbProfile5C::PHOTO_SHOW_OK;	// 写真ファイルがあり、使用/非使用が使用であれば　表示可
+				if($use && strlen($exist) >= 1) {
+					$ret[$photoID]['cond'] = dbProfile5C::PHOTO_SHOW_OK;	// 写真ファイルがあり、使用/非使用が使用であれば　表示可
+					$ret[$photoID]['fileName'] = $exist;
+							//$ret[$photoID]['style'   ] = 'style="width:110px;"';
 				} else {
-					$ret[$photoID] = dbProfile5C::PHOTO_SHOW_NOT;	// 写真ファイルがない、または使用/非使用が非使用であれば　写真ナシ
+					$ret[$photoID]['cond'] = dbProfile5C::PHOTO_SHOW_NOT;	// 写真ファイルがない、または使用/非使用が非使用であれば　写真ナシ
 				}
 			}
 		} else {
 			// 表示可以外のときは無条件にその状態に設定
 			foreach($imgID as $photoID) {
-				$ret[$photoID] = $showMode;
+				$ret[$photoID]['cond'] = $showMode;
 			}
 		}
 		return $ret;

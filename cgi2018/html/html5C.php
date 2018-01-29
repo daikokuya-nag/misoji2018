@@ -480,19 +480,19 @@ class html5C {
 		$photoUse = $photoVal->getUsePhoto($dir ,$photoID);
 
 		$photoMax = 0;
-		if(strcmp($photoUse['1'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+		if(strcmp($photoUse['1']['cond'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
 			$photoMax++;
 		}
-		if(strcmp($photoUse['2'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+		if(strcmp($photoUse['2']['cond'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
 			$photoMax++;
 		}
-		if(strcmp($photoUse['3'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+		if(strcmp($photoUse['3']['cond'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
 			$photoMax++;
 		}
-		if(strcmp($photoUse['4'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+		if(strcmp($photoUse['4']['cond'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
 			$photoMax++;
 		}
-		if(strcmp($photoUse['5'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+		if(strcmp($photoUse['5']['cond'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
 			$photoMax++;
 		}
 
@@ -552,7 +552,7 @@ class html5C {
 
 			$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_NG);		/* 写真NG */
 			if($kwdPos >= 0) {
-				if(strcmp($photoUse['1'] ,dbProfile5C::PHOTO_SHOW_NG) == 0) {
+				if(strcmp($photoUse['1']['cond'] ,dbProfile5C::PHOTO_SHOW_NG) == 0) {
 					$this->detail1 = str_replace(templateConst5C::KWD_PHOTO_SHOW_NG ,'' ,$this->detail1);
 				} else {
 					//写真NGの行で写真表示指定がNG以外の時はその行を表示しない
@@ -562,7 +562,7 @@ class html5C {
 
 			$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_NP);		/* 写真準備中 */
 			if($kwdPos >= 0) {
-				if(strcmp($photoUse['1'] ,dbProfile5C::PHOTO_SHOW_NP) == 0) {
+				if(strcmp($photoUse['1']['cond'] ,dbProfile5C::PHOTO_SHOW_NP) == 0) {
 					$this->detail1 = str_replace(templateConst5C::KWD_PHOTO_SHOW_NP ,'' ,$this->detail1);
 				} else {
 					//写真準備中の行で写真表示指定が準備中以外の時はその行を表示しない
@@ -572,7 +572,7 @@ class html5C {
 
 			$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_NOT);		/* 写真なし */
 			if($kwdPos >= 0) {
-				if(strcmp($photoUse['1'] ,dbProfile5C::PHOTO_SHOW_NOT) == 0) {
+				if(strcmp($photoUse['1']['cond'] ,dbProfile5C::PHOTO_SHOW_NOT) == 0) {
 					$this->detail1 = str_replace(templateConst5C::KWD_PHOTO_SHOW_NOT ,'' ,$this->detail1);
 				} else {
 					//写真なしの行で写真表示指定が写真ナシ以外の時はその行を表示しない
@@ -607,29 +607,29 @@ class html5C {
 		$photoDir = '../photo/';
 
 		$photoMax = 0;
-		if(strcmp($photoData['1'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+		if(strcmp($photoData['1']['cond'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
 			$photoMax++;
-			$photoList[$photoMax] = '1';
+			$photoList[$photoMax] = $photoData['1']['fileName'];
 			$imgExt[$photoMax] = $profData[dbProfile5C::FLD_PHOTOEXT_1];
 		}
-		if(strcmp($photoData['2'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+		if(strcmp($photoData['2']['cond'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
 			$photoMax++;
-			$photoList[$photoMax] = '2';
+			$photoList[$photoMax] = $photoData['2']['fileName'];
 			$imgExt[$photoMax] = $profData[dbProfile5C::FLD_PHOTOEXT_2];
 		}
-		if(strcmp($photoData['3'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+		if(strcmp($photoData['3']['cond'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
 			$photoMax++;
-			$photoList[$photoMax] = '3';
+			$photoList[$photoMax] = $photoData['3']['fileName'];
 			$imgExt[$photoMax] = $profData[dbProfile5C::FLD_PHOTOEXT_3];
 		}
-		if(strcmp($photoData['4'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+		if(strcmp($photoData['4']['cond'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
 			$photoMax++;
-			$photoList[$photoMax] = '4';
+			$photoList[$photoMax] = $photoData['4']['fileName'];
 			$imgExt[$photoMax] = $profData[dbProfile5C::FLD_PHOTOEXT_4];
 		}
-		if(strcmp($photoData['5'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+		if(strcmp($photoData['5']['cond'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
 			$photoMax++;
-			$photoList[$photoMax] = '5';
+			$photoList[$photoMax] = $photoData['5']['fileName'];
 			$imgExt[$photoMax] = $profData[dbProfile5C::FLD_PHOTOEXT_5];
 		}
 
@@ -639,7 +639,7 @@ class html5C {
 			$ret = '';
 		} else {
 			if($photoMax == 1) {
-				$imgFileName = $photoDir . $profID . '/' . $profID . $photoList[1] . '.' . $imgExt[1];
+				$imgFileName = $photoDir . $profID . '/' . $photoList[1] . '.' . $imgExt[1];
 				$ret = '<div class="item"><img src="' . $imgFileName . '" alt="" class="center-block img-responsive"></div>';
 			} else {
 				$retA = '<div id="carousel1" class="carousel slide center-block" data-ride="carousel">' .
@@ -650,7 +650,7 @@ class html5C {
 				$retC = '</ol>' .
 						'<div class="carousel-inner" role="listbox">';
 
-				$imgFileName = $photoDir . $profID . '/' . $profID . $photoList[1] . '.' . $imgExt[1];
+				$imgFileName = $photoDir . $profID . '/' . $photoList[1] . '.' . $imgExt[1];
 				$retD = '<div class="item active"><img src="' . $imgFileName . '" alt="" class="center-block img-responsive"></div>';
 
 				$retE = '</div>' .
@@ -660,7 +660,7 @@ class html5C {
 
 				for($photoCnt=2 ;$photoCnt<=$photoMax ;$photoCnt++) {
 					$slideCnt = $photoCnt - 1;
-					$imgFileName = $photoDir . $profID . '/' . $profID . $photoList[$photoCnt] . '.' . $imgExt[$photoCnt];
+					$imgFileName = $photoDir . $profID . '/' . $photoList[$photoCnt] . '.' . $imgExt[$photoCnt];
 
 					$retB = $retB . '<li data-target="#carousel1" data-slide-to="' . $slideCnt . '"></li>';
 					$retD = $retD . '<div class="item"><img src="' . $imgFileName . '" alt="" class="center-block img-responsive"></div>';
@@ -828,6 +828,10 @@ class html5C {
 			//サムネイル表示判定
 			$photoUse = $photoVal->getUsePhoto($dir ,$photoID);
 
+			$tnCond      = $photoUse['TN']['cond'];
+			$tnFileName  = $photoUse['TN']['fileName'];
+					//$tnDispStyle = $photoUse['TN']['style'];
+
 			//出力タグへ変換
 			$tagStr = '';
 			for($detailIdx=0 ;$detailIdx<$detailMax ;$detailIdx++) {
@@ -837,12 +841,15 @@ class html5C {
 				$this->replaceStr(templateConst5C::KWD_PROF_DIR_S ,$dir);		//ディレクトリ
 				$this->replaceStr(templateConst5C::KWD_NEW_FACE_S ,$newFace);	//新人印
 
+				$this->replaceStr(templateConst5C::KWD_PROF_TN_FILE_NAME_S       ,$tnFileName);		//サムネイルファイル名
+						//$this->replaceStr(templateConst5C::KWD_PROF_TN_FILE_DISP_STYLE_S ,$tnDispStyle);	//サムネイル表示画素数のstyle
+
 				$this->replaceStr('WIVES_TN' ,$TNNo);
 
 				//写真表示
 				$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_OK);		/* 表示可 */
 				if($kwdPos >= 0) {
-					if(strcmp($photoUse['TN'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
+					if(strcmp($tnCond ,dbProfile5C::PHOTO_SHOW_OK) == 0) {
 						$this->detail1 = str_replace(templateConst5C::KWD_PHOTO_SHOW_OK ,'' ,$this->detail1);
 					} else {
 						//写真可の行で写真表示指定が可以外の時はその行を表示しない
@@ -852,7 +859,7 @@ class html5C {
 
 				$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_NG);		/* 写真NG */
 				if($kwdPos >= 0) {
-					if(strcmp($photoUse['TN'] ,dbProfile5C::PHOTO_SHOW_NG) == 0) {
+					if(strcmp($tnCond ,dbProfile5C::PHOTO_SHOW_NG) == 0) {
 						$this->detail1 = str_replace(templateConst5C::KWD_PHOTO_SHOW_NG ,'' ,$this->detail1);
 					} else {
 						//写真NGの行で写真表示指定がNG以外の時はその行を表示しない
@@ -862,7 +869,7 @@ class html5C {
 
 				$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_NP);		/* 写真準備中 */
 				if($kwdPos >= 0) {
-					if(strcmp($photoUse['TN'] ,dbProfile5C::PHOTO_SHOW_NP) == 0) {
+					if(strcmp($tnCond ,dbProfile5C::PHOTO_SHOW_NP) == 0) {
 						$this->detail1 = str_replace(templateConst5C::KWD_PHOTO_SHOW_NP ,'' ,$this->detail1);
 					} else {
 						//写真準備中の行で写真表示指定が準備中以外の時はその行を表示しない
@@ -872,7 +879,7 @@ class html5C {
 
 				$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_NOT);		/* 写真なし */
 				if($kwdPos >= 0) {
-					if(strcmp($photoUse['TN'] ,dbProfile5C::PHOTO_SHOW_NOT) == 0) {
+					if(strcmp($tnCond ,dbProfile5C::PHOTO_SHOW_NOT) == 0) {
 						$this->detail1 = str_replace(templateConst5C::KWD_PHOTO_SHOW_NOT ,'' ,$this->detail1);
 					} else {
 						//写真なしの行で写真表示指定が写真ナシ以外の時はその行を表示しない

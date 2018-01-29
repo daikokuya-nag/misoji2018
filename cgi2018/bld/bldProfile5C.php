@@ -189,7 +189,7 @@ class bldProfile5C {
 		$photoVal = $photo->getUsePhoto($profID ,array('TN'));
 
 		/* 写真 */
-		$photoUse = $photoVal['TN'];
+		$photoUse = $photoVal['TN']['cond'];
 
 		$photoFile = '../photo/tnNP.jpg';
 		if(strcmp($photoUse ,dbProfile5C::PHOTO_SHOW_NG ) == 0) {	/* NG */
@@ -197,7 +197,9 @@ class bldProfile5C {
 		}
 		if(strcmp($photoUse ,dbProfile5C::PHOTO_SHOW_OK ) == 0) {
 			$photoInfo = $photo->getPhotoInfo($profID ,'TN');
-			$photoFile = '../photo/' . $profID . '/' . $profID . 'TN' . '.' . $photoInfo['EXT'];
+
+			$fileName = $photoVal['TN']['fileName'];
+			$photoFile = '../photo/' . $profID . '/' . $fileName . '.' . $photoInfo['EXT'];
 		}
 		if(strcmp($photoUse ,dbProfile5C::PHOTO_SHOW_NP ) == 0) {	/* 準備中 */
 			$photoFile = '../photo/tnNP.jpg';

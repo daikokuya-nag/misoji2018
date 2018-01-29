@@ -185,6 +185,8 @@ class templateConst5C {
 	const KWD_PHOTO_SELE_NO_S  = '<!-- PROF_PHOTO_SELE_NO -->';		// 写真Noの選択
 	const KWD_PHOTO_SELE_BTN_S = '<!-- PROF_PHOTO_SELE_BTN -->';	// 写真選択ボタン
 
+	const KWD_PROF_TN_FILE_NAME_S  = '<!-- PROF_TN_FILE_NAME -->';			// サムネイルファイル名
+	const KWD_PROF_TN_FILE_DISP_STYLE_S  = '<!-- PROF_TN_FILE_DISP_STYLE -->';			// サムネイル表示画素数のstyle
 	const KWD_PHOTOEXT_S_S = '<!-- PROF_PHOTOEXT_S -->';			// サムネイル拡張子
 
 
