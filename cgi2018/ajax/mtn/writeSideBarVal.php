@@ -22,7 +22,7 @@ PHP5
 
 		$pageParam = new dbPageParam5C();
 		setTopPageParam($pageParam ,'img1' ,$pos ,'useSideBarImg1' ,'IMG1');
-		setTopPageParam($pageParam ,'img2' ,$pos ,'useSideBarImg2' ,'IMG1');
+		setTopPageParam($pageParam ,'img2' ,$pos ,'useSideBarImg2' ,'IMG2');
 	}
 
 	$ret['SESSCOND'] = $cond;

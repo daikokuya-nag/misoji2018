@@ -98,6 +98,8 @@ var result = $.ajax({
 					//console.debug('reset2');
 			showWorkerXS(width ,workersNum);
 		}
+
+		setSidebarHeight();
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {
@@ -125,4 +127,14 @@ var switchDelay = 5000;
 	setInterval(function(){
 		$(setImg + ' :first-child').animate({opacity:'0'},fadeSpeed).next('img').animate({opacity:'1'},fadeSpeed).end().appendTo(setImg);
 	},switchDelay);
+}
+
+function setSidebarHeight() {
+
+var heightMain = $("#mainArea").height();
+var heightSide;
+
+console.debug(heightMain);
+
+	$("#sideBar").height(heightMain - 6);
 }
