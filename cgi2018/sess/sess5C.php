@@ -117,9 +117,8 @@ class sess5C {
 		}
 
 		$format    = 'Y' . dateTime5C::DATE_SEP . 'm' . dateTime5C::DATE_SEP . 'd' . ' ' . 'H' . dateTime5C::TIME_SEP . 'i' . dateTime5C::TIME_SEP . 's';
-		$timestamp = strtotime('-30 minute');	/* -10 minute */
+		$timestamp = strtotime('-10 minute');	/* -10 minute */
 		$currDT    = date($format, $timestamp);
-
 
 		$str = $sessID . self::SEPT . $currDT;
 
@@ -160,7 +159,7 @@ class sess5C {
 		}
 
 		if(!$mtnMode) {
-			$timestamp = strtotime('+30 minute');
+			$timestamp = strtotime('+10 minute');
 			$format    = 'Y' . dateTime5C::DATE_SEP . 'm' . dateTime5C::DATE_SEP . 'd' . ' ' . 'H' . dateTime5C::TIME_SEP . 'i' . dateTime5C::TIME_SEP . 's';
 			$currDT    = date($format, $timestamp);
 

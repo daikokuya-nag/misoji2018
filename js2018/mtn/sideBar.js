@@ -149,17 +149,17 @@ var result = $.ajax({
 	result.done(function(response) {
 					console.debug(response);
 
-//		if(response['SESSCOND'] == SESS_OWN_INTIME) {
+		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			selectWriteFile('TOP');		//出力対象ファイルの抽出→ファイル出力
-//		} else {
-//			jAlert(
-//				TIMEOUT_MSG_STR ,
-//				TIMEOUT_MSG_TITLE ,
-//				function() {
-//					location.href = 'login.html';
-//				}
-//			);
-//		}
+		} else {
+			jAlert(
+				TIMEOUT_MSG_STR ,
+				TIMEOUT_MSG_TITLE ,
+				function() {
+					location.href = 'login.html';
+				}
+			);
+		}
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {
