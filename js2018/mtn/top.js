@@ -36,8 +36,11 @@ var result = $.ajax({
 	result.done(function(response) {
 					console.debug(response);
 
-		setTopImg(response['system' ] ,response['extList'] ,'SYSTEM');
-		setTopImg(response['recruit'] ,response['extList'] ,'RECRUIT');
+		setTopImg(response['system' ]['img'] ,response['extList'] ,'SYSTEM');
+		setTopImg(response['recruit']['img'] ,response['extList'] ,'RECRUIT');
+
+		$('#topSystemStr' ).val(response['system' ]['str']);
+		$('#topRecruitStr').val(response['recruit']['str']);
 
 		setTopArea(response['area']);
 
@@ -146,9 +149,13 @@ var titleColor   = $("#areaTitleStr").val();
 var titleBGColor = $("#areaTitleBG" ).val();
 var areaBGColor  = $("#areaBG"      ).val();
 
+var systemStr  = $('#topSystemStr' ).val();
+var recruitStr = $('#topRecruitStr').val();
+
 var dispSW   = $(".useTopImg").serialize();
 var sendData = dispSW + '&branchNo=' + BRANCH_NO + '&system=' + seleSystem + '&recruit=' + seleRecruit +
-				'&titleColor=' +  titleColor + '&titleBGColor=' + titleBGColor + '&areaBGColor=' +  areaBGColor;
+				'&titleColor=' +  titleColor + '&titleBGColor=' + titleBGColor + '&areaBGColor=' +  areaBGColor +
+				'&systemStr=' + systemStr + '&recruitStr=' + recruitStr;
 
 console.debug(sendData);
 

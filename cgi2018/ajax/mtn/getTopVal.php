@@ -30,7 +30,11 @@ PHP5
 
 		$pageVals = $pageParam->readAll($branchNo ,'TOP' ,$obj);
 
-		$ret['pageVal'] = $pageVals['pageVal'][0];
+		// 文言
+		$ret['str'] = $pageVals['pageVal'][0]['value4'];
+
+		// 画像
+		$ret['img']['pageVal'] = $pageVals['pageVal'][0];
 
 		//画像ファイルの有無
 		$imgNo = $pageVals['pageVal'][0]['value3'];
@@ -58,7 +62,7 @@ PHP5
 		} else {
 			$fileExist = $fileExist . '0';
 		}
-		$ret['fileExist'] = $fileExist;
+		$ret['img']['fileExist'] = $fileExist;
 
 		return $ret;
 	}

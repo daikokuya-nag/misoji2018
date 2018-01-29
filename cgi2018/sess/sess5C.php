@@ -429,9 +429,10 @@ class sess5C {
 				$dbVal = $db->readAll($branchNo ,'TOP' ,'RECRUIT');
 
 				$dbVal1 = $dbVal['pageVal'][0];
-				$valTmpB['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-				$valTmpB['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-				$valTmpB['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+				$valTmpB['SEQ'   ] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+				$valTmpB['USE'   ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+				$valTmpB['NO'    ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+				$valTmpB['STRING'] = $dbVal1[dbPageParam5C::FLD_VALUE4];
 
 				$handle = $db->getHandle();
 				$dbImgList = new dbImage5C($handle);
@@ -449,9 +450,10 @@ class sess5C {
 				$dbVal = $db->readAll($branchNo ,'TOP' ,'SYSTEM');
 
 				$dbVal1 = $dbVal['pageVal'][0];
-				$valTmpC['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-				$valTmpC['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-				$valTmpC['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+				$valTmpC['SEQ'   ] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+				$valTmpC['USE'   ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+				$valTmpC['NO'    ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+				$valTmpC['STRING'] = $dbVal1[dbPageParam5C::FLD_VALUE4];
 
 				$handle = $db->getHandle();
 				$dbImgList = new dbImage5C($handle);

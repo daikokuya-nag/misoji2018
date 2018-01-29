@@ -1535,6 +1535,10 @@ class html5C {
 						$temp[] = $imgStr;
 					}
 				}
+
+				if(strlen($val['STRING']) >= 1) {
+					$temp[] = '<div class="topAreaStr">' . $val['STRING'] . '</div>';
+				}
 			} else {
 				if(strcmp($line1 ,$this->begValList[$kwd]) == 0
 				|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
@@ -1599,6 +1603,10 @@ class html5C {
 					} else {
 						$temp[] = $imgStr;
 					}
+				}
+
+				if(strlen($val['STRING']) >= 1) {
+					$temp[] = '<div class="topAreaStr">' . $val['STRING'] . '</div>';
 				}
 			} else {
 				if(strcmp($line1 ,$this->begValList[$kwd]) == 0

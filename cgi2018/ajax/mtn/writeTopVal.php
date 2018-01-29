@@ -14,8 +14,8 @@ PHP5
 		sess5C::updSessCond();
 
 		$pageParam = new dbPageParam5C();
-		setTopPageParam($pageParam ,'system'  ,'useTopSystemImg');
-		setTopPageParam($pageParam ,'recruit' ,'useTopRecruitImg');
+		setTopPageParam($pageParam ,'system'  ,'systemStr'  ,'useTopSystemImg');
+		setTopPageParam($pageParam ,'recruit' ,'recruitStr' ,'useTopRecruitImg');
 		setTopPageArea($pageParam ,'AREA');
 	}
 
@@ -23,7 +23,7 @@ PHP5
 	print json_encode($ret);
 
 
-	function setTopPageParam($pageParam ,$obj ,$useObj) {
+	function setTopPageParam($pageParam ,$imgObj ,$strObj ,$useObj) {
 		$branchNo = $_POST['branchNo'];
 
 		//value2 表示/非表示
@@ -34,20 +34,23 @@ PHP5
 		}
 
 		//value3 表示する画像No
-		$value3 = $_POST[$obj];
+		$value3 = $_POST[$imgObj];
+
+		//value4 表示する文言
+		$value4 = $_POST[$strObj];
 
 		$handle = $pageParam->getHandle();
 
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE1 ,'');
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE2 ,$value2);
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE3 ,$value3);
-		$pageParam->setVal(dbPageParam5C::FLD_VALUE4 ,'');
+		$pageParam->setVal(dbPageParam5C::FLD_VALUE4 ,$value4);
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE5 ,'');
 
-		if(strcmp($obj ,'system') == 0) {
+		if(strcmp($imgObj ,'system') == 0) {
 			$dbKey = 'SYSTEM';
 		}
-		if(strcmp($obj ,'recruit') == 0) {
+		if(strcmp($imgObj ,'recruit') == 0) {
 			$dbKey = 'RECRUIT';
 		}
 
