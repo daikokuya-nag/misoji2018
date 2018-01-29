@@ -25,8 +25,11 @@ PHP5
 	$img2    = readSideBarImg($pageParam ,$branchNo ,$extList['extList'] ,$pos ,'IMG2');
 
 	$ret['extList'] = $extList['extList'];
-	$ret['img1'] = $img1;
-	$ret['img2'] = $img2;
+	$ret['img1'] = $img1['img'];
+	$ret['img2'] = $img2['img'];
+
+	$ret['str1'] = $img1['str'];
+	$ret['str2'] = $img2['str'];
 
 	print json_encode($ret);
 
@@ -35,7 +38,11 @@ PHP5
 
 		$pageVals = $pageParam->readAll($branchNo ,'SIDEBAR_' . $pos ,$obj);
 
-		$ret['pageVal'] = $pageVals['pageVal'][0];
+		// 文言
+		$ret['str'] = $pageVals['pageVal'][0]['value4'];
+
+		// 画像
+		$ret['img']['pageVal'] = $pageVals['pageVal'][0];
 
 		//画像ファイルの有無
 		$imgNo = $pageVals['pageVal'][0]['value3'];
@@ -63,7 +70,7 @@ PHP5
 		} else {
 			$fileExist = $fileExist . '0';
 		}
-		$ret['fileExist'] = $fileExist;
+		$ret['img']['fileExist'] = $fileExist;
 
 		return $ret;
 	}

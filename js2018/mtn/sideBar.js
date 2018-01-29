@@ -39,6 +39,9 @@ var result = $.ajax({
 		setSideBarImg(response['img1'] ,response['extList'] ,1);
 		setSideBarImg(response['img2'] ,response['extList'] ,2);
 
+		$('#sideBarStr1').val(response['str1']);
+		$('#sideBarStr2').val(response['str2']);
+
 		$(".useSideBarImg").toggleSwitch();
 	});
 
@@ -127,8 +130,11 @@ function updSideBarImg() {
 var seleImg1 = $('#sideBarImg1').val();
 var seleImg2 = $('#sideBarImg2').val();
 
+var str1 = $('#sideBarStr1').val();
+var str2 = $('#sideBarStr2').val();
+
 var dispSW   = $(".useSideBarImg").serialize();
-var sendData = dispSW + '&branchNo=' + BRANCH_NO + '&img1=' + seleImg1 + '&img2=' + seleImg2;
+var sendData = dispSW + '&branchNo=' + BRANCH_NO + '&img1=' + seleImg1 + '&img2=' + seleImg2 + '&str1=' + str1 + '&str2=' + str2;
 
 console.debug(sendData);
 

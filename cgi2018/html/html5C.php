@@ -1813,11 +1813,17 @@ class html5C {
 				if(strlen($disp) >= 1) {
 					$ret[] = '<img src="' . $disp . '" class="img-responsive center-block">';
 				}
+				if(strlen($val[0]['STRING']) >= 1) {
+					$ret[] = '<div class="sideBarStr">' . $val[0]['STRING'] . '</div>';
+				}
 
 				if(count($val) >= 2) {
 					$disp = $this->setSideBarImg($val[1] ,$val['IMGLIST']);
 					if(strlen($disp) >= 1) {
 						$ret[] = '<img src="' . $disp . '" class="img-responsive center-block">';
+					}
+					if(strlen($val[1]['STRING']) >= 1) {
+						$ret[] = '<div class="sideBarStr">' . $val[1]['STRING'] . '</div>';
 					}
 				}
 			} else {

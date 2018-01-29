@@ -21,15 +21,15 @@ PHP5
 		}
 
 		$pageParam = new dbPageParam5C();
-		setTopPageParam($pageParam ,'img1' ,$pos ,'useSideBarImg1' ,'IMG1');
-		setTopPageParam($pageParam ,'img2' ,$pos ,'useSideBarImg2' ,'IMG2');
+		setTopPageParam($pageParam ,'img1' ,'str1' ,$pos ,'useSideBarImg1' ,'IMG1');
+		setTopPageParam($pageParam ,'img2' ,'str2' ,$pos ,'useSideBarImg2' ,'IMG2');
 	}
 
 	$ret['SESSCOND'] = $cond;
 	print json_encode($ret);
 
 
-	function setTopPageParam($pageParam ,$obj ,$pos ,$useObj ,$dbKey) {
+	function setTopPageParam($pageParam ,$imgObj ,$strObj ,$pos ,$useObj ,$dbKey) {
 		$branchNo = $_POST['branchNo'];
 
 		//value2 表示/非表示
@@ -40,20 +40,23 @@ PHP5
 		}
 
 		//value3 表示する画像No
-		$value3 = $_POST[$obj];
+		$value3 = $_POST[$imgObj];
+
+		//value4 表示する文言
+		$value4 = $_POST[$strObj];
 
 		$handle = $pageParam->getHandle();
 
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE1 ,'');
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE2 ,$value2);
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE3 ,$value3);
-		$pageParam->setVal(dbPageParam5C::FLD_VALUE4 ,'');
+		$pageParam->setVal(dbPageParam5C::FLD_VALUE4 ,$value4);
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE5 ,'');
 
 		$pageID = 'SIDEBAR_' . $pos;
 		$cond = dbPageParam5C::FLD_BRANCH_NO . '=' . $branchNo                  . ' and ' .
 				dbPageParam5C::FLD_PAGE_ID   . '=' . $handle->setQuote($pageID) . ' and ' .
-				dbPageParam5C::FLD_OBJ       . '=' . $handle->setQuote($obj);
+				dbPageParam5C::FLD_OBJ       . '=' . $handle->setQuote($dbKey);
 		$exist = $handle->existRec(dbPageParam5C::TABLE_NAME ,$cond);
 
 		if($exist) {

@@ -489,16 +489,18 @@ class sess5C {
 
 			$dbVal1 = $dbVal['pageVal'][0];
 			$imgVal = array(
-				'USE'   => $dbVal1[dbPageParam5C::FLD_VALUE2] ,
-				'IMGNO' => $dbVal1[dbPageParam5C::FLD_VALUE3]
+				'USE'    => $dbVal1[dbPageParam5C::FLD_VALUE2] ,
+				'IMGNO'  => $dbVal1[dbPageParam5C::FLD_VALUE3] ,
+				'STRING' => $dbVal1[dbPageParam5C::FLD_VALUE4]
 			);
 			$valTmp[0] = $imgVal;
 
 			if(isset($dbVal['pageVal'][1])) {
 				$dbVal1 = $dbVal['pageVal'][1];
 				$imgVal = array(
-					'USE'   => $dbVal1[dbPageParam5C::FLD_VALUE2] ,
-					'IMGNO' => $dbVal1[dbPageParam5C::FLD_VALUE3]
+					'USE'    => $dbVal1[dbPageParam5C::FLD_VALUE2] ,
+					'IMGNO'  => $dbVal1[dbPageParam5C::FLD_VALUE3] ,
+					'STRING' => $dbVal1[dbPageParam5C::FLD_VALUE4]
 				);
 				$valTmp[1] = $imgVal;
 			}
