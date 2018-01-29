@@ -12,9 +12,9 @@ var ID_PREFIX      = {NEWS:'tabsNews'      ,ALBUM:'tabsProfile'     ,RECRUIT:'ta
 var OUTER_URL_FORM = {NEWS:'newsOuterURL'  ,ALBUM:'profileOuterURL' ,RECRUIT:'recruitOuterURL'  ,SYSTEM:'systemOuterURL'  ,PHOTODIARY:'photoDiaryOuterURL'};	// 外部サイトの入力域
 var GRAY_PANEL_ID  = {NEWS:'grayPanelNews' ,ALBUM:'grayPanelProf'   ,RECRUIT:'grayPanelRecruit' ,SYSTEM:'grayPanelSystem' ,PHOTODIARY:'grayPanelPhotoDiary'};	// 外部サイト使用時の、入力不可領域のマスク
 
-var EDIT_AREA        = {NEWS:'tabNewsMain' ,ALBUM:'tabProfMain'     ,RECRUIT:'tabRecruitMain'   ,SYSTEM:'tabSystemMain'   ,PHOTODIARY:'tabSystemMain'};			// 入力項目範囲
-var EDIT_AREA_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0 ,PHOTODIARY:0};		// 入力域の高さ
-var TAB_HEIGHT       = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0 ,PHOTODIARY:0};		// tabの高さ
+var EDIT_AREA        = {NEWS:'tabNewsMain' ,ALBUM:'tabProfMain' ,RECRUIT:'tabRecruitMain' ,SYSTEM:'tabSystemMain' ,PHOTODIARY:'tabSystemMain' ,TOP:'tabTopMain'};			// 入力項目範囲
+var EDIT_AREA_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0 ,PHOTODIARY:0 ,TOP:0};		// 入力域の高さ
+var TAB_HEIGHT       = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0 ,PHOTODIARY:0 ,TOP:0};		// tabの高さ
 
 var DISP_SYSTEM_TAB  = false;	// システムタブを表示したか
 var DISP_RECRUIT_TAB = false;	// 求人タブを表示したか
@@ -39,9 +39,16 @@ var width = $(".tabArea").width();
 
 				// 選択されたタブの初回表示時に高さを定義する
 				var selectedPanel = ui.newPanel.selector;
+
 				if(selectedPanel == "#tabsNews") {
 					if(TAB_HEIGHT['NEWS'] == 0) {
 						setNewsTabHeight();
+					}
+				}
+
+				if(selectedPanel == "#tabsTop") {
+					if(TAB_HEIGHT['TOP'] == 0) {
+						setTopTabHeight();
 					}
 				}
 
@@ -78,7 +85,8 @@ var width = $(".tabArea").width();
 	// 下ボタンの調整
 	$(".tabBottomBtn").width(width + 'px');
 
-	setNewsTabHeight();
+//	setNewsTabHeight();
+	setTopTabHeight();
 
 	// 画像選択
 
@@ -130,6 +138,31 @@ $(window).load(function(){
 
 
 /**
+* TOPパネルの高さ調整
+*
+* @param
+* @return
+*/
+function setTopTabHeight() {
+
+							//console.debug('set news tab height');
+var areaH      = $("#tabsTop").height();			// 領域の高さ
+//var areaSeleH  = $("#tabNewsUsePage").height();		// 使用ページ選択の高さ
+//var areaUpperH = $("#tabNewsUpper").height();		// 上ボタンとタイトルの高さ
+var areaBtmH   = $("#tabTopBottom").height();		// 下ボタンの高さ
+
+var height = areaH - (areaBtmH);
+
+				//console.debug(areaH + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
+	$("#tabTopSystemD").height(height + 'px');
+	TAB_HEIGHT['TOP'] = height;
+
+	height = $("#" + EDIT_AREA['top']).height();
+	EDIT_AREA_HEIGHT['top'] = height;
+}
+
+
+/**
 * 新着情報パネルの高さ調整
 *
 * @param
@@ -138,15 +171,15 @@ $(window).load(function(){
 function setNewsTabHeight() {
 
 							//console.debug('set news tab height');
-var areaH     = $("#tabsNews").height();		// 領域の高さ
-var areaSeleH = $("#tabNewsUsePage").height();	// 使用ページ選択の高さ
-var areaTopH  = $("#tabNewsTop").height();		// 上ボタンの高さ
-var areaBtmH  = $("#tabNewsBottom").height();	// 下ボタンの高さ
+var areaH      = $("#tabsNews").height();			// 領域の高さ
+var areaSeleH  = $("#tabNewsUsePage").height();		// 使用ページ選択の高さ
+var areaUpperH = $("#tabNewsUpper").height();		// 上ボタンとタイトルの高さ
+var areaBtmH   = $("#tabNewsBottom").height();		// 下ボタンの高さ
 
-var height = areaH - (areaSeleH + areaTopH + areaBtmH);
+var height = areaH - (areaSeleH + areaUpperH + areaBtmH);
 var grayPanelID = GRAY_PANEL_ID['news'];
 
-				//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);
+				//console.debug(areaH + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
 	$("#tabNewsMid").height(height + 'px');
 	TAB_HEIGHT['NEWS'] = height;
 
@@ -164,15 +197,15 @@ var grayPanelID = GRAY_PANEL_ID['news'];
 function setProfTabHeight() {
 
 							//console.debug('set prof tab height');
-var areaH     = $("#tabsProfile").height();			//領域の高さ
-var areaSeleH = $("#tabProfileUsePage").height();	//使用ページ選択の高さ
-var areaTopH  = $("#tabProfTop").height();			//上ボタンの高さ
-var areaBtmH  = $("#tabProfBottom").height();		//下ボタンの高さ
+var areaH      = $("#tabsProfile").height();		// 領域の高さ
+var areaSeleH  = $("#tabProfileUsePage").height();	// 使用ページ選択の高さ
+var areaUpperH = $("#tabProfUpper").height();		// 上ボタンとタイトルの高さ
+var areaBtmH   = $("#tabProfBottom").height();		// 下ボタンの高さ
 
-var height = areaH - (areaSeleH + areaTopH + areaBtmH);
+var height = areaH - (areaSeleH + areaUpperH + areaBtmH);
 var grayPanelID = GRAY_PANEL_ID['profile'];
 
-				//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);
+				//console.debug(areaH + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
 	$("#tabProfMid").height(height + 'px');
 	TAB_HEIGHT['ALBUM'] = height;
 

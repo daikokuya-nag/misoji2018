@@ -145,18 +145,22 @@
     <hr>
 
     <div id="tabNewsMain">
-      <div class="sheetTitle">現在のニュース</div>
-      <div id="tabNewsTop">
-        <input type="button" value="新規ニュース" onclick="newNews()">&nbsp;&nbsp;
-        <input type="button" value="定型文編集" onclick="editFixPhrase()">
-        <br><br>
+      <div id="tabNewsUpper">
+        <div class="sheetTitle">現在のニュース</div>
+        <div id="tabNewsTop">
+          <input type="button" value="新規ニュース" onclick="newNews()">&nbsp;&nbsp;
+          <input type="button" value="定型文編集" onclick="editFixPhrase()">
+          <br><br>
+        </div>
       </div>
 
       <div id="tabNewsMid" class="tabMid">
-        <table id="newsList">
-          <thead id="newsListH"></thead>
-          <tbody id="newsListD"></tbody>
-        </table>
+        <div id="tabNewsListD" class="panelScroll">
+          <table id="newsList">
+            <thead id="newsListH"></thead>
+            <tbody id="newsListD"></tbody>
+          </table>
+        </div>
       </div>
     </div>
     <div class="grayPanel" id="grayPanelNews"></div>
@@ -183,9 +187,11 @@
     <hr>
 
     <div id="tabProfMain">
-      <div class="sheetTitle">プロファイル一覧</div>
-      <div id="tabProfTop">
-        <input type="button" value="新規プロファイル" onclick="newProf()"><br><br>
+      <div id="tabProfUpper">
+        <div class="sheetTitle">プロファイル一覧</div>
+        <div id="tabProfTop">
+          <input type="button" value="新規プロファイル" onclick="newProf()"><br><br>
+        </div>
       </div>
 
       <div id="tabProfMid" class="tabMid">
@@ -360,51 +366,55 @@
 
   <!-- TOP -->
   <div id="tabsTop" class="tabArea">
-    <div class="tabTopImgEnter">
-      <div id="tabTopSystemMid" class="tabMid">
-        <div class="sheetTitle">画像</div>
-        <table class="topSystemImgSele">
-          <thead>
-            <tr>
-              <th>区分</th>
-              <th>現在の画像</th>
-              <th></th>
-              <th>表示</th>
-            </tr>
-          </thead>
-          <tbody id="topSystemImgList">
-            <tr id="topSystemImgT">
-              <td class="topSystemImgTN">システム</td>
-              <td class="topSystemImgTN" id="topSystemImgTN">aaa</td>
-              <td class="topSystemImgSele"><input type="button" value="画像選択" name="attTopSystemImg" id="attTopSystemImg" onclick="showSeleImg('TOP' ,'SYSTEM')"></td>
-              <td class="topImgDisp"><input type="checkbox" name="useTopSystemImg" id="useTopSystemImg" class="useTopImg" value="U"></td>
-            </tr>
+    <div class="tabTopImgEnter panelScroll">
+      <div id="tabTopSystemD">
+        <div id="tabTopSystemMid" class="tabMid">
+          <div class="sheetTitle">画像</div>
+          <table class="topSystemImgSele">
+            <thead>
+              <tr>
+                <th>区分</th>
+                <th colspan="2">現在の画像</th>
+                <th>文言</th>
+                <th>表示</th>
+              </tr>
+            </thead>
+            <tbody id="topSystemImgList">
+              <tr id="topSystemImgT">
+                <td class="topSystemImgTN">システム</td>
+                <td class="topSystemImgTN" id="topSystemImgTN"></td>
+                <td class="topSystemImgSele"><input type="button" value="画像選択" name="attTopSystemImg" id="attTopSystemImg" onclick="showSeleImg('TOP' ,'SYSTEM')"></td>
+                <td class="topSystemStr"><input type="text" name="topSystemStr" id="topSystemStr" class="topStr"></td>
+                <td class="topImgDisp"><input type="checkbox" name="useTopSystemImg" id="useTopSystemImg" class="useTopImg" value="U"></td>
+              </tr>
+              <tr><td colspan="5"><hr></td></tr>
+              <tr id="topRecruitImgT">
+                <td class="topSystemImgTN">求人</td>
+                <td class="topRecruitImgTN" id="topRecruitImgTN"></td>
+                <td class="topRecruitImgSele"><input type="button" value="画像選択" name="attTopRecruitImg" id="attTopRecruitImg" onclick="showSeleImg('TOP' ,'RECRUIT')"></td>
+                <td class="topRecruitStr"><input type="text" name="topRecruitStr" id="topRecruitStr" class="topStr"></td>
+                <td class="topImgDisp"><input type="checkbox" name="useTopRecruitImg" id="useTopRecruitImg" class="useTopImg" value="U"></td>
+              </tr>
+            </tbody>
+          </table>
+          <input type="hidden" id="topSystemImg" value="">
+          <input type="hidden" id="topSystemImg" value="">
+        </div>
 
-            <tr id="topRecruitImgT">
-              <td class="topSystemImgTN">求人</td>
-              <td class="topRecruitImgTN" id="topRecruitImgTN">aaa</td>
-              <td class="topRecruitImgSele"><input type="button" value="画像選択" name="attTopRecruitImg" id="attTopRecruitImg" onclick="showSeleImg('TOP' ,'RECRUIT')"></td>
-              <td class="topImgDisp"><input type="checkbox" name="useTopRecruitImg" id="useTopRecruitImg" class="useTopImg" value="U"></td>
-            </tr>
-          </tbody>
+        <hr>
+        <div class="sheetTitle">区画</div>
+        <table>
+          <tr>
+            <th>タイトル文字色</th><td><input type="color" id="areaTitleStr" name="areaTitleStr"></td>
+          </tr>
+          <tr>
+            <th>タイトル背景色</th><td><input type="color" id="areaTitleBG" name="areaTitleBG"></td>
+          </tr>
+          <tr>
+            <th>区画背景色</th><td><input type="color" id="areaBG" name="areaBG"></td>
+          </tr>
         </table>
-        <input type="hidden" id="topSystemImg" value="">
-        <input type="hidden" id="topSystemImg" value="">
       </div>
-
-      <hr>
-      <div class="sheetTitle">区画</div>
-      <table>
-        <tr>
-          <th>タイトル文字色</th><td><input type="color" id="areaTitleStr" name="areaTitleStr"></td>
-        </tr>
-        <tr>
-          <th>タイトル背景色</th><td><input type="color" id="areaTitleBG" name="areaTitleBG"></td>
-        </tr>
-        <tr>
-          <th>区画背景色</th><td><input type="color" id="areaBG" name="areaBG"></td>
-        </tr>
-      </table>
     </div>
 
     <div id="tabTopBottom" class="tabBottomBtn">
@@ -473,24 +483,34 @@
         <table class="sideBarImgSele">
           <thead>
             <tr>
-              <th>画像区分</th>
-              <th>現在の画像</th>
-              <th></th>
+              <th>No.</th>
+              <th colspan="2">画像</th>
+              <th>文言</th>
               <th>表示</th>
             </tr>
           </thead>
           <tbody id="sideBarSystemImgList">
             <tr id="sideBarImg">
               <td class="sideBarImgTN">1</td>
-              <td class="sideBarImgTN" id="sideBarImgTN1"></td>
-              <td class="sideBarImgSele"><input type="button" value="画像選択" name="attSideBarImg1" id="attSideBarImg1" onclick="showSeleImg('SIDEBAR' ,'1')"></td>
+
+              <td class="sideBarImgTN"><div id="sideBarImgTN1"></div></td>
+              <td class="sideBarImgTN"><input type="button" value="画像選択" name="attSideBarImg1" id="attSideBarImg1" onclick="showSeleImg('SIDEBAR' ,'1')"></td>
+
+              <td class="sideBarStr"><input type="text" name="sideBarStr1" id="sideBarStr1" class="sideBarStr"></td>
               <td class="sideBarImgDisp"><input type="checkbox" name="useSideBarImg1" id="useSideBarImg1" class="useSideBarImg" value="U"></td>
             </tr>
 
             <tr id="topRecruitImg">
+              <td colspan="5"><hr></td>
+            </tr>
+
+            <tr id="topRecruitImg">
               <td class="sideBarImgTN">2</td>
-              <td class="sideBarImgTN" id="sideBarImgTN2"></td>
-              <td class="sideBarImgSele"><input type="button" value="画像選択" name="attSideBarImg2" id="attSideBarImg2" onclick="showSeleImg('SIDEBAR' ,'2')"></td>
+
+              <td class="sideBarImgTN"><div id="sideBarImgTN2"></div></td>
+              <td class="sideBarImgTN"><input type="button" value="画像選択" name="attSideBarImg2" id="attSideBarImg2" onclick="showSeleImg('SIDEBAR' ,'2')"></td>
+
+              <td class="sideBarStr"><input type="text" name="sideBarStr2" id="sideBarStr2" class="sideBarStr"></td>
               <td class="sideBarImgDisp"><input type="checkbox" name="useSideBarImg2" id="useSideBarImg2" class="useSideBarImg" value="U"></td>
             </tr>
           </tbody>

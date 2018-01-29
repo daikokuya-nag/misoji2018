@@ -1,155 +1,153 @@
-/********************
-共通
-********************/
-
+@charset "utf-8";
+/* メンテ画面共通 */
 body{
-	margin:10px;
-	font-family:"Arial";
+  margin:10px;
+  font-family:"Arial";
 }
 
 div.tabArea {
-	padding-left:10px !important;
-	padding-right:10px !important;
+  padding-left:10px !important;
+  padding-right:10px !important;
 }
 
 
 div#divLogout {
-	float:left;
+  float:left;
 }
 
 div#lastDate {
-	font-size:0.9em;
-	float:right;
-	color:#fff;
+  font-size:0.9em;
+  float:right;
+  color:#fff;
 }
 
 
 /* 必須入力項目 */
 span.required {
-	color:#ff0000;
-	font-weight:bold;
+  color:#ff0000;
+  font-weight:bold;
 }
 
 div.list {
-	float:left;
-	margin-right:10px;
+  float:left;
+  margin-right:10px;
 }
 
 div.list table {
 
-	border-collapse:collapse;
+  border-collapse:collapse;
 }
 div.list td {
 
-	border:1px solid black;
+  border:1px solid black;
 }
 
 
 div.tabBottomBtn {
 
-	position: absolute;
-	bottom: 10px;
+  position: absolute;
+  bottom: 10px;
 }
 
 div.tabMid {
 
-	overflow:auto;
+  overflow:auto;
 }
 
 
 div#imgList .img {
 
-	float:left;
+  float:left;
 }
 
 div.imgList {
 
-	overflow:auto;
-	height:190px;
+  overflow:auto;
+  height:190px;
 }
 
 div.resetFloat:after {
-	content: ".";
-	display: block;
-	height: 0;
-	clear: both;
-	visibility: hidden;
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
 }
 
 
 
 /* 操作不可のマスク */
 .grayPanel {
-	background : #000;
-	opacity : 0.1;
-	width  : 100%;
-	height : 700px;
-	position : relative;
-	top  : -700px;
-	left : 0;
-	display : none;
-	z-index : 50;
+  background : #000;
+  opacity : 0.1;
+  width  : 100%;
+  height : 700px;
+  position : relative;
+  top  : -700px;
+  left : 0;
+  display : none;
+  z-index : 50;
 }
 
 
 /* 外部サイトの使用の有無 */
 .selectPage {
-	float:left;
+  float:left;
 }
 .sendSelectPage {
-	float:left;
-	margin-left:20px;
+  float:left;
+  margin-left:20px;
 }
 
 /* 外部サイト使用時のURL入力 */
 .outerURL {
-	width:500px;
+  width:500px;
 }
 
 
 
 /* 削除確認プロンプト */
 .delPrompt {
-	position: absolute;
-	z-index: 99999;
-	padding: 0px;
-	margin: 0px;
-	min-width: 310px;
-	max-width: 310px;
-	top: 329px;
-	left: 436.5px;
-	display:none;
+  position: absolute;
+  z-index: 99999;
+  padding: 0px;
+  margin: 0px;
+  min-width: 310px;
+  max-width: 310px;
+  top: 329px;
+  left: 436.5px;
+  display:none;
 }
 
 /* 女性の識別子変更プロンプト */
 .editDirDlg {
-	position: absolute;
-	z-index: 999;
-	padding: 0px;
-	margin: 0px;
-	min-width:
-	310px;
-	max-width: 410px;
-	top: 324px;
-	left: 422.5px;
+  position: absolute;
+  z-index: 999;
+  padding: 0px;
+  margin: 0px;
+  min-width:
+  310px;
+  max-width: 410px;
+  top: 324px;
+  left: 422.5px;
 }
 
 
 /* 要素の非表示 */
 .NOTUSE {
-	display:none;
+  display:none;
 }
 
 /* 入力エラーメッセージ */
 .parsley-errors-list {
-	color:#d00;
-	font-size:0.9em;
-	font-weight:bold;
+  color:#d00;
+  font-size:0.9em;
+  font-weight:bold;
 }
 
 input[type="file"] {
 
-	font-size:0.9em;
+  font-size:0.9em;
 }
 
 
@@ -157,50 +155,66 @@ input[type="file"] {
 /* 画像選択 */
 table.headerImgSele {
 
-	border-collapse:collapse;
+  border-collapse:collapse;
 }
 
 tr.headerImg {
 
-	margin:5px;
-	padding:5px;
+  margin:5px;
+  padding:5px;
 }
 
 td.headerImgTN {
-	width:400px;
-	max-width:400px;
+  width:400px;
+  max-width:400px;
+  overflow:hidden;
 
-	padding-left:3px;
-	padding-bottom:3px;
-	border-left:2px solid #f0f;
-	border-top:2px solid #f0f;
-	border-bottom:2px solid #f0f;
+  padding-left:3px;
+  padding-bottom:3px;
+  border-left:2px solid #f0f;
+  border-top:2px solid #f0f;
+  border-bottom:2px solid #f0f;
 }
 
 td.headerImgSele {
 
-	padding-bottom:3px;
-	border-top:2px solid #f0f;
-	border-bottom:2px solid #f0f;
+  padding-bottom:3px;
+  border-top:2px solid #f0f;
+  border-bottom:2px solid #f0f;
 }
 
 td.headerImgDisp {
 
-	padding-bottom:3px;
-	padding-right:3px;
-	border-top:2px solid #f0f;
-	border-bottom:2px solid #f0f;
-	border-right:2px solid #f0f;
+  padding-bottom:3px;
+  padding-right:3px;
+  border-top:2px solid #f0f;
+  border-bottom:2px solid #f0f;
+  border-right:2px solid #f0f;
 }
 
 td.headerImgTN img {
 
-	max-width:400px;
+  max-width:400px;
 }
 
 
 div.tabHeaderEnter {
 
-	width:50%;
-	float:left;
+  width:50%;
+  float:left;
+}
+
+.sheetTitle {
+  margin-bottom:5px;
+  margin-right:15px;
+  font-weight:bold;
+  background-color:#0f0;
+  padding:5px;
+}
+
+
+
+/* 画面表示制御 */
+.panelScroll {
+  overflow:auto;
 }
