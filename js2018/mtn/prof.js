@@ -815,7 +815,7 @@ var result  = $.ajax({
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			hideDelDir();
 			$("#editProfDlg").dialog("close");
-			getProfileList();
+			getProfileList();				// プロファイルリスト再表示
 			selectWriteFile('ALBUM');		//HTMLファイル再出力
 		} else {
 			jAlert(

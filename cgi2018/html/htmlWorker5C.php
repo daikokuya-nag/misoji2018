@@ -14,6 +14,7 @@
 	require_once dirname(__FILE__) . '/../dateTime5C.php';
 	require_once dirname(__FILE__) . '/../siteConst5C.php';
 	require_once dirname(__FILE__) . '/../fileName5C.php';
+	require_once dirname(__FILE__) . '/../photo5C.php';
 
 	require_once dirname(__FILE__) . '/../logFile5C.php';
 
@@ -121,6 +122,11 @@ class htmlWorker5C {
 		$tag[1] = '';
 		$seqidx = 0;
 
+		// 表示する写真
+		$photoVal = new photo5C();
+		$photoVal->getAllDirPhoto();
+		$photoID  = array('TN');
+
 		for($tagIdx=0 ;$tagIdx<=1 ;$tagIdx++) {
 			$currList = $workerList[$tagIdx];
 			$listMax = count($currList);
@@ -134,23 +140,32 @@ class htmlWorker5C {
 
 				$dayClass = $workInfo['DAYCLASS'];
 
+				// 表示する写真
+				$photoUse = $photoVal->getUsePhoto($dir ,$photoID);
+				$tnCond   = $photoUse['TN']['cond'];
+				if(isset($photoUse['TN']['fileName'])) {
+					$tnFileName = $photoUse['TN']['fileName'];
+				} else {
+					$tnFileName = '';
+				}
+
 				$photoShow = $prof->getTNPhotoShow($dir);
-				if(strcmp($photoShow['SHOW'] ,dbProfile5C::PHOTO_SHOW_OK) == 0) {		/* 表示可 */
-					$photoTagSrc = 'photo/' . $dir . '/' . $dir . 'TN.' . $photoShow['EXT'];
+				if(strcmp($tnCond ,dbProfile5C::PHOTO_SHOW_OK) == 0) {		/* 表示可 $photoShow['SHOW'] */
+					$photoTagSrc = 'photo/' . $dir . '/' . $tnFileName . '.' . $photoShow['EXT'];
 					$photoTagAlt = $name;
 				}
 
-				if(strcmp($photoShow['SHOW'] ,dbProfile5C::PHOTO_SHOW_NG) == 0) {		/* 写真NG */
+				if(strcmp($tnCond ,dbProfile5C::PHOTO_SHOW_NG) == 0) {		/* 写真NG $photoShow['SHOW'] */
 					$photoTagSrc = self::SHOW_PHOTO_NG_SRC;
 					$photoTagAlt = self::SHOW_ALT_NG;
 				}
 
-				if(strcmp($photoShow['SHOW'] ,dbProfile5C::PHOTO_SHOW_NP) == 0) {		/* 写真準備中 */
+				if(strcmp($tnCond ,dbProfile5C::PHOTO_SHOW_NP) == 0) {		/* 写真準備中 $photoShow['SHOW'] */
 					$photoTagSrc = self::SHOW_PHOTO_SOON_SRC;
 					$photoTagAlt = self::SHOW_ALT_SOON;
 				}
 
-				if(strcmp($photoShow['SHOW'] ,dbProfile5C::PHOTO_SHOW_NOT) == 0) {		/* 写真なし */
+				if(strcmp($tnCond ,dbProfile5C::PHOTO_SHOW_NOT) == 0) {		/* 写真なし $photoShow['SHOW'] */
 					$photoTagSrc = self::SHOW_PHOTO_SOON_SRC;
 					$photoTagAlt = self::SHOW_ALT_SOON;
 				}
@@ -165,7 +180,7 @@ class htmlWorker5C {
 
 				$tag[$tagIdx] = $tag[$tagIdx] . '<a href="' . fileName5C::PROFILE_DIR . '/' . $dir . '.html">' .
 					'<div class="thumbnail workerTN' . $divClass . '">' .
-					'<img src="' . $photoTagSrc . '" alt="' . $photoTagAlt . '">' .
+					'<img src="' . $photoTagSrc . '" alt="' . $photoTagAlt . '" width="110" height="145">' .
 					'<div class="caption text-center">' . $name . '</div>' .
 
 					'<div class="workDate' . $dayClass . ' text-center">' . $workDate . '</div>' .
