@@ -306,7 +306,7 @@ class sess5C {
 
 		if(strcmp($ID ,'PROFILE') == 0) {
 			$db = new dbProfile5C();
-			$dbVal = $db->readShowableProf($branchNo);
+			$dbVal = $db->readAll($branchNo);		// readShowableProf
 
 			$outID[] = $ID;
 			$val[]   = $dbVal['profInfo'];
@@ -314,7 +314,7 @@ class sess5C {
 
 		if(strcmp($ID ,'ALBUM') == 0) {
 			$db = new dbProfile5C();
-			$dbVal = $db->readShowableProf($branchNo);
+			$dbVal = $db->readAll($branchNo);		// readShowableProf
 
 			$outID[] = $ID;
 			$val[]   = $dbVal['profInfo'];

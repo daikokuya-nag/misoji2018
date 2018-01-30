@@ -125,7 +125,7 @@ PHP5
 		$ret = array();
 
 		$prof = new dbProfile5C();
-		$list = $prof->readShowableProf($branchNo);
+		$list = $prof->readAll($branchNo);		//readShowableProf
 
 		$profList = $list['profInfo'];
 		$idxMax   = $list['count'];

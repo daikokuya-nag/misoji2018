@@ -438,29 +438,25 @@ class html5C {
 		}
 
 		$profVal = sess5C::getOutVals($kwd);
-		$ret[] = $this->setProfileDetail($detailStr ,$profVal);
+		$idxMax  = count($profVal);
+		for($idx=0 ;$idx<$idxMax ;$idx++) {
+			$prof1 = $profVal[$idx];
+			$dir  = $prof1[dbProfile5C::FLD_DIR];
+			if(strcmp($dir ,$this->profDir) == 0) {
+				$ret[] = $this->setProfileDetail($detailStr ,$prof1);
+				break;
+			}
+		}
 
 		return $ret;
 	}
 
-	private function setProfileDetail($detailStr ,$profVal) {
+	private function setProfileDetail($detailStr ,$prof1) {
 
 		$ret = '';
 
 		$photoVal = new photo5C();
 		$photoID  = array('1' ,'2' ,'3' ,'4' ,'5' ,'TN');
-
-		$photoDir = fileName5C::FILEID_PHOTO_DIR;	//写真ディレクトリ
-		$profDir  = fileName5C::PROFILE_DIR;		//紹介ページディレクトリ
-
-		$idxMax = count($profVal);
-		for($idx=0 ;$idx<$idxMax ;$idx++) {
-			$prof1 = $profVal[$idx];
-			$dir  = $prof1[dbProfile5C::FLD_DIR];
-			if(strcmp($dir ,$this->profDir) == 0) {
-				break;
-			}
-		}
 
 		if(strcmp($this->device ,common5C::DEVICE_MO) == 0) {
 			$prof1 = $this->cnvToSJIS($prof1);
@@ -760,6 +756,11 @@ class html5C {
 		$idxMax = count($profVal);
 		for($idx=0 ;$idx<$idxMax ;$idx++) {
 			$prof1 = $profVal[$idx];
+
+			if(strcmp($prof1[dbProfile5C::FLD_DISP] ,dbProfile5C::DISP_ON) != 0) {
+				continue;
+			}
+
 			$dir  = $prof1[dbProfile5C::FLD_DIR];
 			$name = $prof1[dbProfile5C::FLD_NAME];
 			if(strcmp($this->device ,common5C::DEVICE_MO) == 0) {
@@ -827,9 +828,13 @@ class html5C {
 
 			//サムネイル表示判定
 			$photoUse = $photoVal->getUsePhoto($dir ,$photoID);
+			$tnCond   = $photoUse['TN']['cond'];
 
-			$tnCond      = $photoUse['TN']['cond'];
-			$tnFileName  = $photoUse['TN']['fileName'];
+			if(isset($photoUse['TN']['fileName'])) {
+				$tnFileName = $photoUse['TN']['fileName'];
+			} else {
+				$tnFileName = '';
+			}
 					//$tnDispStyle = $photoUse['TN']['style'];
 
 			//出力タグへ変換

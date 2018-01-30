@@ -735,8 +735,8 @@
             <td class="profItemAA">アピールコメント</td>
             <td>
               <textarea id="appComment" name="appComment" cols="45" rows="6"></textarea>
+              <div id="warnAppComment" class="parsley-errors-list filled"></div>
             </td>
-            <div id="warnAppComment" class="parsley-errors-list filled"></div>
           </tr>
           <tr>
             <td colspan="2"><hr></td>

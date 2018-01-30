@@ -13,7 +13,7 @@ PHP5
 	$branchNo = $_REQUEST['branchNo'];	/* 店No */
 	$device   = $_REQUEST['device'  ];	/* 対象デバイス */
 	$fileID   = $_REQUEST['fileID'  ];	/* ファイルID */
-	$profName = $_REQUEST['profName'];	/* ファイル名（要るか？） */
+	$profName = $_REQUEST['profName'];	/* プロファイル名 */
 
 					//print $fileID . "\n";
 

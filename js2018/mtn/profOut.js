@@ -18,13 +18,13 @@ var result = $.ajax({
 		type : "post" ,
 		url  : "../cgi2018/ajax/mtn/writeProfile.php" ,
 
-		dataType    : "text",
-		data        : vals  ,
-		processData : false ,
-		contentType : false ,
+		dataType    : "text" ,
+		data        : vals   ,
+		processData : false  ,
+		contentType : false  ,
 
 		cache    : false  ,
-		dataType : 'json' ,
+		dataType : 'json'
 	});
 
 	result.done(function(response) {
@@ -35,6 +35,7 @@ var result = $.ajax({
 
 			writeProfHTMLFile(profDir);
 			$("#editProfDlg").dialog("close");
+			getProfileList();	// プロファイルリスト再表示
 		} else {	// セッションタイムアウトの時
 			jAlert(
 				TIMEOUT_MSG_STR ,
@@ -139,77 +140,74 @@ var photoShow = $('input[name="photoUSE"]:checked').val();	// 写真表示
 //		fd.append("attML", $("#attML").prop("files")[0]);
 //	}
 
-var idF;	// 週間出勤表
+	// 週間出勤表
 
 		// デフォルト分
-	idF = '#workDef';
-	fd.append("sunF" ,$(idF + '0F').val());
-	fd.append("sunT" ,$(idF + '0T').val());
+	fd.append("sunF" ,$('#workDef0F').val());
+	fd.append("sunT" ,$('#workDef0T').val());
 	fd.append("sunM" ,$("input[name='workSele0']:checked").val());
 
-	fd.append("monF" ,$(idF + '1F').val());
-	fd.append("monT" ,$(idF + '1T').val());
+	fd.append("monF" ,$('#workDef1F').val());
+	fd.append("monT" ,$('#workDef1T').val());
 	fd.append("monM" ,$("input[name='workSele1']:checked").val());
 
-	fd.append("tueF" ,$(idF + '2F').val());
-	fd.append("tueT" ,$(idF + '2T').val());
+	fd.append("tueF" ,$('#workDef2F').val());
+	fd.append("tueT" ,$('#workDef2T').val());
 	fd.append("tueM" ,$("input[name='workSele2']:checked").val());
 
-	fd.append("wedF" ,$(idF + '3F').val());
-	fd.append("wedT" ,$(idF + '3T').val());
+	fd.append("wedF" ,$('#workDef3F').val());
+	fd.append("wedT" ,$('#workDef3T').val());
 	fd.append("wedM" ,$("input[name='workSele3']:checked").val());
 
-	fd.append("thuF" ,$(idF + '4F').val());
-	fd.append("thuT" ,$(idF + '4T').val());
+	fd.append("thuF" ,$('#workDef4F').val());
+	fd.append("thuT" ,$('#workDef4T').val());
 	fd.append("thuM" ,$("input[name='workSele4']:checked").val());
 
-	fd.append("friF" ,$(idF + '5F').val());
-	fd.append("friT" ,$(idF + '5T').val());
+	fd.append("friF" ,$('#workDef5F').val());
+	fd.append("friT" ,$('#workDef5T').val());
 	fd.append("friM" ,$("input[name='workSele5']:checked").val());
 
-	fd.append("satF" ,$(idF + '6F').val());
-	fd.append("satT" ,$(idF + '6T').val());
+	fd.append("satF" ,$('#workDef6F').val());
+	fd.append("satT" ,$('#workDef6T').val());
 	fd.append("satM" ,$("input[name='workSele6']:checked").val());
 
 		// 予定外
-	idF = '#workDiff';
-	fd.append("diff1F" ,$(idF + '0F').val());
-	fd.append("diff1T" ,$(idF + '0T').val());
+	fd.append("diff1F" ,$('#workDiff0F').val());
+	fd.append("diff1T" ,$('#workDiff0T').val());
 	fd.append("diff1M" ,$("input[name='workDiff0']:checked").val());
 
-	fd.append("diff2F" ,$(idF + '1F').val());
-	fd.append("diff2T" ,$(idF + '1T').val());
+	fd.append("diff2F" ,$('#workDiff1F').val());
+	fd.append("diff2T" ,$('#workDiff1T').val());
 	fd.append("diff2M" ,$("input[name='workDiff1']:checked").val());
 
-	fd.append("diff3F" ,$(idF + '2F').val());
-	fd.append("diff3T" ,$(idF + '2T').val());
+	fd.append("diff3F" ,$('#workDiff2F').val());
+	fd.append("diff3T" ,$('#workDiff2T').val());
 	fd.append("diff3M" ,$("input[name='workDiff2']:checked").val());
 
-	fd.append("diff4F" ,$(idF + '3F').val());
-	fd.append("diff4T" ,$(idF + '3T').val());
+	fd.append("diff4F" ,$('#workDiff3F').val());
+	fd.append("diff4T" ,$('#workDiff3T').val());
 	fd.append("diff4M" ,$("input[name='workDiff3']:checked").val());
 
-	fd.append("diff5F" ,$(idF + '4F').val());
-	fd.append("diff5T" ,$(idF + '4T').val());
+	fd.append("diff5F" ,$('#workDiff4F').val());
+	fd.append("diff5T" ,$('#workDiff4T').val());
 	fd.append("diff5M" ,$("input[name='workDiff4']:checked").val());
 
-	fd.append("diff6F" ,$(idF + '5F').val());
-	fd.append("diff6T" ,$(idF + '5T').val());
+	fd.append("diff6F" ,$('#workDiff5F').val());
+	fd.append("diff6T" ,$('#workDiff5T').val());
 	fd.append("diff6M" ,$("input[name='workDiff5']:checked").val());
 
-	fd.append("diff7F" ,$(idF + '6F').val());
-	fd.append("diff7T" ,$(idF + '6T').val());
+	fd.append("diff7F" ,$('#workDiff6F').val());
+	fd.append("diff7T" ,$('#workDiff6T').val());
 	fd.append("diff7M" ,$("input[name='workDiff6']:checked").val());
 
 		// 予定外の日付
-	idF = '#dateList';
-	fd.append("diffDate1" ,$(idF + '0').val());
-	fd.append("diffDate2" ,$(idF + '1').val());
-	fd.append("diffDate3" ,$(idF + '2').val());
-	fd.append("diffDate4" ,$(idF + '3').val());
-	fd.append("diffDate5" ,$(idF + '4').val());
-	fd.append("diffDate6" ,$(idF + '5').val());
-	fd.append("diffDate7" ,$(idF + '6').val());
+	fd.append("diffDate1" ,$('#dateList0').val());
+	fd.append("diffDate2" ,$('#dateList1').val());
+	fd.append("diffDate3" ,$('#dateList2').val());
+	fd.append("diffDate4" ,$('#dateList3').val());
+	fd.append("diffDate5" ,$('#dateList4').val());
+	fd.append("diffDate6" ,$('#dateList5').val());
+	fd.append("diffDate7" ,$('#dateList6').val());
 
 	// QA
 	fd.append("qa1"  ,$('#qa1').val());
