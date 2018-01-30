@@ -63,10 +63,14 @@ div#imgList .img {
 div.imgList {
 
   overflow:auto;
-  height:190px;
+  height:400px;
+  margin-bottom:10px;
+  border:1px solid #aaa;
+  padding:2px;
 }
 
 div.resetFloat:after {
+
   content: ".";
   display: block;
   height: 0;

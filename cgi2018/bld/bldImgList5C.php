@@ -12,7 +12,7 @@ PHP5
 
 class bldImgList5C {
 
-	var $img;
+	const DEFAULT_IMG_WIDTH = 250;	// 画像表示の最大幅
 
 	/********************
 	画像リストタグ構築
@@ -66,16 +66,26 @@ class bldImgList5C {
 		$class = $img1[dbImage5C::FLD_CLASS  ];
 		$ext   = $img1[dbImage5C::FLD_ORG_EXT];
 
-		$btnID   = 'seleImg' . $imgNo;
-		$seleStr = '<input type="radio" name="seleImg" id="' . $btnID . '" value="' . $imgNo . '">';
+		$width  = $img1[dbImage5C::FLD_WIDTH ];
+		$height = $img1[dbImage5C::FLD_HEIGHT];
+
+		if($width > self::DEFAULT_IMG_WIDTH) {
+			$showWidth = self::DEFAULT_IMG_WIDTH;
+		} else {
+			$showWidth = $width;
+		}
 
 		$photoFile = '../img/' . $branchNo . '/' . $class . '/' . $imgNo . '.' . $ext;
-		$imgStr    = '<img src="' . $photoFile . '" width="300">';		// height="145"
-		$labelStr  = '<label for="' . $btnID . '">' . $imgStr . '</label>';
 
 		//ファイルの有無
 		$filePath = dirname(__FILE__) . '/../' . $photoFile;
 		if(is_file($filePath)) {
+			$btnID   = 'seleImg' . $imgNo;
+			$seleStr = '<input type="radio" name="seleImg" id="' . $btnID . '" value="' . $imgNo . '">';
+
+			$imgStr   = '<img src="' . $photoFile . '" width="' . $showWidth . '">';		// height="145"
+			$labelStr = '<label for="' . $btnID . '">' . $imgStr . '</label>';
+
 			$ret = '<div id="img-' . $imgNo . '" class="img ui-state-default">' .
 				'<div class="tnOut">' . $seleStr  . '</div>' .
 				'<div class="tnOut">' . $labelStr . '</div>' .

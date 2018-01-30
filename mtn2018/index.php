@@ -769,37 +769,37 @@
         <tbody>
           <tr>
             <td class="sepI">1</td>
-            <td class="sepF"><input type="file" name="attF1" id="attF1"><br><div id="currF1"></div></td>
+            <td class="sepF"><input type="file" name="attF1" id="attF1"><br><div id="currF1" class="currPhoto"></div></td>
             <td class="sepD"><input type="checkbox" name="useP1" id="useP1" class="usePhoto" value="U"></td>
           </tr>
           <tr>
             <td class="sepI">2</td>
-            <td class="sepF"><input type="file" name="attF2" id="attF2"><br><div id="currF2"></div></td>
+            <td class="sepF"><input type="file" name="attF2" id="attF2"><br><div id="currF2" class="currPhoto"></div></td>
             <td class="sepD"><input type="checkbox" name="useP2" id="useP2" class="usePhoto" value="U"></td>
           </tr>
           <tr>
             <td class="sepI">3</td>
-            <td class="sepF"><input type="file" name="attF3" id="attF3"><br><div id="currF3"></div></td>
+            <td class="sepF"><input type="file" name="attF3" id="attF3"><br><div id="currF3" class="currPhoto"></div></td>
             <td class="sepD"><input type="checkbox" name="useP3" id="useP3" class="usePhoto" value="U"></td>
           </tr>
           <tr>
             <td class="sepI">4</td>
-            <td class="sepF"><input type="file" name="attF4" id="attF4"><br><div id="currF4"></div></td>
+            <td class="sepF"><input type="file" name="attF4" id="attF4"><br><div id="currF4" class="currPhoto"></div></td>
             <td class="sepD"><input type="checkbox" name="useP4" id="useP4" class="usePhoto" value="U"></td>
           </tr>
           <tr>
             <td class="sepI">5</td>
-            <td class="sepF"><input type="file" name="attF5" id="attF5"><br><div id="currF5"></div></td>
+            <td class="sepF"><input type="file" name="attF5" id="attF5"><br><div id="currF5" class="currPhoto"></div></td>
             <td class="sepD"><input type="checkbox" name="useP5" id="useP5" class="usePhoto" value="U"></td>
           </tr>
           <tr>
             <td class="sepI">サムネイル</td>
-            <td class="sepF"><input type="file" name="attTN" id="attTN"><br><div id="currTN"></div></td>
+            <td class="sepF"><input type="file" name="attTN" id="attTN"><br><div id="currTN" class="currPhoto"></div></td>
             <td class="sepD"><input type="checkbox" name="useTN" id="useTN" class="usePhoto" value="U"></td>
           </tr>
           <tr class="NOTUSE">
             <td class="sepI2">携帯大写真</td>
-            <td class="sepF2"><input type="file" name="attML" id="attML"><br><div id="currML"></div></td>
+            <td class="sepF2"><input type="file" name="attML" id="attML"><br><div id="currML" class="currPhoto"></div></td>
             <td class="sepD2"><input type="checkbox" name="useML" id="useML" class="usePhoto" value="U"></td>
           </tr>
         </tbody>

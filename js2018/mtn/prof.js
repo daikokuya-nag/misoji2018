@@ -149,15 +149,7 @@ var result;
 	$('#qa13').val('');
 	$('#qa14').val('');
 
-
-var str = '無';
-	$('#currF1').html(str);
-	$('#currF2').html(str);
-	$('#currF3').html(str);
-	$('#currF4').html(str);
-	$('#currF5').html(str);
-	$('#currTN').html(str);
-	$('#currML').html(str);
+	$('.currPhoto').hide();
 
 var chk = false;
 	$("#useP1").prop("checked", chk);
@@ -505,6 +497,8 @@ var show;
 	$('input[name="photoUSE"]').val([str]);
 
 	// 写真の有無の設定
+	$('.currPhoto').show();
+
 	str = setExistStr(profData['existF1']);
 	$('#currF1').html(str);
 
