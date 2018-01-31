@@ -150,6 +150,7 @@ var result;
 	$('#qa14').val('');
 
 	$('.currPhoto').hide();
+	resetPhotoEnter();
 
 var chk = false;
 	$("#useP1").prop("checked", chk);
@@ -285,6 +286,7 @@ var result = $.ajax({
 
 			//$("#seleImgFile").prop('src' ,'fileSele.php?g=' + groupNo + '&b=' + BRANCH_NO + '&id=' + dir);
 
+		resetPhotoEnter();
 		setFileSeleVals(dir ,response['photo']);
 		setProfArea('EDIT');
 
@@ -306,6 +308,40 @@ var result = $.ajax({
 
 	result.always(function() {
 	});
+}
+
+/**
+* 写真ファイル選択領域のリセット
+*
+* @param
+* @return
+*/
+function resetPhotoEnter() {
+
+					//$('#attF1').append('<input type="file" name="attF1" id="attF1">');
+					//$("#attF1").replaceWith($("#attF1").clone());
+console.debug('reset photo enter');
+
+	$('#sepFF1').prepend('<input type="file" name="attF1" id="attF1New">');
+	$('#sepFF2').prepend('<input type="file" name="attF2" id="attF2New">');
+	$('#sepFF3').prepend('<input type="file" name="attF3" id="attF3New">');
+	$('#sepFF4').prepend('<input type="file" name="attF4" id="attF4New">');
+	$('#sepFF5').prepend('<input type="file" name="attF5" id="attF5New">');
+	$('#sepFTN').prepend('<input type="file" name="attTN" id="attTNNew">');
+
+	$('#attF1').remove();
+	$('#attF2').remove();
+	$('#attF3').remove();
+	$('#attF4').remove();
+	$('#attF5').remove();
+	$('#attTN').remove();
+
+	$('#attF1New').attr('id' ,'attF1');
+	$('#attF2New').attr('id' ,'attF2');
+	$('#attF3New').attr('id' ,'attF3');
+	$('#attF4New').attr('id' ,'attF4');
+	$('#attF5New').attr('id' ,'attF5');
+	$('#attTNNew').attr('id' ,'attTN');
 }
 
 /**
@@ -811,7 +847,7 @@ var result  = $.ajax({
 	});
 
 	result.done(function(response) {
-					//console.debug(response);
+					console.debug(response);
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			hideDelDir();
 			$("#editProfDlg").dialog("close");

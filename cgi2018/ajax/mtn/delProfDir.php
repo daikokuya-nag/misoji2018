@@ -78,7 +78,7 @@ PHP4
 	closedir($dh);
 	$path = $rootPath . '/' . fileName5C::FILEID_PHOTO_DIR . '/'   . $dir;
 	if(is_dir($path)) {
-		unlink($path);
+		rmdir($path);
 		logFile5C::debug('写真ファイルディレクトリ削除' . $path);
 	}
 
