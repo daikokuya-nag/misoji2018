@@ -151,10 +151,12 @@ var areaH      = $("#tabsTop").height();			// 領域の高さ
 //var areaUpperH = $("#tabNewsUpper").height();		// 上ボタンとタイトルの高さ
 var areaBtmH   = $("#tabTopBottom").height();		// 下ボタンの高さ
 
-var height = areaH - (areaBtmH);
+var height = areaH - (areaBtmH) + 10;
+
+console.debug('AAA');
 
 				//console.debug(areaH + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
-	$("#tabTopSystemD").height(height + 'px');
+	$("#tabTopSystemMid").height(height + 'px');
 	TAB_HEIGHT['TOP'] = height;
 
 	height = $("#" + EDIT_AREA['top']).height();
@@ -176,7 +178,7 @@ var areaSeleH  = $("#tabNewsUsePage").height();		// 使用ページ選択の高�
 var areaUpperH = $("#tabNewsUpper").height();		// 上ボタンとタイトルの高さ
 var areaBtmH   = $("#tabNewsBottom").height();		// 下ボタンの高さ
 
-var height = areaH - (areaSeleH + areaUpperH + areaBtmH);
+var height = areaH - (areaSeleH + areaUpperH + areaBtmH) + 10;
 var grayPanelID = GRAY_PANEL_ID['news'];
 
 				//console.debug(areaH + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
@@ -202,7 +204,7 @@ var areaSeleH  = $("#tabProfileUsePage").height();	// 使用ページ選択の�
 var areaUpperH = $("#tabProfUpper").height();		// 上ボタンとタイトルの高さ
 var areaBtmH   = $("#tabProfBottom").height();		// 下ボタンの高さ
 
-var height = areaH - (areaSeleH + areaUpperH + areaBtmH);
+var height = areaH - (areaSeleH + areaUpperH + areaBtmH) + 10;
 var grayPanelID = GRAY_PANEL_ID['profile'];
 
 				//console.debug(areaH + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
@@ -228,7 +230,7 @@ var areaSeleH = $("#tabRecruitUsePage").height();	//使用ページ選択の高�
 var areaTopH  = $("#tabRecruitTop").height();		//上ボタンの高さ
 var areaBtmH  = $("#tabRecruitBottom").height();	//下ボタンの高さ
 
-var height = areaH - (areaSeleH + areaTopH + areaBtmH);
+var height = areaH - (areaSeleH + areaTopH + areaBtmH) + 10;
 var grayPanelID = GRAY_PANEL_ID['recruit'];
 
 				//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);
@@ -275,7 +277,7 @@ var areaSeleH = $("#tabSystemUsePage").height();	//使用ページ選択の高�
 var areaTopH  = $("#tabSystemTop").height();		//上ボタンの高さ
 var areaBtmH  = $("#tabSystemBottom").height();		//下ボタンの高さ
 
-var height = areaH - (areaSeleH + areaTopH + areaBtmH);
+var height = areaH - (areaSeleH + areaTopH + areaBtmH) + 10;
 var grayPanelID = GRAY_PANEL_ID['system'];
 
 				//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);

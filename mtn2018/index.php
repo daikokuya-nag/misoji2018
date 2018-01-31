@@ -58,6 +58,7 @@
 <link href="../css2018/jq/smoothness/jquery-ui-1.10.4.custom.css" rel="stylesheet">
 <link href="../css2018/jq/jquery.alerts.css" rel="stylesheet">
 <link href="../css2018/jq/tinytools.toggleswitch.css" rel="stylesheet">
+<link href="../css2018/jq/farbtastic/farbtastic.css" rel="stylesheet">
 
 <link href="../css2018/parsley/parsley.css" rel="stylesheet">
 
@@ -72,14 +73,15 @@
 <link href="../css2018/fileSele.css" rel="stylesheet">
 
 
+<script src="../js2018/ckEditor/ckeditor.js"></script>
+
 <script src="../js2018/jq/jquery-1.11.2.min.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/jq/jquery-ui-1.10.4.custom.min.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/jq/jquery.tablednd.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/jq/jquery.alerts.js"></script>
+<script src="../js2018/jq/farbtastic.js"></script>
 <script src="../js2018/jq/toggleSW/tinytools.toggleswitch.js" charset="utf-8"></script>
 <script src="../js2018/jq/jquery-ui-timepicker-addon.js"></script>
-
-<script src="../js2018/ckEditor/ckeditor.js"></script>
 
 <script src="../js2018/parsley/parsley.min.js"></script>
 <script src="../js2018/parsley/i18n/ja.js"></script>
@@ -106,6 +108,7 @@
 <script src="../js2018/mtn/header.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/decoration.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/sideBar.js?<?php print $vesion; ?>"></script>
+
 <script>
   var BRANCH_NO = "<?php print $branchNo; ?>";
 </script>
@@ -367,8 +370,8 @@
   <!-- TOP -->
   <div id="tabsTop" class="tabArea">
     <div class="tabTopImgEnter panelScroll">
-      <div id="tabTopSystemD">
-        <div id="tabTopSystemMid" class="tabMid">
+      <div id="tabTopSystemMid" class="tabMid">
+        <div>
           <div class="sheetTitle">画像</div>
           <table class="topSystemImgSele">
             <thead>
@@ -389,7 +392,7 @@
               </tr>
               <tr><td colspan="5"><hr></td></tr>
               <tr id="topRecruitImgT">
-                <td class="topSystemImgTN">求人</td>
+                <td class="topRecruitImgTN">求人</td>
                 <td class="topRecruitImgTN" id="topRecruitImgTN"></td>
                 <td class="topRecruitImgSele"><input type="button" value="画像選択" name="attTopRecruitImg" id="attTopRecruitImg" onclick="showSeleImg('TOP' ,'RECRUIT')"></td>
                 <td class="topRecruitStr"><input type="text" name="topRecruitStr" id="topRecruitStr" class="topStr"></td>
@@ -397,23 +400,26 @@
               </tr>
             </tbody>
           </table>
-          <input type="hidden" id="topSystemImg" value="">
-          <input type="hidden" id="topSystemImg" value="">
+          <input type="hidden" id="topSystemImg"  value="">
+          <input type="hidden" id="topRecruitImg" value="">
         </div>
 
         <hr>
         <div class="sheetTitle">区画</div>
-        <table>
-          <tr>
-            <th>タイトル文字色</th><td><input type="color" id="areaTitleStr" name="areaTitleStr"></td>
-          </tr>
-          <tr>
-            <th>タイトル背景色</th><td><input type="color" id="areaTitleBG" name="areaTitleBG"></td>
-          </tr>
-          <tr>
-            <th>区画背景色</th><td><input type="color" id="areaBG" name="areaBG"></td>
-          </tr>
-        </table>
+        <div class="topColorSelect">
+          <table>
+            <tr>
+              <th>タイトル文字色</th><td><input type="text" id="areaTitleStr" name="areaTitleStr" class="topColorwell"></td>
+            </tr>
+            <tr>
+              <th>タイトル背景色</th><td><input type="text" id="areaTitleBG" name="areaTitleBG" class="topColorwell"></td>
+            </tr>
+            <tr>
+              <th>区画背景色</th><td><input type="text" id="areaBG" name="areaBG" class="topColorwell"></td>
+            </tr>
+          </table>
+        </div>
+        <div id="topColorPicker" class="colorSelectWheel"></div>
       </div>
     </div>
 
@@ -428,9 +434,20 @@
     <div id="tabRecruitUsePage" class="resetFloat">
       <div class="sheetTitle">ページ背景</div>
       <div class="selectPage">
+      <div class="decoBg">
         <label><input type="radio" name="usePageBG" id="usePageBGNotuse" value="N">使用しない</label>&nbsp;&nbsp;&nbsp;
-        <label><input type="radio" name="usePageBG" id="usePageBGColor"  value="C">色</label><input type="color" id="pageBGColor" name="pageBGColor">&nbsp;&nbsp;&nbsp;
-        <label><input type="radio" name="usePageBG" id="usePageBGImage"  value="I">画像</label>
+        <label><input type="radio" name="usePageBG" id="usePageBGColor"  value="C">色</label>
+      </div>
+      <div class="decoColorSele">
+          <div>
+            <input type="text" id="pageBGColor" name="pageBGColor" class="decoColorwell">
+          </div>
+          <div id="decoColorPicker" class="colorSelectWheel">
+          </div>
+      </div>
+      <div class="decoBg">
+        &nbsp;&nbsp;&nbsp;<label><input type="radio" name="usePageBG" id="usePageBGImage"  value="I">画像</label>
+      </div>
 
         <table class="decoBGImgSele">
           <tbody id="decoBGImgList">
@@ -500,11 +517,11 @@
               <td class="sideBarImgDisp"><input type="checkbox" name="useSideBarImg1" id="useSideBarImg1" class="useSideBarImg" value="U"></td>
             </tr>
 
-            <tr id="topRecruitImg">
+            <tr>
               <td colspan="5"><hr></td>
             </tr>
 
-            <tr id="topRecruitImg">
+            <tr>
               <td class="sideBarImgTN">2</td>
 
               <td class="sideBarImgTN"><div id="sideBarImgTN2"></div></td>
@@ -769,37 +786,37 @@
         <tbody>
           <tr>
             <td class="sepI">1</td>
-            <td class="sepF"><input type="file" name="attF1" id="attF1"><br><div id="currF1" class="currPhoto"></div></td>
+            <td class="sepF" id="sepFF1"><input type="file" name="attF1" id="attF1"><br><div id="currF1" class="currPhoto"></div></td>
             <td class="sepD"><input type="checkbox" name="useP1" id="useP1" class="usePhoto" value="U"></td>
           </tr>
           <tr>
             <td class="sepI">2</td>
-            <td class="sepF"><input type="file" name="attF2" id="attF2"><br><div id="currF2" class="currPhoto"></div></td>
+            <td class="sepF" id="sepFF2"><input type="file" name="attF2" id="attF2"><br><div id="currF2" class="currPhoto"></div></td>
             <td class="sepD"><input type="checkbox" name="useP2" id="useP2" class="usePhoto" value="U"></td>
           </tr>
           <tr>
             <td class="sepI">3</td>
-            <td class="sepF"><input type="file" name="attF3" id="attF3"><br><div id="currF3" class="currPhoto"></div></td>
+            <td class="sepF" id="sepFF3"><input type="file" name="attF3" id="attF3"><br><div id="currF3" class="currPhoto"></div></td>
             <td class="sepD"><input type="checkbox" name="useP3" id="useP3" class="usePhoto" value="U"></td>
           </tr>
           <tr>
             <td class="sepI">4</td>
-            <td class="sepF"><input type="file" name="attF4" id="attF4"><br><div id="currF4" class="currPhoto"></div></td>
+            <td class="sepF" id="sepFF4"><input type="file" name="attF4" id="attF4"><br><div id="currF4" class="currPhoto"></div></td>
             <td class="sepD"><input type="checkbox" name="useP4" id="useP4" class="usePhoto" value="U"></td>
           </tr>
           <tr>
             <td class="sepI">5</td>
-            <td class="sepF"><input type="file" name="attF5" id="attF5"><br><div id="currF5" class="currPhoto"></div></td>
+            <td class="sepF" id="sepFF5"><input type="file" name="attF5" id="attF5"><br><div id="currF5" class="currPhoto"></div></td>
             <td class="sepD"><input type="checkbox" name="useP5" id="useP5" class="usePhoto" value="U"></td>
           </tr>
           <tr>
             <td class="sepI">サムネイル</td>
-            <td class="sepF"><input type="file" name="attTN" id="attTN"><br><div id="currTN" class="currPhoto"></div></td>
+            <td class="sepF" id="sepFTN"><input type="file" name="attTN" id="attTN"><br><div id="currTN" class="currPhoto"></div></td>
             <td class="sepD"><input type="checkbox" name="useTN" id="useTN" class="usePhoto" value="U"></td>
           </tr>
           <tr class="NOTUSE">
             <td class="sepI2">携帯大写真</td>
-            <td class="sepF2"><input type="file" name="attML" id="attML"><br><div id="currML" class="currPhoto"></div></td>
+            <td class="sepF2" id="sepFML"><input type="file" name="attML" id="attML"><br><div id="currML" class="currPhoto"></div></td>
             <td class="sepD2"><input type="checkbox" name="useML" id="useML" class="usePhoto" value="U"></td>
           </tr>
         </tbody>
@@ -1053,5 +1070,6 @@
 
   <br class="clear">
 </div>
+
 </body>
 </html>

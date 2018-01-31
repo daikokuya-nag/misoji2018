@@ -6,6 +6,8 @@
 */
 
 $(document).ready(function(){
+
+	setDecoColorPicker();
 });
 
 
@@ -13,6 +15,32 @@ $(window).load(function(){
 
 	getDecoVals();
 });
+
+
+function setDecoColorPicker() {
+
+//	$('#demo').hide();
+/*
+	var f = $.farbtastic('#decoColorPicker');
+	var p = $('#decoColorPicker').css('opacity', 0.25);
+	var selected;
+
+	$('.decoColorwell')
+		.each(function () { f.linkTo(this); $(this).css('opacity', 0.75); })
+		.focus(function() {
+			if (selected) {
+				$(selected).css('opacity', 0.75).removeClass('colorwell-selected');
+			}
+
+			f.linkTo(this);
+			p.css('opacity', 1);
+			$(selected = this).css('opacity', 1).addClass('colorwell-selected');
+		});
+*/
+
+	$('#decoColorPicker').farbtastic('#pageBGColor');
+
+}
 
 /**
 * 装飾データの読み込み
@@ -83,6 +111,7 @@ var fileExist = '0';
 		colorCD = pageVal['value2'];
 	}
 	$("#pageBGColor").val(colorCD);
+	$.farbtastic("#decoColorPicker").setColor(colorCD);
 
 	//背景画像No
 	if(pageVal['value3'].length >= 1) {

@@ -6,6 +6,8 @@
 */
 
 $(document).ready(function(){
+
+	setTopColorPicker();
 });
 
 
@@ -13,6 +15,28 @@ $(window).load(function(){
 
 	getTopValList();	// 現在のTOPページで使用する画像の読み込み
 });
+
+
+function setTopColorPicker() {
+
+//	$('#demo').hide();
+	var f = $.farbtastic('#topColorPicker');
+	var p = $('#topColorPicker').css('opacity', 0.25);
+	var selected;
+
+	$('.topColorwell')
+		.each(function () { f.linkTo(this); $(this).css('opacity', 0.75); })
+		.focus(function() {
+			if (selected) {
+				$(selected).css('opacity', 0.75).removeClass('colorwell-selected');
+			}
+
+			f.linkTo(this);
+			p.css('opacity', 1);
+			$(selected = this).css('opacity', 1).addClass('colorwell-selected');
+		});
+}
+
 
 /**
 * 現在のTOPページの画像の読み込み
@@ -129,9 +153,21 @@ var fileExist = '0';
 */
 function setTopArea(areaVals) {
 
+console.debug('BBB');
+
 	$("#areaTitleStr").val(areaVals['titleColor']);
-	$("#areaTitleBG" ).val(areaVals['titleBGColor']);
-	$("#areaBG"      ).val(areaVals['areaBGColor']);
+	$("#areaTitleStr").focus();
+	$.farbtastic("#topColorPicker").setColor(areaVals['titleColor']);
+
+	$("#areaTitleBG").val(areaVals['titleBGColor']);
+	$("#areaTitleBG").focus();
+	$.farbtastic("#topColorPicker").setColor(areaVals['titleBGColor']);
+
+	$("#areaBG").val(areaVals['areaBGColor']);
+	$("#areaBG").focus();
+	$.farbtastic("#topColorPicker").setColor(areaVals['areaBGColor']);
+
+	$('#topColorPicker').css('opacity', 0.25);
 }
 
 /**
