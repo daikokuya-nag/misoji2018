@@ -2,97 +2,25 @@
 * プロファイル編集
 *
 * @version 1.0.1
-* @date 2018.1.23
+* @date 2018.2.1
 */
 
 var CURR_AREA_NO = 0;				// 編集領域の表示
-var DISP_PROF_EDIT_DIALOG = false;	// 女性情報編集のダイアログを表示したか
 
 $(document).ready(function(){
 });
 
-$(document).on('sortstop' ,'#profSeqListD' ,function(){		// 表示順のドロップ時の動作
-
-	enableWriteProfSeq();
-});
 
 $(window).load(function(){
 
-	$("#editProfDlg").dialog({		// 編集ダイアログの定義
-		autoOpen: false ,
-		modal : true ,
-		width : 1220 ,		//1020
-		buttons: [
-			{
-				text :"出力",
-				click:function() {
-					var chkEnter = checkProfEnter();
-					if(chkEnter) {
-						writeProf();
-					}
-				}
-			} ,
-			{
-				text :"キャンセル",
-				click:function() {
-					$(this).dialog("close");
-				}
-			}
-		]
-	});
-
-	getProfileList();
+	if(TARGET_DIR.length <= 0) {
+		newProf();
+	} else {
+		editProf(TARGET_DIR);
+	}
 });
 
 
-/**
-* プロファイルリストの読み込み
-*
-* @param
-* @return
-*/
-function getProfileList() {
-
-var result = $.ajax({
-		type : "get" ,
-		url  : "../cgi2018/ajax/mtn/getProfileList.php" ,
-		data : {
-			branchNo : BRANCH_NO
-		} ,
-
-		cache    : false ,
-		dataType : 'json'
-	});
-
-	result.done(function(response) {
-					console.debug(response);
-
-				//$("#profSeqListH").html(response['SEQ']['title']);
-		$("#profSeqListD").html(response['SEQ']['data']);
-		$(".dispProfSW").toggleSwitch();
-
-		/***** プロファイル表示順 *****/
-		$("#profSeqListD").sortable();
-	});
-
-	result.fail(function(response, textStatus, errorThrown) {
-			console.debug('error at getProfileList:' + response.status + ' ' + textStatus);
-	});
-
-	result.always(function() {
-	});
-}
-
-/**
-* 出力ボタンの有効化
-*
-* @param
-* @return
-*/
-function enableWriteProfSeq() {
-
-	$("#bldProfList").prop('disabled' ,false);
-}
 
 /**
 * 新規プロファイル編集
@@ -150,7 +78,6 @@ var result;
 	$('#qa14').val('');
 
 	$('.currPhoto').hide();
-	resetPhotoEnter();
 
 var chk = false;
 	$("#useP1").prop("checked", chk);
@@ -286,7 +213,6 @@ var result = $.ajax({
 
 			//$("#seleImgFile").prop('src' ,'fileSele.php?g=' + groupNo + '&b=' + BRANCH_NO + '&id=' + dir);
 
-		resetPhotoEnter();
 		setFileSeleVals(dir ,response['photo']);
 		setProfArea('EDIT');
 
@@ -310,39 +236,6 @@ var result = $.ajax({
 	});
 }
 
-/**
-* 写真ファイル選択領域のリセット
-*
-* @param
-* @return
-*/
-function resetPhotoEnter() {
-
-					//$('#attF1').append('<input type="file" name="attF1" id="attF1">');
-					//$("#attF1").replaceWith($("#attF1").clone());
-console.debug('reset photo enter');
-
-	$('#sepFF1').prepend('<input type="file" name="attF1" id="attF1New">');
-	$('#sepFF2').prepend('<input type="file" name="attF2" id="attF2New">');
-	$('#sepFF3').prepend('<input type="file" name="attF3" id="attF3New">');
-	$('#sepFF4').prepend('<input type="file" name="attF4" id="attF4New">');
-	$('#sepFF5').prepend('<input type="file" name="attF5" id="attF5New">');
-	$('#sepFTN').prepend('<input type="file" name="attTN" id="attTNNew">');
-
-	$('#attF1').remove();
-	$('#attF2').remove();
-	$('#attF3').remove();
-	$('#attF4').remove();
-	$('#attF5').remove();
-	$('#attTN').remove();
-
-	$('#attF1New').attr('id' ,'attF1');
-	$('#attF2New').attr('id' ,'attF2');
-	$('#attF3New').attr('id' ,'attF3');
-	$('#attF4New').attr('id' ,'attF4');
-	$('#attF5New').attr('id' ,'attF5');
-	$('#attTNNew').attr('id' ,'attTN');
-}
 
 /**
 * ckeditorの表示、動作の定義
@@ -352,45 +245,25 @@ console.debug('reset photo enter');
 */
 function setCKEditProf() {
 
-	if(!DISP_PROF_EDIT_DIALOG) {
-		CKEDITOR.replace('mastComment' ,
-			{
-				height : 120
-			});
-
-		CKEDITOR.replace('appComment' ,
-			{
-				height : 120
-			});
-
-		CKEDITOR.instances.mastComment.on("blur", function(e) {
-			CKEDITOR.instances.mastComment.updateElement();
-			var str = $("#mastComment").val();
-			var msg;
-
-			if(str.length >= 1) {
-				msg = '';
-			} else {
-				msg = 'any error';
-			}
-			$("#warnMastComment").html(msg);
+	CKEDITOR.replace('mastComment' ,
+		{
+			height : 120
 		});
 
-		CKEDITOR.instances.appComment.on("blur", function(e) {
-			CKEDITOR.instances.appComment.updateElement();
-			var str = $("#appComment").val();
-			var msg;
-
-			if(str.length >= 1) {
-				msg = '';
-			} else {
-				msg = 'any error';
-			}
-			$("#warnAppComment").html(msg);
+	CKEDITOR.replace('appComment' ,
+		{
+			height : 120
 		});
 
-		DISP_PROF_EDIT_DIALOG = true;
-	}
+	CKEDITOR.instances.mastComment.on("blur", function(e) {
+console.debug('updA');
+		CKEDITOR.instances.mastComment.updateElement();
+console.debug('updB');
+	});
+
+	CKEDITOR.instances.appComment.on("blur", function(e) {
+		CKEDITOR.instances.appComment.updateElement();
+	});
 }
 
 /**
@@ -459,51 +332,6 @@ var newID  = '#profArea' + newAreaNo;
 }
 
 
-/**
-* 表示順、表示/非表示更新時の出力
-*
-* @param
-* @return
-*/
-function updProfSeq() {
-
-var dispSW    = $(".dispProfSW").serialize();
-var profOrder = $("#profSeqListD").sortable('serialize');
-var dataVal   = profOrder + '&branchNo=' + BRANCH_NO + '&' + dispSW;
-			//console.debug(dataVal);
-
-var result = $.ajax({
-		type : "post" ,
-		url  : "../cgi2018/ajax/mtn/writeProfSeqDisp.php" ,
-		data : dataVal ,
-
-		cache    : false  ,
-		dataType : 'json' ,
-	});
-
-	result.done(function(response) {
-					console.debug(response);
-
-		if(response['SESSCOND'] == SESS_OWN_INTIME) {
-			selectWriteFile('ALBUM');		//出力対象ファイルの抽出→ファイル出力
-		} else {
-			jAlert(
-				TIMEOUT_MSG_STR ,
-				TIMEOUT_MSG_TITLE ,
-				function() {
-					location.href = 'login.html';
-				}
-			);
-		}
-	});
-
-	result.fail(function(response, textStatus, errorThrown) {
-			console.debug('error at updProfSeq:' + response.status + ' ' + textStatus);
-	});
-
-	result.always(function() {
-	});
-}
 
 /**
 * 写真表示の設定
@@ -642,18 +470,6 @@ function setShowProfDir(dir) {
 	$('#profDirShow').html(dir);
 }
 
-/**
-* プロファイルの内容チェック
-*
-* @param
-* @return
-*/
-function checkProfEnter() {
-
-var ret = $("#enterProfile").parsley().validate();
-
-	return ret;
-}
 
 function checkIDDir(profDir) {
 
@@ -873,53 +689,14 @@ var result  = $.ajax({
 }
 
 
-/*
-ここから下は未実装
+/**
+* 出力時のCKEditorの内容の反映
+*
+* @param
+* @return
 */
-/********************
-全プロファイル一括更新
-********************/
-function updAllProf() {
+function updCkEditor() {
 
-var profMax = 0;
-var profDir = new Array();
-var i;
-
-	$.ajax({
-		type :"get" ,
-		url  : "cgi/ajax/getProfileList.php" ,
-		data : {
-			branchNo : BRANCH_NO
-		} ,
-
-		cache    :false ,
-		dataType :'json' ,
-
-		success :function(result) {
-					console.debug(result);
-							/*
-							profMax = result['profMax'];
-							profDir = result['dirList'];
-							*/
-			profDir = result;
-			profMax = profDir.length;
-		} ,
-
-		error :function(result) {
-					console.debug('error at updAllProf:' + result);
-		} ,
-
-		complete : function(result) {
-
-			if(profMax >= 1) {
-				for(i=0 ;i<profMax ;i++) {
-							/*updProf(groupNo ,branchNo ,profDir[i]);*/
-					//bldProfHTML(profDir[i]);
-				}
-				alert('全件出力完了');
-			}
-
-		}
-	});
-
+	CKEDITOR.instances.mastComment.updateElement();
+	CKEDITOR.instances.appComment.updateElement();
 }

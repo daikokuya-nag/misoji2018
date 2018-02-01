@@ -428,7 +428,7 @@ class bldProfile5C {
 
 			$timeSeleTag = $this->setTimeSelector('workDiff' . $tagIdx ,$from ,$to ,'休');
 
-			$seleName = 'workDiff' . $tagIdx;
+			$seleName = 'workDiff' . $tagIdx . 'M';
 			$seleID1   = $seleName . dbWorks5C::WORK_MODE_RECEPT;
 			$seleID2   = $seleName . dbWorks5C::WORK_MODE_TO;
 
