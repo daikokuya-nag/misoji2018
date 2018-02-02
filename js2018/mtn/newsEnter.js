@@ -69,8 +69,6 @@ var dtop = {
 });
 
 
-
-
 /**
 * 新規ニュース編集
 *
@@ -298,7 +296,6 @@ var msg;
 }
 
 
-
 /**
 * 出力時のCKEditorの内容の反映
 *
@@ -310,9 +307,6 @@ function updCkEditor() {
 	CKEDITOR.instances.digest.updateElement();
 	CKEDITOR.instances.content.updateElement();
 }
-
-
-
 
 
 /**

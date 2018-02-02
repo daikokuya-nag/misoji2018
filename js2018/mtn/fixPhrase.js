@@ -28,7 +28,7 @@ $(window).load(function(){
 				}
 			} ,
 			{
-				text :"キャンセル",
+				text :"閉じる",
 				click:function() {
 					$(this).dialog("close");
 				}
@@ -101,9 +101,7 @@ function writeFixPhrase() {
 			//var phraseStr = CKEDITOR.instances.fixPhraseStr.getData();
 
 var docForm = editFixPhraseForm.document.enterFixPhrase;
-
-document.getElementById('editFixPhraseForm').contentWindow.updCkEditor();
-
+	document.getElementById('editFixPhraseForm').contentWindow.updCkEditor();
 var phraseStr = docForm.fixPhraseStr.value;
 var result;
 
