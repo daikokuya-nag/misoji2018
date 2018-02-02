@@ -340,41 +340,6 @@ function hideDelNews() {
 function delNewsItem() {
 
 var newsNo = $('#editNewsNo').val();
-var result = $.ajax({
-		type : "post" ,
-		url  : "../cgi2018/ajax/mtn/delNewsItem.php" ,
-		data : {
-			branchNo : BRANCH_NO ,
-			newsNo   : newsNo
-		} ,
 
-		cache    : false  ,
-		dataType : 'json'
-	});
-
-	result.done(function(response) {
-					//console.debug(response);
-		if(response['SESSCOND'] == SESS_OWN_INTIME) {
-			hideDelNews();
-			$("#editNewsDlg").dialog("close");
-			getNewsList();					// 最新のニュースリストを再読み込み
-			selectWriteFile('NEWS');		// HTMLファイル再出力
-		} else {
-			//タイムアウト
-			jAlert(
-				TIMEOUT_MSG_STR ,
-				TIMEOUT_MSG_TITLE ,
-				function() {
-					location.href = 'login.html';
-				}
-			);
-		}
-	});
-
-	result.fail(function(response, textStatus, errorThrown) {
-			console.debug('error at delNewsItem:' + response.status + ' ' + textStatus);
-	});
-
-	result.always(function() {
-	});
+	window.parent.delNewsItem(newsNo);
 }

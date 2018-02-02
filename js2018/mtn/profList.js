@@ -234,6 +234,56 @@ var result = $.ajax({
 }
 
 
+/**
+* 削除の本体
+*
+* @param
+* @return
+*/
+function delProfDir(currDir) {
+
+				//alert('del profile ' + currDir);
+
+var result = $.ajax({
+		type : "post" ,
+		url  : "../cgi2018/ajax/mtn/delProfDir.php" ,
+		data : {
+			branchNo : BRANCH_NO ,
+			dir      : currDir
+		} ,
+		cache    : false  ,
+		dataType : 'json'
+	});
+
+	result.done(function(response) {
+					console.debug(response);
+		if(response['SESSCOND'] == SESS_OWN_INTIME) {
+			//hideDelDir();
+			$("#editProfDlg").dialog("close");
+			getProfileList();				// プロファイルリスト再表示
+			selectWriteFile('ALBUM');		//HTMLファイル再出力
+		} else {
+			jAlert(
+				TIMEOUT_MSG_STR ,
+				TIMEOUT_MSG_TITLE ,
+				function() {
+					location.href = 'login.html';
+				}
+			);
+		}
+	});
+
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at delNewsItem:' + response.status + ' ' + textStatus);
+	});
+
+	result.always(function() {
+	});
+}
+
+
+
+
 /*
 ここから下は未実装
 */
