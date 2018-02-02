@@ -178,7 +178,7 @@ var areaSeleH  = $("#tabNewsUsePage").height();		// 使用ページ選択の高�
 var areaUpperH = $("#tabNewsUpper").height();		// 上ボタンとタイトルの高さ
 var areaBtmH   = $("#tabNewsBottom").height();		// 下ボタンの高さ
 
-var height = areaH - (areaSeleH + areaUpperH + areaBtmH) + 10;
+var height = areaH - (areaSeleH + areaUpperH + areaBtmH) - 10;
 var grayPanelID = GRAY_PANEL_ID['news'];
 
 				//console.debug(areaH + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
@@ -204,7 +204,7 @@ var areaSeleH  = $("#tabProfileUsePage").height();	// 使用ページ選択の�
 var areaUpperH = $("#tabProfUpper").height();		// 上ボタンとタイトルの高さ
 var areaBtmH   = $("#tabProfBottom").height();		// 下ボタンの高さ
 
-var height = areaH - (areaSeleH + areaUpperH + areaBtmH) + 10;
+var height = areaH - (areaSeleH + areaUpperH + areaBtmH) - 10;
 var grayPanelID = GRAY_PANEL_ID['profile'];
 
 				//console.debug(areaH + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
