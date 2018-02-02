@@ -327,6 +327,7 @@ var result = $.ajax({
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			$("#editNewsDlg").dialog("close");
+			getNewsList();					//ニュースの再表示
 			selectWriteFile('NEWS');		//出力対象ファイルの抽出→ファイル出力
 		} else {
 			jAlert(
