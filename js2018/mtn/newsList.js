@@ -290,11 +290,11 @@ var dispBeg = docForm.dispBegDate.value;
 var begDate = docForm.begDate.value;
 var endDate = docForm.endDate.value;
 
-var sele = docForm.endDate.value;
+var cateSele = docForm.newsCate.value;
 var cate = '';
-	if(sele === '') {
+	if(cateSele === '') {
 	} else {
-		cate = sele;
+		cate = cateSele;
 	}
 
 					//console.debug('書き出すニュースNo:' + newsNo);
