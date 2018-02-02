@@ -24,7 +24,7 @@ $(window).load(function(){
 		width : 1220 ,		//1020
 
 		open : function() {
-			adjustEditIFrame();
+			adjustEditProfIFrame();
 		} ,
 
 		buttons: [
@@ -48,7 +48,7 @@ $(window).load(function(){
 
 	getProfileList();
 
-//	adjustEditIFrame();
+//	adjustEditProfIFrame();
 });
 
 /**
@@ -123,7 +123,13 @@ function enableWriteProfSeq() {
 function newProf() {
 
 	console.debug('new Profile');
-//	$("#editProfile").src('enterProfile.php?id=');
+	$("#editProfile").prop('src' ,'enterProfile.php?id=');
+
+	$("#editProfDlg").dialog( {
+		title : '新規 '
+	});
+	$("#editProfDlg").dialog("open");
+
 }
 
 /**
@@ -151,24 +157,26 @@ function editProf(dir) {
 * @param
 * @return
 */
-function adjustEditIFrame() {
+function adjustEditProfIFrame() {
 
 	// iframeの幅と高さを特定
-var $frame = $('#editProfile');
-var innerH = $frame.get(0).contentWindow.document.body.scrollHeight;
-var innerW = $frame.get(0).contentWindow.document.body.scrollWidth;
+var frame  = $('#editProfile');
+var innerH = frame.get(0).contentWindow.document.body.scrollHeight;
+var innerW = frame.get(0).contentWindow.document.body.scrollWidth;
 
-	$frame.attr('height', innerH + 'px');
-	$frame.attr('width', innerW + 'px');
+console.debug(innerH);
+
+	frame.attr('height', innerH + 'px');
+	frame.attr('width', innerW + 'px');
 
 	// ブラウザの高さとiframの高さを比較して低い方をダイアログの高さにする
 var outerH = $(window).height();
 
 var dispH;
 	if(innerH > outerH) {
-		dispH = outerH
+		dispH = outerH;
 	} else {
-		dispH = innerH
+		dispH = innerH;
 	}
 	dispH-=2;
 

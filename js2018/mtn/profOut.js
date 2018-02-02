@@ -18,7 +18,6 @@ var vals = setValsFromIFrame();
 
 console.debug(vals);
 
-/*
 var result = $.ajax({
 		type : "post" ,
 		url  : "../cgi2018/ajax/mtn/writeProfile.php" ,
@@ -36,7 +35,9 @@ var result = $.ajax({
 					console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
-			var profDir = $('#profDir').val();
+						//var profDir = $('#profDir').val();
+			var docForm = editProfile.document.enterProfile;
+			var profDir = docForm.profDir.value;
 
 			writeProfHTMLFile(profDir);
 			$("#editProfDlg").dialog("close");
@@ -59,7 +60,6 @@ var result = $.ajax({
 
 	result.always(function() {
 	});
-*/
 }
 
 /**

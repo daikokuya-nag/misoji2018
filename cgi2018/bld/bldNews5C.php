@@ -90,21 +90,21 @@ class bldNews5C {
 
 		$addDT = $news1[dbNews5C::FLD_ADD_DT];
 		if(strlen($addDT) >= 1) {
-			$newsNo    = '\'' . $news1[dbNews5C::FLD_ADD_DT] . '\'';
-
 			$newsNoExp = explode(' ' ,$news1[dbNews5C::FLD_ADD_DT]);
-			$dateExp = explode('-' ,$newsNoExp[0]);
-			$timeExp = explode(':' ,$newsNoExp[1]);
+			$dateExp   = explode('-' ,$newsNoExp[0]);
+			$timeExp   = explode(':' ,$newsNoExp[1]);
 
-			$idNewsNo = 'news' . $dateExp[0] . $dateExp[1] . $dateExp[2] . '_' . $timeExp[0] . $timeExp[1] . $timeExp[2];
-			$newsTRID = ' id="' . $dateExp[0] . $dateExp[1] . $dateExp[2] . '_' . $timeExp[0] . $timeExp[1] . $timeExp[2] . '"';
+			$idNewsNo    = 'news' . $dateExp[0] . $dateExp[1] . $dateExp[2] . '_' . $timeExp[0] . $timeExp[1] . $timeExp[2];
+			$newsTRID    = ' id="' . $dateExp[0] . $dateExp[1] . $dateExp[2] . '_' . $timeExp[0] . $timeExp[1] . $timeExp[2] . '"';
 			$newsTDClass = 'td' . $dateExp[0] . $dateExp[1] . $dateExp[2] . '_' . $timeExp[0] . $timeExp[1] . $timeExp[2];
 
+			$newsNo = '\'' . $newsNoExp[0] . '+' . $newsNoExp[1] . '\'';
 		} else {
-			$newsNo   = '';
-			$idNewsNo = 'news000000$000000';
-			$newsTRID = '';
+			$idNewsNo    = 'news000000$000000';
+			$newsTRID    = '';
 			$newsTDClass = '';
+
+			$newsNo = '';
 		}
 
 		if(strcmp($news1[dbNews5C::FLD_DISP] ,dbNews5C::DISP_ON) == 0) {

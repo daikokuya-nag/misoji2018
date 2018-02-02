@@ -95,7 +95,7 @@
 <script src="../js2018/mtn/mtnCommon.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/imgSelector.js?<?php print $vesion; ?>"></script>
 
-<script src="../js2018/mtn/news.js?<?php print $vesion; ?>"></script>
+<script src="../js2018/mtn/newsList.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/fixPhrase.js?<?php print $vesion; ?>"></script>
 
 <script src="../js2018/mtn/profList.js?<?php print $vesion; ?>"></script>
@@ -565,98 +565,19 @@
 
 <!-- -- 編集ダイアログ -- -->
 <!-- --ニュース編集------------------------------------------------------------- -->
-<div id="editNews" title="Dialog Title">
-  <form id="enterNews" data-parsley-validate data-parsley-trigger="keyup focusout change input">
-    <div id="editLeftN">
-      <table>
-        <tr>
-          <td>タイトル<span class="required">*</span></td>
-          <td><input type="text" id="title" name="title" size="35" value="" required="" placeholder="テキストを入力してください"></td>
-        </tr>
-        <tr>
-          <td>記事日付<span class="required">*</span></td>
-          <td><input type="text" id="newsDate" name="newsDate" size="35" value="" required=""></td>
-        </tr>
-        <tr class="NOTUSE">
-          <td>期間</td>
-          <td><input type="text" id="newsTerm" name="newsTerm" size="35" value=""></td>
-        </tr>
-        <tr>
-          <td>期間</td>
-          <td><input type="text" id="begDate" name="begDate" size="8" value="">～<input type="text" id="endDate" name="endDate" size="8" value=""></td>
-        </tr>
-        <tr>
-          <td>記事種類</td>
-          <td>
-            <input type="radio" name="newsCate" id="cateE" value="E">イベント
-            <input type="radio" name="newsCate" id="cateW" value="W">女性
-            <input type="radio" name="newsCate" id="cateM" value="M">会員
-            <input type="radio" name="newsCate" id="cateO" value="O">その他
-          </td>
-        </tr>
-        <tr>
-          <td>表示開始日時</td>
-          <td><input type="text" id="dispBegDate" name="dispBegDate" size="35" value=""></td>
-        </tr>
-        <tr>
-          <td colspan="2"><hr></td>
-        </tr>
-        <tr>
-          <td>記事概要<span class="required">*</span></td>
-          <td>
-            <textarea id="digest" name="digest" cols="60" rows="4" required="" data-parsley-trigger="change"></textarea>    <!--    data-parsley-trigger="change"     -->
-            <div id="warnDigest" class="parsley-errors-list filled"></div>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2"><hr></td>
-        </tr>
-        <tr>
-          <td>記事本体<span class="required">*</span></td>
-          <td>
-            <textarea id="content" name="content" cols="60" rows="18" required="" data-parsley-trigger="change"></textarea>
-            <div id="warnContent" class="parsley-errors-list filled"></div>
-          </td>
-        </tr>
-      </table>
-      <div class="delNews"><input type="button" value="削除" id="delNewsBtn" onclick="showDelNews();"></div>
-    </div>
-  </form>
-
-  <div id="DelNewsDlg" class="cfmDelPrompt ui-draggable delPrompt">
-    <h1 id="popup_titleDelNews" style="cursor: move;">記事の削除</h1>
-    <div id="popup_contentDelNews" class="confirm">
-      <div id="popup_messageDelNews">記事を削除しますか？<br>この操作は取り消せません</div>
-      <div id="popup_panelDelNews">
-        <input type="button" value="&nbsp;はい&nbsp;" onclick="delNewsItem();">
-        <input type="button" value="&nbsp;キャンセル&nbsp;" onclick="hideDelNews();">
-      </div>
-    </div>
-  </div>
-
-  <br class="clear">
-  <input type="hidden" id="editNewsNo" name="editNewsNo" value="">
+<div id="editNewsDlg" title="Dialog Title">
+	<iframe src="enterNews.php?id=" name="editNewsForm" id="editNewsForm" class="editNewsForm" title="ニュース編集" frameborder="0"></iframe>
 </div>
 
-
-<!-- --------------------------------------------------------------------------- -->
 <!-- --定型文編集--------------------------------------------------------------- -->
-<div id="editFixPhrase" title="定型文編集">
-  <div id="editLeftNFP">
-    <textarea id="fixPhraseStr" name="fixPhraseStr" cols="60" rows="18"></textarea>
-    <div id="warnFixPhraseStr" class="parsley-errors-list filled"></div>
-  </div>
-  <br class="clear">
+<div id="editFixPhraseDlg" title="定型文">
+	<iframe src="enterFixPhrase.php" name="editFixPhraseForm" id="editFixPhraseForm" class="editFixPhraseForm" title="定型文編集" frameborder="0" height="auto"></iframe>
 </div>
 
-
-
-<!-- --------------------------------------------------------------------------- -->
 <!-- --プロファイル編集--------------------------------------------------------- -->
-<div id="editProfDlg" title="Dialog Title">		<!--  class="NOTUSE" -->
-	<iframe src="enterProfile.php?id=" name="editProfile" id="editProfile" class="editProfile" title="プロファイル編集" frameborder="0"></iframe>		<!--  width="240"  enterProfile.php?id=    height="100%" width="100%" -->
+<div id="editProfDlg" title="Dialog Title">
+	<iframe src="enterProfile.php?id=" name="editProfile" id="editProfile" class="editProfile" title="プロファイル編集" frameborder="0"></iframe>
 </div>
-
 
 
 <!-- --------------------------------------------------------------------------- -->

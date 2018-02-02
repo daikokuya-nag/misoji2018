@@ -5,18 +5,21 @@
 * @date 2018.1.4
 */
 
-var DISP_FIX_PHRASE_EDIT_DIALOG = false;	// 定型文編集のダイアログを表示したか
-
 $(document).ready(function(){
 });
 
 
 $(window).load(function(){
 
-	$("#editFixPhrase").dialog({
+	$("#editFixPhraseDlg").dialog({
 		autoOpen : false ,
 		modal    : true  ,
 		width    : 850   ,
+
+		open : function() {
+			adjustEditFixPhraseIFrame();
+		} ,
+
 		buttons: [
 			{
 				text :"出力",
@@ -43,74 +46,49 @@ $(window).load(function(){
 */
 function editFixPhrase() {
 
-var phraseData;
-var result;
-
-	result = $.ajax({
-		type : "get" ,
-		url  : "../cgi2018/ajax/mtn/getFixPhrase.php" ,
-		data : {
-			branchNo : BRANCH_NO
-		} ,
-
-		cache : false
-	});
-
-	result.done(function(response) {
-					//console.debug(response);
-		phraseData = response;
-
-					console.debug('本文:' + phraseData);
-		$("#fixPhraseStr").val(phraseData);
-		$("#warnFixPhraseStr").html('');
-
-		$("#editFixPhrase").dialog("open");
-
-		setCKEditFixPhrase();
-		CKEDITOR.instances.fixPhraseStr.setData(phraseData);
-	});
-
-	result.fail(function(response, textStatus, errorThrown) {
-			console.debug('error at editFixPhrase:' + response.status + ' ' + textStatus);
-	});
-
-	result.always(function() {
-	});
+	$("#editFixPhraseForm").prop('src' ,'enterFixPhrase.php');
+	$("#editFixPhraseDlg").dialog("open");
 }
 
+
 /**
-* ckEditorの定義
+* iFrameの高さの調整
 *
 * @param
 * @return
 */
-function setCKEditFixPhrase() {
+function adjustEditFixPhraseIFrame() {
 
-	if(!DISP_FIX_PHRASE_EDIT_DIALOG) {
+	// iframeの幅と高さを特定
+var frame  = $('#editFixPhraseForm');
+var innerH = frame.get(0).contentWindow.document.body.scrollHeight;
+var innerW = frame.get(0).contentWindow.document.body.scrollWidth;
 
-		CKEDITOR.replace('fixPhraseStr',
-			{
-				height : 120
-			});
+	frame.attr('height', innerH + 'px');
+	frame.attr('width', innerW + 'px');
 
+	// ブラウザの高さとiframの高さを比較して低い方をダイアログの高さにする
+var outerH = $(window).height();
 
-		CKEDITOR.instances.fixPhraseStr.on("blur", function(e) {
-			CKEDITOR.instances.fixPhraseStr.updateElement();
-			var str = $("#fixPhraseStr").val();
-			var msg;
-
-			if(str.length >= 1) {
-				msg = '';
-			} else {
-				msg = 'any error';
-			}
-			$("#warnFixPhraseStr").html(msg);
-		});
-
-
-		DISP_FIX_PHRASE_EDIT_DIALOG = true;
+var dispH;
+	if(innerH > outerH) {
+		dispH = outerH;
+	} else {
+		dispH = innerH;
 	}
+	dispH-=2;
+
+			
+			console.debug(innerH);
+			console.debug(outerH);
+			console.debug(dispH);
+			
+
+	$("#editFixPhraseDlg").dialog({
+		height: outerH		//dispH
+	});
 }
+
 
 /**
 * 定型文書き出し
@@ -120,7 +98,13 @@ function setCKEditFixPhrase() {
 */
 function writeFixPhrase() {
 
-var phraseStr = CKEDITOR.instances.fixPhraseStr.getData();
+			//var phraseStr = CKEDITOR.instances.fixPhraseStr.getData();
+
+var docForm = editFixPhraseForm.document.enterFixPhrase;
+
+document.getElementById('editFixPhraseForm').contentWindow.updCkEditor();
+
+var phraseStr = docForm.fixPhraseStr.value;
 var result;
 
 	if(phraseStr.length >= 1) {
@@ -138,7 +122,7 @@ var result;
 		result.done(function(response) {
 						//console.debug(response);
 			alert('定型文出力完了');
-			$("#editFixPhrase").dialog("close");
+			$("#editFixPhraseDlg").dialog("close");
 		});
 
 		result.fail(function(response, textStatus, errorThrown) {

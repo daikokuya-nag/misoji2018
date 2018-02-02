@@ -46,7 +46,7 @@
 <script src="../js2018/parsley/i18n/ja.js"></script>
 <script src="../js2018/parsley/i18n/ja.extra.js"></script>
 
-<script src="../js2018/mtn/mtnCommon.js?<?php print $vesion; ?>"></script>
+<!-- <script src="../js2018/mtn/mtnCommon.js?<?php print $vesion; ?>"></script> -->
 
 <script src="../js2018/mtn/profEnter.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/profOut.js?<?php print $vesion; ?>"></script>
@@ -59,8 +59,7 @@
 </head>
 <body>
 <form id="enterProfile" name="enterProfile" data-parsley-validate data-parsley-trigger="keyup focusout change input">
-<input type="hidden" id="branchNo"   name="branchNo"   value="<?php print $branchNo; ?>">
-
+  <input type="hidden" id="branchNo" name="branchNo" value="<?php print $branchNo; ?>">
 
   <div id="profileA">
       <div id="editLeftP">

@@ -108,12 +108,7 @@ var chk = false;
 
 		setProfArea('NEW');
 
-		$("#editProfDlg").dialog( {
-			title : '新規'
-		});
-
 		$("#enterProfile").parsley().reset();
-		$("#editProfDlg").dialog("open");
 
 		setCKEditProf();
 		CKEDITOR.instances.mastComment.setData('');
@@ -216,12 +211,7 @@ var result = $.ajax({
 		setFileSeleVals(dir ,response['photo']);
 		setProfArea('EDIT');
 
-		$("#editProfDlg").dialog( {
-			title : '編集 '
-		});
-
 		$("#enterProfile").parsley().reset();
-		$("#editProfDlg").dialog("open");
 
 		setCKEditProf();
 		CKEDITOR.instances.mastComment.setData(response['mastersComment']);
