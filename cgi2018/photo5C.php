@@ -239,6 +239,7 @@ class photo5C {
 				$ret[$photoID]['cond'] = $showMode;
 			}
 		}
+		$ret['ALL']['cond'] = $showMode;
 		return $ret;
 	}
 

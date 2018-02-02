@@ -548,7 +548,7 @@ class html5C {
 
 			$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_NG);		/* 写真NG */
 			if($kwdPos >= 0) {
-				if(strcmp($photoUse['1']['cond'] ,dbProfile5C::PHOTO_SHOW_NG) == 0) {
+				if(strcmp($photoUse['ALL']['cond'] ,dbProfile5C::PHOTO_SHOW_NG) == 0) {
 					$this->detail1 = str_replace(templateConst5C::KWD_PHOTO_SHOW_NG ,'' ,$this->detail1);
 				} else {
 					//写真NGの行で写真表示指定がNG以外の時はその行を表示しない
@@ -558,7 +558,7 @@ class html5C {
 
 			$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_NP);		/* 写真準備中 */
 			if($kwdPos >= 0) {
-				if(strcmp($photoUse['1']['cond'] ,dbProfile5C::PHOTO_SHOW_NP) == 0) {
+				if(strcmp($photoUse['ALL']['cond'] ,dbProfile5C::PHOTO_SHOW_NP) == 0) {
 					$this->detail1 = str_replace(templateConst5C::KWD_PHOTO_SHOW_NP ,'' ,$this->detail1);
 				} else {
 					//写真準備中の行で写真表示指定が準備中以外の時はその行を表示しない
@@ -568,7 +568,7 @@ class html5C {
 
 			$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::KWD_PHOTO_SHOW_NOT);		/* 写真なし */
 			if($kwdPos >= 0) {
-				if(strcmp($photoUse['1']['cond'] ,dbProfile5C::PHOTO_SHOW_NOT) == 0) {
+				if(strcmp($photoUse['ALL']['cond'] ,dbProfile5C::PHOTO_SHOW_NOT) == 0) {
 					$this->detail1 = str_replace(templateConst5C::KWD_PHOTO_SHOW_NOT ,'' ,$this->detail1);
 				} else {
 					//写真なしの行で写真表示指定が写真ナシ以外の時はその行を表示しない
