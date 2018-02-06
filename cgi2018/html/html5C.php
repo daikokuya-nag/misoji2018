@@ -253,6 +253,10 @@ class html5C {
 			$ret = $this->setSideBar($sect1 ,$begKwd);
 		}
 
+		if(strcmp($begKwd ,'AGE_AUTH_TOP') == 0) {
+			$ret = $this->setAgeAuth($sect1 ,$begKwd);
+		}
+
 		return $ret;
 	}
 
@@ -1124,7 +1128,7 @@ class html5C {
 		$imgIdx = count($imgList);
 		for($idx=0 ;$idx<$imgIdx ;$idx++) {
 			if($idx == 0) {
-				$class = 'imgTop';
+				$class = 'imgTop imgStd';
 			} else {
 				$class = 'img2';
 			}
@@ -1710,8 +1714,7 @@ class html5C {
 
 		$imgDir  = 'img/' . $this->branchNo . '/TOP/';
 		$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
-
-		$expNo  = $headerVal['NO' ];
+		$expNo   = $headerVal['NO' ];
 		$imgList = $headerVal['IMGLIST'];
 		$imgMax = count($imgList);
 
@@ -1902,6 +1905,108 @@ class html5C {
 
 		return $imgPath;
 	}
+
+
+
+
+/**
+ * 年齢認証の画像の表示
+ *
+ * @access
+ * @param string $headerVal 画像指定情報
+ * @return array 
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	function setAgeAuth($sect ,$kwd) {
+
+		$ret  = array();
+
+		$disp = '';
+		$lineMax = count($sect);
+		for($idx=0 ;$idx<$lineMax ;$idx++) {
+			$line1 = $sect[$idx];
+			$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::AGE_AUTH_TOP_IMG);
+			if($kwdPos >= 0) {
+//				$val  = sess5C::getOutVals($kwd);
+
+
+
+
+				$val  = sess5C::getOutVals('AGE_AUTH_TOP');
+				$disp = $this->setAgeAuthImg($val);
+
+
+
+
+
+
+//				$disp = $this->setAgeAuthImg($val[0] ,$val['IMGLIST']);
+				if(strlen($disp) >= 1) {
+					$ret[] = '<img src="' . $disp . '" class="img-responsive center-block">';
+				}
+			} else {
+				if(strcmp($line1 ,$this->begValList[$kwd]) == 0
+				|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
+				} else {
+					$ret[] = $line1;
+				}
+			}
+		}
+
+		return $ret;
+	}
+
+/**
+ * 年齢認証に表示する画像の取得
+ *
+ * @access
+ * @param string $headerVal 画像指定情報
+ * @return array 画像ファイルへのパス
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	private function setAgeAuthImg($val) {
+
+		$imgDir  = 'img/' . $this->branchNo . '/AGE_AUTH/';
+		$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
+
+		$expNo   = $val['IMG'    ];
+		$imgList = $val['IMGLIST'];
+		$imgMax = count($imgList);
+
+		//画像番号のファイルの有無を調べる
+		$dispImgNo1 = $expNo;
+		$fileExist  = false;
+		for($imgIdx=0 ;$imgIdx<$imgMax ;$imgIdx++) {
+			$img1 = $imgList[$imgIdx];
+			if($dispImgNo1 == $img1[dbImage5C::FLD_IMG_NO]) {
+				$ext = $img1[dbImage5C::FLD_ORG_EXT];
+				$imgFullPath = $imgRoot . $dispImgNo1 . '.' . $ext;
+				$imgDispPath = $imgDir  . $dispImgNo1 . '.' . $ext;
+				if(is_file($imgFullPath)) {
+					$fileExist = true;
+					break;
+				}
+			}
+		}
+
+		//画像ファイルがあればtrue
+		if($fileExist) {
+			$imgPath = $imgDispPath;
+		} else {
+			$imgPath = '';
+		}
+
+		return $imgPath;
+	}
+
+
+
 
 
 /**

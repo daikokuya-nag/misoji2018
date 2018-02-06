@@ -27,6 +27,11 @@ $(window).load(function(){
 
 });
 
+$(window).resize(function() {
+	resetHeader();
+});
+
+
 $(function() {
 
 //	alignWives(listIDA ,tnClassA ,tnPrefixA ,modeA);
@@ -113,9 +118,7 @@ var result = $.ajax({
 
 function hdImgW() {
 
-	//2枚目以降の画像が左に寄るため、1枚目のマージンの値をコピー
-var leftVal = $("img.imgTop").css('margin-left');
-	$("img.img2").css('left' ,leftVal);
+	resetHeader();
 
 var setImg = '#hdW';
 var fadeSpeed   = 1500;
@@ -128,6 +131,15 @@ var switchDelay = 5000;
 		$(setImg + ' :first-child').animate({opacity:'0'},fadeSpeed).next('img').animate({opacity:'1'},fadeSpeed).end().appendTo(setImg);
 	},switchDelay);
 }
+
+function resetHeader() {
+
+	//2枚目以降の画像が左に寄るため、1枚目のマージンの値をコピー
+var leftVal = $("img.imgStd").css('margin-left');
+
+	$("img.img2").css('left' ,leftVal);
+}
+
 
 function setSidebarHeight() {
 
