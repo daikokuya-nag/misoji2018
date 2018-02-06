@@ -29,6 +29,7 @@ $(window).load(function(){
 
 $(window).resize(function() {
 	resetHeader();
+	setSidebarHeight();
 });
 
 
@@ -101,7 +102,6 @@ var result = $.ajax({
 
 		if(mainAllWidth <= 750 && width <= 681 && workersNum >= 1) {
 					//console.debug('reset2');
-			showWorkerXS(width ,workersNum);
 		}
 
 		setSidebarHeight();
@@ -143,10 +143,14 @@ var leftVal = $("img.imgStd").css('margin-left');
 
 function setSidebarHeight() {
 
-var heightMain = $("#mainArea").height();
-var heightSide;
+var mainAllWidth = window.innerWidth;
+				//console.debug('main width:' + mainAllWidth);
 
-console.debug(heightMain);
-
-	$("#sideBar").height(heightMain - 6);
+	if(mainAllWidth < 767) {
+		$("#sideBar").css('height' ,'auto');
+	} else {
+		var heightMain = $("#mainArea").height();
+				//console.debug(heightMain);
+		$("#sideBar").height(heightMain - 16);
+	}
 }

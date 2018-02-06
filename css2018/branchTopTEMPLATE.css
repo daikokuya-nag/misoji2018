@@ -98,6 +98,10 @@ iframe.diaryFrame {
   border-bottom: 1px solid #ccc;
 }
 
+.topInfo {
+  margin-bottom:15px;
+}
+
 
 /* 追加分 */
 /* TOP_CSS_BEG */

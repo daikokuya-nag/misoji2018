@@ -1833,6 +1833,15 @@ class html5C {
 			if($kwdPos >= 0) {
 				$val  = sess5C::getOutVals($kwd);
 				$disp = $this->setSideBarImg($val[0] ,$val['IMGLIST']);
+
+				if($val == 1) {
+					$ret[] = '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';		// 1枚の時は中央表示
+				} else {
+					if($val >= 2) {
+						$ret[] = '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-6">';	// 2枚の時は左に表示
+					}
+				}
+
 				if(strlen($disp) >= 1) {
 					$ret[] = '<img src="' . $disp . '" class="img-responsive center-block">';
 				}
@@ -1840,14 +1849,21 @@ class html5C {
 					$ret[] = '<div class="sideBarStr">' . $val[0]['STRING'] . '</div>';
 				}
 
+				if($val >= 1) {
+					$ret[] = '</div>';
+				}
+
 				if(count($val) >= 2) {
 					$disp = $this->setSideBarImg($val[1] ,$val['IMGLIST']);
+
+					$ret[] = '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-6">';		// 右に表示
 					if(strlen($disp) >= 1) {
 						$ret[] = '<img src="' . $disp . '" class="img-responsive center-block">';
 					}
 					if(strlen($val[1]['STRING']) >= 1) {
 						$ret[] = '<div class="sideBarStr">' . $val[1]['STRING'] . '</div>';
 					}
+					$ret[] = '</div>';
 				}
 			} else {
 				if(strcmp($line1 ,$this->begValList[$kwd]) == 0
