@@ -56,8 +56,10 @@ div.tabMid {
 
 
 div#imgList .img {
-
-  float:left;
+  vertical-align:top;
+  display:inline-block;
+  margin-left:2px;
+  margin-right:2px;
 }
 
 div.imgList {
