@@ -12,9 +12,9 @@ var ID_PREFIX      = {NEWS:'tabsNews'      ,ALBUM:'tabsProfile'     ,RECRUIT:'ta
 var OUTER_URL_FORM = {NEWS:'newsOuterURL'  ,ALBUM:'profileOuterURL' ,RECRUIT:'recruitOuterURL'  ,SYSTEM:'systemOuterURL'  ,PHOTODIARY:'photoDiaryOuterURL'};	// 外部サイトの入力域
 var GRAY_PANEL_ID  = {NEWS:'grayPanelNews' ,ALBUM:'grayPanelProf'   ,RECRUIT:'grayPanelRecruit' ,SYSTEM:'grayPanelSystem' ,PHOTODIARY:'grayPanelPhotoDiary'};	// 外部サイト使用時の、入力不可領域のマスク
 
-var EDIT_AREA        = {NEWS:'tabNewsMain' ,ALBUM:'tabProfMain' ,RECRUIT:'tabRecruitMain' ,SYSTEM:'tabSystemMain' ,PHOTODIARY:'tabSystemMain' ,TOP:'tabTopMain'};			// 入力項目範囲
-var EDIT_AREA_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0 ,PHOTODIARY:0 ,TOP:0};		// 入力域の高さ
-var TAB_HEIGHT       = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0 ,PHOTODIARY:0 ,TOP:0};		// tabの高さ
+var EDIT_AREA        = {NEWS:'tabNewsMain' ,ALBUM:'tabProfMain' ,RECRUIT:'tabRecruitMain' ,SYSTEM:'tabSystemMain' ,PHOTODIARY:'tabSystemMain' ,TOP:'tabTopMain' ,AGE_AUTH:'tabAgeAuthMid'};		// 入力項目範囲
+var EDIT_AREA_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0 ,PHOTODIARY:0 ,TOP:0 ,AGE_AUTH:0};		// 入力域の高さ
+var TAB_HEIGHT       = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0 ,PHOTODIARY:0 ,TOP:0 ,AGE_AUTH:0};		// tabの高さ
 
 var DISP_SYSTEM_TAB  = false;	// システムタブを表示したか
 var DISP_RECRUIT_TAB = false;	// 求人タブを表示したか
@@ -71,6 +71,12 @@ var width = $(".tabArea").width();
 					setCKEditSystem();
 					if(TAB_HEIGHT['SYSTEM'] == 0) {
 						setSystemTabHeight();
+					}
+				}
+
+				if(selectedPanel == "#tabsAgeAuth") {
+					if(TAB_HEIGHT['AGE_AUTH'] == 0) {
+						setAgeAuthTabHeight();
 					}
 				}
 			}
@@ -159,8 +165,8 @@ console.debug('AAA');
 	$("#tabTopSystemMid").height(height + 'px');
 	TAB_HEIGHT['TOP'] = height;
 
-	height = $("#" + EDIT_AREA['top']).height();
-	EDIT_AREA_HEIGHT['top'] = height;
+	height = $("#" + EDIT_AREA['TOP']).height();
+	EDIT_AREA_HEIGHT['TOP'] = height;
 }
 
 
@@ -185,8 +191,8 @@ var grayPanelID = GRAY_PANEL_ID['news'];
 	$("#tabNewsMid").height(height + 'px');
 	TAB_HEIGHT['NEWS'] = height;
 
-	height = $("#" + EDIT_AREA['news']).height();
-	EDIT_AREA_HEIGHT['news'] = height;
+	height = $("#" + EDIT_AREA['NEWS']).height();
+	EDIT_AREA_HEIGHT['NEWS'] = height;
 	$("#" + grayPanelID).height(height);
 }
 
@@ -211,8 +217,8 @@ var grayPanelID = GRAY_PANEL_ID['profile'];
 	$("#tabProfMid").height(height + 'px');
 	TAB_HEIGHT['ALBUM'] = height;
 
-	height = $("#" + EDIT_AREA['profile']).height();
-	EDIT_AREA_HEIGHT['profile'] = height;
+	height = $("#" + EDIT_AREA['PROFILE']).height();
+	EDIT_AREA_HEIGHT['PROFILE'] = height;
 	$("#" + grayPanelID).height(height);
 }
 
@@ -237,8 +243,8 @@ var grayPanelID = GRAY_PANEL_ID['recruit'];
 	$("#tabRecruitMid").height(height + 'px');
 	TAB_HEIGHT['RECRUIT'] = height;
 
-	height = $("#" + EDIT_AREA['recruit']).height();
-	EDIT_AREA_HEIGHT['recruit'] = height;
+	height = $("#" + EDIT_AREA['RECRUIT']).height();
+	EDIT_AREA_HEIGHT['RECRUIT'] = height;
 	$("#" + grayPanelID).height(height);
 
 	//ckEditorの編集領域の高さの調整
@@ -284,8 +290,8 @@ var grayPanelID = GRAY_PANEL_ID['system'];
 	$("#tabSystemMid").height(height + 'px');
 	TAB_HEIGHT['SYSTEM'] = height;
 
-	height = $("#" + EDIT_AREA['system']).height();
-	EDIT_AREA_HEIGHT['system'] = height;
+	height = $("#" + EDIT_AREA['SYSTEM']).height();
+	EDIT_AREA_HEIGHT['SYSTEM'] = height;
 	$("#" + grayPanelID).height(height);
 
 	//ckEditorの編集領域の高さの調整
@@ -370,6 +376,29 @@ function setCKEditSystem() {
 		DISP_SYSTEM_TAB = true;
 	}
 }
+
+/**
+* 年齢認証パネルの高さ調整
+*
+* @param
+* @return
+*/
+function setAgeAuthTabHeight() {
+
+							//console.debug('set news tab height');
+var areaH      = $("#tabsAgeAuth").height();			// 領域の高さ
+var areaBtmH   = $("#tabAgeAuthBottom").height();		// 下ボタンの高さ
+
+var height = areaH - (areaBtmH) + 10;
+
+				//console.debug(areaH + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
+	$("#tabAgeAuthMid").height(height + 'px');
+	TAB_HEIGHT['AGE_AUTH'] = height;
+
+	height = $("#" + EDIT_AREA['AGE_AUTH']).height();
+	EDIT_AREA_HEIGHT['AGE_AUTH'] = height;
+}
+
 
 function readUsePage() {
 

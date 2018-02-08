@@ -69,6 +69,7 @@
 <link href="../css2018/prof.css?<?php print $vesion; ?>" rel="stylesheet">
 <link href="../css2018/photoDiary.css?<?php print $vesion; ?>" rel="stylesheet">
 <link href="../css2018/decoration.css?<?php print $vesion; ?>" rel="stylesheet">
+<link href="../css2018/ageAuth.css?<?php print $vesion; ?>" rel="stylesheet">
 
 <link href="../css2018/fileSele.css" rel="stylesheet">
 
@@ -122,8 +123,6 @@
 <input type="hidden" id="newBlogRec" name="newBlogRec" value="<?php print dbMBlog5C::NEW_REC; ?>">
 <div id="tabA">
   <ul>
-    <li><a href="#tabsAgeAuth">年齢認証</a></li>
-
     <li><a href="#tabsTop">TOP</a></li>
     <li><a href="#tabsNews">ニュース</a></li>
     <li><a href="#tabsProfile">プロファイル</a></li>
@@ -134,6 +133,8 @@
     <li><a href="#tabsHeader">ヘッダ</a></li>
     <li><a href="#tabsSideBar">サイドバー</a></li>
     <li><a href="#tabsDecoration">装飾</a></li>
+
+    <li><a href="#tabsAgeAuth">年齢認証</a></li>
   </ul>
 
   <!-- ***** タブの中身の定義 ***** -->
@@ -547,7 +548,7 @@
   <!-- 年齢認証 -->
   <div id="tabsAgeAuth" class="tabArea">
     <div class="tabAgeAuthImgEnter panelScroll">
-      <div id="tabAgeAuthSystemMid" class="tabMid">
+      <div id="tabAgeAuthMid" class="tabMid">
         <div>
           <div class="sheetTitle">画像</div>
           <table class="ageAuthImgSele">
@@ -569,8 +570,7 @@
         <hr>
         <div class="sheetTitle">リンク</div>
           <input type="button" value="新規リンク" onclick="newAgeAuthLink()">
-          <br><br>
-          <table>
+          <table class="ageAuthLinkList">
             <thead>
               <tr><th>サイト名</th><th>URL</th><th>バナー</th><th>編集</th></tr>
             </thead>
@@ -641,12 +641,12 @@
           <div class="selectPage">
             <table>
               <tr>
-                <td><label><input type="radio" name="aaLinkExchangeImg" id="aaLinkExchangeImgURL" value="URL">URL指定</label></td>
+                <td><label><input type="radio" name="ageAuthLinkImg" id="ageAuthLinkImgURL" value="URL">URL指定</label></td>
                 <td><input type="text" id="imgURLAA" name="imgURLAA" size="35" value=""></td>
               </tr>
               <tr>
-                <td><label><input type="radio" name="aaLinkExchangeImg" id="aaLinkExchangeImgFile" value="FILE">ファイル選択</label></td>
-                <td><input type="button" value="画像選択" name="attAALinkExchange" id="attAALinkExchange" onclick="showSeleImg('AGE_AUTH' ,'LINK_EXCHANGE')"><input type="hidden" id="imgNOAA" name="imgNOAA" value=""></td>
+                <td><label><input type="radio" name="ageAuthLinkImg" id="ageAuthLinkImgFile" value="FILE">ファイル選択</label></td>
+                <td><input type="button" value="画像選択" name="attAALink" id="attAALink" onclick="showSeleImg('AGE_AUTH' ,'LINK_EXCHANGE')"><input type="hidden" id="imgNOAA" name="imgNOAA" value=""></td>
               </tr>
             </table>
           </div>
@@ -654,10 +654,13 @@
       </tr>
     </table>
     <input type="hidden" id="editAgeAuthLink" name="editAgeAuthLink" value="">
-    <div class="delAALink"><input type="button" value="削除" id="delPDBtn" onclick="cfmDelAgeAuthLink();" style="display:none;"></div>
+    <div class="delAALink"><input type="button" value="削除" id="delAALinkBtn" onclick="cfmDelAgeAuthLink();" style="display:none;"></div>
   </div>
 
-  <div id="DelPDiaryDlg" class="cfmDelPrompt ui-draggable" style="position: absolute; z-index: 99999; padding: 0px; margin: 0px; min-width: 310px; max-width: 310px; top: 329px; left: 436.5px;   display:none">
+  <br class="clear">
+</div>
+
+  <div id="DelAALinkDlg" class="cfmDelPrompt ui-draggable" style="position: absolute; z-index: 99999; padding: 0px; margin: 0px; min-width: 310px; max-width: 310px; top: 329px; left: 436.5px;   display:none">
     <h1 id="popup_titleDelAgeAuthLink" style="cursor: move;">リンクの削除</h1>
     <div id="popup_contentDelAgeAuthLink" class="confirm">
       <div id="popup_messageDelAgeAuthLink">リンクを削除しますか？<br>この操作は取り消せません</div>
@@ -667,9 +670,6 @@
       </div>
     </div>
   </div>
-
-  <br class="clear">
-</div>
 
 
 <!-- --------------------------------------------------------------------------- -->

@@ -161,11 +161,28 @@ table.headerImgSele {
 
   border-collapse:collapse;
 }
+table.headerOtherImgSele {
+
+  border-collapse:collapse;
+}
+
+table.headerOtherImgSele th {
+  padding-bottom:5px;
+  border-bottom:1px solid #aaa;
+}
+
+table.headerImgSele th {
+  padding-bottom:5px;
+  border-bottom:1px solid #aaa;
+}
 
 tr.headerImg {
-
   margin:5px;
   padding:5px;
+}
+
+tr.headerImg td {
+  vertical-align:middle;
 }
 
 td.headerImgTN {
@@ -173,34 +190,33 @@ td.headerImgTN {
   max-width:400px;
   overflow:hidden;
 
+  padding-top: 5px;
   padding-left:3px;
   padding-bottom:3px;
-  border-left:2px solid #f0f;
-  border-top:2px solid #f0f;
-  border-bottom:2px solid #f0f;
+  border-bottom:1px solid #aaa;
 }
 
 td.headerImgSele {
-
-  padding-bottom:3px;
-  border-top:2px solid #f0f;
-  border-bottom:2px solid #f0f;
+  padding-bottom:1px;
+			/*  border-top:2px solid #aaa;*/
+  border-bottom:1px solid #aaa;
 }
 
 td.headerImgDisp {
-
   padding-bottom:3px;
   padding-right:3px;
-  border-top:2px solid #f0f;
-  border-bottom:2px solid #f0f;
-  border-right:2px solid #f0f;
+			/*  border-top:2px solid #aaa;*/
+  border-bottom:1px solid #aaa;
+			/*  border-right:2px solid #aaa;*/
 }
 
 td.headerImgTN img {
-
   max-width:400px;
 }
 
+td.headerImgSele {
+  padding-top:15px;
+}
 
 div.tabHeaderEnter {
 
