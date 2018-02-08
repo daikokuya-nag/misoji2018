@@ -2063,8 +2063,9 @@ class html5C {
 			$url      = $link1[dbLinkExchange5C::FLD_URL      ];
 			$img      = $link1[dbLinkExchange5C::FLD_IMG_FILE ];
 
+
 			if(strncasecmp($img ,'http' ,4) == 0) {
-				$imgURL = $imgNo;
+				$imgURL = $img;
 			} else {
 				$imgURL = '';
 				if(isset($extList[$img])) {
@@ -2080,13 +2081,31 @@ class html5C {
 			for($detailIdx=0 ;$detailIdx<$detailMax ;$detailIdx++) {
 				$this->detail1 = $detailStr[$detailIdx];
 
+				if(strlen($imgURL) >= 1) {
+					// 画像があるとき…
+					// 画像非表示の行の時は出力しない
+					$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::AGE_AUTH_LINK_NO_IMG);		/* 画像ナシの行か */
+					if($kwdPos >= 0) {
+						$this->detail1 = '';
+					}
+				} else {
+					// 画像がないとき…
+					// 画像表示の行の時は出力しない
+					$kwdPos = strings5C::mb_existStr($this->detail1 ,templateConst5C::AGE_AUTH_LINK_ANY_IMG);		/* 画像ありの行か */
+					if($kwdPos >= 0) {
+						$this->detail1 = '';
+					}
+				}
+
 				$this->replaceStr(templateConst5C::AGE_AUTH_LINK_EXCHANGE_NAME ,$siteName);	//サイト名
 				$this->replaceStr(templateConst5C::AGE_AUTH_LINK_EXCHANGE_URL  ,$url);		//URL
 				$this->replaceStr(templateConst5C::AGE_AUTH_LINK_EXCHANGE_IMG  ,$imgURL);	//画像
-
 				$this->replaceStr(templateConst5C::AGE_AUTH_LINK_EXCHANGE_IMG_OTHER ,'');
+
+				if(strlen($this->detail1) >= 1) {
+					$ret[] = $this->detail1;
+				}
 			}
-			$ret[] = $this->detail1;
 		}
 
 		return $ret;

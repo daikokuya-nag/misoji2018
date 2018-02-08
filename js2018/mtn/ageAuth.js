@@ -25,8 +25,13 @@ $(document).ready(function(){
 			$("#attAALink").prop('disabled' ,true);
 			$("#imgURLAA").prop('disabled' ,false);
 		} else {
+			if(val == 'FILE') {
 			$("#attAALink").prop('disabled' ,false);
 			$("#imgURLAA").prop('disabled' ,true);
+			} else {	// 画像ナシのとき
+				$("#attAALink").prop('disabled' ,true);
+				$("#imgURLAA").prop('disabled' ,true);
+			}
 		}
 	});
 });
@@ -231,19 +236,35 @@ function editAgeAuthLink(editNo) {
 var siteNameAA = $("#siteNameAA" + editNo).html();
 var urlAA      = $("#urlAA"      + editNo).html();
 var imgURLAA   = $("#imgURLAA"   + editNo).val();
+var imgNOAA    = $("#imgNOAA"    + editNo).val();
 
-var imgURL4 = imgURLAA.substr(0 ,4);
+var imgURL4;
+var anyFile = false;
 
-	if(imgURL4 == 'http'
-	|| imgURL4 == 'HTTP') {
+console.debug('imgURLAA:' + imgURLAA);
+console.debug('editNo:' + editNo);
+
+	if(imgURLAA.length >= 1) {
 		$("input[name='ageAuthLinkImg']").val(["URL"]);
 		$("#attAALink").prop('disabled' ,true);
 		$("#imgURLAA").prop('disabled' ,false);
-	} else {
+		anyFile = true;
+	}
+
+	if(imgNOAA.length >= 1) {
 		$("input[name='ageAuthLinkImg']").val(["FILE"]);
 		$("#attAALink").prop('disabled' ,false);
 		$("#imgURLAA").prop('disabled' ,true);
+		anyFile = true;
 	}
+
+	// 画像ナシの時
+	if(!anyFile) {
+		$("input[name='ageAuthLinkImg']").val(["NOBANNER"]);
+		$("#attAALink").prop('disabled' ,true);
+		$("#imgURLAA").prop('disabled' ,true);
+	}
+
 
 	$("#siteNameAA").val(siteNameAA);
 	$("#urlAA"     ).val(urlAA);
@@ -274,7 +295,11 @@ var sele = $("input[name='ageAuthLinkImg']:checked").val();
 	if(sele == 'URL') {
 		imgURL = $("#imgURLAA").val();
 	} else {
-		imgURL = $("#imgNOAA").val();
+		if(sele == 'FILE') {
+			imgURL = $("#imgNOAA").val();
+		} else {
+			imgURL = '';
+		}
 	}
 				//console.debug(no + ' ' + sele + ' ' + imgURL);
 	tagStr = setTDTagStr(no ,siteName ,url ,imgURL);
@@ -294,18 +319,25 @@ function setTDTagStr(no ,siteName ,url ,imgURL) {
 
 var ret;
 
-var imgURL4 = imgURL.substr(0 ,4);
+var imgURL4;
 var editBtn;
 
-	if(imgURL4 == 'http'
-	|| imgURL4 == 'HTTP') {
-		imgTag = '<img src="' + imgURL + '" class="img-responsive">' +
-				'<input type="hidden" id="imgURLAA' + no + '" value="' + imgURL +  '">' +
-				'<input type="hidden" id="imgNOAA' + no + '" value="">';
+	if(imgURL.length >= 1) {
+		imgURL4 = imgURL.substr(0 ,4);
+		if(imgURL4 == 'http'
+		|| imgURL4 == 'HTTP') {
+			imgTag = '<img src="' + imgURL + '" class="img-responsive">' +
+					'<input type="hidden" id="imgURLAA' + no + '" value="' + imgURL +  '">' +
+					'<input type="hidden" id="imgNOAA' + no + '" value="">';
+		} else {
+			imgTag = '<img src="../img/1/AGE_AUTH/' + imgURL + '.' + EXT_LIST[imgURL] + '" class="img-responsive">' +
+					'<input type="hidden" id="imgURLAA' + no + '" value="">' +
+					'<input type="hidden" id="imgNOAA' + no + '" value="' + imgURL +  '">';
+		}
 	} else {
-		imgTag = '<img src="../img/1/AGE_AUTH/' + imgURL + '.' + EXT_LIST[imgURL] + '" class="img-responsive">' +
+		imgTag = '画像ナシ' +
 				'<input type="hidden" id="imgURLAA' + no + '" value="">' +
-				'<input type="hidden" id="imgNOAA' + no + '" value="' + imgURL +  '">';
+				'<input type="hidden" id="imgNOAA' + no + '" value="">';
 	}
 
 	editBtn = '<input type="button" value="編集" onclick="editAgeAuthLink(\'' + no + '\')">';

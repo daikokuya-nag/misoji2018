@@ -218,12 +218,11 @@ function showImgDlg() {
 	$("#enterNewImgFile").parsley().reset();	// validateリセット
 
 	//ファイル選択ボタンのリセット
+	$("#imgTitle").val('');
 	resetFileSelector();
 	$("#warnImgFile").html('');
 
 	$("#selectImgFile").dialog("open");
-
-
 }
 
 

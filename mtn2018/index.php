@@ -648,6 +648,10 @@
                 <td><label><input type="radio" name="ageAuthLinkImg" id="ageAuthLinkImgFile" value="FILE">ファイル選択</label></td>
                 <td><input type="button" value="画像選択" name="attAALink" id="attAALink" onclick="showSeleImg('AGE_AUTH' ,'LINK_EXCHANGE')"><input type="hidden" id="imgNOAA" name="imgNOAA" value=""></td>
               </tr>
+              <tr>
+                <td><label><input type="radio" name="ageAuthLinkImg" id="ageAuthLinkNoImg" value="NOBANNER">画像ナシ</label></td>
+                <td></td>
+              </tr>
             </table>
           </div>
         </td>

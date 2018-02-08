@@ -258,6 +258,8 @@ class templateConst5C {
 
 	const AGE_AUTH_LINK_EXCHANGE_IMG_OTHER  = '<!-- AGE_AUTH_LINK_EXCHANGE_IMG_OTHER -->';	// 相互リンクバナー画像のその他の情報
 
+	const AGE_AUTH_LINK_ANY_IMG = '<!-- AGE_AUTH_LINK_ANY_IMG -->';		// 画像あり
+	const AGE_AUTH_LINK_NO_IMG  = '<!-- AGE_AUTH_LINK_NO_IMG -->';		// 画像ナシ
 
 
 
