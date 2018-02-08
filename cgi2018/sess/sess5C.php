@@ -19,6 +19,7 @@
 	require_once dirname(__FILE__) . '/../db/dbImage5C.php';
 	require_once dirname(__FILE__) . '/../db/dbProfile5C.php';
 	require_once dirname(__FILE__) . '/../db/dbNews5C.php';
+	require_once dirname(__FILE__) . '/../db/dbLinkExchange5C.php';
 
 /**
  * セッション
@@ -506,6 +507,24 @@ class sess5C {
 				$valTmp[1] = $imgVal;
 			}
 
+			$handle = $db->getHandle();
+			$dbImgList = new dbImage5C($handle);
+
+			$imgList = $dbImgList->readShowable($branchNo);
+			$valTmp['IMGLIST'] = $imgList['imgInfo'];
+
+			$outID[] = $ID;
+			$val[]   = $valTmp;
+		}
+
+		if(strcmp($ID ,'AGE_AUTH_TOP') == 0) {
+			$db = new dbPageParam5C();
+
+			//認証ページの画像指定
+			$dbVal = $db->readAll($branchNo ,'AGE_AUTH' ,'TOP');
+
+			$dbVal1 = $dbVal['pageVal'][0];
+			$valTmp['IMG'] = $dbVal1[dbPageParam5C::FLD_VALUE3];
 
 			$handle = $db->getHandle();
 			$dbImgList = new dbImage5C($handle);
@@ -516,6 +535,17 @@ class sess5C {
 			$outID[] = $ID;
 			$val[]   = $valTmp;
 		}
+
+		if(strcmp($ID ,'AGE_AUTH_LINK_EXCHANGE') == 0) {
+			$db = new dbLinkExchange5C();
+			$dbVal = $db->readAll($branchNo ,'TOP');
+
+			$outID[] = $ID;
+			$val[]   = $dbVal['val'];
+		}
+
+
+
 
 /*
 当面使用しない

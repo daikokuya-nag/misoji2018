@@ -71,6 +71,12 @@ class templateConst5C {
 	const SIDEBAR_R_BEG_LINE = '<!-- SIDEBAR_R_BEG -->';			// 右サイドバーの開始
 	const SIDEBAR_R_END_LINE = '<!-- SIDEBAR_R_END -->';			// 右サイドバーの終了
 
+	const AGE_AUTH_TOP_BEG_LINE = '<!-- AGE_AUTH_TOP_BEG -->';			// 認証ページの画像の開始
+	const AGE_AUTH_TOP_END_LINE = '<!-- AGE_AUTH_TOP_END -->';			// 認証ページの画像の終了
+
+	const AGE_AUTH_LINK_EXCHANGE_BEG_LINE = '<!-- AGE_AUTH_LINK_EXCHANGE_BEG -->';	// 相互リンクの開始
+	const AGE_AUTH_LINK_EXCHANGE_END_LINE = '<!-- AGE_AUTH_LINK_EXCHANGE_END -->';	// 相互リンクの終了
+
 	const ALBUM_CSS_VER_BEG_LINE = '<!-- ALBUM_CSS_BEG -->';		// アルバムページのcssのバージョンの開始
 	const ALBUM_CSS_VER_END_LINE = '<!-- ALBUM_CSS_END -->';		// アルバムページのcssのバージョンの終了
 
@@ -103,6 +109,9 @@ class templateConst5C {
 
 		'SIDEBAR_R' => self::SIDEBAR_R_BEG_LINE ,
 
+		'AGE_AUTH_TOP'           => self::AGE_AUTH_TOP_BEG_LINE ,
+		'AGE_AUTH_LINK_EXCHANGE' => self::AGE_AUTH_LINK_EXCHANGE_BEG_LINE ,
+
 		'ALBUM_CSS_VER' => self::ALBUM_CSS_VER_BEG_LINE ,
 		'ALBUM_CSS_VAL' => self::ALBUM_CSS_VAL_BEG_LINE
 	);
@@ -130,6 +139,9 @@ class templateConst5C {
 		'TOP_CSS_VAL' => self::TOP_CSS_VAL_END_LINE ,
 
 		'SIDEBAR_R' => self::SIDEBAR_R_END_LINE ,
+
+		'AGE_AUTH_TOP'           => self::AGE_AUTH_TOP_END_LINE ,
+		'AGE_AUTH_LINK_EXCHANGE' => self::AGE_AUTH_LINK_EXCHANGE_END_LINE ,
 
 		'ALBUM_CSS_VER' => self::ALBUM_CSS_VER_END_LINE ,
 		'ALBUM_CSS_VAL' => self::ALBUM_CSS_VAL_END_LINE
@@ -236,6 +248,18 @@ class templateConst5C {
 	// アルバムページ
 	const ALBUM_CSS_VER_VAL = '<!-- ALBUM_CSS_VER_STR -->';			// CSSのバージョン
 	const ALBUM_CSS_VAL_STR = '/* ALBUM_CSS_VAL_STR */';			// CSSの内容
+
+	// 年齢認証
+	const AGE_AUTH_TOP_IMG            = '<!-- AGE_AUTH_TOP_IMG -->';			// 認証ページの画像
+
+	const AGE_AUTH_LINK_EXCHANGE_IMG  = '<!-- AGE_AUTH_LINK_EXCHANGE_IMG -->';	// 相互リンクバナー画像
+	const AGE_AUTH_LINK_EXCHANGE_URL  = '<!-- AGE_AUTH_LINK_EXCHANGE_URL -->';	// 相互リンク先
+	const AGE_AUTH_LINK_EXCHANGE_NAME = '<!-- AGE_AUTH_LINK_EXCHANGE_NAME -->';	// 相互リンク先名
+
+	const AGE_AUTH_LINK_EXCHANGE_IMG_OTHER  = '<!-- AGE_AUTH_LINK_EXCHANGE_IMG_OTHER -->';	// 相互リンクバナー画像のその他の情報
+
+
+
 
 	// 全ページ共通
 	const TEL_NO_DISP = '<!-- TEL_NO_DISP -->';					// 電話番号表示

@@ -109,6 +109,8 @@
 <script src="../js2018/mtn/decoration.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/sideBar.js?<?php print $vesion; ?>"></script>
 
+<script src="../js2018/mtn/ageAuth.js?<?php print $vesion; ?>"></script>
+
 <script>
   var BRANCH_NO = "<?php print $branchNo; ?>";
 </script>
@@ -120,6 +122,8 @@
 <input type="hidden" id="newBlogRec" name="newBlogRec" value="<?php print dbMBlog5C::NEW_REC; ?>">
 <div id="tabA">
   <ul>
+    <li><a href="#tabsAgeAuth">年齢認証</a></li>
+
     <li><a href="#tabsTop">TOP</a></li>
     <li><a href="#tabsNews">ニュース</a></li>
     <li><a href="#tabsProfile">プロファイル</a></li>
@@ -281,7 +285,6 @@
     </div>
   </div>
 
-
   <!-- 写メ日記 -->
   <div id="tabsPhotoDiary" class="tabArea">
     <div id="tabPhotoDiaryUsePage" class="resetFloat">
@@ -296,7 +299,6 @@
     </div>
     <hr>
   </div>
-
 
   <!-- ヘッダ -->
   <div id="tabsHeader" class="tabArea">
@@ -491,7 +493,6 @@
     </div>
   </div>
 
-
   <!-- サイドバー -->
   <div id="tabsSideBar" class="tabArea">
     <div class="tabSideBarImgEnter">
@@ -543,6 +544,48 @@
     </div>
   </div>
 
+  <!-- 年齢認証 -->
+  <div id="tabsAgeAuth" class="tabArea">
+    <div class="tabAgeAuthImgEnter panelScroll">
+      <div id="tabAgeAuthSystemMid" class="tabMid">
+        <div>
+          <div class="sheetTitle">画像</div>
+          <table class="ageAuthImgSele">
+            <thead>
+              <tr>
+                <th colspan="2">現在の画像</th>
+              </tr>
+            </thead>
+            <tbody id="ageAuthImgList">
+              <tr id="ageAuthImgT">
+                <td class="ageAuthImgTN" id="ageAuthImgTN"></td>
+                <td class="ageAuthImgSele"><input type="button" value="画像選択" name="attAgeAuthImg" id="attAgeAuthImg" onclick="showSeleImg('AGE_AUTH' ,'TOP')"></td>
+              </tr>
+            </tbody>
+          </table>
+          <input type="hidden" id="ageAuthImg" value="">
+        </div>
+
+        <hr>
+        <div class="sheetTitle">リンク</div>
+          <input type="button" value="新規リンク" onclick="newAgeAuthLink()">
+          <br><br>
+          <table>
+            <thead>
+              <tr><th>サイト名</th><th>URL</th><th>バナー</th><th>編集</th></tr>
+            </thead>
+            <tbody id="ageAuthLink">
+            </tbody>
+          </table>
+      </div>
+    </div>
+
+    <div id="tabAgeAuthBottom" class="tabBottomBtn">
+      <hr>
+      <input type="button" value="出力" id="bldAgeAuthImg" onclick="updAgeAuthImg();">    <!--  disabled="disabled" -->
+    </div>
+  </div>
+
 
   <div id="tabsBlog" class="tabArea NOTUSE">
     <input type="button" value="新規記事" onclick="newBlog()">&nbsp;&nbsp;
@@ -559,7 +602,8 @@
   </div>
 </div>
 <br>
-<div id="divLogout"><input type="button" value="ログアウト" onclick="logout()"></div>&nbsp;&nbsp;&nbsp;&nbsp;<a href="../top2018.html" target="_blank">テスト表示</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="../mo/index2018.html" target="_blank">携帯用テスト表示</a>
+<div id="divLogout"><input type="button" value="ログアウト" onclick="logout()"></div>&nbsp;&nbsp;&nbsp;&nbsp;テスト表示：<a href="../index2018.html" target="_blank">年齢認証</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="../top2018.html" target="_blank">PC用</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="../mo/index2018.html" target="_blank">携帯用</a>
+
 <div id="lastDate">V1R3</div>
 
 
@@ -577,6 +621,54 @@
 <!-- --プロファイル編集--------------------------------------------------------- -->
 <div id="editProfDlg" title="Dialog Title">
 	<iframe src="enterProfile.php?id=" name="editProfile" id="editProfile" class="editProfile" title="プロファイル編集" frameborder="0"></iframe>
+</div>
+
+<!-- --年齢認証のリンク------------------------------------------------------------- -->
+<div id="editAgeAuthLinkDlg" title="リンク">
+  <div id="editLeftNAA">
+    <table>
+      <tr>
+        <td>サイト名</td>
+        <td><input type="text" id="siteNameAA" name="siteNameAA" size="35" value=""></td>
+      </tr>
+      <tr>
+        <td>URL</td>
+        <td><input type="text" id="urlAA" name="urlAA" size="35" value=""></td>
+      </tr>
+      <tr>
+        <td>バナー</td>
+        <td>
+          <div class="selectPage">
+            <table>
+              <tr>
+                <td><label><input type="radio" name="aaLinkExchangeImg" id="aaLinkExchangeImgURL" value="URL">URL指定</label></td>
+                <td><input type="text" id="imgURLAA" name="imgURLAA" size="35" value=""></td>
+              </tr>
+              <tr>
+                <td><label><input type="radio" name="aaLinkExchangeImg" id="aaLinkExchangeImgFile" value="FILE">ファイル選択</label></td>
+                <td><input type="button" value="画像選択" name="attAALinkExchange" id="attAALinkExchange" onclick="showSeleImg('AGE_AUTH' ,'LINK_EXCHANGE')"><input type="hidden" id="imgNOAA" name="imgNOAA" value=""></td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <input type="hidden" id="editAgeAuthLink" name="editAgeAuthLink" value="">
+    <div class="delAALink"><input type="button" value="削除" id="delPDBtn" onclick="cfmDelAgeAuthLink();" style="display:none;"></div>
+  </div>
+
+  <div id="DelPDiaryDlg" class="cfmDelPrompt ui-draggable" style="position: absolute; z-index: 99999; padding: 0px; margin: 0px; min-width: 310px; max-width: 310px; top: 329px; left: 436.5px;   display:none">
+    <h1 id="popup_titleDelAgeAuthLink" style="cursor: move;">リンクの削除</h1>
+    <div id="popup_contentDelAgeAuthLink" class="confirm">
+      <div id="popup_messageDelAgeAuthLink">リンクを削除しますか？<br>この操作は取り消せません</div>
+      <div id="popup_panelDelAgeAuthLink">
+        <input type="button" value="&nbsp;はい&nbsp;" onclick="delAgeAuthLink();">
+        <input type="button" value="&nbsp;キャンセル&nbsp;" onclick="hideDelAgeAuthLink();">
+      </div>
+    </div>
+  </div>
+
+  <br class="clear">
 </div>
 
 
@@ -598,9 +690,7 @@
       <input type="button" value="追加" id="addNewImgBtn" onclick="addNewImg();" disabled="disabled">
     </form>
   </div>
-
 </div>
-
 
 
 <!-- --------------------------------------------------------------------------- -->
@@ -647,7 +737,6 @@
       </div>
     </div>
   </div>
-
 
   <br class="clear">
   <input type="hidden" id="editDiaryDir" name="editDiaryDir" value="">

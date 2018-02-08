@@ -29,7 +29,7 @@ function initSelectImgFileDlg() {
 		width : 1220 ,		//1020
 		buttons : [
 			{
-				text  : "出力",
+				text  : "選択",
 				click : function() {
 					checkSeleImg();
 					$(this).dialog("close");
@@ -67,6 +67,10 @@ console.debug(imgClass);
 
 	if(imgClass == 'SIDEBAR') {
 		IMG_SELECTOR = 'SIDEBAR';
+	}
+
+	if(imgClass == 'AGE_AUTH') {
+		IMG_SELECTOR = 'AGE_AUTH';
 	}
 
 	IMG_CLASS = imgClass;
@@ -185,7 +189,23 @@ function showImgDlg() {
 	}
 
 	if(IMG_CLASS == 'SIDEBAR') {
-			imgNo = $('#sideBarImg' + IMG_PLACE).val();
+		imgNo = $('#sideBarImg' + IMG_PLACE).val();
+
+		if(imgNo) {
+			if(imgNo.length >= 1) {
+				$("#seleImg" + imgNo).prop("checked", true);
+			}
+		}
+	}
+
+	if(IMG_CLASS == 'AGE_AUTH') {
+		if(IMG_PLACE == 'TOP') {
+			imgNo = $('#ageAuthImg').val();
+		}
+		if(IMG_PLACE == 'LINK_EXCHANGE') {
+			var linkNo = $("#editAgeAuthLink").val();
+			imgNo = $('#imgNOAA' + linkNo).val();
+		}
 
 		if(imgNo) {
 			if(imgNo.length >= 1) {
@@ -305,6 +325,29 @@ var ext;
 		$('#sideBarImgTN' + IMG_PLACE).html(tagStr);
 		$('#sideBarImg' + IMG_PLACE).val(selectedImg);
 		$("#bldSideBarImg").prop('disabled' ,false);
+	}
+
+	if(IMG_CLASS == 'AGE_AUTH') {
+		if(IMG_PLACE == 'TOP') {
+			ext = EXT_LIST[selectedImg];
+				console.debug('age Auth system');
+				console.debug(ext);
+
+			tagStr = '<img src="../img/' + BRANCH_NO +  '/AGE_AUTH/' + selectedImg + '.' + ext + '">';
+			$('#ageAuthImgTN').html(tagStr);
+			$('#ageAuthImg').val(selectedImg);
+		}
+
+		if(IMG_PLACE == 'LINK_EXCHANGE') {
+			ext = EXT_LIST[selectedImg];
+				//console.debug('age Auth link exchange');
+				//console.debug(ext);
+
+			var linkNo = $("#editAgeAuthLink").val();
+							//console.debug('link No:' + linkNo);
+							//			$('#imgNOAA'  + linkNo).val(selectedImg);
+			$('#imgNOAA').val(selectedImg);
+		}
 	}
 }
 

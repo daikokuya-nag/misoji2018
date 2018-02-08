@@ -63,6 +63,7 @@ class fileName5C {
 		'INQUIRY'       => array('' ,'inquiry'   ) ,
 		'QUESTIONNAIRE' => array('' ,'questionnaire') ,
 		'MASTERSBLOG'   => array('' ,'mastersBlog'  ) ,
+		'AGE_AUTH'      => array('' ,'index'     ) ,
 
 		'COMMON_CSS'    => array('css2018/' ,'branchCommon' ,'css') ,
 		'TOP_CSS'       => array('css2018/' ,'branchTop'    ,'css') ,
@@ -84,6 +85,7 @@ class fileName5C {
 		'INQUIRY'       => array('' ,'inquiry2018'   ) ,
 		'QUESTIONNAIRE' => array('' ,'questionnaire2018') ,
 		'MASTERSBLOG'   => array('' ,'mastersBlog2018'  ) ,
+		'AGE_AUTH'      => array('' ,'index2018'     ) ,
 
 		'COMMON_CSS'    => array('css2018/' ,'branchCommon' ,'css') ,
 		'TOP_CSS'       => array('css2018/' ,'branchTop'    ,'css') ,
@@ -104,6 +106,7 @@ class fileName5C {
 		'INQUIRY_TEMPLATE'       => array('' ,'inquiryTEMPLATE'   ) ,
 		'QUESTIONNAIRE_TEMPLATE' => array('' ,'questionnaireTEMPLATE') ,
 		'MASTERSBLOG_TEMPLATE'   => array('' ,'mastersBlogTEMPLATE'  ) ,
+		'AGE_AUTH_TEMPLATE'      => array('' ,'indexTEMPLATE'     ) ,
 
 		'PROFILE'           => array('profile2018/' ,'profile'        ) ,
 		'PROFILE_TEMPLATE'  => array('profile2018/' ,'profileTEMPLATE') ,

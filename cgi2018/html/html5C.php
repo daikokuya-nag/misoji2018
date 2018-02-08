@@ -18,6 +18,8 @@
 	require_once dirname(__FILE__) . '/../photo5C.php';
 	require_once dirname(__FILE__) . '/../strings5C.php';
 	require_once dirname(__FILE__) . '/../dateTime5C.php';
+	require_once dirname(__FILE__) . '/../bld/bldImgList5C.php';
+
 
 /**
  * HTMLファイル生成
@@ -254,7 +256,10 @@ class html5C {
 		}
 
 		if(strcmp($begKwd ,'AGE_AUTH_TOP') == 0) {
-			$ret = $this->setAgeAuth($sect1 ,$begKwd);
+			$ret = $this->setAgeAuthTop($sect1 ,$begKwd);
+		}
+		if(strcmp($begKwd ,'AGE_AUTH_LINK_EXCHANGE') == 0) {
+			$ret = $this->setAgeAuthLink($sect1 ,$begKwd);
 		}
 
 		return $ret;
@@ -1936,7 +1941,7 @@ class html5C {
  * @throws
  * @todo
  */
-	function setAgeAuth($sect ,$kwd) {
+	function setAgeAuthTop($sect ,$kwd) {
 
 		$ret  = array();
 
@@ -1946,20 +1951,8 @@ class html5C {
 			$line1 = $sect[$idx];
 			$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::AGE_AUTH_TOP_IMG);
 			if($kwdPos >= 0) {
-//				$val  = sess5C::getOutVals($kwd);
-
-
-
-
 				$val  = sess5C::getOutVals('AGE_AUTH_TOP');
 				$disp = $this->setAgeAuthImg($val);
-
-
-
-
-
-
-//				$disp = $this->setAgeAuthImg($val[0] ,$val['IMGLIST']);
 				if(strlen($disp) >= 1) {
 					$ret[] = '<img src="' . $disp . '" class="img-responsive center-block">';
 				}
@@ -2022,6 +2015,82 @@ class html5C {
 	}
 
 
+/**
+ * 年齢認証のリンク表示
+ *
+ * @access
+ * @param string $headerVal 画像指定情報
+ * @return array 
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	function setAgeAuthLink($sect ,$kwd) {
+
+		$ret  = array();
+		$detailStr = array();
+		$lineMax = count($sect);
+
+		for($idx=0 ;$idx<$lineMax ;$idx++) {
+			$line1 = $sect[$idx];
+
+			if(strcmp($line1 ,$this->begValList[$kwd]) == 0
+			|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
+			} else {
+				$detailStr[] = $line1;
+			}
+		}
+
+		$extListA = bldImgList5C::bldSeqList($this->branchNo);
+
+		$extS1 = explode(',' ,$extListA['extList']);
+		$idxMax = count($extS1);
+		for($idx=0 ;$idx<$idxMax ;$idx++) {
+			$ext1 = $extS1[$idx];
+			$extS2 = explode(':' ,$ext1);
+			$extList[$extS2[0]] = $extS2[1];
+		}
+		$fileRoot = dirname(__FILE__) . '/../../img/' . $this->branchNo . '/AGE_AUTH/';
+		$fileURLRoot = 'img/' . $this->branchNo . '/AGE_AUTH/';
+
+		$detailMax = count($detailStr);
+		$linkVal = sess5C::getOutVals('AGE_AUTH_LINK_EXCHANGE');
+		$idxMax  = count($linkVal);
+		for($idx=0 ;$idx<$idxMax ;$idx++) {
+			$link1 = $linkVal[$idx];
+			$siteName = $link1[dbLinkExchange5C::FLD_SITE_NAME];
+			$url      = $link1[dbLinkExchange5C::FLD_URL      ];
+			$img      = $link1[dbLinkExchange5C::FLD_IMG_FILE ];
+
+			if(strncasecmp($img ,'http' ,4) == 0) {
+				$imgURL = $imgNo;
+			} else {
+				$imgURL = '';
+				if(isset($extList[$img])) {
+					$extName = $extList[$img];
+					$filePath = $fileRoot . $img . '.' . $extName;
+
+					if(is_file($filePath)) {
+						$imgURL = $fileURLRoot . $img . '.' . $extName;
+					}
+				}
+			}
+
+			for($detailIdx=0 ;$detailIdx<$detailMax ;$detailIdx++) {
+				$this->detail1 = $detailStr[$detailIdx];
+
+				$this->replaceStr(templateConst5C::AGE_AUTH_LINK_EXCHANGE_NAME ,$siteName);	//サイト名
+				$this->replaceStr(templateConst5C::AGE_AUTH_LINK_EXCHANGE_URL  ,$url);		//URL
+				$this->replaceStr(templateConst5C::AGE_AUTH_LINK_EXCHANGE_IMG  ,$imgURL);	//画像
+
+				$this->replaceStr(templateConst5C::AGE_AUTH_LINK_EXCHANGE_IMG_OTHER ,'');
+			}
+			$ret[] = $this->detail1;
+		}
+
+		return $ret;
+	}
 
 
 

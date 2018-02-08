@@ -1,0 +1,55 @@
+@charset "utf-8";
+/* 年齢認証 */
+
+body,td,th {
+	color: #CCCCCC;
+	font-size: 12px;
+}
+body {
+	background-color: #000000;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+}
+
+.mainArea {
+	text-align:center;
+}
+
+a:link {
+	color: #FFFF00;
+}
+a:visited {
+	color: #FF0000;
+}
+
+table.fav {
+	border-style:none;
+	border-collapse:collapse;
+}
+
+.banners {
+	width: 750px;
+}
+
+.linkExchange {
+
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+img.banner {
+	width: 88px;
+	height: 31px;
+	margin-left: 1px;
+	margin-right: 1px;
+	border: 0px;
+}
+
+.footer {
+	font-size: 14px;
+	font-weight: normal;
+	color: #FFFFFF;
+	letter-spacing: 0.125em;
+	text-align: center;
+}
