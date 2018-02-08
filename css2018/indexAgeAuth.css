@@ -47,6 +47,9 @@ img.banner {
 }
 
 .footer {
+	border-top:1px solid #fff;
+	margin-top:5px;
+	padding-top:5px;
 	font-size: 14px;
 	font-weight: normal;
 	color: #FFFFFF;

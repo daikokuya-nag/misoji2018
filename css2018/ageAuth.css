@@ -1,6 +1,26 @@
 @charset "utf-8";
 /* 年齢認証 */
 
+.ageAuthLinkList {
+	margin-top:5px;
+	padding-top:5px;
+	border-top:1px solid #555;
+	border-collapse:collapse;
+}
+
+.ageAuthLinkList thead th {
+	padding-top:10px;
+	padding-bottom:10px;
+	border-bottom:1px solid #555;
+}
+
+.ageAuthLinkList tbody td {
+	margin-top:10px;
+	padding-top: 5px;
+	border-bottom:1px solid #555;
+	padding-bottom: 5px;
+}
+
 
 #DelAALinkDlg {
 	font-family: Arial, sans-serif;
