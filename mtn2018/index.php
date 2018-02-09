@@ -437,21 +437,20 @@
     <div id="tabRecruitUsePage" class="resetFloat">
       <div class="sheetTitle">ページ背景</div>
       <div class="selectPage">
-      <div class="decoBg">
-        <label><input type="radio" name="usePageBG" id="usePageBGNotuse" value="N">使用しない</label>&nbsp;&nbsp;&nbsp;
-        <label><input type="radio" name="usePageBG" id="usePageBGColor"  value="C">色</label>
-      </div>
-      <div class="decoColorSele">
+        <div class="decoBg">
+          <label><input type="radio" name="usePageBG" id="usePageBGNotuse" value="N">使用しない</label>&nbsp;&nbsp;&nbsp;
+          <label><input type="radio" name="usePageBG" id="usePageBGColor"  value="C">色</label>
+        </div>
+        <div class="decoColorSele">
           <div>
             <input type="text" id="pageBGColor" name="pageBGColor" class="decoColorwell">
           </div>
           <div id="decoColorPicker" class="colorSelectWheel">
           </div>
-      </div>
-      <div class="decoBg">
-        &nbsp;&nbsp;&nbsp;<label><input type="radio" name="usePageBG" id="usePageBGImage"  value="I">画像</label>
-      </div>
-
+        </div>
+        <div class="decoBg">
+          &nbsp;&nbsp;&nbsp;<label><input type="radio" name="usePageBG" id="usePageBGImage"  value="I">画像</label>
+        </div>
         <table class="decoBGImgSele">
           <tbody id="decoBGImgList">
             <tr id="decoBGImg">
@@ -462,31 +461,8 @@
         </table>
         <input type="hidden" id="decoBGImg" value="">
       </div>
-
-
-<!--
-      <div class="sendSelectPage">
-        <input type="button" value="使用ページ反映" id="sendSeleRecruitPage" onclick="updUsePage('RECRUIT');" disabled="disabled">
-      </div>
--->
-
-
     </div>
     <hr>
-
-<!--
-    <div id="tabRecruitMain">
-      <div id="tabRecruitTop">
-        求人内容<span class="required">*</span>
-      </div>
-
-      <div id="tabSystemMid" class="tabMid">
-        <textarea id="recruitStr" name="recruitStr" cols="60" rows="4"></textarea>
-        <div id="warnRecruitStr" class="parsley-errors-list filled"></div>
-      </div>
-    </div>
-    <div class="grayPanel" id="grayPanelRecruit"></div>
--->
 
     <div id="tabRecruitBottom" class="tabBottomBtn">
       <hr>
@@ -664,16 +640,16 @@
   <br class="clear">
 </div>
 
-  <div id="DelAALinkDlg" class="cfmDelPrompt ui-draggable" style="position: absolute; z-index: 99999; padding: 0px; margin: 0px; min-width: 310px; max-width: 310px; top: 329px; left: 436.5px;   display:none">
-    <h1 id="popup_titleDelAgeAuthLink" style="cursor: move;">リンクの削除</h1>
-    <div id="popup_contentDelAgeAuthLink" class="confirm">
-      <div id="popup_messageDelAgeAuthLink">リンクを削除しますか？<br>この操作は取り消せません</div>
-      <div id="popup_panelDelAgeAuthLink">
-        <input type="button" value="&nbsp;はい&nbsp;" onclick="delAgeAuthLink();">
-        <input type="button" value="&nbsp;キャンセル&nbsp;" onclick="hideDelAgeAuthLink();">
-      </div>
+<div id="DelAALinkDlg" class="cfmDelPrompt ui-draggable">
+  <h1 id="popup_titleDelAgeAuthLink" style="cursor: move;">リンクの削除</h1>
+  <div id="popup_contentDelAgeAuthLink" class="confirm">
+    <div id="popup_messageDelAgeAuthLink">リンクを削除しますか？<br>この操作は取り消せません</div>
+    <div id="popup_panelDelAgeAuthLink">
+      <input type="button" value="&nbsp;はい&nbsp;" onclick="delAgeAuthLink();">
+      <input type="button" value="&nbsp;キャンセル&nbsp;" onclick="hideDelAgeAuthLink();">
     </div>
   </div>
+</div>
 
 
 <!-- --------------------------------------------------------------------------- -->
@@ -731,7 +707,7 @@
     <div class="delNews"><input type="button" value="削除" id="delPDBtn" onclick="cfmDelNews();" style="display:none;"></div>
   </div>
 
-  <div id="DelPDiaryDlg" class="cfmDelPrompt ui-draggable" style="position: absolute; z-index: 99999; padding: 0px; margin: 0px; min-width: 310px; max-width: 310px; top: 329px; left: 436.5px;   display:none">
+  <div id="DelPDiaryDlg" class="cfmDelPrompt ui-draggable">
     <h1 id="popup_titleDelNews" style="cursor: move;">記事の削除</h1>
     <div id="popup_contentDelNews" class="confirm">
       <div id="popup_messageDelNews">記事を削除しますか？<br>この操作は取り消せません</div>
@@ -770,6 +746,16 @@
   </div>
 
   <br class="clear">
+</div>
+
+
+<div id="progressDlg" class="progressDlg ui-draggable">
+  <h1 id="popup_titleProgress"></h1>
+  <div id="popup_contentProgress" class="confirm">
+    <div id="popup_messageProgress"></div>
+    <div id="popup_panelProgress">
+    </div>
+  </div>
 </div>
 
 </body>

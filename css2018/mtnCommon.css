@@ -44,13 +44,11 @@ div.list td {
 
 
 div.tabBottomBtn {
-
   position: absolute;
   bottom: 10px;
 }
 
 div.tabMid {
-
   overflow:auto;
 }
 
@@ -63,7 +61,6 @@ div#imgList .img {
 }
 
 div.imgList {
-
   overflow:auto;
   height:400px;
   margin-bottom:10px;
@@ -72,7 +69,6 @@ div.imgList {
 }
 
 div.resetFloat:after {
-
   content: ".";
   display: block;
   height: 0;
@@ -113,7 +109,7 @@ div.resetFloat:after {
 
 
 /* 削除確認プロンプト */
-.delPrompt {
+.cfmDelPrompt {
   position: absolute;
   z-index: 99999;
   padding: 0px;
@@ -152,7 +148,6 @@ div.resetFloat:after {
 }
 
 input[type="file"] {
-
   font-size:0.9em;
 }
 
@@ -160,11 +155,9 @@ input[type="file"] {
 /* TOPタブ */
 /* 画像選択 */
 table.headerImgSele {
-
   border-collapse:collapse;
 }
 table.headerOtherImgSele {
-
   border-collapse:collapse;
 }
 
@@ -243,21 +236,94 @@ div.tabHeaderEnter {
 
 
 /* カラーピッカー */
-   .colorwell {
-     border: 2px solid #fff;
-     width: 6em;
-     text-align: center;
-     cursor: pointer;
-   }
-   body .colorwell-selected {
+.colorwell {
+  border: 2px solid #fff;
+  width: 6em;
+  text-align: center;
+  cursor: pointer;
+}
+body .colorwell-selected {
 //     border: 2px solid #000;
 //     font-weight: bold;
-   }
+}
 
 div.topColorSelect {
-	float:left;
+ loat:left;
 }
 div.colorSelectWheel {
-
   float: left;
+}
+
+
+
+/* 進行状態プロンプト */
+.progressDlg {
+  position: absolute;
+  z-index: 99999;
+  padding: 0px;
+  margin: 0px;
+  min-width: 310px;
+  max-width: 310px;
+
+  top: 329px;
+  left: 436.5px;
+  display:none;
+}
+
+#progressDlg {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  min-width: 300px; /* Dialog will be no smaller than this */
+  max-width: 600px; /* Dialog will wrap after this width */
+  background: #FFF;
+  border: solid 5px #999;
+  color: #000;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+#popup_titleProgress {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.75em;
+  color: #666;
+  background: #CCC url(../jq/css/images/title.gif) top repeat-x;
+  border: solid 1px #FFF;
+  border-bottom: solid 1px #999;
+  cursor: move;
+  padding: 0em;
+  margin: 0em;
+}
+
+#popup_contentProgress {
+  background: 16px 16px no-repeat url(../jq/css/images/info.gif);
+  padding: 1em 1.75em;
+  margin: 0em;
+}
+
+#popup_contentProgress.alert {
+  background-image: url(../jq/css/images/info.gif);
+}
+
+#popup_contentProgress.confirm {
+  background-image: url(../jq/css/images/important.gif);
+}
+
+#popup_contentProgress.prompt {
+  background-image: url(../jq/css/images/help.gif);
+}
+
+#popup_messageProgress {
+  padding-left: 48px;
+}
+
+#popup_panelProgress {
+  text-align: center;
+  margin: 1em 0em 0em 1em;
+}
+
+#popup_promptProgress {
+  margin: .5em 0em;
 }

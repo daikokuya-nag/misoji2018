@@ -173,6 +173,7 @@ var result = $.ajax({
 */
 function dispDoneMsg() {
 
+	$("#progressDlg").hide();
 	jAlert(
 		'ファイル出力完了' ,
 		'メンテナンス'

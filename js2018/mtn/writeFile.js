@@ -23,6 +23,11 @@ function selectWriteFile(outItem) {
 	FROM     = 'other';
 	OUT_ITEM = outItem;
 
+	$("#popup_titleProgress").html('ファイル出力');
+	$("#popup_messageProgress").html('HTMLファイル出力中…');
+
+	$("#progressDlg").show();
+
 var result = $.ajax({
 		type : "get" ,
 		url  : "../cgi2018/ajax/mtn/selectWriteFile.php" ,
