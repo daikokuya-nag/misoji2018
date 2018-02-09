@@ -88,6 +88,8 @@ var chk = false;
 	$("#useTN").prop("checked", chk);
 	$("#useML").prop("checked", chk);
 
+	$(".usePhoto").toggleSwitch();
+
 	result = $.ajax({
 		type : "get" ,
 		url  : "../cgi2018/ajax/mtn/getProfile.php" ,
@@ -210,6 +212,7 @@ var result = $.ajax({
 
 		setFileSeleVals(dir ,response['photo']);
 		setProfArea('EDIT');
+		$(".usePhoto").toggleSwitch();
 
 		$("#enterProfile").parsley().reset();
 
