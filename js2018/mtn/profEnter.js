@@ -148,7 +148,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					//console.debug(response);
+					console.debug(response);
 
 		if(response['newFace'] == 'N') {
 			$("#newFace").prop("checked", true);
@@ -353,26 +353,25 @@ var show;
 	// 写真の有無の設定
 	$('.currPhoto').show();
 
-	str = setExistStr(profData['existF1']);
-	$('#currF1').html(str);
+	// 現在の写真ファイルの表示
+	str = setCurrFileName(profData['fineNameF1']);
+	$('#currImg1').html(str);
 
-	str = setExistStr(profData['existF2']);
-	$('#currF2').html(str);
+	str = setCurrFileName(profData['fineNameF2']);
+	$('#currImg2').html(str);
 
-	str = setExistStr(profData['existF3']);
-	$('#currF3').html(str);
+	str = setCurrFileName(profData['fineNameF3']);
+	$('#currImg3').html(str);
 
-	str = setExistStr(profData['existF4']);
-	$('#currF4').html(str);
+	str = setCurrFileName(profData['fineNameF4']);
+	$('#currImg4').html(str);
 
-	str = setExistStr(profData['existF5']);
-	$('#currF5').html(str);
+	str = setCurrFileName(profData['fineNameF5']);
+	$('#currImg5').html(str);
 
-	str = setExistStr(profData['existTN']);
-	$('#currTN').html(str);
+	str = setCurrFileName(profData['fineNameTN']);
+	$('#currImgTN').html(str);
 
-	str = setExistStr(profData['existML']);
-	$('#currML').html(str);
 
 	// その写真を表示するか否かの設定
 	chk = setUseVal(profData['useF1']);
@@ -397,24 +396,20 @@ var show;
 	$("#useML").prop("checked", chk);
 }
 
-/**
-* 写真の有無の設定
-*
-* @param
-* @return
-*/
-function setExistStr(extVal) {
+
+function setCurrFileName(fileName) {
 
 var str;
 
-	if(extVal == 'EXIST') {
-		str = '有';
+	if(fileName.length >= 1) {
+		str = '<img src="' + fileName + '" class="showCurrPhoto">';
 	} else {
-		str = '無';
+		str = '-';
 	}
 
 	return str;
 }
+
 
 /**
 * その写真を表示するか否かの設定

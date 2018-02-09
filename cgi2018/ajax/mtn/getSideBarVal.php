@@ -39,13 +39,18 @@ PHP5
 		$pageVals = $pageParam->readAll($branchNo ,'SIDEBAR_' . $pos ,$obj);
 
 		// 文言
-		$ret['str'] = $pageVals['pageVal'][0]['value4'];
+		$strStr1 = $pageVals['pageVal'][0][dbPageParam5C::FLD_STR1];
+		if(strlen($strStr1) >= 1) {
+			$ret['str'] = $strStr1;
+		} else {
+			$ret['str'] = $pageVals['pageVal'][0][dbPageParam5C::FLD_VALUE4];
+		}
 
 		// 画像
 		$ret['img']['pageVal'] = $pageVals['pageVal'][0];
 
 		//画像ファイルの有無
-		$imgNo = $pageVals['pageVal'][0]['value3'];
+		$imgNo = $pageVals['pageVal'][0][dbPageParam5C::FLD_VALUE3];
 
 		$extS1 = explode(',' ,$extList);
 		$idxMax = count($extS1);

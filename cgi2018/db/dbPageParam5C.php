@@ -25,6 +25,7 @@ class dbPageParam5C {
 	const FLD_VALUE3 = 'value3';		/* 値3 */
 	const FLD_VALUE4 = 'value4';		/* 値4 */
 	const FLD_VALUE5 = 'value5';		/* 値5 */
+	const FLD_STR1   = 'str1';			/* 文字列1 */
 
 	const FLD_ADD_DT = 'addDT';		/* レコード登録日時 */
 	const FLD_UPD_DT = 'updDT';		/* レコード更新日時 */
@@ -96,7 +97,7 @@ class dbPageParam5C {
 		$db = $this->handle;
 
 		$fldArr = array(
-			self::FLD_VALUE1 ,self::FLD_VALUE2 ,self::FLD_VALUE3 ,self::FLD_VALUE4 ,self::FLD_VALUE5 ,
+			self::FLD_VALUE1 ,self::FLD_VALUE2 ,self::FLD_VALUE3 ,self::FLD_VALUE4 ,self::FLD_VALUE5 ,self::FLD_STR1 ,
 			self::FLD_ADD_DT ,self::FLD_UPD_DT
 		);
 		$where =
@@ -130,7 +131,7 @@ class dbPageParam5C {
 		$db = $this->handle;
 
 		$fldArr = array(
-			self::FLD_PAGE_ID ,self::FLD_VALUE1 ,self::FLD_VALUE2 ,self::FLD_VALUE3 ,self::FLD_VALUE4 ,self::FLD_VALUE5 ,
+			self::FLD_PAGE_ID ,self::FLD_VALUE1 ,self::FLD_VALUE2 ,self::FLD_VALUE3 ,self::FLD_VALUE4 ,self::FLD_VALUE5 ,self::FLD_STR1 ,
 			self::FLD_ADD_DT ,self::FLD_UPD_DT
 		);
 		$where =
@@ -152,7 +153,7 @@ class dbPageParam5C {
 		$db = $this->handle;
 
 		$fldArr = array(
-			self::FLD_PAGE_ID ,self::FLD_VALUE1 ,self::FLD_VALUE2 ,self::FLD_VALUE3 ,self::FLD_VALUE4 ,self::FLD_VALUE5
+			self::FLD_PAGE_ID ,self::FLD_VALUE1 ,self::FLD_VALUE2 ,self::FLD_VALUE3 ,self::FLD_VALUE4 ,self::FLD_VALUE5 ,self::FLD_STR1
 		);
 		$where =
 			self::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .
@@ -224,6 +225,7 @@ class dbPageParam5C {
 			self::FLD_VALUE3 . '=' . $db->setQuote($vals[self::FLD_VALUE3]) . ',' .
 			self::FLD_VALUE4 . '=' . $db->setQuote($vals[self::FLD_VALUE4]) . ',' .
 			self::FLD_VALUE5 . '=' . $db->setQuote($vals[self::FLD_VALUE5]) . ',' .
+			self::FLD_STR1   . '=' . $db->setQuote($vals[self::FLD_STR1  ]) . ',' .
 			self::FLD_UPD_DT . '=' . $db->setQuote($updDT);
 
 		$where =
@@ -256,6 +258,7 @@ class dbPageParam5C {
 			self::FLD_VALUE3 ,
 			self::FLD_VALUE4 ,
 			self::FLD_VALUE5 ,
+			self::FLD_STR1   ,
 			self::FLD_ADD_DT
 		);
 
@@ -269,6 +272,7 @@ class dbPageParam5C {
 			$db->setQuote($vals[self::FLD_VALUE3]) . ',' .
 			$db->setQuote($vals[self::FLD_VALUE4]) . ',' .
 			$db->setQuote($vals[self::FLD_VALUE5]) . ',' .
+			$db->setQuote($vals[self::FLD_STR1  ]) . ',' .
 			$db->setQuote($addDT);
 
 		$fldList = funcs5C::setFldArrToList($fldArr);

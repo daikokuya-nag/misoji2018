@@ -23,6 +23,11 @@ div.newsDigestO a {
   text-decoration:none;
 }
 
+/* サイドバー */
+.sideBarStr {
+  text-align:left;
+}
+
 /* 写メ日記 */
 .photoDiary {
   overflow: auto;

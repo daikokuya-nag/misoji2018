@@ -11,6 +11,7 @@ $(document).ready(function(){
 
 $(window).load(function(){
 
+	setCKEditSideBar();
 	getSideBarValList();	// 現在のサイドバーで使用する画像の読み込み
 });
 
@@ -42,6 +43,9 @@ var result = $.ajax({
 		$('#sideBarStr1').val(response['str1']);
 		$('#sideBarStr2').val(response['str2']);
 
+		CKEDITOR.instances.sideBarStr1.setData(response['str1']);
+		CKEDITOR.instances.sideBarStr2.setData(response['str2']);
+
 		$(".useSideBarImg").toggleSwitch();
 	});
 
@@ -51,6 +55,55 @@ var result = $.ajax({
 
 	result.always(function() {
 	});
+}
+
+/**
+* ckEditorの設定
+*
+* @param
+* @return
+*/
+function setCKEditSideBar() {
+
+	CKEDITOR.replace('sideBarStr1' ,
+		{
+			height : 120
+		}
+	);
+
+	CKEDITOR.replace('sideBarStr2' ,
+		{
+			height : 120
+		}
+	);
+
+
+	CKEDITOR.instances.sideBarStr1.on("blur", function(e) {
+		CKEDITOR.instances.sideBarStr1.updateElement();
+		var str = $("#sideBarStr1").val();
+		var msg;
+
+		if(str.length >= 1) {
+			msg = '';
+		} else {
+			msg = ERR_MSG;
+		}
+		$("#warnSideBarStr1").html(msg);
+	});
+
+	CKEDITOR.instances.sideBarStr2.on("blur", function(e) {
+		CKEDITOR.instances.sideBarStr2.updateElement();
+		var str = $("#sideBarStr2").val();
+		var msg;
+
+		if(str.length >= 1) {
+			msg = '';
+		} else {
+			msg = ERR_MSG;
+		}
+		$("#warnSideBarStr2").html(msg);
+	});
+
 }
 
 /**
@@ -126,6 +179,9 @@ var fileExist = '0';
 * @return
 */
 function updSideBarImg() {
+
+	CKEDITOR.instances.sideBarStr1.updateElement();
+	CKEDITOR.instances.sideBarStr2.updateElement();
 
 var seleImg1 = $('#sideBarImg1').val();
 var seleImg2 = $('#sideBarImg2').val();

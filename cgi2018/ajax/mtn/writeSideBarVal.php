@@ -42,16 +42,17 @@ PHP5
 		//value3 表示する画像No
 		$value3 = $_POST[$imgObj];
 
-		//value4 表示する文言
-		$value4 = $_POST[$strObj];
+		//str1 表示する文言
+		$str1 = $_POST[$strObj];
 
 		$handle = $pageParam->getHandle();
 
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE1 ,'');
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE2 ,$value2);
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE3 ,$value3);
-		$pageParam->setVal(dbPageParam5C::FLD_VALUE4 ,$value4);
+		$pageParam->setVal(dbPageParam5C::FLD_VALUE4 ,'');
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE5 ,'');
+		$pageParam->setVal(dbPageParam5C::FLD_STR1   ,$str1);
 
 		$pageID = 'SIDEBAR_' . $pos;
 		$cond = dbPageParam5C::FLD_BRANCH_NO . '=' . $branchNo                  . ' and ' .

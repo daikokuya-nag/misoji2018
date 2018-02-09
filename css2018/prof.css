@@ -59,6 +59,30 @@ div#editDir {
 }
 
 
+.photoFileSele {
+	border-collapse:collapse;
+}
+
+.photoFileSele th {
+	border-bottom:2px solid #aaa;
+	padding-top:6px;
+	padding-bottom:3px;
+}
+
+.photoFileSele td {
+	border-bottom:1px solid #aaa;
+	padding-top:6px;
+	padding-bottom:3px;
+}
+
+.showCurrPhoto {
+	width:80px;
+}
+
+.sepI {
+	text-align:center;
+}
+
 
 /*****
 識別子削除

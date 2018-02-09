@@ -48,7 +48,7 @@
   require_once dirname(__FILE__) . '/../cgi2018/bld/bldProfile5C.php';
   require_once dirname(__FILE__) . '/../cgi2018/bld/bldMBlog5C.php';
 
-  $vesion = 'V=1&R=1&M=1';
+  $vesion = 'V=1&R=1&M=2';
 ?>
 <!doctype html>
 <html lang="ja">
@@ -491,7 +491,10 @@
               <td class="sideBarImgTN"><div id="sideBarImgTN1"></div></td>
               <td class="sideBarImgTN"><input type="button" value="画像選択" name="attSideBarImg1" id="attSideBarImg1" onclick="showSeleImg('SIDEBAR' ,'1')"></td>
 
-              <td class="sideBarStr"><input type="text" name="sideBarStr1" id="sideBarStr1" class="sideBarStr"></td>
+              <td class="sideBarStr">
+                <textarea id="sideBarStr1" name="sideBarStr1" cols="60" rows="4" required="" data-parsley-trigger="change"></textarea>
+                <div id="warnSideBarStr1" class="parsley-errors-list filled"></div>
+              </td>
               <td class="sideBarImgDisp"><input type="checkbox" name="useSideBarImg1" id="useSideBarImg1" class="useSideBarImg" value="U"></td>
             </tr>
 
@@ -505,7 +508,10 @@
               <td class="sideBarImgTN"><div id="sideBarImgTN2"></div></td>
               <td class="sideBarImgTN"><input type="button" value="画像選択" name="attSideBarImg2" id="attSideBarImg2" onclick="showSeleImg('SIDEBAR' ,'2')"></td>
 
-              <td class="sideBarStr"><input type="text" name="sideBarStr2" id="sideBarStr2" class="sideBarStr"></td>
+              <td class="sideBarStr">
+                <textarea id="sideBarStr2" name="sideBarStr2" cols="60" rows="4" required="" data-parsley-trigger="change"></textarea>
+                <div id="warnSideBarStr2" class="parsley-errors-list filled"></div>
+              </td>
               <td class="sideBarImgDisp"><input type="checkbox" name="useSideBarImg2" id="useSideBarImg2" class="useSideBarImg" value="U"></td>
             </tr>
           </tbody>
