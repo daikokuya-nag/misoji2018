@@ -148,8 +148,12 @@ class templateConst5C {
 	);
 
 
-	const RECRUIT_STR_VAL           = '<!-- RECRUIT_STR -->';				// 求人内容
-	const SYSTEM_STR_VAL            = '<!-- SYSTEM_STR -->';				// 料金内容
+	const RECRUIT_STR_VAL           = '<!-- RECRUIT_STR -->';				// 求人文言
+	const RECRUIT_IMG               = '<!-- RECRUIT_IMG -->';				// 求人画像
+
+	const SYSTEM_STR_VAL            = '<!-- SYSTEM_STR -->';				// 料金文言
+	const SYSTEM_IMG                = '<!-- SYSTEM_IMG -->';				// 料金画像
+
 	const ALBUM_STR_VAL             = '<!-- ALBUM_STR -->';					// アルバム内容
 	const TOP_PAGE_HEADER_STR_VAL   = '<!-- TOP_PAGE_HEADER_STR -->';		// TOPページヘッダの内容
 	const OTHER_PAGE_HEADER_STR_VAL = '<!-- OTHER_PAGE_HEADER_STR -->';		// TOPページ以外のヘッダの内容

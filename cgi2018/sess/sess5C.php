@@ -282,11 +282,24 @@ class sess5C {
 		$outID = array();
 
 		if(strcmp($ID ,'RECRUIT') == 0) {
-			$db = new dbGeneral5C();
-			$dbVal = $db->read($branchNo ,dbGeneral5C::CATE_RECRUIT);
+			$db = new dbPageParam5C();
+			$dbVal = $db->readAll($branchNo ,$ID ,'CONTENT');
+
+			$dbVal1 = $dbVal['pageVal'][0];
+			$imgVal = array(
+				'IMGNO'  => $dbVal1[dbPageParam5C::FLD_VALUE3] ,
+				'STRING' => $dbVal1[dbPageParam5C::FLD_STR1  ]
+			);
+			$valTmp[0] = $imgVal;
+
+			$handle = $db->getHandle();
+			$dbImgList = new dbImage5C($handle);
+
+			$imgList = $dbImgList->readShowable($branchNo);
+			$valTmp['IMGLIST'] = $imgList['imgInfo'];
 
 			$outID[] = $ID;
-			$val[]   = $dbVal['vals'][0][dbGeneral5C::FLD_STR];
+			$val[]   = $valTmp;
 		}
 
 		if(strcmp($ID ,'SYSTEM') == 0) {

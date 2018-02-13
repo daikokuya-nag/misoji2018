@@ -11,8 +11,8 @@ PHP5
 
 	$branchNo = $_POST['branchNo'];	/* 店No */
 
-	$cond = sess5C::getSessCond();
-	if($cond == sess5C::OWN_INTIME) {
+	$sessCond = sess5C::getSessCond();
+	if($sessCond == sess5C::OWN_INTIME) {
 		/***** 求人内容の出力 *****/
 		$pageParam = new dbPageParam5C();
 		$handle = $pageParam->getHandle();
@@ -47,6 +47,6 @@ PHP5
 		}
 	}
 
-	$ret['SESSCOND'] = $cond;
+	$ret['SESSCOND'] = $sessCond;
 	print json_encode($ret);
 ?>

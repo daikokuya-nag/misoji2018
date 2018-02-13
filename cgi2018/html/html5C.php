@@ -280,7 +280,9 @@ class html5C {
  */
 	private function setRecruit($sect ,$kwd) {
 
-		$outStr = sess5C::getOutVals($kwd);
+		$outVals = sess5C::getOutVals($kwd);
+
+		$outStr = $outVals[0]['STRING'];
 		if(strcmp($this->device ,common5C::DEVICE_MO) == 0) {
 			$outStr = mb_convert_encoding($outStr ,common5C::ENCODE_MO ,common5C::ENCODE_DEFAULT);
 		}
@@ -293,10 +295,48 @@ class html5C {
 			if(strcmp($line1 ,templateConst5C::RECRUIT_STR_VAL) == 0) {
 				$ret[] = $outStr;
 			} else {
-				if(strcmp($line1 ,$this->begValList[$kwd]) == 0
-				|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
+				if(strcmp($line1 ,templateConst5C::RECRUIT_IMG) == 0) {
+					$imgNo  = $outVals[0]['IMGNO'];
+
+					$imgDir  = 'img/' . $this->branchNo . '/RECRUIT/';
+					$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
+
+					$imgList = $outVals['IMGLIST'];
+					$imgMax = count($imgList);
+
+					//画像番号のファイルの有無を調べる
+					$fileExist  = false;
+					for($imgIdx=0 ;$imgIdx<$imgMax ;$imgIdx++) {
+						$img1 = $imgList[$imgIdx];
+						if($imgNo == $img1[dbImage5C::FLD_IMG_NO]) {
+							$ext = $img1[dbImage5C::FLD_ORG_EXT];
+							$imgFullPath = $imgRoot . $imgNo . '.' . $ext;
+							$imgDispPath = $imgDir  . $imgNo . '.' . $ext;
+							if(is_file($imgFullPath)) {
+								$fileExist = true;
+								break;
+							}
+						}
+					}
+
+					//画像ファイルがあればtrue
+					if($fileExist) {
+						$imgPath = $imgDispPath;
+					} else {
+						$imgPath = '';
+					}
+
+					$ret[] = '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';
+					if(strlen($imgPath) >= 1) {
+						$ret[] = '<img src="' . $imgPath . '" class="img-responsive center-block">';
+					}
+					$ret[] = '</div>';
 				} else {
-					$ret[] = $line1;
+					if(strcmp($line1 ,$this->begValList[$kwd]) == 0
+					|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
+					} else {
+						$ret[] = $line1;
+					}
 				}
 			}
 		}
