@@ -53,24 +53,10 @@ var imgNo;
 console.debug(imgClass);
 
 	IMG_SELECTOR = '';
-	if(imgClass == 'HEADER') {
-		IMG_SELECTOR = 'HEADER';
-	}
 
+	IMG_SELECTOR = imgClass;
 	if(imgClass == 'ALL_BG') {
 		IMG_SELECTOR = 'DECO';
-	}
-
-	if(imgClass == 'TOP') {
-		IMG_SELECTOR = 'TOP';
-	}
-
-	if(imgClass == 'SIDEBAR') {
-		IMG_SELECTOR = 'SIDEBAR';
-	}
-
-	if(imgClass == 'AGE_AUTH') {
-		IMG_SELECTOR = 'AGE_AUTH';
 	}
 
 	IMG_CLASS = imgClass;
@@ -214,6 +200,26 @@ function showImgDlg() {
 		}
 	}
 
+	if(IMG_CLASS == 'RECRUIT') {
+		imgNo = $('#recruitImg').val();
+
+		if(imgNo) {
+			if(imgNo.length >= 1) {
+				$("#seleImg" + imgNo).prop("checked", true);
+			}
+		}
+	}
+
+	if(IMG_CLASS == 'SYSTEM') {
+		imgNo = $('#systemImg').val();
+
+		if(imgNo) {
+			if(imgNo.length >= 1) {
+				$("#seleImg" + imgNo).prop("checked", true);
+			}
+		}
+	}
+
 
 	$("#enterNewImgFile").parsley().reset();	// validateリセット
 
@@ -347,6 +353,26 @@ var ext;
 							//			$('#imgNOAA'  + linkNo).val(selectedImg);
 			$('#imgNOAA').val(selectedImg);
 		}
+	}
+
+	if(IMG_CLASS == 'RECRUIT') {
+		ext = EXT_LIST[selectedImg];
+			console.debug('recruit');
+			console.debug(ext);
+
+		tagStr = '<img src="../img/' + BRANCH_NO +  '/RECRUIT/' + selectedImg + '.' + ext + '">';
+		$('#recruitImgTN').html(tagStr);
+		$('#recruitImg').val(selectedImg);
+	}
+
+	if(IMG_CLASS == 'SYSTEM') {
+		ext = EXT_LIST[selectedImg];
+			console.debug('system');
+			console.debug(ext);
+
+		tagStr = '<img src="../img/' + BRANCH_NO +  '/SYSTEM/' + selectedImg + '.' + ext + '">';
+		$('#systemImgTN').html(tagStr);
+		$('#systemImg').val(selectedImg);
 	}
 }
 

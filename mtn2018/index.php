@@ -270,12 +270,34 @@
     <div id="tabRecruitMain">
       <div class="sheetTitle">求人ページの内容</div>
       <div id="tabRecruitTop">
+
+
+
+
         求人内容<span class="required">*</span>
       </div>
 
-      <div id="tabSystemMid" class="tabMid">
-        <textarea id="recruitStr" name="recruitStr" cols="60" rows="4"></textarea>
-        <div id="warnRecruitStr" class="parsley-errors-list filled"></div>
+      <div id="tabRecruitMid" class="tabMid">
+
+
+
+        <table>
+          <tbody id="recruitImgList">
+            <tr id="recruitImg">
+              <td class="recruitImgTN"><div id="recruitImgTN"></div></td>
+              <td class="recruitImgTN"><input type="button" value="画像選択" name="attRecruitImg" id="attRecruitImg" onclick="showSeleImg('RECRUIT')"></td>
+
+              <td class="recruitStr">
+                <textarea id="recruitStr" name="recruitStr1" cols="60" rows="4" required="" data-parsley-trigger="change"></textarea>
+                <div id="warnRecruitStr" class="parsley-errors-list filled"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <input type="hidden" id="recruitImg" value="">
+
+
+
       </div>
     </div>
     <div class="grayPanel" id="grayPanelRecruit"></div>

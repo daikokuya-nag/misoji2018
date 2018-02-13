@@ -5,14 +5,14 @@
 * @date 2018.1.17
 */
 
-var RECRUIT_STR;
-
 $(document).ready(function(){
 
-	getRecruitVal();
 });
 
 $(window).load(function(){
+
+	setCKEditRecruit();
+	getRecruitVal();
 });
 
 /**
@@ -30,12 +30,17 @@ var result = $.ajax({
 			branchNo : BRANCH_NO
 		} ,
 
-		cache : false
+		cache    : false ,
+		dataType : 'json'
 	});
 
 	result.done(function(response) {
 					//console.debug(response);
-		RECRUIT_STR = response;
+
+		setRecruitImg(response['img'] ,response['extList']);
+
+		$('#recruitStr').val(response['str1']);
+		CKEDITOR.instances.recruitStr.setData(response['str']);
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {
@@ -43,8 +48,88 @@ var result = $.ajax({
 	});
 
 	result.always(function() {
-		$("#recruitStr").val(RECRUIT_STR);
 	});
+}
+
+/**
+* ckEditorの設定
+*
+* @param
+* @return
+*/
+function setCKEditorRecruit() {
+
+	CKEDITOR.replace('sideBarStr' ,
+		{
+			height : 120
+		}
+	);
+
+
+	CKEDITOR.instances.recruitStr.on("blur", function(e) {
+		CKEDITOR.instances.recruitStr.updateElement();
+		var str = $("#recruitStr").val();
+		var msg;
+
+		if(str.length >= 1) {
+			msg = '';
+		} else {
+			msg = ERR_MSG;
+		}
+		$("#warnRecruitStr").html(msg);
+	});
+}
+
+/**
+* サイドバーの画像の表示
+*
+* @param
+* @return
+*/
+function setRecruitImg(imgVals ,extList) {
+
+var pageVal   = imgVals['pageVal'];
+var useImg    = pageVal['value2'];
+var imgNoList = pageVal['value3'];
+var existList = imgVals['fileExist'];
+var imgExt = [];
+
+			//console.debug(seqList);
+			//console.debug(useImgList);
+			//console.debug(imgNoList);
+
+var imgNo     = '';
+var fileExist = '0';
+
+	//選択されている画像No
+	if(imgNoList.length >= 1) {
+		imgNo = imgNoList;
+	}
+
+	//画像ファイルの有無
+	if(existList.length >= 1) {
+		fileExist = existList;
+	}
+
+	//拡張子リスト
+	if(extList.length >= 1) {
+		extS1 = extList.split(',');
+		idxMax = extS1.length - 1;
+		for(idx=0 ;idx<idxMax ;idx++) {
+			extS2 = extS1[idx].split(':');
+			imgExt[extS2[0]] = extS2[1];
+		}
+	}
+
+	imgTag = '';
+	if(fileExist == 1) {
+		if(imgNo.length >= 1) {
+			imgTag = '<img src="../img/1/RECRUIT/' + imgNo + '.' + imgExt[imgNo] + '" class="img-responsive">';
+		}
+	}
+
+	$('#recruitImgTN').html(imgTag);
+	$("#recruitImg").val(imgNo);			//画像Noの保持
 }
 
 /**
@@ -55,8 +140,11 @@ var result = $.ajax({
 */
 function writeRecruitVal() {
 
+	CKEDITOR.instances.recruitStr.updateElement();
+
 var result;
-var str = CKEDITOR.instances.recruitStr.getData();
+var str     = $('#recruitStr').val();
+var seleImg = $('#recruitImg').val();
 
 	if(str.length >= 1) {
 		result = $.ajax({
@@ -64,7 +152,8 @@ var str = CKEDITOR.instances.recruitStr.getData();
 			url  : "../cgi2018/ajax/mtn/writeRecruitVal.php" ,
 			data : {
 				branchNo : BRANCH_NO ,
-				str      : str
+				str      : str       ,
+				img      : seleImg
 			} ,
 
 			cache    : false ,

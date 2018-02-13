@@ -6,13 +6,58 @@ PHP5
 ********************/
 	session_start();
 
-	require_once dirname(__FILE__) . '/../../db/dbGeneral5C.php';
+	require_once dirname(__FILE__) . '/../../db/dbPageParam5C.php';
+	require_once dirname(__FILE__) . '/../../bld/bldImgList5C.php';
 
 	$branchNo = $_REQUEST['branchNo'];	/* 店No */
+	$pageParam = new dbPageParam5C();
 
-	/***** 求人内容の取出し *****/
-	$gene = new dbGeneral5C();
-	$ret = $gene->read($branchNo ,dbGeneral5C::CATE_RECRUIT);
+	$extList = bldImgList5C::bldSeqList($branchNo);
+	$ret['extList'] = $extList['extList'];
 
-	print $ret['vals'][0][dbGeneral5C::FLD_STR];
+	$pageVals = $pageParam->readAll($branchNo ,'RECRUIT' ,'CONTENT');
+
+	// 文言
+	$strStr1 = $pageVals['pageVal'][0][dbPageParam5C::FLD_STR1];
+	if(strlen($strStr1) >= 1) {
+		$ret['str'] = $strStr1;
+	} else {
+		$ret['str'] = $pageVals['pageVal'][0][dbPageParam5C::FLD_VALUE4];
+	}
+
+	// 画像
+	$ret['img']['pageVal'] = $pageVals['pageVal'][0];
+
+	//画像ファイルの有無
+	$imgNo = $pageVals['pageVal'][0][dbPageParam5C::FLD_VALUE3];
+
+	$extS1 = explode(',' ,$extList['extList']);
+	$idxMax = count($extS1);
+	for($idx=0 ;$idx<$idxMax ;$idx++) {
+		$ext1 = $extS1[$idx];
+		$extS2 = explode(':' ,$ext1);
+		$extS3[$extS2[0]] = $extS2[1];
+	}
+
+	$fileExist = '';
+	$fileRoot = dirname(__FILE__) . '/../../../img/1/RECRUIT/';
+
+	if(isset($extS3[$imgNo])) {
+		$extName = $extS3[$imgNo];
+	} else {
+		$extName = '';
+	}
+
+	$filePath = $fileRoot . $imgNo . '.' . $extName;
+	if(is_file($filePath)) {
+		$fileExist = $fileExist . '1';
+	} else {
+		$fileExist = $fileExist . '0';
+	}
+	$ret['img']['fileExist'] = $fileExist;
+
+
+
+
+	print json_encode($ret);
 ?>
