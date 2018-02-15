@@ -241,8 +241,19 @@
       </div>
 
       <div id="tabSystemMid" class="tabMid">
-        <textarea id="systemStr" name="systemStr" cols="60" rows="4"></textarea>
-        <div id="warnSystemStr" class="parsley-errors-list filled"></div>
+        <table>
+          <tbody id="systemImgList">
+            <tr id="systemImg">
+              <td class="systemImgTN"><div id="systemImgTN"></div></td>
+              <td class="systemImgTN"><input type="button" value="画像選択" name="attSystemImg" id="attSystemImg" onclick="showSeleImg('SYSTEM')"></td>
+              <td class="systemStr">
+                <textarea id="systemStr" name="systemStr1" cols="60" rows="4" required="" data-parsley-trigger="change"></textarea>
+                <div id="warnSystemStr" class="parsley-errors-list filled"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <input type="hidden" id="systemImg" value="">
       </div>
     </div>
     <div class="grayPanel" id="grayPanelSystem"></div>
@@ -270,23 +281,15 @@
     <div id="tabRecruitMain">
       <div class="sheetTitle">求人ページの内容</div>
       <div id="tabRecruitTop">
-
-
-
-
         求人内容<span class="required">*</span>
       </div>
 
       <div id="tabRecruitMid" class="tabMid">
-
-
-
         <table>
           <tbody id="recruitImgList">
             <tr id="recruitImg">
               <td class="recruitImgTN"><div id="recruitImgTN"></div></td>
               <td class="recruitImgTN"><input type="button" value="画像選択" name="attRecruitImg" id="attRecruitImg" onclick="showSeleImg('RECRUIT')"></td>
-
               <td class="recruitStr">
                 <textarea id="recruitStr" name="recruitStr1" cols="60" rows="4" required="" data-parsley-trigger="change"></textarea>
                 <div id="warnRecruitStr" class="parsley-errors-list filled"></div>
@@ -295,9 +298,6 @@
           </tbody>
         </table>
         <input type="hidden" id="recruitImg" value="">
-
-
-
       </div>
     </div>
     <div class="grayPanel" id="grayPanelRecruit"></div>

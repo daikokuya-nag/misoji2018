@@ -225,13 +225,8 @@ div.photoDispOut {
 }
 
 
-@media (min-width: 992px) {
-  div.thumbnail {
-    padding: 3px;
-  }
-}
-
 div.thumbnail {
+  padding: 3px;
   float: left;
 }
 

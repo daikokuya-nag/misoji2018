@@ -56,8 +56,5 @@ PHP5
 	}
 	$ret['img']['fileExist'] = $fileExist;
 
-
-
-
 	print json_encode($ret);
 ?>

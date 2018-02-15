@@ -117,10 +117,10 @@ class htmlWorker5C {
 			}
 		}
 
+		$wivesTN = array(2 => 1 ,3 => 1 ,4 => 1 ,5 => 1 ,6 => 1 ,7 => 1 ,8 => 1 ,9 => 1);
 
 		$tag[0] = '';
 		$tag[1] = '';
-		$seqidx = 0;
 
 		// 表示する写真
 		$photoVal = new photo5C();
@@ -170,23 +170,71 @@ class htmlWorker5C {
 					$photoTagAlt = self::SHOW_ALT_SOON;
 				}
 
-				$seqidxS  = ($seqidx % 10) + 1;
-				$seqidxS2 = ($seqidx % 2) + 1;
-				$seqidxS3 = ($seqidx % 3) + 1;
-				$seqidxS4 = ($seqidx % 4) + 1;
-				$seqidx++;
 
-				$divClass = ' workerTN' . $seqidxS . ' workerTNSX2' . $seqidxS2 . ' workerTNSX3' . $seqidxS3 . ' workerTNSX4' . $seqidxS4;
+				$TNNo =
+					'workerTN2' . $wivesTN[2] . ' ' . 'workerTN3' . $wivesTN[3] . ' ' . 'workerTN4' . $wivesTN[4] . ' ' . 'workerTN5' . $wivesTN[5] . ' ' .
+					'workerTN6' . $wivesTN[6] . ' ' . 'workerTN7' . $wivesTN[7] . ' ' . 'workerTN8' . $wivesTN[8] . ' ' . 'workerTN9' . $wivesTN[9];
 
-				$tag[$tagIdx] = $tag[$tagIdx] . '<a href="' . fileName5C::PROFILE_DIR . '/' . $dir . '.html">' .
-					'<div class="thumbnail workerTN' . $divClass . '">' .
+				if($wivesTN[2] >= 2) {
+					$wivesTN[2] = 1;
+				} else {
+					$wivesTN[2]++;
+				}
+
+				if($wivesTN[3] >= 3) {
+					$wivesTN[3] = 1;
+				} else {
+					$wivesTN[3]++;
+				}
+
+				if($wivesTN[4] >= 4) {
+					$wivesTN[4] = 1;
+				} else {
+					$wivesTN[4]++;
+				}
+
+				if($wivesTN[5] >= 5) {
+					$wivesTN[5] = 1;
+				} else {
+					$wivesTN[5]++;
+				}
+
+				if($wivesTN[6] >= 6) {
+					$wivesTN[6] = 1;
+				} else {
+					$wivesTN[6]++;
+				}
+
+				if($wivesTN[7] >= 7) {
+					$wivesTN[7] = 1;
+				} else {
+					$wivesTN[7]++;
+				}
+
+				if($wivesTN[8] >= 8) {
+					$wivesTN[8] = 1;
+				} else {
+					$wivesTN[8]++;
+				}
+
+				if($wivesTN[9] >= 9) {
+					$wivesTN[9] = 1;
+				} else {
+					$wivesTN[9]++;
+				}
+
+
+				$tag[$tagIdx] = $tag[$tagIdx] . '<div class="thumbnail workerTN ' . $TNNo . '">' .
+					'<a href="' . fileName5C::PROFILE_DIR . '/' . $dir . '.html">' .
+					'<div class="tnOuter">' .
 					'<img src="' . $photoTagSrc . '" alt="' . $photoTagAlt . '" width="110" height="145">' .
+					'</div>' .
 					'<div class="caption text-center">' . $name . '</div>' .
 
 					'<div class="workDate' . $dayClass . ' text-center">' . $workDate . '</div>' .
 					'<div class="workTime' . $dayClass . ' text-center">' . $workTime . '</div>' .
-					'</div>' .
-					'</a>';
+					'</a>' .
+					'</div>';
 			}
 		}
 

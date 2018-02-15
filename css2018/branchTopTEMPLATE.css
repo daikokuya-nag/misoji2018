@@ -23,10 +23,6 @@ div.newsDigestO a {
   text-decoration:none;
 }
 
-/* サイドバー */
-.sideBarStr {
-  text-align:left;
-}
 
 /* 写メ日記 */
 .photoDiary {
@@ -62,6 +58,7 @@ iframe.diaryFrame {
 /* サイドバー */
 .sideBarSect {
   margin:10px;
+  text-align:left;
 }
 
 /* ニュース */
@@ -82,6 +79,13 @@ iframe.diaryFrame {
   margin-left:10px;
 }
 
+/* 出勤予定 */
+.tnOuter {
+  width:110px;
+  height:145px;
+  overflow:hidden;
+}
+
 /* システム */
 .systemVal {
   overflow:visible;
@@ -93,6 +97,17 @@ iframe.diaryFrame {
   overflow:visible;
   height:auto;
   padding-bottom:10px;
+}
+
+/* 人妻たち */
+.wivesListTN {
+  width:118px;
+  overflow:hidden;
+}
+.thumbnail .wifeNameO {
+  overflow:hidden;
+  padding-left:5px;
+  padding-right:5px;
 }
 
 /* フッタ */

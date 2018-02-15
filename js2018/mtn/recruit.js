@@ -35,7 +35,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					//console.debug(response);
+					console.debug(response);
 
 		setRecruitImg(response['img'] ,response['extList']);
 
@@ -57,9 +57,9 @@ var result = $.ajax({
 * @param
 * @return
 */
-function setCKEditorRecruit() {
+function setCKEditRecruit() {
 
-	CKEDITOR.replace('sideBarStr' ,
+	CKEDITOR.replace('recruitStr' ,
 		{
 			height : 120
 		}
@@ -81,7 +81,7 @@ function setCKEditorRecruit() {
 }
 
 /**
-* サイドバーの画像の表示
+* 求人の画像の表示
 *
 * @param
 * @return
