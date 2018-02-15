@@ -98,16 +98,6 @@
         <td colspan="2"><hr></td>
       </tr>
       <tr>
-        <td>記事概要<span class="required">*</span></td>
-        <td>
-          <textarea id="digest" name="digest" cols="60" rows="4" required="" data-parsley-trigger="change"></textarea>    <!--    data-parsley-trigger="change"     -->
-          <div id="warnDigest" class="parsley-errors-list filled"></div>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2"><hr></td>
-      </tr>
-      <tr>
         <td>記事本体<span class="required">*</span></td>
         <td>
           <textarea id="content" name="content" cols="60" rows="18" required="" data-parsley-trigger="change"></textarea>

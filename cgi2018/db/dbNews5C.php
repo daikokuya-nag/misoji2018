@@ -23,7 +23,6 @@ class dbNews5C {
 
 	const FLD_TITLE     = 'title';		/* タイトル */
 	const FLD_CATE      = 'category';	/* 種類 */
-	const FLD_DIGEST    = 'digest';		/* 概要 */
 	const FLD_CONTENT   = 'content';	/* 本文 */
 	const FLD_DATE      = 'newsDate';	/* 記事日付 */
 	const FLD_TERM      = 'term';		/* 記事期間 */
@@ -103,7 +102,6 @@ class dbNews5C {
 		$fldArr = array(
 			self::FLD_TITLE    ,
 			self::FLD_CATE     ,
-			self::FLD_DIGEST   ,
 			self::FLD_CONTENT  ,
 			self::FLD_DATE     ,
 			self::FLD_TERM     ,
@@ -139,7 +137,6 @@ class dbNews5C {
 		$fldArr = array(
 			self::FLD_TITLE    ,
 			self::FLD_CATE     ,
-			self::FLD_DIGEST   ,
 			self::FLD_CONTENT  ,
 			self::FLD_DATE     ,
 			self::FLD_TERM     ,
@@ -186,7 +183,6 @@ class dbNews5C {
 		$fldArr = array(
 			self::FLD_TITLE    ,
 			self::FLD_CATE     ,
-			self::FLD_DIGEST   ,
 			self::FLD_CONTENT  ,
 			self::FLD_DATE     ,
 			self::FLD_TERM     ,
@@ -294,7 +290,6 @@ class dbNews5C {
 	　　　　　　ニュースNo
 	　　　　　　タイトル
 	　　　　　　種類
-	　　　　　　概要
 	　　　　　　本文
 	　　　　　　記事日付
 	　　　　　　記事期間
@@ -303,7 +298,7 @@ class dbNews5C {
 	　　　　　　記事終了日
 	戻り値　　：
 	********************/
-	function upd($branchNo ,$newsNo ,$title ,$category ,$digest ,$content ,$newsDate ,$term ,$dispBeg ,$begDate='' ,$endDate='') {
+	function upd($branchNo ,$newsNo ,$title ,$category ,$content ,$newsDate ,$term ,$dispBeg ,$begDate='' ,$endDate='') {
 
 				logFile5C::debug('既存ニュース更新 No.' . $newsNo);
 		$updDT = dateTime5C::getCurrDT();
@@ -339,7 +334,6 @@ class dbNews5C {
 		$fldList =
 			self::FLD_TITLE    . '=' . $db->setQuote($title   ) . ',' .
 			self::FLD_CATE     . '=' . $db->setQuote($category) . ',' .
-			self::FLD_DIGEST   . '=' . $db->setQuote($digest  ) . ',' .
 			self::FLD_CONTENT  . '=' . $db->setQuote($content ) . ',' .
 			self::FLD_DATE     . '=' . $db->setQuote($newsDate) . ',' .
 			$termStr    .
@@ -373,9 +367,9 @@ class dbNews5C {
 	　　　　　　記事終了日
 	戻り値　　：
 	********************/
-	function add($branchNo ,$title ,$category ,$digest ,$content ,$newsDate ,$disp ,$term ,$dispBeg ,$begDate='' ,$endDate='') {
+	function add($branchNo ,$title ,$category ,$content ,$newsDate ,$disp ,$term ,$dispBeg ,$begDate='' ,$endDate='') {
 
-				logFile5C::debug('新規ニュース　　' . 'DIGEST:' . $digest . ' **CONTENT:' . $content . ' **DATE:' . $newsDate . ' **TERM:' . $term . ' **DISPBEG:' . $dispBeg);
+				logFile5C::debug('新規ニュース　　' . 'CONTENT:' . $content . ' **DATE:' . $newsDate . ' **TERM:' . $term . ' **DISPBEG:' . $dispBeg);
 
 		$addDT = dateTime5C::getCurrDT();
 
@@ -385,7 +379,6 @@ class dbNews5C {
 			self::FLD_BRANCH_NO ,
 			self::FLD_TITLE     ,
 			self::FLD_CATE      ,
-			self::FLD_DIGEST    ,
 			self::FLD_CONTENT   ,
 			self::FLD_DATE      ,
 			self::FLD_DISP      ,
@@ -397,7 +390,6 @@ class dbNews5C {
 			$branchNo . ',' .
 			$db->setQuote($title)    . ',' .
 			$db->setQuote($category) . ',' .
-			$db->setQuote($digest)   . ',' .
 			$db->setQuote($content)  . ',' .
 			$db->setQuote($newsDate) . ',' .
 			$db->setQuote($disp)     . ',' .

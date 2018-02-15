@@ -57,7 +57,6 @@ var dtop = {
 
 	$('#dispBegDate').datetimepicker(dtop);
 
-	$("#warnDigest").html('');
 	$("#warnContent").html('');
 
 
@@ -108,7 +107,6 @@ var result = $.ajax({
 		$("#newsDate").val(dateStr);
 		$("#newsTerm").val('');
 
-		$("#digest").val('');
 		$("#content").val(phraseData);
 
 		$("#editNewsNo").val($('#newNewsRec').val());	// 新規の時の値を格納
@@ -123,7 +121,6 @@ var result = $.ajax({
 		$("#enterNews").parsley().reset();
 
 		setCKEditNews();
-		CKEDITOR.instances.digest.setData('');
 		CKEDITOR.instances.content.setData(phraseData);
 	});
 
@@ -190,7 +187,6 @@ var split;
 	$("#newsDate").val(newsData['newsDate']);
 	$("#newsTerm").val(newsData['term']);
 
-	$("#digest").val(newsData['digest']);
 	$("#content").val(newsData['content']);
 
 	$("#editNewsNo").val(newsData['addDT']);
@@ -207,7 +203,6 @@ var split;
 	$("#enterNews").parsley().reset();
 
 	setCKEditNews();
-	CKEDITOR.instances.digest.setData(newsData['digest']);
 	CKEDITOR.instances.content.setData(newsData['content']);
 }
 
@@ -220,30 +215,11 @@ var split;
 */
 function setCKEditNews() {
 
-	CKEDITOR.replace('digest' ,
-		{
-			height : 120
-		}
-	);
-
 	CKEDITOR.replace('content' ,
 		{
 			height : 120
 		}
 	);
-
-	CKEDITOR.instances.digest.on("blur", function(e) {
-		CKEDITOR.instances.digest.updateElement();
-		var str = $("#digest").val();
-		var msg;
-
-		if(str.length >= 1) {
-			msg = '';
-		} else {
-			msg = ERR_MSG;
-		}
-		$("#warnDigest").html(msg);
-	});
 
 	CKEDITOR.instances.content.on("blur", function(e) {
 		CKEDITOR.instances.content.updateElement();
@@ -272,16 +248,6 @@ var str;
 var ret = $("#enterNews").parsley().validate();
 var msg;
 
-	CKEDITOR.instances.digest.updateElement();
-	str = $("#digest").val();
-	if(str.length >= 1) {
-		msg = '';
-	} else {
-		msg = ERR_MSG;
-		ret = false;
-	}
-	$("#warnDigest").html(msg);
-
 	CKEDITOR.instances.content.updateElement();
 	str = $("#content").val();
 	if(str.length >= 1) {
@@ -304,7 +270,6 @@ var msg;
 */
 function updCkEditor() {
 
-	CKEDITOR.instances.digest.updateElement();
 	CKEDITOR.instances.content.updateElement();
 }
 

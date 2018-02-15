@@ -565,7 +565,14 @@
               <tr id="ageAuthImgT">
                 <td class="ageAuthImgTN" id="ageAuthImgTN"></td>
                 <td class="ageAuthImgSele"><input type="button" value="画像選択" name="attAgeAuthImg" id="attAgeAuthImg" onclick="showSeleImg('AGE_AUTH' ,'TOP')"></td>
+
+                <td class="ageAuthStr">
+                  <textarea id="ageAuthStr" name="ageAuthStr" cols="60" rows="4" required="" data-parsley-trigger="change"></textarea>
+                  <div id="warnAgeAuthStr" class="parsley-errors-list filled"></div>
+                </td>
+
               </tr>
+
             </tbody>
           </table>
           <input type="hidden" id="ageAuthImg" value="">

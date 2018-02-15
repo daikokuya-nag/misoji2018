@@ -49,7 +49,7 @@ class bldNews5C {
 			'<th class="newsCategory">種類</th>'     .
 			'<th class="newsDate">記事日付</th>'     .
 			'<th class="newsTerm">期間</th>'         .
-			'<th class="newsDigest">概要</th>'       .
+			'<th class="newsContent">概要</th>'      .
 			'<th class="newsEdit">編集</th>'         .
 			'</tr>';
 
@@ -151,7 +151,9 @@ class bldNews5C {
 		}
 
 		$proviTag = new proviTag5C();
-		$newsDigest = $proviTag->delNewsTag($news1[dbNews5C::FLD_DIGEST]);
+		$newsContent = $proviTag->delNewsTag($news1[dbNews5C::FLD_CONTENT]);
+		$newsContent = $this->splitContent($newsContent);
+
 		$editBtn = '<input type="button" value="　" style="font-size:0.9em;" onclick="editNews(' . $newsNo . ')" />';
 
 		if(strlen($showDiv) <= 0) {
@@ -168,13 +170,35 @@ class bldNews5C {
 			'<td class="newsCategory">' . $divTagBeg . $cateStr                    . $divTagEnd . '</td>' .
 			'<td class="newsDate">'     . $divTagBeg . $news1[dbNews5C::FLD_DATE]  . $divTagEnd . '</td>' .
 			'<td class="newsTerm">'     . $divTagBeg . $termStr                    . $divTagEnd . '</td>' .
-			'<td class="newsDigest">'   . $divTagBeg . $newsDigest                 . $divTagEnd . '</td>' .
+			'<td class="newsContent">'  . $divTagBeg . $newsContent                . $divTagEnd . '</td>' .
 			'<td class="newsEdit">'     . $divTagBeg . $editBtn                    . $divTagEnd . '</td>' .
 			$trEnd;
 
 		return $ret;
 	}
 
+	private function splitContent($str) {
+
+		$ret= '';
+
+		$rep = str_replace('<br />' ,'<br>' ,$str);
+		$exp = explode('<br>' ,$rep);
+		$maxExp = count($exp);
+
+		switch($maxExp) {
+			case 1:
+				$ret = $exp[0] . '<br>';
+				break;
+			case 2:
+				$ret = $exp[0] . '<br>' . $exp[1] . '<br>';
+				break;
+			default:	// 3行以上の時
+				$ret = $exp[0] . '<br>' . $exp[1] . '<br>' . $exp[2] . '<br>';
+				break;
+		}
+
+		return $ret;
+	}
 
 
 	/********************
@@ -192,7 +216,7 @@ class bldNews5C {
 			'<th class="newsCategory">種類</th>'     .
 			'<th class="newsDate">記事日付</th>'     .
 			'<th class="newsTerm">期間</th>'         .
-			'<th class="newsDigest">概要</th>'       .
+			'<th class="newsContent">概要</th>'      .
 			'<th class="newsEdit">表示</th>'         .
 			'</tr>';
 
@@ -255,18 +279,20 @@ class bldNews5C {
 		}
 
 		$proviTag = new proviTag5C();
-		$newsDigest = $proviTag->delNewsTag($news1[dbNews5C::DIGEST]);
+		$newsContent = $proviTag->delNewsTag($news1[dbNews5C::DIGEST]);
+		$newsContent = $this->splitContent($newsContent);
+
 		$editBtn = '<input type="button" value="　" style="font-size:0.9em;" onclick="showNews(' . $newsNo . ')" />';
 
 		$ret = $trBeg .
-			'<td class="newsDisp">'     . $dispCB              . '</td>' .
-			'<td class="newsDispBeg">'  . $dispBeg             . '</td>' .
+			'<td class="newsDisp">'     . $dispCB                 . '</td>' .
+			'<td class="newsDispBeg">'  . $dispBeg                . '</td>' .
 			'<td class="newsTitle">'    . $news1[dbNews5C::TITLE] . '</td>' .
-			'<td class="newsCategory">' . $cateStr             . '</td>' .
+			'<td class="newsCategory">' . $cateStr                . '</td>' .
 			'<td class="newsDate">'     . $news1[dbNews5C::DATE]  . '</td>' .
 			'<td class="newsTerm">'     . $news1[dbNews5C::TERM]  . '</td>' .
-			'<td class="newsDigest">'   . $newsDigest          . '</td>' .
-			'<td class="newsEdit">'     . $editBtn             . '</td>' .
+			'<td class="newsContent">'  . $newsContent            . '</td>' .
+			'<td class="newsEdit">'     . $editBtn                . '</td>' .
 			$trEnd;
 
 		return $ret;

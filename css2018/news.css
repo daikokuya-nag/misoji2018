@@ -91,7 +91,7 @@ table#newsListAll tr th {
 	background-color:#ffffff;
 }
 
-td.newsDigest {
+td.newsContent {
 	min-width:300px;
 	max-width:300px;
 	white-space: nowrap;
@@ -100,7 +100,7 @@ td.newsDigest {
 	-o-text-overflow: ellipsis; /* Opera9,10対応 */
 }
 
-th.newsDigest {
+th.newsContent {
 	max-width:300px;
 	min-width:300px;
 }
@@ -335,12 +335,13 @@ td.showNewsDetailP {
 	max-width:120px;
 	text-align:left;
 }
-.newsDigest {
+.newsContent {
 /*	min-width:120px;
 	max-width:120px;
 */
 	text-align:left;
 }
+
 .newsEdit {
 	min-width:40px;
 	max-width:40px;

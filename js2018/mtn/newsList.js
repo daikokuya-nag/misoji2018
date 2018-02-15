@@ -264,7 +264,6 @@ var newsNo   = $('#editNewsNo').val();
 var title    = $('#title').val();
 var newsDate = $('#newsDate').val();
 var newsTerm = $('#newsTerm').val();
-var digest   = CKEDITOR.instances.digest.getData();
 var content  = CKEDITOR.instances.content.getData();
 
 var dispBeg = $('#dispBegDate').val();
@@ -283,7 +282,6 @@ var newsNo   = docForm.editNewsNo.value;
 var title    = docForm.title.value;
 var newsDate = docForm.newsDate.value;
 var newsTerm = docForm.newsTerm.value;
-var digest   = docForm.digest.value;
 var content  = docForm.content.value;
 
 var dispBeg = docForm.dispBegDate.value;
@@ -312,7 +310,6 @@ var result = $.ajax({
 			begDate  : begDate   ,
 			endDate  : endDate   ,
 
-			digest   : digest    ,
 			content  : content   ,
 			cate     : cate      ,
 			dispBeg  : dispBeg

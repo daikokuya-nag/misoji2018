@@ -15,7 +15,6 @@ PHP5
 	if($cond == sess5C::OWN_INTIME) {
 		sess5C::updSessCond();
 
-
 		$branchNo = $_POST['branchNo'];	/* 店No */
 		$newsNo   = $_POST['newsNo'  ];	/* ニュースNo */
 
@@ -26,7 +25,6 @@ PHP5
 		$begDate  = $_POST['begDate' ];	/* 記事開始日 */
 		$endDate  = $_POST['endDate' ];	/* 記事終了日 */
 
-		$digest   = $_POST['digest'  ];	/* 概要 */
 		$content  = $_POST['content' ];	/* 本文 */
 		$cate     = $_POST['cate'    ];	/* 種類 */
 
@@ -38,10 +36,10 @@ PHP5
 		$news = new dbNews5C();
 		if(intval($newsNo) == dbNews5C::NEW_REC) {
 			/*** 新規 ***/
-			$targetNewsNo = $news->add($branchNo ,$title ,$cate ,$digest ,$content ,$newsDate ,dbNews5C::DISP_OFF ,$newsTerm ,$dispBeg ,$begDate ,$endDate);
+			$targetNewsNo = $news->add($branchNo ,$title ,$cate ,$content ,$newsDate ,dbNews5C::DISP_OFF ,$newsTerm ,$dispBeg ,$begDate ,$endDate);
 		} else {
 			/*** 既存 ***/
-			$news->upd($branchNo ,$newsNo ,$title ,$cate ,$digest ,$content ,$newsDate ,$newsTerm ,$dispBeg ,$begDate ,$endDate);
+			$news->upd($branchNo ,$newsNo ,$title ,$cate ,$content ,$newsDate ,$newsTerm ,$dispBeg ,$begDate ,$endDate);
 			$targetNewsNo = $newsNo;
 		}
 

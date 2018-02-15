@@ -39,7 +39,7 @@ $(document).ready(function(){
 
 $(window).load(function(){
 
-	// 編集ダイアログの定義
+	// リンク編集ダイアログの定義
 	$("#editAgeAuthLinkDlg").dialog({
 		autoOpen : false ,
 		modal    : true  ,
@@ -65,6 +65,7 @@ $(window).load(function(){
 		]
 	});
 
+	setCKEditAgeAuth();
 	getAgeAuthValList('INIT');	// 現在の年齢認証ページで使用する画像の読み込み
 });
 
@@ -95,6 +96,8 @@ var result = $.ajax({
 		if(readMode == 'INIT') {
 			//画像
 			setAgeAuthImg(response['img']);
+			$('#ageAuthStr').val(response['str']);
+			CKEDITOR.instances.ageAuthStr.setData(response['str']);
 		}
 		//リンク
 		setLink(response['link']);
@@ -126,6 +129,36 @@ var imgExt = [];
 
 
 /**
+* ckEditorの設定
+*
+* @param
+* @return
+*/
+function setCKEditAgeAuth() {
+
+	CKEDITOR.replace('ageAuthStr' ,
+		{
+			height : 120
+		}
+	);
+
+
+	CKEDITOR.instances.ageAuthStr.on("blur", function(e) {
+		CKEDITOR.instances.ageAuthStr.updateElement();
+		var str = $("#ageAuthStr").val();
+		var msg;
+
+		if(str.length >= 1) {
+			msg = '';
+		} else {
+			msg = ERR_MSG;
+		}
+		$("#warnAgeAuthStr").html(msg);
+	});
+}
+
+
+/**
 * 年齢認証の画像の表示
 *
 * @param
@@ -135,7 +168,7 @@ function setAgeAuthImg(imgVals) {
 
 var pageVal   = imgVals['imgVal'];
 var imgNoList = pageVal['value3'];
-var existList = imgVals['img']['fileExist'];
+var existList = imgVals['fileExist'];
 
 var imgNo     = '';
 var fileExist = '0';
@@ -414,7 +447,10 @@ function updAgeAuthImg() {
 var seleImg = $('#ageAuthImg').val();
 var linkImg = getLinkImg();
 
-var sendData = '&branchNo=' + BRANCH_NO + '&img=' + seleImg + linkImg;
+	CKEDITOR.instances.ageAuthStr.updateElement();
+var str = $('#ageAuthStr').val();
+
+var sendData = '&branchNo=' + BRANCH_NO + '&img=' + seleImg + linkImg + '&str=' + str;
 
 console.debug(sendData);
 
@@ -424,23 +460,23 @@ var result = $.ajax({
 		url  : "../cgi2018/ajax/mtn/writeAgeAuthVal.php" ,
 		data : sendData ,
 		cache    : false ,
-//		dataType : 'json'
+		dataType : 'json'
 	});
 
 	result.done(function(response) {
 					console.debug(response);
 
-//		if(response['SESSCOND'] == SESS_OWN_INTIME) {
+		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			selectWriteFile('AGE_AUTH');		//出力対象ファイルの抽出→ファイル出力
-//		} else {
-//			jAlert(
-//				TIMEOUT_MSG_STR ,
-//				TIMEOUT_MSG_TITLE ,
-//				function() {
-//					location.href = 'login.html';
-//				}
-//			);
-//		}
+		} else {
+			jAlert(
+				TIMEOUT_MSG_STR ,
+				TIMEOUT_MSG_TITLE ,
+				function() {
+					location.href = 'login.html';
+				}
+			);
+		}
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {

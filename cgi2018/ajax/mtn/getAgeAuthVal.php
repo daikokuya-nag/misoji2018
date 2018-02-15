@@ -27,7 +27,8 @@ PHP5
 	$linkVals = readLinkExchange($branchNo ,$extS3);	// 相互リンク
 
 	$ret['extList'] = $extList['extList'];
-	$ret['img'    ] = $imgVals;
+	$ret['img'    ] = $imgVals['img'];
+	$ret['str'    ] = $imgVals['str'];
 	$ret['link'   ] = $linkVals;
 
 	print json_encode($ret);
@@ -38,8 +39,16 @@ PHP5
 		$pageParam = new dbPageParam5C();
 		$pageVals  = $pageParam->readAll($branchNo ,'AGE_AUTH' ,'TOP');
 
+		// 文言
+		$strStr1 = $pageVals['pageVal'][0][dbPageParam5C::FLD_STR1];
+		if(strlen($strStr1) >= 1) {
+			$ret['str'] = $strStr1;
+		} else {
+			$ret['str'] = $pageVals['pageVal'][0][dbPageParam5C::FLD_VALUE4];
+		}
+
 		// 画像
-		$ret['imgVal'] = $pageVals['pageVal'][0];
+		$ret['img']['imgVal'] = $pageVals['pageVal'][0];
 
 		//画像ファイルの有無
 		$imgNo = $pageVals['pageVal'][0]['value3'];

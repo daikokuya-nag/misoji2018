@@ -461,7 +461,25 @@ class html5C {
 			$news1 = $newsVal[$idx];
 
 			$title   = $news1[dbNews5C::FLD_TITLE];		//タイトル
-			$digest  = $news1[dbNews5C::FLD_DIGEST];	//概要
+
+			// 本文から概要を抽出
+			$digest = '';
+			$rep = str_replace('<br />' ,'<br>' ,$news1[dbNews5C::FLD_CONTENT]);
+			$exp = explode('<br>' ,$rep);
+			$maxExp = count($exp);
+
+			switch($maxExp) {
+				case 1:
+					$digest = $exp[0] . '<br>';
+					break;
+				case 2:
+					$digest = $exp[0] . '<br>' . $exp[1] . '<br>';
+					break;
+				default:	// 3行以上の時
+					$digest = $exp[0] . '<br>' . $exp[1] . '<br>' . $exp[2] . '<br>';
+					break;
+			}
+
 			$content = $news1[dbNews5C::FLD_CONTENT];	//内容
 			$date    = $news1[dbNews5C::FLD_DATE];		//日付
 
@@ -2035,6 +2053,10 @@ class html5C {
 				$disp = $this->setAgeAuthImg($val);
 				if(strlen($disp) >= 1) {
 					$ret[] = '<img src="' . $disp . '" class="img-responsive center-block">';
+				}
+
+				if(strlen($val['STRING']) >= 1) {
+					$ret[] = '<div class="center-block ageAuthStr">' . $val['STRING'] . '</div>';
 				}
 			} else {
 				if(strcmp($line1 ,$this->begValList[$kwd]) == 0
