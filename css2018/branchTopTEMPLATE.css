@@ -58,6 +58,8 @@ iframe.diaryFrame {
 /* サイドバー */
 .sideBarSect {
   margin:10px;
+}
+.sideBarStr {
   text-align:left;
 }
 
