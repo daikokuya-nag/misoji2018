@@ -61,7 +61,8 @@ function setCKEditRecruit() {
 
 	CKEDITOR.replace('recruitStr' ,
 		{
-			height : 120
+			height  : 360 ,
+			toolbar : 'Full'
 		}
 	);
 

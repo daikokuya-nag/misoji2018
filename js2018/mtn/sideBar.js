@@ -67,13 +67,15 @@ function setCKEditSideBar() {
 
 	CKEDITOR.replace('sideBarStr1' ,
 		{
-			height : 120
+			height  : 120 ,
+			toolbar : 'Full'
 		}
 	);
 
 	CKEDITOR.replace('sideBarStr2' ,
 		{
-			height : 120
+			height  : 120 ,
+			toolbar : 'Full'
 		}
 	);
 

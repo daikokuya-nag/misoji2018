@@ -217,7 +217,28 @@ function setCKEditNews() {
 
 	CKEDITOR.replace('content' ,
 		{
-			height : 120
+			allowedContent : true ,		// タグを消さない
+			height  : 360 ,
+
+			toolbar : 'SiteInfo' ,		// ツールバーセット名
+
+			extraPlugins : 'womenlist,siteinfo' ,
+
+			// 女性紹介ページへのリンク
+			womenlist_defaultLabel : ""  ,
+			womenlist_style : {
+			    element : "span"
+			} ,
+			womenlist_title : '紹介ページ' ,
+			womenlist_value : profileLinkList	,		// see enterNews.php
+
+			// サイト情報
+			siteinfo_defaultLabel : ""  ,
+			siteinfo_style : {
+			    element : "span"
+			} ,
+			siteinfo_title : 'サイト情報' ,
+			siteinfo_value : siteVals
 		}
 	);
 
@@ -271,6 +292,11 @@ var msg;
 function updCkEditor() {
 
 	CKEDITOR.instances.content.updateElement();
+
+
+var content  = $("#content").val();
+console.debug(content);
+
 }
 
 

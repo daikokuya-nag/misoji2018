@@ -5,6 +5,8 @@
   require_once dirname(__FILE__) . '/../cgi2018/sess/sess5C.php';
   require_once dirname(__FILE__) . '/../cgi2018/logFile5C.php';
   require_once dirname(__FILE__) . '/../cgi2018/db/dbNews5C.php';
+  require_once dirname(__FILE__) . '/../cgi2018/db/dbProfile5C.php';
+  require_once dirname(__FILE__) . '/../cgi2018/siteConst5C.php';
 
   $sessID = session_id();
   $cond   = sess5C::getSessCond($sessID);
@@ -13,10 +15,14 @@
   $branchNo = '1';
 
   $_SESSION['BRANCHNO'] = $branchNo;
-
-  $vesion = 'V=1&R=1&M=1';
+  $vesion = 'V=1&R=1&M=1&M=3';
 
   $targetNews = $_REQUEST['id'];
+
+  $prof = new dbProfile5C();
+  $prof->setBranchNo($branchNo);
+  $profList = $prof->bldForCheditor();
+  $siteVals = siteConst5C::bldForCheditor();
 ?>
 <!doctype html>
 <html lang="ja">
@@ -33,6 +39,10 @@
 <link href="../css2018/mtnCommon.css?<?php print $vesion; ?>" rel="stylesheet">
 
 <link href="../css2018/news.css?<?php print $vesion; ?>" rel="stylesheet">
+<script type="text/javascript">
+	var profileLinkList = "<?php print $profList['profVals']; ?>";
+	var siteVals        = "<?php print $siteVals; ?>";
+</script>
 <script src="../js2018/ckEditor/ckeditor.js"></script>
 
 <script src="../js2018/jq/jquery-1.11.2.min.js?<?php print $vesion; ?>"></script>

@@ -240,12 +240,14 @@ function setCKEditProf() {
 
 	CKEDITOR.replace('mastComment' ,
 		{
-			height : 120
+			height  : 120 ,
+			toolbar : 'Full'
 		});
 
 	CKEDITOR.replace('appComment' ,
 		{
-			height : 120
+			height  : 120 ,
+			toolbar : 'Full'
 		});
 
 	CKEDITOR.instances.mastComment.on("blur", function(e) {

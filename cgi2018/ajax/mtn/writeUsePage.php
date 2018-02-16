@@ -27,6 +27,7 @@ PHP5
 		$paramDB->setVal(dbPageParam5C::FLD_VALUE3 ,'');
 		$paramDB->setVal(dbPageParam5C::FLD_VALUE4 ,'');
 		$paramDB->setVal(dbPageParam5C::FLD_VALUE5 ,'');
+		$paramDB->setVal(dbPageParam5C::FLD_STR1   ,'');
 
 		$where = dbPageParam5C::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .
 				dbPageParam5C::FLD_PAGE_ID   . '=' . $handle->setQuote($pageID);

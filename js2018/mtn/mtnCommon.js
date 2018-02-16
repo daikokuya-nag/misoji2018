@@ -7,10 +7,10 @@
 
 var EXT_LIST = [];		// 画像の拡張子のリスト
 var USE_PAGE = {};		// 自サイト、外部サイトのいずれを使うか
-var RADIO_NAME     = {NEWS:'useNews'       ,ALBUM:'useProfile'      ,RECRUIT:'useRecruitPage'   ,SYSTEM:'useSystemPage'   ,PHOTODIARY:'usePhotoDiaryPage'};		// ラジオボタン名
-var ID_PREFIX      = {NEWS:'tabsNews'      ,ALBUM:'tabsProfile'     ,RECRUIT:'tabsRecruit'      ,SYSTEM:'tabsSystem'      ,PHOTODIARY:'tabsPhotoDiary'};		// tabのプレフィクス
-var OUTER_URL_FORM = {NEWS:'newsOuterURL'  ,ALBUM:'profileOuterURL' ,RECRUIT:'recruitOuterURL'  ,SYSTEM:'systemOuterURL'  ,PHOTODIARY:'photoDiaryOuterURL'};	// 外部サイトの入力域
-var GRAY_PANEL_ID  = {NEWS:'grayPanelNews' ,ALBUM:'grayPanelProf'   ,RECRUIT:'grayPanelRecruit' ,SYSTEM:'grayPanelSystem' ,PHOTODIARY:'grayPanelPhotoDiary'};	// 外部サイト使用時の、入力不可領域のマスク
+var RADIO_NAME     = {NEWS:'useNews'       ,ALBUM:'useProfile'      ,WORK:'useWork'         ,RECRUIT:'useRecruitPage'   ,SYSTEM:'useSystemPage'   ,PHOTODIARY:'usePhotoDiaryPage'};		// ラジオボタン名
+var ID_PREFIX      = {NEWS:'tabsNews'      ,ALBUM:'tabsProfile'     ,WORK:''                ,RECRUIT:'tabsRecruit'      ,SYSTEM:'tabsSystem'      ,PHOTODIARY:'tabsPhotoDiary'};		// tabのプレフィクス
+var OUTER_URL_FORM = {NEWS:'newsOuterURL'  ,ALBUM:'profileOuterURL' ,WORK:'workOuterURL'    ,RECRUIT:'recruitOuterURL'  ,SYSTEM:'systemOuterURL'  ,PHOTODIARY:'photoDiaryOuterURL'};	// 外部サイトの入力域
+var GRAY_PANEL_ID  = {NEWS:'grayPanelNews' ,ALBUM:'grayPanelProf'   ,WORK:''                ,RECRUIT:'grayPanelRecruit' ,SYSTEM:'grayPanelSystem' ,PHOTODIARY:'grayPanelPhotoDiary'};	// 外部サイト使用時の、入力不可領域のマスク
 
 var EDIT_AREA        = {NEWS:'tabNewsMain' ,ALBUM:'tabProfMain' ,RECRUIT:'tabRecruitMain' ,SYSTEM:'tabSystemMain' ,PHOTODIARY:'tabSystemMain' ,TOP:'tabTopMain' ,AGE_AUTH:'tabAgeAuthMid'};		// 入力項目範囲
 var EDIT_AREA_HEIGHT = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0 ,PHOTODIARY:0 ,TOP:0 ,AGE_AUTH:0};		// 入力域の高さ
@@ -18,6 +18,10 @@ var TAB_HEIGHT       = {NEWS:0 ,ALBUM:0 ,RECRUIT:0 ,SYSTEM:0 ,PHOTODIARY:0 ,TOP:
 
 var DISP_SYSTEM_TAB  = false;	// システムタブを表示したか
 var DISP_RECRUIT_TAB = false;	// 求人タブを表示したか
+
+var TAB_A_HEIGHT   = 0;
+var TAB_TOP_HEIGHT = 0;
+var TAB_BTM_HEIGHT = 0;
 
 var ERR_MSG = 'この値は必須です';	// 
 
@@ -27,8 +31,6 @@ var SELECTABLE_IMG_FILE = '画像はjpgまたはgifファイルを選択して�
 
 
 $(document).ready(function(){
-
-var width = $(".tabArea").width();
 
 	// タブシステムの定義
 	$("#tabA").tabs(
@@ -60,7 +62,6 @@ var width = $(".tabArea").width();
 
 				if(selectedPanel == "#tabsRecruit") {
 					$("#warnRecruitStr").html('');
-					setCKEditRecruit();
 					if(TAB_HEIGHT['RECRUIT'] == 0) {
 						setRecruitTabHeight();
 					}
@@ -68,7 +69,6 @@ var width = $(".tabArea").width();
 
 				if(selectedPanel == "#tabsSystem") {
 					$("#warnSystemStr").html('');
-					setCKEditSystem();
 					if(TAB_HEIGHT['SYSTEM'] == 0) {
 						setSystemTabHeight();
 					}
@@ -83,16 +83,8 @@ var width = $(".tabArea").width();
 		}
 	);
 
-	// タブの中身調整
-	// タブの高さ
-	$(".tabArea").height(700);
-	$(".tabArea").css('overflow' ,'auto');
-
-	// 下ボタンの調整
-	$(".tabBottomBtn").width(width + 'px');
-
-//	setNewsTabHeight();
-	setTopTabHeight();
+	//最初に表示されるパネル
+//	setTopTabHeight();
 
 	// 画像選択
 
@@ -112,6 +104,12 @@ var width = $(".tabArea").width();
 		$("#sendSeleProfPage").prop('disabled' ,false);
 		USE_PAGE['ALBUM']['USE'] = $(this).val();
 		setUsePage('ALBUM');
+	});
+
+	$("input[name='useWork']").change(function() {
+		$("#sendSeleWorkPage").prop('disabled' ,false);
+		USE_PAGE['WORK']['USE'] = $(this).val();
+		setUsePage('WORK');
 	});
 
 	$("input[name='useRecruitPage']").change(function() {
@@ -139,9 +137,51 @@ var width = $(".tabArea").width();
 
 $(window).load(function(){
 
+	// タブの中身調整
+	adjustTabHeight();
+
+
 	readUsePage();				// 使用するページの読み込み
+
+
+	footerFixed();
+	checkFontSize(footerFixed);
+
+
+	//最初に表示されるパネル
+	setTopTabHeight();
 });
 
+
+function adjustTabHeight() {
+
+var tempH;
+
+var footerH;
+var windowH;
+
+	footerH = $("#footer").height();
+	console.debug("heigt of footer:" + footerH);
+
+	windowH = $(window).height();
+	console.debug("heigt of window:" + windowH);
+
+	tempH = windowH - footerH * 3;
+	console.debug("heigt of calced:" + tempH);
+
+	// タブオブジェクトの高さ
+	$("#tabA").height(tempH);		//750
+	$(".tabArea").css('overflow' ,'auto');
+
+	// 下ボタンの調整
+var width = $(".tabArea").width();
+	$(".tabBottomBtn").width(width + 'px');
+
+	TAB_A_HEIGHT   = tempH;
+	TAB_TOP_HEIGHT = $("#tabA ul").height();	// タブの並びの高さ	//41;
+console.debug('TAB_TOP_HEIGHT ' + TAB_TOP_HEIGHT);
+	TAB_BTM_HEIGHT = 40;
+}
 
 /**
 * TOPパネルの高さ調整
@@ -151,24 +191,16 @@ $(window).load(function(){
 */
 function setTopTabHeight() {
 
-							//console.debug('set news tab height');
-var areaH      = $("#tabsTop").height();			// 領域の高さ
-//var areaSeleH  = $("#tabNewsUsePage").height();		// 使用ページ選択の高さ
-//var areaUpperH = $("#tabNewsUpper").height();		// 上ボタンとタイトルの高さ
-var areaBtmH   = $("#tabTopBottom").height();		// 下ボタンの高さ
+var areaBtmH = $("#tabTopBottom").height();		// 下ボタンの高さ
+var height   = TAB_A_HEIGHT - (TAB_TOP_HEIGHT + areaBtmH + TAB_BTM_HEIGHT);
 
-var height = areaH - (areaBtmH) + 10;
-
-console.debug('AAA');
-
-				//console.debug(areaH + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
+							//console.debug(areaH + ' ' + areaBtmH + ' ' + height);
 	$("#tabTopSystemMid").height(height + 'px');
 	TAB_HEIGHT['TOP'] = height;
 
 	height = $("#" + EDIT_AREA['TOP']).height();
 	EDIT_AREA_HEIGHT['TOP'] = height;
 }
-
 
 /**
 * 新着情報パネルの高さ調整
@@ -178,16 +210,14 @@ console.debug('AAA');
 */
 function setNewsTabHeight() {
 
-							//console.debug('set news tab height');
-var areaH      = $("#tabsNews").height();			// 領域の高さ
 var areaSeleH  = $("#tabNewsUsePage").height();		// 使用ページ選択の高さ
 var areaUpperH = $("#tabNewsUpper").height();		// 上ボタンとタイトルの高さ
 var areaBtmH   = $("#tabNewsBottom").height();		// 下ボタンの高さ
 
-var height = areaH - (areaSeleH + areaUpperH + areaBtmH) - 10;
-var grayPanelID = GRAY_PANEL_ID['news'];
+var height = TAB_A_HEIGHT - (TAB_TOP_HEIGHT + areaSeleH + areaUpperH + areaBtmH + TAB_BTM_HEIGHT);
+var grayPanelID = GRAY_PANEL_ID['NEWS'];
 
-				//console.debug(areaH + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
+							//console.debug(TAB_A_HEIGHT + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
 	$("#tabNewsMid").height(height + 'px');
 	TAB_HEIGHT['NEWS'] = height;
 
@@ -204,21 +234,19 @@ var grayPanelID = GRAY_PANEL_ID['news'];
 */
 function setProfTabHeight() {
 
-							//console.debug('set prof tab height');
-var areaH      = $("#tabsProfile").height();		// 領域の高さ
 var areaSeleH  = $("#tabProfileUsePage").height();	// 使用ページ選択の高さ
 var areaUpperH = $("#tabProfUpper").height();		// 上ボタンとタイトルの高さ
 var areaBtmH   = $("#tabProfBottom").height();		// 下ボタンの高さ
 
-var height = areaH - (areaSeleH + areaUpperH + areaBtmH) - 10;
-var grayPanelID = GRAY_PANEL_ID['profile'];
+var height = TAB_A_HEIGHT - (TAB_TOP_HEIGHT + areaSeleH + areaUpperH + areaBtmH + TAB_BTM_HEIGHT);
+var grayPanelID = GRAY_PANEL_ID['ALBUM'];
 
-				//console.debug(areaH + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
+							//console.debug('profile tab ' + areaH + ' ' + areaSeleH + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
 	$("#tabProfMid").height(height + 'px');
 	TAB_HEIGHT['ALBUM'] = height;
 
-	height = $("#" + EDIT_AREA['PROFILE']).height();
-	EDIT_AREA_HEIGHT['PROFILE'] = height;
+	height = $("#" + EDIT_AREA['ALBUM']).height();
+	EDIT_AREA_HEIGHT['ALBUM'] = height;
 	$("#" + grayPanelID).height(height);
 }
 
@@ -230,16 +258,14 @@ var grayPanelID = GRAY_PANEL_ID['profile'];
 */
 function setRecruitTabHeight() {
 
-							//console.debug('set recruit tab height');
-var areaH     = $("#tabsRecruit").height();			//領域の高さ
 var areaSeleH = $("#tabRecruitUsePage").height();	//使用ページ選択の高さ
 var areaTopH  = $("#tabRecruitTop").height();		//上ボタンの高さ
 var areaBtmH  = $("#tabRecruitBottom").height();	//下ボタンの高さ
 
-var height = areaH - (areaSeleH + areaTopH + areaBtmH) + 10;
-var grayPanelID = GRAY_PANEL_ID['recruit'];
+var height = TAB_A_HEIGHT - (TAB_TOP_HEIGHT + areaSeleH + areaTopH + areaBtmH + TAB_BTM_HEIGHT);
+var grayPanelID = GRAY_PANEL_ID['RECRUIT'];
 
-				//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);
+							//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);
 	$("#tabRecruitMid").height(height + 'px');
 	TAB_HEIGHT['RECRUIT'] = height;
 
@@ -277,16 +303,14 @@ var btmPB    = $("#cke_recruitStr .cke_bottom").css("padding-bottom");
 */
 function setSystemTabHeight() {
 
-							//console.debug('set system tab height');
-var areaH     = $("#tabsSystem").height();			//領域の高さ
 var areaSeleH = $("#tabSystemUsePage").height();	//使用ページ選択の高さ
 var areaTopH  = $("#tabSystemTop").height();		//上ボタンの高さ
 var areaBtmH  = $("#tabSystemBottom").height();		//下ボタンの高さ
 
-var height = areaH - (areaSeleH + areaTopH + areaBtmH) + 10;
-var grayPanelID = GRAY_PANEL_ID['system'];
+var height = TAB_A_HEIGHT - (TAB_TOP_HEIGHT + areaSeleH + areaTopH + areaBtmH + TAB_BTM_HEIGHT);
+var grayPanelID = GRAY_PANEL_ID['SYSTEM'];
 
-				//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);
+						//console.debug(areaH + ' ' + areaTopH + ' ' + areaBtmH + ' ' + height);
 	$("#tabSystemMid").height(height + 'px');
 	TAB_HEIGHT['SYSTEM'] = height;
 
@@ -326,7 +350,8 @@ function setCKEditRecruit() {
 	if(!DISP_RECRUIT_TAB) {
 		CKEDITOR.replace('recruitStr' ,
 			{
-				height : 120
+			height  : 120 ,
+			toolbar : 'Full'
 			});
 
 		CKEDITOR.instances.recruitStr.on("blur" ,function(e) {
@@ -357,7 +382,8 @@ function setCKEditSystem() {
 	if(!DISP_SYSTEM_TAB) {
 		CKEDITOR.replace('systemStr' ,
 			{
-				height : 120
+			height  : 120 ,
+			toolbar : 'Full'
 			});
 
 		CKEDITOR.instances.systemStr.on("blur" ,function(e) {
@@ -385,13 +411,10 @@ function setCKEditSystem() {
 */
 function setAgeAuthTabHeight() {
 
-							//console.debug('set news tab height');
-var areaH      = $("#tabsAgeAuth").height();			// 領域の高さ
-var areaBtmH   = $("#tabAgeAuthBottom").height();		// 下ボタンの高さ
+var areaBtmH = $("#tabAgeAuthBottom").height();		// 下ボタンの高さ
+var height   = TAB_A_HEIGHT - (TAB_TOP_HEIGHT + areaBtmH + TAB_BTM_HEIGHT);
 
-var height = areaH - (areaBtmH) + 10;
-
-				//console.debug(areaH + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
+							//console.debug(areaH + ' ' + areaUpperH + ' ' + areaBtmH + ' ' + height);
 	$("#tabAgeAuthMid").height(height + 'px');
 	TAB_HEIGHT['AGE_AUTH'] = height;
 
@@ -419,12 +442,15 @@ var result = $.ajax({
 					console.debug(response);
 		USE_PAGE['NEWS'   ] = response['NEWS'   ];
 		USE_PAGE['ALBUM'  ] = response['ALBUM'  ];	//PROFIEのみALBUMと読み替える
+		USE_PAGE['WORK'   ] = response['WORK'   ];
 		USE_PAGE['RECRUIT'] = response['RECRUIT'];
 		USE_PAGE['SYSTEM' ] = response['SYSTEM' ];
 		USE_PAGE['PHOTODIARY'] = response['PHOTODIARY'];
 
 		setUsePage('NEWS');
 		setUsePage('ALBUM');
+		setUsePage('WORK');
+
 		setUsePage('RECRUIT');
 		setUsePage('SYSTEM');
 		setUsePage('PHOTODIARY');
@@ -474,23 +500,27 @@ var editArea     = EDIT_AREA[pageID];
 	$("#" + outerURLForm).val(USE_PAGE[pageID]['USEPAGE']);
 	$("input[name='" + RADIO_NAME[pageID] + "']").val([usePage]);
 
-console.debug(pageID + ' ' + usePage);
-
+					//console.debug(pageID + ' ' + usePage);
 	if(usePage == 'OWN_SITE') {
 		//内部サイトの時
 		$("#" + outerURLForm).prop('disabled' ,true);
 
 		$("#" + grayPanelID).css("top" ,'0px');
 		$("#" + grayPanelID).hide();	//.fadeIn("slow");
-		$("#" + idPrefix).css("overflow" ,"auto");
+		if(idPrefix.length >= 1) {
+			$("#" + idPrefix).css("overflow" ,"auto");
+		}
 	} else {
 		//外部サイトの時
 		$("#" + outerURLForm).prop('disabled' ,false);
 
 		if(grayPanelID.length >= 1) {
 			var topPos = $("#" + editArea).height();
-							//console.debug('id prefix:' + idPrefix);
+						//console.debug('id prefix:' + idPrefix);
+
+			if(idPrefix.length >= 1) {
 				$("#" + idPrefix).css("overflow" ,"hidden");
+			}
 			if(topPos >= 1) {
 				$("#" + grayPanelID).css("top" ,'-' + topPos + 'px');
 				$("#" + grayPanelID).show();	//.fadeIn("slow");
@@ -504,6 +534,7 @@ function updUsePage(pageID) {
 
 var usePage  = $("input[name='" + RADIO_NAME[pageID] + "']:checked").val();
 var outerURL = $("#" + OUTER_URL_FORM[pageID]).val();
+var updID;
 
 console.debug(usePage);
 console.debug(outerURL);
@@ -525,7 +556,14 @@ var result = $.ajax({
 	result.done(function(response) {
 					console.debug(response);
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
-			selectWriteFile('PAGE_MENU');		//出力対象ファイルの抽出→ファイル出力			//pageID
+
+//			if(pageID == 'WORK') {
+//				updID = 'WORK';
+//			} else {
+				updID = 'PAGE_MENU';
+//			}
+
+			selectWriteFile(updID);		//出力対象ファイルの抽出→ファイル出力
 		} else {
 			jAlert(
 				TIMEOUT_MSG_STR ,

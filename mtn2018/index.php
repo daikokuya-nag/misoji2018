@@ -48,7 +48,7 @@
   require_once dirname(__FILE__) . '/../cgi2018/bld/bldProfile5C.php';
   require_once dirname(__FILE__) . '/../cgi2018/bld/bldMBlog5C.php';
 
-  $vesion = 'V=1&R=1&M=2';
+  $vesion = 'V=1&R=1&M=3';
 ?>
 <!doctype html>
 <html lang="ja">
@@ -63,7 +63,6 @@
 <link href="../css2018/parsley/parsley.css" rel="stylesheet">
 
 <link href="../css2018/mtnCommon.css?<?php print $vesion; ?>" rel="stylesheet">
-
 <link href="../css2018/blog.css?<?php print $vesion; ?>" rel="stylesheet">
 <link href="../css2018/news.css?<?php print $vesion; ?>" rel="stylesheet">
 <link href="../css2018/prof.css?<?php print $vesion; ?>" rel="stylesheet">
@@ -88,6 +87,7 @@
 <script src="../js2018/parsley/i18n/ja.js"></script>
 <script src="../js2018/parsley/i18n/ja.extra.js"></script>
 
+<script src="../js2018/footerFixedMtn.js"></script>
 <script src="../js2018/mtn/writeFile.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/writeFileMO.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/ctrlSess.js?<?php print $vesion; ?>"></script>
@@ -118,6 +118,7 @@
 
 </head>
 <body>
+<div id="lastDate">V1R3</div>
 <input type="hidden" id="branchNo"   name="branchNo"   value="<?php print $branchNo; ?>">
 <input type="hidden" id="newNewsRec" name="newNewsRec" value="<?php print dbNews5C::NEW_REC; ?>">
 <input type="hidden" id="newBlogRec" name="newBlogRec" value="<?php print dbMBlog5C::NEW_REC; ?>">
@@ -140,17 +141,19 @@
   <!-- ***** タブの中身の定義 ***** -->
   <!-- ニュース -->
   <div id="tabsNews" class="tabArea">
-    <div id="tabNewsUsePage" class="resetFloat">
-      <div class="sheetTitle">使用するニュースページ</div>
-      <div class="selectPage">
-        <label><input type="radio" name="useNews" id="useNewsOther" value="OTHER_SITE">外部</label><input type="text" name="newsOuterURL" id="newsOuterURL" class="outerURL"><br>
-        <label><input type="radio" name="useNews" id="useNewsOwn" value="OWN_SITE">内部</label>
+    <div id="tabNewsUsePage">
+      <div class="resetFloat">
+        <div class="sheetTitle">使用するニュースページ</div>
+        <div class="selectPage">
+          <label><input type="radio" name="useNews" id="useNewsOther" value="OTHER_SITE">外部</label><input type="text" name="newsOuterURL" id="newsOuterURL" class="outerURL"><br>
+          <label><input type="radio" name="useNews" id="useNewsOwn" value="OWN_SITE">内部</label>
+        </div>
+        <div class="sendSelectPage">
+          <input type="button" value="使用ページ反映" id="sendSeleNewsPage" onclick="updUsePage('NEWS');" disabled="disabled">
+        </div>
       </div>
-      <div class="sendSelectPage">
-        <input type="button" value="使用ページ反映" id="sendSeleNewsPage" onclick="updUsePage('NEWS');" disabled="disabled">
-      </div>
+      <hr>
     </div>
-    <hr>
 
     <div id="tabNewsMain">
       <div id="tabNewsUpper">
@@ -177,22 +180,36 @@
       <hr>
       <input type="button" value="表示可否反映" id="bldNewsList" onclick="updNewsDisp();" disabled="disabled">
     </div>
-
   </div>
 
   <!-- プロファイル -->
   <div id="tabsProfile" class="tabArea">
-    <div id="tabProfileUsePage" class="resetFloat">
-      <div class="sheetTitle">使用するプロファイルページ</div>
-      <div class="selectPage">
-        <label><input type="radio" name="useProfile" id="useProfileOther" value="OTHER_SITE">外部</label><input type="text" name="profileOuterURL" id="profileOuterURL" class="outerURL"><br>
-        <label><input type="radio" name="useProfile" id="useProfileOwn" value="OWN_SITE">内部</label>
+    <div id="tabProfileUsePage">
+      <div class="resetFloat">
+        <div class="resetFloat">
+          <div class="sheetTitle">使用するプロファイルページ</div>
+          <div class="selectPage">
+            <label><input type="radio" name="useProfile" id="useProfileOther" value="OTHER_SITE">外部</label><input type="text" name="profileOuterURL" id="profileOuterURL" class="outerURL"><br>
+            <label><input type="radio" name="useProfile" id="useProfileOwn" value="OWN_SITE">内部</label>
+          </div>
+          <div class="sendSelectPage">
+            <input type="button" value="使用ページ反映" id="sendSeleProfPage" onclick="updUsePage('ALBUM');" disabled="disabled">
+          </div>
+        </div>
+
+        <div class="resetFloat">
+          <div class="sheetTitle">使用する出勤ページ</div>
+          <div class="selectPage">
+            <label><input type="radio" name="useWork" id="useWorkOther" value="OTHER_SITE">外部</label><input type="text" name="workOuterURL" id="workOuterURL" class="outerURL"><br>
+            <label><input type="radio" name="useWork" id="useWorkOwn" value="OWN_SITE">内部</label>
+          </div>
+          <div class="sendSelectPage">
+            <input type="button" value="使用ページ反映" id="sendSeleWorkPage" onclick="updUsePage('WORK');" disabled="disabled">
+          </div>
+        </div>
       </div>
-      <div class="sendSelectPage">
-        <input type="button" value="使用ページ反映" id="sendSeleProfPage" onclick="updUsePage('ALBUM');" disabled="disabled">
-      </div>
+      <hr>
     </div>
-    <hr>
 
     <div id="tabProfMain">
       <div id="tabProfUpper">
@@ -222,22 +239,24 @@
 
   <!-- システム -->
   <div id="tabsSystem" class="tabArea">
-    <div id="tabSystemUsePage" class="resetFloat">
-      <div class="sheetTitle">使用するシステムページ</div>
-      <div class="selectPage">
-        <label><input type="radio" name="useSystemPage" id="useSystemPageOther" value="OTHER_SITE">外部</label><input type="text" name="systemOuterURL" id="systemOuterURL" class="outerURL"><br>
-        <label><input type="radio" name="useSystemPage" id="useSystemPageOwn" value="OWN_SITE">内部</label>
+    <div id="tabSystemUsePage">
+      <div class="resetFloat">
+        <div class="sheetTitle">使用するシステムページ</div>
+        <div class="selectPage">
+          <label><input type="radio" name="useSystemPage" id="useSystemPageOther" value="OTHER_SITE">外部</label><input type="text" name="systemOuterURL" id="systemOuterURL" class="outerURL"><br>
+          <label><input type="radio" name="useSystemPage" id="useSystemPageOwn" value="OWN_SITE">内部</label>
+        </div>
+        <div class="sendSelectPage">
+          <input type="button" value="使用ページ反映" id="sendSeleSystemPage" onclick="updUsePage('SYSTEM');" disabled="disabled">
+        </div>
       </div>
-      <div class="sendSelectPage">
-        <input type="button" value="使用ページ反映" id="sendSeleSystemPage" onclick="updUsePage('SYSTEM');" disabled="disabled">
-      </div>
+      <hr>
     </div>
-    <hr>
 
     <div id="tabSystemMain">
-      <div class="sheetTitle">システムページの内容</div>
       <div id="tabSystemTop">
-        システム内容<span class="required">*</span>
+        <div class="sheetTitle">システムページの内容</div>
+        <!-- システム内容<span class="required">*</span> -->
       </div>
 
       <div id="tabSystemMid" class="tabMid">
@@ -266,22 +285,24 @@
 
   <!-- 求人 -->
   <div id="tabsRecruit" class="tabArea">
-    <div id="tabRecruitUsePage" class="resetFloat">
-      <div class="sheetTitle">使用する求人ページ</div>
-      <div class="selectPage">
-        <label><input type="radio" name="useRecruitPage" id="useRecruitPageOther" value="OTHER_SITE">外部</label><input type="text" name="recruitOuterURL" id="recruitOuterURL" class="outerURL"><br>
-        <label><input type="radio" name="useRecruitPage" id="useRecruitPageOwn" value="OWN_SITE">内部</label>
+    <div id="tabRecruitUsePage">
+      <div class="resetFloat">
+        <div class="sheetTitle">使用する求人ページ</div>
+        <div class="selectPage">
+          <label><input type="radio" name="useRecruitPage" id="useRecruitPageOther" value="OTHER_SITE">外部</label><input type="text" name="recruitOuterURL" id="recruitOuterURL" class="outerURL"><br>
+          <label><input type="radio" name="useRecruitPage" id="useRecruitPageOwn" value="OWN_SITE">内部</label>
+        </div>
+        <div class="sendSelectPage">
+          <input type="button" value="使用ページ反映" id="sendSeleRecruitPage" onclick="updUsePage('RECRUIT');" disabled="disabled">
+        </div>
       </div>
-      <div class="sendSelectPage">
-        <input type="button" value="使用ページ反映" id="sendSeleRecruitPage" onclick="updUsePage('RECRUIT');" disabled="disabled">
-      </div>
+      <hr>
     </div>
-    <hr>
 
     <div id="tabRecruitMain">
-      <div class="sheetTitle">求人ページの内容</div>
       <div id="tabRecruitTop">
-        求人内容<span class="required">*</span>
+        <div class="sheetTitle">求人ページの内容</div>
+        <!-- 求人内容<span class="required">*</span> -->
       </div>
 
       <div id="tabRecruitMid" class="tabMid">
@@ -553,32 +574,27 @@
   <div id="tabsAgeAuth" class="tabArea">
     <div class="tabAgeAuthImgEnter panelScroll">
       <div id="tabAgeAuthMid" class="tabMid">
-        <div>
-          <div class="sheetTitle">画像</div>
-          <table class="ageAuthImgSele">
-            <thead>
-              <tr>
-                <th colspan="2">現在の画像</th>
-              </tr>
-            </thead>
-            <tbody id="ageAuthImgList">
-              <tr id="ageAuthImgT">
-                <td class="ageAuthImgTN" id="ageAuthImgTN"></td>
-                <td class="ageAuthImgSele"><input type="button" value="画像選択" name="attAgeAuthImg" id="attAgeAuthImg" onclick="showSeleImg('AGE_AUTH' ,'TOP')"></td>
-
-                <td class="ageAuthStr">
-                  <textarea id="ageAuthStr" name="ageAuthStr" cols="60" rows="4" required="" data-parsley-trigger="change"></textarea>
-                  <div id="warnAgeAuthStr" class="parsley-errors-list filled"></div>
-                </td>
-
-              </tr>
-
-            </tbody>
-          </table>
-          <input type="hidden" id="ageAuthImg" value="">
-        </div>
-
+        <div class="sheetTitle">画像</div>
+        <table class="ageAuthImgSele">
+          <thead>
+            <tr>
+              <th colspan="2">現在の画像</th>
+            </tr>
+          </thead>
+          <tbody id="ageAuthImgList">
+            <tr id="ageAuthImgT">
+              <td class="ageAuthImgTN" id="ageAuthImgTN"></td>
+              <td class="ageAuthImgSele"><input type="button" value="画像選択" name="attAgeAuthImg" id="attAgeAuthImg" onclick="showSeleImg('AGE_AUTH' ,'TOP')"></td>
+              <td class="ageAuthStr">
+                <textarea id="ageAuthStr" name="ageAuthStr" cols="60" rows="4" required="" data-parsley-trigger="change"></textarea>
+                <div id="warnAgeAuthStr" class="parsley-errors-list filled"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <input type="hidden" id="ageAuthImg" value="">
         <hr>
+
         <div class="sheetTitle">リンク</div>
           <input type="button" value="新規リンク" onclick="newAgeAuthLink()">
           <table class="ageAuthLinkList">
@@ -613,9 +629,12 @@
   </div>
 </div>
 <br>
-<div id="divLogout"><input type="button" value="ログアウト" onclick="logout()"></div>&nbsp;&nbsp;&nbsp;&nbsp;テスト表示：<a href="../index2018.html" target="_blank">年齢認証</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="../top2018.html" target="_blank">PC用</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="../mo/index2018.html" target="_blank">携帯用</a>
 
-<div id="lastDate">V1R3</div>
+<div id="footer">
+<div id="divLogout"><input type="button" value="ログアウト" onclick="logout()"></div>&nbsp;&nbsp;&nbsp;&nbsp;テスト表示：<a href="../index2018.html" target="_blank">年齢認証</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="../top2018.html" target="_blank">PC用</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="../mo/index2018.html" target="_blank">携帯用</a>
+</div>
+
+
 
 
 <!-- -- 編集ダイアログ -- -->
@@ -689,9 +708,6 @@
 
 <!-- --------------------------------------------------------------------------- -->
 <!-- --画像選択--------------------------------------------------------------- -->
-      <!-- <input type="hidden" name="imgClass" id="imgClass" value=""> -->
-      <!-- <input type="hidden" name="place" id="place" value=""> -->
-      <!-- <input type="hidden" name="imgParam1" id="imgParam1" value=""> -->
 <div id="selectImgFile" title="画像選択">
   <div id="imgList" class="imgList resetFloat"></div>
   <input type="button" value="新規画像" onclick="seleNewImg();">

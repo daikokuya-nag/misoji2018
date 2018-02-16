@@ -35,7 +35,7 @@ class dbProfile5C {
 	const FLD_NEWFACE    = 'newFace';		/* 新人 */
 	const FLD_WORK_REST  = 'workRest';		/* 出勤/公休区分 */
 	const FLD_WORK_REST_STR   = 'workRestStr';	/* 出勤/公休内容 */
-	const FLD_WORK_TIME  = 'workTime';	/* 出勤時間 */
+	const FLD_WORK_TIME       = 'workTime';	/* 出勤時間 */
 	const FLD_MASTERS_COMMENT = 'mastersComment';	/* 店長のコメント */
 	const FLD_APPEAL_COMMENT  = 'appealComment';	/* アピールコメント */
 
@@ -1341,6 +1341,50 @@ class dbProfile5C {
 
 		$db->updateRec(self::TABLE_NAME ,$fldList ,$where);
 	}
+
+
+
+
+	public function bldForCheditor() {
+
+		$allName = $this->readAllName();
+
+		$list     = $allName['profInfo'];
+		$listMax  = $allName['count'   ];
+
+		$tList = $this->bldForNewsList2($list[0]);
+
+		for($idx=1 ;$idx<$listMax ;$idx++) {
+			$tList = $tList . ';' . $this->bldForNewsList2($list[$idx]);
+		}
+
+		$ret = array(
+			'profVals' => $tList
+		);
+
+		return $ret;
+	}
+
+
+	/********************
+	一人分のリストタグ構築ニュースリスト用（）
+	パラメータ：行インデックス
+	戻り値　　：タグ
+	********************/
+	private function bldForNewsList2($profVal) {
+
+		$name = $profVal[self::FLD_NAME];
+		$dir  = $profVal[self::FLD_DIR ];
+
+				//$linkStr = 'http://www.h-momoya.com/' . $branchDir . '/profile2018/' . $profNo . '.html';
+		$linkStr = 'profile2018/' . $dir . '.html';
+
+		$ret = $name . '::' . $linkStr;
+
+		return $ret;
+	}
+
+
 
 
 /*****************************************************************************************************************************/

@@ -66,7 +66,8 @@ function setCKEditFixPhrase() {
 
 	CKEDITOR.replace('fixPhraseStr',
 		{
-			height : 120
+			height  : 120 ,
+			toolbar : 'Full'
 		});
 
 	CKEDITOR.instances.fixPhraseStr.on("blur", function(e) {

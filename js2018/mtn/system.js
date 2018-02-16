@@ -63,7 +63,8 @@ function setCKEditSystem() {
 
 	CKEDITOR.replace('systemStr' ,
 		{
-			height : 120
+			height  : 360 ,
+			toolbar : 'Full'
 		}
 	);
 

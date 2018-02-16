@@ -18,7 +18,7 @@ $(window).load(function(){
 	$("#editNewsDlg").dialog({
 		autoOpen : false ,
 		modal    : true  ,
-		width    : 850   ,
+		width    : 950   ,
 
 		open : function() {
 			adjustEditNewsIFrame();
@@ -67,7 +67,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					//console.debug(response);
+					console.debug(response);
 		//一覧の表示
 		$("#newsListH").html(response['title']);
 		$("#newsListD").html(response['data']);
@@ -258,21 +258,6 @@ var result;
 */
 function writeNews() {
 
-/*
-var newsNo   = $('#editNewsNo').val();
-
-var title    = $('#title').val();
-var newsDate = $('#newsDate').val();
-var newsTerm = $('#newsTerm').val();
-var content  = CKEDITOR.instances.content.getData();
-
-var dispBeg = $('#dispBegDate').val();
-var begDate = $('#begDate').val();
-var endDate = $('#endDate').val();
-
-var cate = $("input[name='newsCate']:checked").val();
-*/
-
 var docForm = editNewsForm.document.enterNews;
 
 document.getElementById('editNewsForm').contentWindow.updCkEditor();
@@ -283,7 +268,7 @@ var title    = docForm.title.value;
 var newsDate = docForm.newsDate.value;
 var newsTerm = docForm.newsTerm.value;
 var content  = docForm.content.value;
-
+console.debug(content);
 var dispBeg = docForm.dispBegDate.value;
 var begDate = docForm.begDate.value;
 var endDate = docForm.endDate.value;

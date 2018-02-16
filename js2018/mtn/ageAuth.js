@@ -138,7 +138,8 @@ function setCKEditAgeAuth() {
 
 	CKEDITOR.replace('ageAuthStr' ,
 		{
-			height : 120
+			height  : 120 ,
+			toolbar : 'Full'
 		}
 	);
 

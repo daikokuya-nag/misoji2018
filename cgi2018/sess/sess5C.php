@@ -550,7 +550,8 @@ class sess5C {
 			$dbVal = $db->readAll($branchNo ,'AGE_AUTH' ,'TOP');
 
 			$dbVal1 = $dbVal['pageVal'][0];
-			$valTmp['IMG'] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+			$valTmp['IMG'   ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+			$valTmp['STRING'] = $dbVal1[dbPageParam5C::FLD_STR1  ];
 
 			$handle = $db->getHandle();
 			$dbImgList = new dbImage5C($handle);
