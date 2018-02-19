@@ -30,6 +30,17 @@ input[type="button"] {
 	margin-bottom:5px;
 }
 
+
+div.newsLeft {
+	float:left;
+}
+div.newsRight {
+	float:left;
+	margin-left:30px;
+	width:220px;
+}
+
+
 div#editLeftN {
 	float:left;
 }

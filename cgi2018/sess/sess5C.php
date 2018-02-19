@@ -341,10 +341,27 @@ class sess5C {
 
 		if(strcmp($ID ,'ALBUM') == 0) {
 			$db = new dbProfile5C();
-			$dbVal = $db->readAll($branchNo);		// readShowableProf
+			$dbVal['profInfo'] = $db->readAll($branchNo);		// readShowableProf
+
+			$db = new dbPageParam5C();
+			$dbURL  = $db->readByObj($branchNo ,'USEPAGE');
+
+			$pageVal = $dbURL['pageVal'];
+			$recMax  = $dbURL['count'  ];
+			for($idx=0 ;$idx<$recMax ;$idx++) {
+				$dbURL1 = $pageVal[$idx];
+				$pageID = $dbURL1[dbPageParam5C::FLD_PAGE_ID];
+				if(strcmp($pageID ,dbPageParam5C::PAGE_ALBUM) == 0) {
+					$valTmpA['SITE'] = $dbURL1[dbPageParam5C::FLD_VALUE1];
+					$valTmpA['URL' ] = $dbURL1[dbPageParam5C::FLD_VALUE2];
+
+					$dbVal['URL'] = $valTmpA;
+					break;
+				}
+			}
 
 			$outID[] = $ID;
-			$val[]   = $dbVal['profInfo'];
+			$val[]   = $dbVal;
 		}
 
 		if(strcmp($ID ,'TOP_PAGE_HEADER') == 0) {
@@ -417,6 +434,12 @@ class sess5C {
 			$valTmp['COLOR'  ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
 			$valTmp['IMGNO'  ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
 			$valTmp['VERSION'] = $dbVal1[dbPageParam5C::FLD_VALUE4];
+
+			//ニュースの背景指定
+			$dbVal = $db->readAll($branchNo ,'NEWS' ,'BG_COLOR');
+
+			$dbVal1 = $dbVal['pageVal'][0];
+			$valTmp['NEWS_BG_COLOR'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
 
 			$handle = $db->getHandle();
 			$dbImgList = new dbImage5C($handle);

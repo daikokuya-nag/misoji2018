@@ -159,6 +159,9 @@ class templateConst5C {
 	const OTHER_PAGE_HEADER_STR_VAL = '<!-- OTHER_PAGE_HEADER_STR -->';		// TOPページ以外のヘッダの内容
 	const MENU_STR_VAL              = '<!-- MENU_STR -->';					// メニューの内容
 
+	const ALBUM_URL                 = '<!-- ALBUM_URL -->';					// アルバムページ
+	const ALBUM_URL_PARAM           = '<!-- ALBUM_URL_PARAM -->';			// アルバムページパラメータ
+
 	const DECO_CSS_VER_VAL          = '<!-- DECO_CSS_VER_STR -->';			// 装飾CSSのバージョン
 	const DECO_CSS_VAL_STR          = '/* DECO_CSS_VAL_STR */';				// 装飾CSSの内容
 
@@ -201,9 +204,9 @@ class templateConst5C {
 	const KWD_PHOTO_SELE_NO_S  = '<!-- PROF_PHOTO_SELE_NO -->';		// 写真Noの選択
 	const KWD_PHOTO_SELE_BTN_S = '<!-- PROF_PHOTO_SELE_BTN -->';	// 写真選択ボタン
 
-	const KWD_PROF_TN_FILE_NAME_S  = '<!-- PROF_TN_FILE_NAME -->';			// サムネイルファイル名
-	const KWD_PROF_TN_FILE_DISP_STYLE_S  = '<!-- PROF_TN_FILE_DISP_STYLE -->';			// サムネイル表示画素数のstyle
-	const KWD_PHOTOEXT_S_S = '<!-- PROF_PHOTOEXT_S -->';			// サムネイル拡張子
+	const KWD_PROF_TN_FILE_NAME_S        = '<!-- PROF_TN_FILE_NAME -->';		// サムネイルファイル名
+	const KWD_PROF_TN_FILE_DISP_STYLE_S  = '<!-- PROF_TN_FILE_DISP_STYLE -->';	// サムネイル表示画素数のstyle
+	const KWD_PHOTOEXT_S_S               = '<!-- PROF_PHOTOEXT_S -->';			// サムネイル拡張子
 
 
 		/*	const KWD_PHOTO_SHOW_M_S   = '<!-- PROF_PHOTO_SHOW_M -->';*/		/* 中写真表示ボタン */

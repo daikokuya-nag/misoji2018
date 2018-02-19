@@ -15,7 +15,7 @@ config.toolbar_Full =
  { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','-','Undo','Redo' ] },
  { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
  '/',
- { name: 'links' , items : [ 'Link','Unlink' ] },
+// { name: 'links' , items : [ 'Link','Unlink' ] },
  { name: 'styles', items : [ 'Font','FontSize' ] },
  { name: 'colors', items : [ 'TextColor','BGColor' ] }
 ];
@@ -25,12 +25,13 @@ config.toolbar_SiteInfo =
 [
  { name: 'clipboard'   ,items : [ 'Cut','Copy','Paste','PasteText','-','Undo','Redo' ] },
  { name: 'basicstyles' ,items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
- { name: 'links'       ,items : [ 'Link','Unlink' ] },
+// { name: 'links'       ,items : [ 'Link','Unlink' ] },
  { name: 'styles'      ,items : [ 'Font','FontSize' ] },
  { name: 'colors'      ,items : [ 'TextColor','BGColor' ] } ,
  '/',
- { name: 'siteinfo'    ,items : [ 'womenlistCmb','-' ,'siteInfoCmb' ] }
+ { name: 'siteinfo'    ,items : [ 'womenlistCmb','-' ,'siteInfoCmb','-' ,'hyperlink','Unlink' ] }
 ];
+
 
 
 /*

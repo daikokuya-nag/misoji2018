@@ -73,7 +73,7 @@
 <link href="../css2018/fileSele.css" rel="stylesheet">
 
 
-<script src="../js2018/ckEditor/ckeditor.js"></script>
+<script src="../js2018/ckEditor/ckeditor.js?<?php print $vesion; ?>"></script>
 
 <script src="../js2018/jq/jquery-1.11.2.min.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/jq/jquery-ui-1.10.4.custom.min.js?<?php print $vesion; ?>"></script>
@@ -156,6 +156,8 @@
     </div>
 
     <div id="tabNewsMain">
+
+      <div class="newsLeft">
       <div id="tabNewsUpper">
         <div class="sheetTitle">現在のニュース</div>
         <div id="tabNewsTop">
@@ -173,6 +175,23 @@
           </table>
         </div>
       </div>
+      </div>
+
+      <div class="newsRight">
+        <!-- 背景色 -->
+        <div class="sheetTitle">背景色</div>
+        <div class="decoColorSele">
+          <div>
+            <div>
+              <input type="text" id="newsBGColor" name="newsBGColor" class="newsColorwell">
+            </div>
+            <div id="newsBGColorPicker" class="colorSelectWheel">
+            </div>
+          </div>
+          <input type="button" value="出力" id="sendNewsBGColor" onclick="writeNewsBGColor();">
+        </div>
+      </div>
+
     </div>
     <div class="grayPanel" id="grayPanelNews"></div>
 
@@ -180,6 +199,11 @@
       <hr>
       <input type="button" value="表示可否反映" id="bldNewsList" onclick="updNewsDisp();" disabled="disabled">
     </div>
+
+
+
+
+
   </div>
 
   <!-- プロファイル -->

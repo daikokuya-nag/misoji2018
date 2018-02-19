@@ -46,6 +46,7 @@ PHP5
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE3 ,$value3);
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE4 ,$value4);
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE5 ,'');
+		$pageParam->setVal(dbPageParam5C::FLD_STR1   ,'');
 
 		if(strcmp($imgObj ,'system') == 0) {
 			$dbKey = 'SYSTEM';
@@ -84,6 +85,7 @@ PHP5
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE3 ,$value3);
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE4 ,$value4);
 		$pageParam->setVal(dbPageParam5C::FLD_VALUE5 ,'');
+		$pageParam->setVal(dbPageParam5C::FLD_STR1   ,'');
 
 		$cond = dbPageParam5C::FLD_BRANCH_NO . '=' . $branchNo                . ' and ' .
 				dbPageParam5C::FLD_PAGE_ID   . '=' . $handle->setQuote('TOP') . ' and ' .

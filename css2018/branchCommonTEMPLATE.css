@@ -199,7 +199,7 @@ div.wivesList {
   border: 1px solid #aaaaaa;
   margin-bottom: 15px;
   overflow:scroll;
-  height: 500px;
+  /* height: 500px; */
 }
 
 div.wivesList div.wifeName {
@@ -240,13 +240,13 @@ div.moreWives {
 
 
 div.wivesList {
-  min-height: 500px;
+  /* min-height: 500px; */
 }
 
 @media (min-width: 992px) {
   div.wivesList {
     overflow: auto;
-    height: 500px;
+    /* height: 500px; */
   }
 }
 

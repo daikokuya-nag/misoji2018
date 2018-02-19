@@ -222,7 +222,7 @@ function setCKEditNews() {
 
 			toolbar : 'SiteInfo' ,		// ツールバーセット名
 
-			extraPlugins : 'womenlist,siteinfo' ,
+			extraPlugins : 'womenlist,siteinfo,hyperlink' ,
 
 			// 女性紹介ページへのリンク
 			womenlist_defaultLabel : ""  ,
@@ -238,7 +238,12 @@ function setCKEditNews() {
 			    element : "span"
 			} ,
 			siteinfo_title : 'サイト情報' ,
-			siteinfo_value : siteVals
+			siteinfo_value : siteVals     ,
+
+			// 外部リンク
+			hyperlink_title : '外部リンク' 		,
+			hyperlink_command : '外部リンク' 		//,
+//			hyperlink_value : siteVals
 		}
 	);
 

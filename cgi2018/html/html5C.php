@@ -19,6 +19,7 @@
 	require_once dirname(__FILE__) . '/../strings5C.php';
 	require_once dirname(__FILE__) . '/../dateTime5C.php';
 	require_once dirname(__FILE__) . '/../bld/bldImgList5C.php';
+	require_once dirname(__FILE__) . '/../db/dbPageParam5C.php';
 
 
 /**
@@ -207,7 +208,8 @@ class html5C {
 			$ret = $this->setProfile($sect1 ,$begKwd);
 		}
 		if(strcmp($begKwd ,'ALBUM'  ) == 0) {
-			$ret = $this->setAlbum($sect1 ,$begKwd);
+					//$ret = $this->setAlbum($sect1 ,$begKwd);
+			$ret = $this->setAlbumURL($sect1 ,$begKwd);
 		}
 
 		if(strcmp($begKwd ,'TOP_PAGE_HEADER') == 0) {
@@ -1012,6 +1014,60 @@ class html5C {
 
 
 /**
+ * アルバムページURLの変換
+ *
+ * @access
+ * @param string $sect セクション情報
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	private function setAlbumURL($sect ,$kwd) {
+
+		$ret = array();
+		$albumVals = sess5C::getOutVals('ALBUM');
+		$urlVals   = $albumVals['URL'];
+		$ownURL    = fileName5C::$fileIDList['ALBUM'][1] . '.html';
+
+		$ret = array();
+		$detailStr = array();
+		$lineMax = count($sect);
+		for($idx=0 ;$idx<$lineMax ;$idx++) {
+			$line1 = $sect[$idx];
+
+			if(strcmp($line1 ,$this->begValList[$kwd]) == 0
+			|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
+			} else {
+				$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::ALBUM_URL);
+				if($kwdPos >= 0) {
+					if(strcmp($urlVals['SITE'] ,dbPageParam5C::OTHER) == 0) {
+						$line1 = str_replace(templateConst5C::ALBUM_URL ,$urlVals['URL'] ,$line1);
+					} else {
+						$line1 = str_replace(templateConst5C::ALBUM_URL ,$ownURL ,$line1);
+					}
+				}
+
+				$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::ALBUM_URL_PARAM);
+				if($kwdPos >= 0) {
+					if(strcmp($urlVals['SITE'] ,dbPageParam5C::OTHER) == 0) {
+						$line1 = str_replace(templateConst5C::ALBUM_URL_PARAM ,'' ,$line1);
+					} else {
+						$line1 = str_replace(templateConst5C::ALBUM_URL_PARAM ,'' ,$line1);
+					}
+				}
+
+				$ret[] = $line1;
+			}
+		}
+
+		return $ret;
+	}
+
+
+/**
  * 文字列の変換
  *
  * 文字列内の$kwdで指定する文字列を$valで指定する文字列に変換する。文字列内に$kwdで指定する文字列がないときは元の文字列のまま返す
@@ -1542,6 +1598,12 @@ class html5C {
 				'a {color:#' . $dec . $dec . $dec . ';}';
 		}
 
+		$ret = $ret . $lineBreak .
+				'.newsDigestO {background-color:' . $decoVal['NEWS_BG_COLOR'] .  ';}' . $lineBreak;	// .
+//				'* {color:#' . $dec . $dec . $dec . ';}' . $lineBreak .
+//				'a {color:#' . $dec . $dec . $dec . ';}';
+
+
 		return $ret;
 	}
 
@@ -1903,6 +1965,17 @@ class html5C {
 						'.topInfo div.thumbnail * {' . $lineBreak .
 						'  color:#' . $dec . $dec . $dec . ';' . $lineBreak .
 						'}' . $lineBreak .
+
+
+						'.wivesList {' . $lineBreak .
+						'  background-color:' . $decoVal['AREA_BGCOLOR'] . ';' . $lineBreak .
+						'}' . $lineBreak .
+
+						'.wivesList h2 {' . $lineBreak .
+						'  background-color:' . $decoVal['TITLE_BGCOLOR'] . ';' . $lineBreak .
+						'  color:'            . $decoVal['TITLE_COLOR'  ] . ';' . $lineBreak .
+						'}' . $lineBreak .
+
 
 						'.sideBar {' . $lineBreak .
 						'  background-color:' . $decoVal['AREA_BGCOLOR'] . ';' . $lineBreak .

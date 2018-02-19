@@ -139,5 +139,16 @@ class siteConst5C {
 
 		return self::$menuStr;
 	}
+
+
+	static function bldForCheditor() {
+
+		$disp = '電話番号表示::' . self::TEL_NO_DISP;
+		$call = '電話をかける::' . self::TEL_NO_CALL;
+
+		$ret = $disp . ';' . $call;
+
+		return $ret;
+	}
 }
 ?>

@@ -226,8 +226,12 @@ class dbPageParam5C {
 			self::FLD_VALUE3 . '=' . $db->setQuote($vals[self::FLD_VALUE3]) . ',' .
 			self::FLD_VALUE4 . '=' . $db->setQuote($vals[self::FLD_VALUE4]) . ',' .
 			self::FLD_VALUE5 . '=' . $db->setQuote($vals[self::FLD_VALUE5]) . ',' .
-			self::FLD_STR1   . '=' . $db->setQuote($vals[self::FLD_STR1  ]) . ',' .
 			self::FLD_UPD_DT . '=' . $db->setQuote($updDT);
+
+		if(isset($vals[self::FLD_STR1])) {
+			$fldList = $fldList . ',' . self::FLD_STR1 . '=' . $db->setQuote($vals[self::FLD_STR1]);
+		}
+
 
 		$where =
 			self::FLD_BRANCH_NO . '=' . $branchNo              . ' and ' .
@@ -259,7 +263,6 @@ class dbPageParam5C {
 			self::FLD_VALUE3 ,
 			self::FLD_VALUE4 ,
 			self::FLD_VALUE5 ,
-			self::FLD_STR1   ,
 			self::FLD_ADD_DT
 		);
 
@@ -273,8 +276,21 @@ class dbPageParam5C {
 			$db->setQuote($vals[self::FLD_VALUE3]) . ',' .
 			$db->setQuote($vals[self::FLD_VALUE4]) . ',' .
 			$db->setQuote($vals[self::FLD_VALUE5]) . ',' .
-			$db->setQuote($vals[self::FLD_STR1  ]) . ',' .
 			$db->setQuote($addDT);
+
+
+
+
+		if(isset($vals[self::FLD_STR1])) {
+			$fldArr[] = self::FLD_STR1;
+			$fldList  = $fldList . ',' . $db->setQuote($vals[self::FLD_STR1]);
+		}
+
+
+
+
+
+
 
 		$fldList = funcs5C::setFldArrToList($fldArr);
 		$db->insertRec(self::TABLE_NAME ,$fldList ,$valList);

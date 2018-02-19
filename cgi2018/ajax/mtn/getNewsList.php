@@ -8,6 +8,7 @@ PHP5
 
 	require_once dirname(__FILE__) . '/../../sql5C.php';
 	require_once dirname(__FILE__) . '/../../db/dbNews5C.php';
+	require_once dirname(__FILE__) . '/../../db/dbPageParam5C.php';
 	require_once dirname(__FILE__) . '/../../bld/bldNews5C.php';
 
 	$branchNo = $_REQUEST['branchNo'];	/* 店No */
@@ -19,6 +20,12 @@ PHP5
 
 	$newsData = $newsDB->readAll($branchNo);
 	$newsTag  = $newsList->bld($branchNo ,$newsData);
+
+
+	$pageParam = new dbPageParam5C();
+	$pageVals = $pageParam->readAll($branchNo ,'NEWS' ,'BG_COLOR');
+	$newsTag['bgColor'] = $pageVals['pageVal'][0]['value2'];
+
 
 	print json_encode($newsTag);
 ?>

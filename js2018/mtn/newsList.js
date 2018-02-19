@@ -10,7 +10,17 @@ var RESP_NEWS_DISP = false;			//「表示可否反映」ボタンの有効/無�
 var NEWS_NO_LIST;					//ニュースNoのリスト
 
 $(document).ready(function(){
+
+	setNewsColorPicker();
 });
+
+
+function setNewsColorPicker() {
+
+	$('#newsBGColorPicker').farbtastic('#newsBGColor');
+
+}
+
 
 $(window).load(function(){
 
@@ -75,6 +85,14 @@ var result = $.ajax({
 
 		NEWS_NO_LIST = response['newsNoList'];	//ニュースNoリストの保持
 		dispWriteNewsBtn();						//表示可否反映ボタンの初期化
+
+		//色指定の表示
+		var colorCD = "#000000";
+		if(response['bgColor'].length >= 1) {
+			colorCD = response['bgColor'];
+		}
+		$("#newsBGColor").val(colorCD);
+		$.farbtastic("#newsBGColorPicker").setColor(colorCD);
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {
@@ -364,6 +382,54 @@ var listMax;
 		$('#' + dispID).toggleSwitch();
 	}
 }
+
+
+/**
+* 装飾指定の出力
+*
+* @param
+* @return
+*/
+function writeNewsBGColor() {
+
+var color = $("#newsBGColor").val();	//背景色
+
+var result = $.ajax({
+		type  : "post" ,
+		url   : "../cgi2018/ajax/mtn/writeNewsBGColor.php" ,
+		data : {
+			branchNo : BRANCH_NO ,
+			color    : color
+		} ,
+
+		cache    : false  ,
+		dataType : 'json'
+	});
+
+	result.done(function(response) {
+					console.debug(response);
+
+		if(response['SESSCOND'] == SESS_OWN_INTIME) {
+			selectWriteFile('DECORATION');		//出力対象ファイルの抽出→ファイル出力
+		} else {
+			jAlert(
+				TIMEOUT_MSG_STR ,
+				TIMEOUT_MSG_TITLE ,
+				function() {
+					location.href = 'login.html';
+				}
+			);
+		}
+	});
+
+	result.fail(function(response, textStatus, errorThrown) {
+			console.debug('error at updHeaderImgSeq:' + response.status + ' ' + textStatus);
+	});
+
+	result.always(function() {
+	});
+}
+
 
 /**
 * ニュースの削除の本体
