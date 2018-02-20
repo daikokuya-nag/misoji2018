@@ -208,7 +208,9 @@ class html5C {
 			$ret = $this->setProfile($sect1 ,$begKwd);
 		}
 		if(strcmp($begKwd ,'ALBUM'  ) == 0) {
-					//$ret = $this->setAlbum($sect1 ,$begKwd);
+			$ret = $this->setAlbum($sect1 ,$begKwd);
+		}
+		if(strcmp($begKwd ,'ALBUM_LINK') == 0) {
 			$ret = $this->setAlbumURL($sect1 ,$begKwd);
 		}
 
@@ -827,7 +829,7 @@ class html5C {
 			}
 		}
 
-		$profVal = sess5C::getOutVals($kwd);
+		$profVal = sess5C::getOutVals('ALBUM');		//$kwd
 		$ret[] = $this->setAlbumDetail($detailStr ,$profVal);
 
 		return $ret;
@@ -1035,7 +1037,7 @@ class html5C {
 	private function setAlbumURL($sect ,$kwd) {
 
 		$ret = array();
-		$albumVals = sess5C::getOutVals('ALBUM');
+		$albumVals = sess5C::getOutVals('ALBUM_LINK');
 		$urlVals   = $albumVals['URL'];
 		$ownURL    = fileName5C::$fileIDList['ALBUM'][1] . '.html';
 

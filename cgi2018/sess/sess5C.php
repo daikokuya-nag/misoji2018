@@ -341,8 +341,13 @@ class sess5C {
 
 		if(strcmp($ID ,'ALBUM') == 0) {
 			$db = new dbProfile5C();
-			$dbVal['profInfo'] = $db->readAll($branchNo);		// readShowableProf
+			$dbVal = $db->readAll($branchNo);		// readShowableProf
 
+			$outID[] = $ID;
+			$val[]   = $dbVal['profInfo'];
+		}
+
+		if(strcmp($ID ,'ALBUM_LINK') == 0) {
 			$db = new dbPageParam5C();
 			$dbURL  = $db->readByObj($branchNo ,'USEPAGE');
 

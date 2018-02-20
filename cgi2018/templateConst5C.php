@@ -37,6 +37,9 @@ class templateConst5C {
 	const ALBUM_BEG_LINE = '<!-- ALBUM_BEG -->';			// アルバムの開始
 	const ALBUM_END_LINE = '<!-- ALBUM_END -->';			// アルバムの終了
 
+	const ALBUM_LINK_BEG_LINE = '<!-- ALBUM_LINK_BEG -->';			// アルバムリンクの開始
+	const ALBUM_LINK_END_LINE = '<!-- ALBUM_LINK_END -->';			// アルバムリンクの終了
+
 	const TOP_PAGE_HEADER_BEG_LINE = '<!-- TOP_PAGE_HEADER_BEG -->';	// TOPページのヘッダの開始
 	const TOP_PAGE_HEADER_END_LINE = '<!-- TOP_PAGE_HEADER_END -->';	// TOPページのヘッダの終了
 
@@ -89,8 +92,9 @@ class templateConst5C {
 		'SYSTEM'  => self::SYSTEM_BEG_LINE  ,
 		'NEWS'    => self::NEWS_BEG_LINE    ,
 
-		'PROFILE' => self::PROFILE_BEG_LINE ,
-		'ALBUM'   => self::ALBUM_BEG_LINE   ,
+		'PROFILE'    => self::PROFILE_BEG_LINE    ,
+		'ALBUM'      => self::ALBUM_BEG_LINE      ,
+		'ALBUM_LINK' => self::ALBUM_LINK_BEG_LINE ,
 
 		'TOP_PAGE_HEADER'   => self::TOP_PAGE_HEADER_BEG_LINE   ,
 		'OTHER_PAGE_HEADER' => self::OTHER_PAGE_HEADER_BEG_LINE ,
@@ -120,8 +124,9 @@ class templateConst5C {
 		'SYSTEM'  => self::SYSTEM_END_LINE  ,
 		'NEWS'    => self::NEWS_END_LINE    ,
 
-		'PROFILE' => self::PROFILE_END_LINE ,
-		'ALBUM'   => self::ALBUM_END_LINE   ,
+		'PROFILE'    => self::PROFILE_END_LINE    ,
+		'ALBUM'      => self::ALBUM_END_LINE      ,
+		'ALBUM_LINK' => self::ALBUM_LINK_END_LINE ,
 
 		'TOP_PAGE_HEADER'   => self::TOP_PAGE_HEADER_END_LINE   ,
 		'OTHER_PAGE_HEADER' => self::OTHER_PAGE_HEADER_END_LINE ,
