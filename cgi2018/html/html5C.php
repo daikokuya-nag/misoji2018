@@ -485,6 +485,11 @@ class html5C {
 			$content = $news1[dbNews5C::FLD_CONTENT];	//内容
 			$date    = $news1[dbNews5C::FLD_DATE];		//日付
 
+			// 装飾
+			$styleStr = '';
+			if(strlen($news1[dbNews5C::FLD_BG_COLOR]) >= 1) {
+				$styleStr = ' style="background-color:' . $news1[dbNews5C::FLD_BG_COLOR] . ';"';
+			}
 
 			$divideDT = dateTime5C::divideDTStr($news1[dbNews5C::FLD_ADD_DT]);			//日付からIDを生成
 			$newsID  = $divideDT[dateTime5C::YEAR] . $divideDT[dateTime5C::MONTH] . $divideDT[dateTime5C::DAY] .
@@ -500,6 +505,8 @@ class html5C {
 			//出力タグへ変換
 			for($detailIdx=0 ;$detailIdx<$detailMax ;$detailIdx++) {
 				$this->detail1 = $detailStr[$detailIdx];
+
+				$this->replaceStr(templateConst5C::KWD_NEWS_BG_STYLE  ,$styleStr);	//装飾
 
 				$this->replaceStr(templateConst5C::KWD_NEWS_TITLE_S   ,$title);		//タイトル
 				$this->replaceStr(templateConst5C::KWD_NEWS_DIGEST_S  ,$digest);	//概要

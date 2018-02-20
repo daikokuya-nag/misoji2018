@@ -172,6 +172,7 @@ class templateConst5C {
 	const KWD_NEWS_CONTENT_S  = '<!-- NEWS_CONTENT -->';		// ニュース本文
 	const KWD_NEWS_DATE_S     = '<!-- NEWS_DATE -->';			// ニュース日付
 	const KWD_NEWS_ID_S       = '<!-- NEWS_ID -->';				// ニュースID
+	const KWD_NEWS_BG_STYLE   = '<!-- NEWS_BG_STYLE -->';		// ニュース背景装飾
 
 	//プロファイル
 	const KWD_PROF_DIR_S  = '<!-- PROF_DIR -->';			// プロファイルディレクトリ

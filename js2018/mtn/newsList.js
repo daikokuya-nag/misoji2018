@@ -298,6 +298,8 @@ var cate = '';
 		cate = cateSele;
 	}
 
+var bgColor = docForm.bgColorCode.value;
+
 					//console.debug('書き出すニュースNo:' + newsNo);
 var result = $.ajax({
 		type  : "post" ,
@@ -315,7 +317,9 @@ var result = $.ajax({
 
 			content  : content   ,
 			cate     : cate      ,
-			dispBeg  : dispBeg
+			dispBeg  : dispBeg   ,
+
+			bgColor  : bgColor
 		} ,
 
 		cache    : false  ,

@@ -105,8 +105,20 @@
         <td><input type="text" id="dispBegDate" name="dispBegDate" size="35" value=""></td>
       </tr>
       <tr>
+        <td>背景色</td>
+        <td id="bgColor" class="colorCode">
+          <img src="../img/mtn/aqua.jpg" class="bgColor" id="bgColorAqua" onclick="selectBGColor('aqua')">
+          <img src="../img/mtn/lime.jpg" class="bgColor" id="bgColorLime" onclick="selectBGColor('lime')">
+          <img src="../img/mtn/orange.jpg" class="bgColor" id="bgColorOrange" onclick="selectBGColor('orange')">
+          <img src="../img/mtn/red.jpg" class="bgColor" id="bgColorRed" onclick="selectBGColor('red')">
+          <input type="hidden" name="bgColorCode" id="bgColorCode" value="">
+        </td>
+      </tr>
+
+      <tr>
         <td colspan="2"><hr></td>
       </tr>
+
       <tr>
         <td>記事本体<span class="required">*</span></td>
         <td>

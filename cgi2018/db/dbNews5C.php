@@ -29,6 +29,7 @@ class dbNews5C {
 	const FLD_DISP      = 'disp';		/* 表示/非表示 */
 	const FLD_DISP_BEG  = 'dispBegDT';	/* 表示開始日時 */
 	const FLD_SHOWN     = 'shown';		/* 既に表示 */
+	const FLD_BG_COLOR  = 'BGColor';	/* 背景色 */
 
 	const FLD_BEG_DATE  = 'begDate';	/* 記事開始日 */
 	const FLD_END_DATE  = 'endDate';	/* 記事終了日 */
@@ -68,9 +69,8 @@ class dbNews5C {
 	/*** 新規 ***/
 	const NEW_REC = 0;
 
-
 	var $handle;
-
+	var $vals;
 
 	/********************
 	コンストラクタ(DB接続)
@@ -78,16 +78,28 @@ class dbNews5C {
 	戻り値　　：-
 	********************/
 	function dbNews5C($handle=null) {
-		$this->__construct($handle);
-	}
-
-	function __construct($handle=null) {
 
 		if(is_null($handle)) {
 			$this->handle = new sql5C();
 		} else {
 			$this->handle = $handle;
 		}
+
+		$this->vals = array();
+	}
+
+	public function getHandle() {
+		return $this->handle;
+	}
+
+	function resetVal() {
+
+		$this->vals = array();
+	}
+
+	function setVal($fld ,$val) {
+
+		$this->vals[$fld] = $val;
 	}
 
 	/********************
@@ -111,6 +123,7 @@ class dbNews5C {
 
 			self::FLD_BEG_DATE ,
 			self::FLD_END_DATE ,
+			self::FLD_BG_COLOR ,
 
 			self::FLD_ADD_DT   ,
 			self::FLD_UPD_DT
@@ -146,6 +159,7 @@ class dbNews5C {
 
 			self::FLD_BEG_DATE ,
 			self::FLD_END_DATE ,
+			self::FLD_BG_COLOR ,
 
 			self::FLD_ADD_DT   ,
 			self::FLD_UPD_DT
@@ -156,7 +170,6 @@ class dbNews5C {
 			self::FLD_DISP      . '=' . $db->setQuote(self::DISP_ON);	/* 削除でないレコード */
 
 		$ret = $this->readMain($branchNo ,$fldArr ,$where);
-
 
 		$seq = 1;
 		$idxMax = $ret['count'];
@@ -192,6 +205,7 @@ class dbNews5C {
 
 			self::FLD_BEG_DATE ,
 			self::FLD_END_DATE ,
+			self::FLD_BG_COLOR ,
 
 			self::FLD_ADD_DT   ,
 			self::FLD_UPD_DT
@@ -288,54 +302,52 @@ class dbNews5C {
 	ニュースの更新
 	パラメータ：店No
 	　　　　　　ニュースNo
-	　　　　　　タイトル
-	　　　　　　種類
-	　　　　　　本文
-	　　　　　　記事日付
-	　　　　　　記事期間
-	　　　　　　表示開始日時
-	　　　　　　記事開始日
-	　　　　　　記事終了日
 	戻り値　　：
 	********************/
-	function upd($branchNo ,$newsNo ,$title ,$category ,$content ,$newsDate ,$term ,$dispBeg ,$begDate='' ,$endDate='') {
+	function upd($branchNo ,$newsNo) {
 
 				logFile5C::debug('既存ニュース更新 No.' . $newsNo);
 		$updDT = dateTime5C::getCurrDT();
 
 		$db = $this->handle;
+		$vals = $this->vals;
 
-		if(strlen($term) >= 1) {
-			$termStr = self::FLD_TERM . '=' . $db->setQuote($term) . ',';
+		if(strlen($vals[self::FLD_TERM]) >= 1) {
+			$termStr = self::FLD_TERM . '=' . $db->setQuote($vals[self::FLD_TERM]) . ',';
 		} else {
 			$termStr = '';
 		}
 
-		if(strlen($dispBeg) >= 1) {
-			$dispBegStr = self::FLD_DISP_BEG . '=' . $db->setQuote($dispBeg) . ',';
+		if(strlen($vals[self::FLD_DISP_BEG]) >= 1) {
+			$dispBegStr = self::FLD_DISP_BEG . '=' . $db->setQuote($vals[self::FLD_DISP_BEG]) . ',';
 		} else {
 			$dispBegStr = '';
 		}
 
 
-		if(strlen($begDate) >= 1) {
-			$dispBDateStr = self::FLD_BEG_DATE . '=' . $db->setQuote($begDate) . ',';
+		if(strlen($vals[self::FLD_BEG_DATE]) >= 1) {
+			$dispBDateStr = self::FLD_BEG_DATE . '=' . $db->setQuote($vals[self::FLD_BEG_DATE]) . ',';
 		} else {
 			$dispBDateStr = self::FLD_BEG_DATE . '=null' . ',';
 		}
 
-		if(strlen($endDate) >= 1) {
-			$dispEDateStr = self::FLD_END_DATE . '=' . $db->setQuote($endDate) . ',';
+		if(strlen($vals[self::FLD_END_DATE]) >= 1) {
+			$dispEDateStr = self::FLD_END_DATE . '=' . $db->setQuote($vals[self::FLD_END_DATE]) . ',';
 		} else {
 			$dispEDateStr = self::FLD_END_DATE . '=null' . ',';
 		}
 
+		if(strlen($vals[self::FLD_BG_COLOR]) >= 1) {
+			$dispEDateStr = self::FLD_BG_COLOR . '=' . $db->setQuote($vals[self::FLD_BG_COLOR]) . ',';
+		} else {
+			$dispEDateStr = self::FLD_BG_COLOR . '=null' . ',';
+		}
 
 		$fldList =
-			self::FLD_TITLE    . '=' . $db->setQuote($title   ) . ',' .
-			self::FLD_CATE     . '=' . $db->setQuote($category) . ',' .
-			self::FLD_CONTENT  . '=' . $db->setQuote($content ) . ',' .
-			self::FLD_DATE     . '=' . $db->setQuote($newsDate) . ',' .
+			self::FLD_TITLE    . '=' . $db->setQuote($vals[self::FLD_TITLE  ]) . ',' .
+			self::FLD_CATE     . '=' . $db->setQuote($vals[self::FLD_CATE   ]) . ',' .
+			self::FLD_CONTENT  . '=' . $db->setQuote($vals[self::FLD_CONTENT]) . ',' .
+			self::FLD_DATE     . '=' . $db->setQuote($vals[self::FLD_DATE   ]) . ',' .
 			$termStr    .
 			$dispBegStr .
 
@@ -356,24 +368,21 @@ class dbNews5C {
 	/********************
 	ニュースの追加
 	パラメータ：店No
-	　　　　　　タイトル
-	　　　　　　種類
-	　　　　　　概要
-	　　　　　　本文
-	　　　　　　記事日付
-	　　　　　　記事期間
-	　　　　　　表示開始日時
-	　　　　　　記事開始日
-	　　　　　　記事終了日
 	戻り値　　：
 	********************/
-	function add($branchNo ,$title ,$category ,$content ,$newsDate ,$disp ,$term ,$dispBeg ,$begDate='' ,$endDate='') {
+	function add($branchNo) {
 
-				logFile5C::debug('新規ニュース　　' . 'CONTENT:' . $content . ' **DATE:' . $newsDate . ' **TERM:' . $term . ' **DISPBEG:' . $dispBeg);
+		$db = $this->handle;
+		$vals = $this->vals;
+
+				logFile5C::debug('新規ニュース　　' .
+						'CONTENT:'    . $vals[self::FLD_CONTENT] .
+						' **DATE:'    . $vals[self::FLD_DATE   ] .
+						' **TERM:'    . $vals[self::FLD_TERM   ] .
+						' **DISPBEG:' . $vals[self::FLD_DISP_BEG]);
 
 		$addDT = dateTime5C::getCurrDT();
 
-		$db = $this->handle;
 
 		$fldArr = array(
 			self::FLD_BRANCH_NO ,
@@ -388,34 +397,39 @@ class dbNews5C {
 
 		$valueList =
 			$branchNo . ',' .
-			$db->setQuote($title)    . ',' .
-			$db->setQuote($category) . ',' .
-			$db->setQuote($content)  . ',' .
-			$db->setQuote($newsDate) . ',' .
-			$db->setQuote($disp)     . ',' .
+			$db->setQuote($vals[self::FLD_TITLE  ]) . ',' .
+			$db->setQuote($vals[self::FLD_CATE   ]) . ',' .
+			$db->setQuote($vals[self::FLD_CONTENT]) . ',' .
+			$db->setQuote($vals[self::FLD_DATE   ]) . ',' .
+			$db->setQuote(self::DISP_OFF) . ',' .
 
 			$db->setQuote($addDT);
 
 		/*
 		if(strlen($term) >= 1) {
 			$fldArr[] = self::FLD_TERM;
-			$valueList = $valueList  . ',' . $db->setQuote($term);
+			$valueList = $valueList  . ',' . $db->setQuote($vals[self::FLD_TERM]);
 		}
 		*/
 
-		if(strlen($dispBeg) >= 1) {
+		if(strlen($vals[self::FLD_DISP_BEG]) >= 1) {
 			$fldArr[] = self::FLD_DISP_BEG;
-			$valueList = $valueList  . ',' . $db->setQuote($dispBeg);
+			$valueList = $valueList  . ',' . $db->setQuote($vals[self::FLD_DISP_BEG]);
 		}
 
-		if(strlen($begDate) >= 1) {
+		if(strlen($vals[self::FLD_BEG_DATE]) >= 1) {
 			$fldArr[] = self::FLD_BEG_DATE;
-			$valueList = $valueList  . ',' . $db->setQuote($begDate);
+			$valueList = $valueList  . ',' . $db->setQuote($vals[self::FLD_BEG_DATE]);
 		}
 
-		if(strlen($endDate) >= 1) {
+		if(strlen($vals[self::FLD_END_DATE]) >= 1) {
 			$fldArr[] = self::FLD_END_DATE;
-			$valueList = $valueList  . ',' . $db->setQuote($endDate);
+			$valueList = $valueList  . ',' . $db->setQuote($vals[self::FLD_END_DATE]);
+		}
+
+		if(strlen($vals[self::FLD_BG_COLOR]) >= 1) {
+			$fldArr[] = self::FLD_BG_COLOR;
+			$valueList = $valueList  . ',' . $db->setQuote($vals[self::FLD_BG_COLOR]);
 		}
 
 		$fldList = funcs5C::setFldArrToList($fldArr);
@@ -438,8 +452,8 @@ class dbNews5C {
 
 		$db = $this->handle;
 		$fldList =
-			self::FLD_DISP    . '=' . $db->setQuote(self::DISP_DEL) . ',' .
-			self::FLD_UPD_DT  . '=' . $db->setQuote($updDT);
+			self::FLD_DISP   . '=' . $db->setQuote(self::DISP_DEL) . ',' .
+			self::FLD_UPD_DT . '=' . $db->setQuote($updDT);
 
 		$where =
 			self::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .
@@ -462,8 +476,8 @@ class dbNews5C {
 
 		$db = $this->handle;
 		$fldList =
-			self::FLD_SHOWN   . '=' . $db->setQuote(self::SHOWN_SHOWN) . ',' .
-			self::FLD_UPD_DT  . '=' . $db->setQuote($updDT);
+			self::FLD_SHOWN  . '=' . $db->setQuote(self::SHOWN_SHOWN) . ',' .
+			self::FLD_UPD_DT . '=' . $db->setQuote($updDT);
 
 		$where =
 			self::FLD_BRANCH_NO . '=' . $branchNo . ' and ' .

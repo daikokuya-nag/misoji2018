@@ -5,7 +5,12 @@
 * @date 2018.1.17
 */
 
+var COLOR_CUBE_NAME = {aqua : 'bgColorAqua' ,lime : 'bgColorLime' ,orange : 'bgColorOrange' ,red : 'bgColorRed'};
+var COLOR_CODE      = {aqua : '#00ffff'     ,lime : '#00ff00'     ,orange : '#ff6600'       ,red : '#ff0000'};
+
 $(document).ready(function(){
+
+	setCKEditNews();
 });
 
 $(window).load(function(){
@@ -68,6 +73,18 @@ var dtop = {
 });
 
 
+function selectBGColor(colorCode) {
+
+var selectedColor = COLOR_CODE[colorCode];
+
+	$(".bgColor").css("border", "#ffffff solid 2px");
+	$("#" + COLOR_CUBE_NAME[colorCode]).css("border", "#aaaaaa solid 2px");
+
+	$("#bgColorCode").val(selectedColor);
+	$("iframe").contents().find("body").css("background-color" ,selectedColor);
+}
+
+
 /**
 * 新規ニュース編集
 *
@@ -116,11 +133,13 @@ var result = $.ajax({
 		$("#endDate").val('');
 		$("input[name='newsCate']").val(["E"]);			// 記事種類
 
+		$("#bgColorCode").val('');
+		$("iframe").contents().find("body").css("background-color" ,'');
+
 		$('#delNewsBtn').css('display' ,'none');		// 記事削除ボタンを非表示
 
 		$("#enterNews").parsley().reset();
 
-		setCKEditNews();
 		CKEDITOR.instances.content.setData(phraseData);
 	});
 
@@ -196,14 +215,44 @@ var split;
 	$("#begDate").val(newsData['begDate']);
 	$("#endDate").val(newsData['endDate']);
 
-	$("input[name='newsCate']").val([newsData['category']]);
 
-	$('#delNewsBtn').css('display' ,'inline');
+	$("input[name='newsCate']").val([newsData['category']]);
 
 	$("#enterNews").parsley().reset();
 
-	setCKEditNews();
 	CKEDITOR.instances.content.setData(newsData['content']);
+
+
+var bgColor = newsData['BGColor'];
+var selectedColor = '';
+
+	$("#bgColorCode").val('');
+	$("iframe").contents().find("body").css("background-color" ,'');
+
+	if(bgColor == COLOR_CODE['aqua'  ]) {
+		$("#bgColorCode").val(bgColor);
+		selectedColor = 'aqua';
+	}
+	if(bgColor == COLOR_CODE['lime'  ]) {
+		$("#bgColorCode").val(bgColor);
+		selectedColor = 'lime';
+	}
+	if(bgColor == COLOR_CODE['orange']) {
+		$("#bgColorCode").val(bgColor);
+		selectedColor = 'orange';
+	}
+	if(bgColor == COLOR_CODE['red'   ]) {
+		$("#bgColorCode").val(bgColor);
+		selectedColor = 'red';
+	}
+
+	if(selectedColor.length >= 1) {
+		selectBGColor(selectedColor);
+		// ロード直後はこの方法でないと背景色を触れない？
+		CKEDITOR.addCss( 'body { background-color:' + selectedColor + '; }' );
+	}
+
+	$('#delNewsBtn').css('display' ,'inline');
 }
 
 
@@ -227,7 +276,7 @@ function setCKEditNews() {
 			// 女性紹介ページへのリンク
 			womenlist_defaultLabel : ""  ,
 			womenlist_style : {
-			    element : "span"
+				element : "span"
 			} ,
 			womenlist_title : '紹介ページ' ,
 			womenlist_value : profileLinkList	,		// see enterNews.php
@@ -235,15 +284,14 @@ function setCKEditNews() {
 			// サイト情報
 			siteinfo_defaultLabel : ""  ,
 			siteinfo_style : {
-			    element : "span"
+				element : "span"
 			} ,
 			siteinfo_title : 'サイト情報' ,
 			siteinfo_value : siteVals     ,
 
 			// 外部リンク
 			hyperlink_title : '外部リンク' 		,
-			hyperlink_command : '外部リンク' 		//,
-//			hyperlink_value : siteVals
+			hyperlink_command : '外部リンク'
 		}
 	);
 
