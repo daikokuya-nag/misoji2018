@@ -333,7 +333,7 @@ class sess5C {
 
 		if(strcmp($ID ,'PROFILE') == 0) {
 			$db = new dbProfile5C();
-			$dbVal = $db->readAll($branchNo);		// readShowableProf
+			$dbVal = $db->readAll($branchNo);
 
 			$outID[] = $ID;
 			$val[]   = $dbVal['profInfo'];
@@ -341,7 +341,7 @@ class sess5C {
 
 		if(strcmp($ID ,'ALBUM') == 0) {
 			$db = new dbProfile5C();
-			$dbVal = $db->readAll($branchNo);		// readShowableProf
+			$dbVal = $db->readAll($branchNo);
 
 			$outID[] = $ID;
 			$val[]   = $dbVal['profInfo'];
@@ -518,6 +518,19 @@ class sess5C {
 				$outID[] = 'SYSTEM_AREA';
 				$val[]   = $valTmpC;
 			}
+		}
+
+
+		if(strcmp($ID ,'WORKS_LIST') == 0) {
+			$db = new dbPageParam5C();
+			$dbVal = $db->readAll($branchNo ,'WORK' ,'USEPAGE');
+
+			$dbVal1 = $dbVal['pageVal'][0];
+			$valTmpB['SITE'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+			$valTmpB['URL' ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+
+			$outID[] = 'WORKS_LIST';
+			$val[]   = $valTmpB;
 		}
 
 

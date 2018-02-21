@@ -18,7 +18,10 @@ $().ready(function(){
 
 	/*setCarousel();*/	//showPhotoList.js
 	hdImgW();	//ヘッダ画像のクロスフェード
-	showTodaysWorker();	/* 本日の出勤者リスト */
+
+	if($("#todaysWorksList").length) {
+		showTodaysWorker();	/* 本日の出勤者リスト */
+	}
 });
 
 $(window).load(function(){

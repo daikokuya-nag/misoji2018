@@ -553,11 +553,11 @@ var result = $.ajax({
 					// console.debug(response);
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 
-//			if(pageID == 'WORK') {
-//				updID = 'WORK';
-//			} else {
+			if(pageID == 'WORK') {
+				updID = 'WORK';
+			} else {
 				updID = 'PAGE_MENU';
-//			}
+			}
 
 			selectWriteFile(updID);		//出力対象ファイルの抽出→ファイル出力
 		} else {

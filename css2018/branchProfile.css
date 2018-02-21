@@ -23,9 +23,6 @@ table#weekWorkList {
   display:none;
   margin-bottom:20px;
   border:none;
-  font-family: "fontsA";
-  font-weight:bold;
-  font-size:22px;
 
   text-align:center;
   padding-top:50px;
@@ -35,11 +32,15 @@ table#weekWorkList {
   width:100%;
 }
 
-table#weekWorkList td {
-  border:1px solid #000000;
-}
 table#weekWorkList th {
   border:1px solid #000000;
+  font-family: "fontsA";
+  font-weight:bold;
+  font-size:22px;
+}
+table#weekWorkList td {
+  border:1px solid #000000;
+  font-size:18px;
 }
 
 table#weekWorkList th.workDate {
@@ -67,14 +68,10 @@ table#weekWorkList span.dow {
   letter-spacing:-4px;
 }
 
-table#weekWorkList td.nowork {
-  background-color:#ddd;
-}
 
 /* プロファイル */
 table#profileData {
   width:100%;
-  font-family: "fontsA";
 }
 
 tr.profileLine th {
@@ -82,13 +79,13 @@ tr.profileLine th {
   padding:5px;
   font-size:22px;
   width:30%;
+  font-family: "fontsA";
 }
 
 tr.profileLine td {
   border:1px solid #000000;
   padding:5px;
-  font-size:22px;
-  font-weight:bold;
+  font-size:18px;
   width:70%;
 }
 

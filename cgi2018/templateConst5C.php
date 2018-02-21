@@ -37,6 +37,9 @@ class templateConst5C {
 	const ALBUM_BEG_LINE = '<!-- ALBUM_BEG -->';			// アルバムの開始
 	const ALBUM_END_LINE = '<!-- ALBUM_END -->';			// アルバムの終了
 
+	const WORKS_LIST_BEG_LINE = '<!-- WORKS_LIST_BEG -->';			// 出勤情報の開始
+	const WORKS_LIST_END_LINE = '<!-- WORKS_LIST_END -->';			// 出勤情報の終了
+
 	const ALBUM_LINK_BEG_LINE = '<!-- ALBUM_LINK_BEG -->';			// アルバムリンクの開始
 	const ALBUM_LINK_END_LINE = '<!-- ALBUM_LINK_END -->';			// アルバムリンクの終了
 
@@ -94,6 +97,7 @@ class templateConst5C {
 
 		'PROFILE'    => self::PROFILE_BEG_LINE    ,
 		'ALBUM'      => self::ALBUM_BEG_LINE      ,
+		'WORKS_LIST' => self::WORKS_LIST_BEG_LINE ,
 		'ALBUM_LINK' => self::ALBUM_LINK_BEG_LINE ,
 
 		'TOP_PAGE_HEADER'   => self::TOP_PAGE_HEADER_BEG_LINE   ,
@@ -126,6 +130,7 @@ class templateConst5C {
 
 		'PROFILE'    => self::PROFILE_END_LINE    ,
 		'ALBUM'      => self::ALBUM_END_LINE      ,
+		'WORKS_LIST' => self::WORKS_LIST_END_LINE ,
 		'ALBUM_LINK' => self::ALBUM_LINK_END_LINE ,
 
 		'TOP_PAGE_HEADER'   => self::TOP_PAGE_HEADER_END_LINE   ,
@@ -190,6 +195,7 @@ class templateConst5C {
 	const KWD_HEIGHT_S    = '<!-- PROF_HEIGHT -->';			// 身長
 	const KWD_SIZES_S     = '<!-- PROF_SIZES -->';			// スリーサイズ
 
+	const KWD_WORKS_LIST  = '<!-- WORKS_LIST -->';			// 出勤予定
 	const KWD_WORK_TIME_S = '<!-- PROF_WORK_TIME -->';		// 出勤時間
 	const KWD_WORK_DAY_S  = '<!-- PROF_WORK_DAY -->';		// 出勤日
 	const KWD_REST_DAY_S  = '<!-- PROF_REST_DAY -->';		// 公休日

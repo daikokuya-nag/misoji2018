@@ -613,3 +613,10 @@ div#editNewsDlg {
 	right:0px;
 	bottom:0px;
 }
+
+.colorCode img {
+
+	margin:3px;
+	cursor:pointer;
+	border:2px solid #ffffff;
+}

@@ -24,13 +24,13 @@ div.newsDigestO a {
 }
 
 
-/* 写メ日記 */
-.photoDiary {
+/* 外部サイト */
+.otherSite {
   overflow: auto;
   height: 500px;
 }
 
-.photoDiaryIndex {
+.otherSiteIndex {
   padding: 0px;
   margin-bottom: 0px;
   height: 430px;
@@ -42,7 +42,7 @@ div.newsDigestO a {
   display: block;
 }
 
-iframe.diaryFrame {
+iframe.otherSiteFrame {
   border: none;
   display: block;
   /* overflow: auto; */

@@ -210,6 +210,11 @@ class html5C {
 		if(strcmp($begKwd ,'ALBUM'  ) == 0) {
 			$ret = $this->setAlbum($sect1 ,$begKwd);
 		}
+
+		if(strcmp($begKwd ,'WORKS_LIST') == 0) {
+			$ret = $this->setWorksList($sect1 ,$begKwd);
+		}
+
 		if(strcmp($begKwd ,'ALBUM_LINK') == 0) {
 			$ret = $this->setAlbumURL($sect1 ,$begKwd);
 		}
@@ -1074,6 +1079,30 @@ class html5C {
 
 		return $ret;
 	}
+
+
+	private function setWorksList($sect ,$kwd) {
+
+		$ret = array();
+
+		$outVals = sess5C::getOutVals($kwd);
+		if(isset($outVals['SITE'])) {
+			$target = $outVals['SITE'];
+		} else {
+			$target = 'OWN_SITE';
+		}
+
+		if(strcmp($target ,'OWN_SITE') == 0) {
+			$ret[] = '<div id="todaysWorksList"></div>';
+		} else {
+			$ret[] = '<div id="workListIndex" class="otherSiteIndex">	<!-- photoDiaryIndex -->' .
+					'<iframe src="' . $outVals['URL'] . '" width="240" class="otherSiteFrame" title="出勤予定"></iframe>	<!-- scrolling="auto"	-->	<!-- /#contents -->' .
+					'</div>';
+		}
+
+		return $ret;
+	}
+
 
 
 /**
