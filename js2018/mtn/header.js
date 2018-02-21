@@ -43,7 +43,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 
 		setHeaderTop(response['top'] ,response['extList']);
 		setHeaderOther(response['other'] ,response['extList']);
@@ -298,8 +298,7 @@ var seleOther = $('#headerOtherImg').val();
 
 var sendData = imgOrder + '&branchNo=' + BRANCH_NO + '&' + dispSW +
 		'&imgNoA=' + seleImgA + '&imgNoB=' + seleImgB + '&imgNoC=' + seleImgC + '&imgNoD=' + seleImgD + '&imgOther=' + seleOther;
-
-console.debug(sendData);
+					//console.debug(sendData);
 
 var result = $.ajax({
 		type  : "post" ,
@@ -310,7 +309,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			selectWriteFile('PAGE_HEADER');		//出力対象ファイルの抽出→ファイル出力

@@ -41,7 +41,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 		writeHTMLFile(response);
 	});
 
@@ -78,7 +78,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 		writeHTMLFile(response);
 	});
 
@@ -106,7 +106,7 @@ var profMax = 0;
 
 
 	if(fileList['PROFILE']) {
-				console.debug('紹介リストあり');
+				// console.debug('紹介リストあり');
 		idxMax--;
 		profList = fileList['PROFILE'];
 		profMax  = Object.keys(profList).length;
@@ -120,14 +120,14 @@ var profMax = 0;
 		//紹介ページ以外の出力
 		for(fileID in fileList) {
 			fileName = fileList[fileID]
-					console.debug(fileID + ' ' + fileName);
+					// console.debug(fileID + ' ' + fileName);
 			writeHTMLFileMain(fileID ,'');
 		}
 
 		//紹介ページの出力
 		for(fileID in profList) {
 			fileName = profList[fileID]
-					console.debug(fileID + ' ' + fileName);
+					// console.debug(fileID + ' ' + fileName);
 			writeHTMLFileMain('PROFILE' ,fileID);
 		}
 	} else {						//出力するファイルがないときは何もせずMOへ
@@ -161,7 +161,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {

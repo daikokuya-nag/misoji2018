@@ -38,7 +38,7 @@ var str;
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 		setSystemImg(response['img'] ,response['extList']);
 
 		$('#systemStr').val(response['str1']);
@@ -166,7 +166,7 @@ var seleImg = $('#systemImg').val();
 		});
 
 		result.done(function(response) {
-						console.debug(response);
+						// console.debug(response);
 			if(response['SESSCOND'] == SESS_OWN_INTIME) {
 				selectWriteFile('SYSTEM');		//出力対象ファイルの抽出→ファイル出力
 			} else {

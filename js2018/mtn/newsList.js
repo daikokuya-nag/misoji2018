@@ -77,7 +77,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 		//一覧の表示
 		$("#newsListH").html(response['title']);
 		$("#newsListD").html(response['data']);
@@ -151,7 +151,7 @@ var dispH;
 */
 function newNews() {
 
-	console.debug('new News');
+	// console.debug('new News');
 	$("#editNewsForm").prop('src' ,'enterNews.php?id=');
 
 	$("#editNewsDlg").dialog( {
@@ -169,7 +169,7 @@ function newNews() {
 */
 function editNews(newsNo) {
 
-	console.debug('edit News ' + newsNo);
+	// console.debug('edit News ' + newsNo);
 	$("#editNewsForm").prop('src' ,'enterNews.php?id=' + newsNo);
 
 	$("#editNewsDlg").dialog( {
@@ -286,7 +286,7 @@ var title    = docForm.title.value;
 var newsDate = docForm.newsDate.value;
 var newsTerm = docForm.newsTerm.value;
 var content  = docForm.content.value;
-console.debug(content);
+				// console.debug(content);
 var dispBeg = docForm.dispBegDate.value;
 var begDate = docForm.begDate.value;
 var endDate = docForm.endDate.value;
@@ -327,7 +327,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			$("#editNewsDlg").dialog("close");
@@ -411,7 +411,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			selectWriteFile('DECORATION');		//出力対象ファイルの抽出→ファイル出力
@@ -456,7 +456,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 					//hideDelNews();
 			$("#editNewsDlg").dialog("close");

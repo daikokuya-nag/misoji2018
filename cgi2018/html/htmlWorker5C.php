@@ -99,6 +99,7 @@ class htmlWorker5C {
 		$workerList[0] = array();
 		$workerList[1] = array();
 
+		$tagIdx = 0;
 		for($listIdx=0 ;$listIdx<$listMax ;$listIdx++) {
 			$list1 = $dirList[$listIdx];
 					/*$workInfo = $this->getWorkInfo($list1 ,$todayStr);*/
@@ -245,7 +246,7 @@ class htmlWorker5C {
 		}
 
 		$ret['tag'] = $tag;
-		$ret['num'] = $seqidx;
+		$ret['num'] = $tagIdx;
 
 		return $ret;
 	}

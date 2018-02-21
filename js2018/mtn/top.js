@@ -58,7 +58,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 
 		setTopImg(response['system' ]['img'] ,response['extList'] ,'SYSTEM');
 		setTopImg(response['recruit']['img'] ,response['extList'] ,'RECRUIT');
@@ -153,8 +153,6 @@ var fileExist = '0';
 */
 function setTopArea(areaVals) {
 
-console.debug('BBB');
-
 	$("#areaTitleStr").val(areaVals['titleColor']);
 	$("#areaTitleStr").focus();
 	$.farbtastic("#topColorPicker").setColor(areaVals['titleColor']);
@@ -192,8 +190,7 @@ var dispSW   = $(".useTopImg").serialize();
 var sendData = dispSW + '&branchNo=' + BRANCH_NO + '&system=' + seleSystem + '&recruit=' + seleRecruit +
 				'&titleColor=' +  titleColor + '&titleBGColor=' + titleBGColor + '&areaBGColor=' +  areaBGColor +
 				'&systemStr=' + systemStr + '&recruitStr=' + recruitStr;
-
-console.debug(sendData);
+					//console.debug(sendData);
 
 var result = $.ajax({
 		type : "post" ,
@@ -204,7 +201,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			selectWriteFile('TOP');		//出力対象ファイルの抽出→ファイル出力

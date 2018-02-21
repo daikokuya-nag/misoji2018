@@ -173,7 +173,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			selectWriteFile('DECORATION');		//出力対象ファイルの抽出→ファイル出力

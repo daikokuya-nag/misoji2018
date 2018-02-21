@@ -1608,6 +1608,7 @@ class html5C {
 		}
 
 		$ret = $ret . $lineBreak .
+				'.newsContentO {background-color:' . $decoVal['NEWS_BG_COLOR'] .  ';}' . $lineBreak .
 				'.newsDigestO {background-color:' . $decoVal['NEWS_BG_COLOR'] .  ';}' . $lineBreak;	// .
 //				'* {color:#' . $dec . $dec . $dec . ';}' . $lineBreak .
 //				'a {color:#' . $dec . $dec . $dec . ';}';

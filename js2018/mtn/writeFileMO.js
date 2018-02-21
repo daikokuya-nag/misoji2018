@@ -30,7 +30,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 		writeHTMLFileMO(response);
 	});
 
@@ -50,7 +50,7 @@ var result = $.ajax({
 */
 function writeProfHTMLFileMO(profDir) {
 
-console.debug(profDir);
+			//console.debug(profDir);
 
 var result = $.ajax({
 		type : "get" ,
@@ -66,7 +66,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 		writeHTMLFileMO(response);
 	});
 
@@ -94,7 +94,7 @@ var profMax = 0;
 
 
 	if(fileList['PROFILE']) {
-				console.debug('紹介リストあり');
+				// console.debug('紹介リストあり');
 		idxMax--;
 		profList = fileList['PROFILE'];
 		profMax  = Object.keys(profList).length;
@@ -147,7 +147,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 	});
 
 	result.fail(function(response, textStatus, errorThrown) {

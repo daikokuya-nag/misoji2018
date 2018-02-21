@@ -35,7 +35,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 
 		setSideBarImg(response['img1'] ,response['extList'] ,1);
 		setSideBarImg(response['img2'] ,response['extList'] ,2);
@@ -193,8 +193,7 @@ var str2 = $('#sideBarStr2').val();
 
 var dispSW   = $(".useSideBarImg").serialize();
 var sendData = dispSW + '&branchNo=' + BRANCH_NO + '&img1=' + seleImg1 + '&img2=' + seleImg2 + '&str1=' + str1 + '&str2=' + str2;
-
-console.debug(sendData);
+				//console.debug(sendData);
 
 var result = $.ajax({
 		type : "post" ,
@@ -205,7 +204,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			selectWriteFile('TOP');		//出力対象ファイルの抽出→ファイル出力

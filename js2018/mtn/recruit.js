@@ -35,7 +35,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 
 		setRecruitImg(response['img'] ,response['extList']);
 
@@ -162,7 +162,7 @@ var seleImg = $('#recruitImg').val();
 		});
 
 		result.done(function(response) {
-						console.debug(response);
+						// console.debug(response);
 			if(response['SESSCOND'] == SESS_OWN_INTIME) {
 				selectWriteFile('RECRUIT');		//出力対象ファイルの抽出→ファイル出力
 			} else {

@@ -93,6 +93,7 @@
 <script src="../js2018/mtn/ctrlSess.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/logoutSess.js?<?php print $vesion; ?>"></script>
 
+<script src="../js2018/mtn/msgString.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/mtnCommon.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/imgSelector.js?<?php print $vesion; ?>"></script>
 
@@ -156,7 +157,6 @@
     </div>
 
     <div id="tabNewsMain">
-
       <div class="newsLeft">
       <div id="tabNewsUpper">
         <div class="sheetTitle">現在のニュース</div>
@@ -191,7 +191,6 @@
           <input type="button" value="出力" id="sendNewsBGColor" onclick="writeNewsBGColor();">
         </div>
       </div>
-
     </div>
     <div class="grayPanel" id="grayPanelNews"></div>
 
@@ -199,11 +198,6 @@
       <hr>
       <input type="button" value="表示可否反映" id="bldNewsList" onclick="updNewsDisp();" disabled="disabled">
     </div>
-
-
-
-
-
   </div>
 
   <!-- プロファイル -->
@@ -637,7 +631,6 @@
     </div>
   </div>
 
-
   <div id="tabsBlog" class="tabArea NOTUSE">
     <input type="button" value="新規記事" onclick="newBlog()">&nbsp;&nbsp;
     <br><br>
@@ -654,10 +647,10 @@
 </div>
 <br>
 
-<div id="footer">
-<div id="divLogout"><input type="button" value="ログアウト" onclick="logout()"></div>&nbsp;&nbsp;&nbsp;&nbsp;テスト表示：<a href="../index2018.html" target="_blank">年齢認証</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="../top2018.html" target="_blank">PC用</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="../mo/index2018.html" target="_blank">携帯用</a>
+<div id="footer" class="resetFloat">
+<div id="divLogout"><input type="button" value="ログアウト" onclick="logout()"></div>
+<div id="testView">&nbsp;&nbsp;&nbsp;&nbsp;テスト表示：<a href="../index2018.html" target="_blank">年齢認証</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="../top2018.html" target="_blank">PC用</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="../mo/index2018.html" target="_blank">携帯用</a></div>
 </div>
-
 
 
 
@@ -761,11 +754,9 @@
         <td>日記日付</td>
         <td><input type="text" id="newsDatePD" name="newsDatePD" size="35" value=""></td>
       </tr>
-
       <tr>
         <td colspan="2"><hr></td>
       </tr>
-
       <tr>
         <td>記事本体</td>
         <td>

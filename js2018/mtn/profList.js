@@ -85,7 +85,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 
 				//$("#profSeqListH").html(response['SEQ']['title']);
 		$("#profSeqListD").html(response['SEQ']['data']);
@@ -122,7 +122,7 @@ function enableWriteProfSeq() {
 */
 function newProf() {
 
-	console.debug('new Profile');
+	// console.debug('new Profile');
 	$("#editProfile").prop('src' ,'enterProfile.php?id=');
 
 	$("#editProfDlg").dialog( {
@@ -140,7 +140,7 @@ function newProf() {
 */
 function editProf(dir) {
 
-	console.debug('edit Profile ' + dir);
+	// console.debug('edit Profile ' + dir);
 	$("#editProfile").prop('src' ,'enterProfile.php?id=' + dir);
 
 	$("#editProfDlg").dialog( {
@@ -164,7 +164,7 @@ var frame  = $('#editProfile');
 var innerH = frame.get(0).contentWindow.document.body.scrollHeight;
 var innerW = frame.get(0).contentWindow.document.body.scrollWidth;
 
-console.debug(innerH);
+				// console.debug(innerH);
 
 	frame.attr('height', innerH + 'px');
 	frame.attr('width', innerW + 'px');
@@ -210,7 +210,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			selectWriteFile('ALBUM');		//出力対象ファイルの抽出→ファイル出力
@@ -256,7 +256,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			//hideDelDir();
 			$("#editProfDlg").dialog("close");
@@ -307,7 +307,7 @@ var i;
 		dataType :'json' ,
 
 		success :function(result) {
-					console.debug(result);
+					// console.debug(result);
 							/*
 							profMax = result['profMax'];
 							profDir = result['dirList'];

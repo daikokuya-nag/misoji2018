@@ -57,8 +57,7 @@
 <script src="../js2018/parsley/i18n/ja.js"></script>
 <script src="../js2018/parsley/i18n/ja.extra.js"></script>
 
-<!-- <script src="../js2018/mtn/mtnCommon.js?<?php print $vesion; ?>"></script> -->
-
+<script src="../js2018/mtn/msgString.js?<?php print $vesion; ?>"></script>
 <script src="../js2018/mtn/newsEnter.js?<?php print $vesion; ?>"></script>
 
 <script>

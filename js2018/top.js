@@ -65,7 +65,7 @@ var result = $.ajax({
 
 
 	result.done(function(response) {
-					console.debug(response);
+					//console.debug(response);
 
 		listTag    = response['tag'];
 		workersNum = response['num'];

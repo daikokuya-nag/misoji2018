@@ -346,10 +346,8 @@ function updCkEditor() {
 
 	CKEDITOR.instances.content.updateElement();
 
-
-var content  = $("#content").val();
-console.debug(content);
-
+			// var content = $("#content").val();
+			// console.debug(content);
 }
 
 

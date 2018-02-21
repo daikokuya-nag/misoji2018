@@ -23,12 +23,6 @@ var TAB_A_HEIGHT   = 0;
 var TAB_TOP_HEIGHT = 0;
 var TAB_BTM_HEIGHT = 0;
 
-var ERR_MSG = 'この値は必須です';	// 
-
-var TIMEOUT_MSG_STR   = '長時間操作がなかったため接続が切れました。ログインしなおしてください。';
-var TIMEOUT_MSG_TITLE = 'メンテナンス';
-var SELECTABLE_IMG_FILE = '画像はjpgまたはgifファイルを選択してください';
-
 
 $(document).ready(function(){
 
@@ -161,13 +155,13 @@ var footerH;
 var windowH;
 
 	footerH = $("#footer").height();
-	console.debug("heigt of footer:" + footerH);
+			// console.debug("heigt of footer:" + footerH);
 
 	windowH = $(window).height();
-	console.debug("heigt of window:" + windowH);
+			// console.debug("heigt of window:" + windowH);
 
 	tempH = windowH - footerH * 3;
-	console.debug("heigt of calced:" + tempH);
+			// console.debug("heigt of calced:" + tempH);
 
 	// タブオブジェクトの高さ
 	$("#tabA").height(tempH);		//750
@@ -179,7 +173,7 @@ var width = $(".tabArea").width();
 
 	TAB_A_HEIGHT   = tempH;
 	TAB_TOP_HEIGHT = $("#tabA ul").height();	// タブの並びの高さ	//41;
-console.debug('TAB_TOP_HEIGHT ' + TAB_TOP_HEIGHT);
+			// console.debug('TAB_TOP_HEIGHT ' + TAB_TOP_HEIGHT);
 	TAB_BTM_HEIGHT = 40;
 }
 
@@ -439,7 +433,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 		USE_PAGE['NEWS'   ] = response['NEWS'   ];
 		USE_PAGE['ALBUM'  ] = response['ALBUM'  ];	//PROFIEのみALBUMと読み替える
 		USE_PAGE['WORK'   ] = response['WORK'   ];
@@ -536,8 +530,10 @@ var usePage  = $("input[name='" + RADIO_NAME[pageID] + "']:checked").val();
 var outerURL = $("#" + OUTER_URL_FORM[pageID]).val();
 var updID;
 
-console.debug(usePage);
-console.debug(outerURL);
+				/*
+				console.debug(usePage);
+				console.debug(outerURL);
+				*/
 
 var result = $.ajax({
 		type : "post" ,
@@ -554,7 +550,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 
 //			if(pageID == 'WORK') {

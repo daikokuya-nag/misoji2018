@@ -39,8 +39,7 @@ var result;
 	result.done(function(response) {
 					//console.debug(response);
 		phraseData = response;
-
-					console.debug('本文:' + phraseData);
+					//console.debug('本文:' + phraseData);
 		$("#fixPhraseStr").val(phraseData);
 		$("#warnFixPhraseStr").html('');
 

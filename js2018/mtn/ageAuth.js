@@ -20,7 +20,7 @@ $(document).ready(function(){
 	$('input[name="ageAuthLinkImg"]:radio').change( function() {
 		var val = $( this ).val();
 
-			console.debug(val);
+			// console.debug(val);
 		if(val == 'URL') {
 			$("#attAALink").prop('disabled' ,true);
 			$("#imgURLAA").prop('disabled' ,false);
@@ -90,7 +90,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 		EXT_LIST = setExtList(response['extList']);
 
 		if(readMode == 'INIT') {
@@ -275,8 +275,10 @@ var imgNOAA    = $("#imgNOAA"    + editNo).val();
 var imgURL4;
 var anyFile = false;
 
-console.debug('imgURLAA:' + imgURLAA);
-console.debug('editNo:' + editNo);
+					/*
+					console.debug('imgURLAA:' + imgURLAA);
+					console.debug('editNo:' + editNo);
+					*/
 
 	if(imgURLAA.length >= 1) {
 		$("input[name='ageAuthLinkImg']").val(["URL"]);
@@ -403,7 +405,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			hideDelAgeAuthLink();
@@ -452,8 +454,7 @@ var linkImg = getLinkImg();
 var str = $('#ageAuthStr').val();
 
 var sendData = '&branchNo=' + BRANCH_NO + '&img=' + seleImg + linkImg + '&str=' + str;
-
-console.debug(sendData);
+			//console.debug(sendData);
 
 
 var result = $.ajax({
@@ -465,7 +466,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					console.debug(response);
+					// console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			selectWriteFile('AGE_AUTH');		//出力対象ファイルの抽出→ファイル出力
