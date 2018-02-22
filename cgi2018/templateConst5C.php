@@ -37,9 +37,8 @@ class templateConst5C {
 	const ALBUM_BEG_LINE = '<!-- ALBUM_BEG -->';			// アルバムの開始
 	const ALBUM_END_LINE = '<!-- ALBUM_END -->';			// アルバムの終了
 
-
-	const ALBUM_LINK_BEG_LINE = '<!-- ALBUM_LINK_BEG -->';			// アルバムリンクの開始
-	const ALBUM_LINK_END_LINE = '<!-- ALBUM_LINK_END -->';			// アルバムリンクの終了
+			// const ALBUM_LINK_BEG_LINE = '<!-- ALBUM_LINK_BEG -->';			// アルバムリンクの開始
+			// const ALBUM_LINK_END_LINE = '<!-- ALBUM_LINK_END -->';			// アルバムリンクの終了
 
 	const TOP_PAGE_HEADER_BEG_LINE = '<!-- TOP_PAGE_HEADER_BEG -->';	// TOPページのヘッダの開始
 	const TOP_PAGE_HEADER_END_LINE = '<!-- TOP_PAGE_HEADER_END -->';	// TOPページのヘッダの終了
@@ -56,6 +55,10 @@ class templateConst5C {
 	const DECO_CSS_VAL_BEG_LINE = '/* DECO_CSS_BEG */';		// cssの開始
 	const DECO_CSS_VAL_END_LINE = '/* DECO_CSS_END */';		// cssの終了
 
+
+	// TOPページ
+	const NEWS_AREA_BEG_LINE = '<!-- NEWS_AREA_BEG -->';			// ニュースの開始
+	const NEWS_AREA_END_LINE = '<!-- NEWS_AREA_END -->';			// ニュースの終了
 
 	const ALBUM_AREA_BEG_LINE = '<!-- ALBUM_AREA_BEG -->';			// アルバムの開始
 	const ALBUM_AREA_END_LINE = '<!-- ALBUM_AREA_END -->';			// アルバムの終了
@@ -81,14 +84,16 @@ class templateConst5C {
 	const SIDEBAR_R_BEG_LINE = '<!-- SIDEBAR_R_BEG -->';			// 右サイドバーの開始
 	const SIDEBAR_R_END_LINE = '<!-- SIDEBAR_R_END -->';			// 右サイドバーの終了
 
+
+	// 認証ページ
 	const AGE_AUTH_TOP_BEG_LINE = '<!-- AGE_AUTH_TOP_BEG -->';			// 認証ページの画像の開始
 	const AGE_AUTH_TOP_END_LINE = '<!-- AGE_AUTH_TOP_END -->';			// 認証ページの画像の終了
 
 	const AGE_AUTH_LINK_EXCHANGE_BEG_LINE = '<!-- AGE_AUTH_LINK_EXCHANGE_BEG -->';	// 相互リンクの開始
 	const AGE_AUTH_LINK_EXCHANGE_END_LINE = '<!-- AGE_AUTH_LINK_EXCHANGE_END -->';	// 相互リンクの終了
 
-	const ALBUM_CSS_VER_BEG_LINE = '<!-- ALBUM_CSS_BEG -->';		// アルバムページのcssのバージョンの開始
-	const ALBUM_CSS_VER_END_LINE = '<!-- ALBUM_CSS_END -->';		// アルバムページのcssのバージョンの終了
+			// const ALBUM_CSS_VER_BEG_LINE = '<!-- ALBUM_CSS_BEG -->';		// アルバムページのcssのバージョンの開始
+			// const ALBUM_CSS_VER_END_LINE = '<!-- ALBUM_CSS_END -->';		// アルバムページのcssのバージョンの終了
 
 	const ALBUM_CSS_VAL_BEG_LINE = '/* ALBUM_CSS_BEG */';		// アルバムページのcssの開始
 	const ALBUM_CSS_VAL_END_LINE = '/* ALBUM_CSS_END */';		// アルバムページのcssの終了
@@ -101,7 +106,7 @@ class templateConst5C {
 
 		'PROFILE'    => self::PROFILE_BEG_LINE    ,
 		'ALBUM'      => self::ALBUM_BEG_LINE      ,
-		'ALBUM_LINK' => self::ALBUM_LINK_BEG_LINE ,
+				// 'ALBUM_LINK' => self::ALBUM_LINK_BEG_LINE ,
 
 		'TOP_PAGE_HEADER'   => self::TOP_PAGE_HEADER_BEG_LINE   ,
 		'OTHER_PAGE_HEADER' => self::OTHER_PAGE_HEADER_BEG_LINE ,
@@ -111,6 +116,7 @@ class templateConst5C {
 		'DECORATION_VER' => self::DECO_CSS_VER_BEG_LINE ,
 		'DECORATION_VAL' => self::DECO_CSS_VAL_BEG_LINE ,
 
+		'NEWS_AREA'       => self::NEWS_AREA_BEG_LINE       ,
 		'ALBUM_AREA'      => self::ALBUM_AREA_BEG_LINE      ,
 		'WORKS_AREA'      => self::WORKS_AREA_BEG_LINE      ,
 		'RECRUIT_AREA'    => self::RECRUIT_AREA_BEG_LINE    ,
@@ -125,7 +131,7 @@ class templateConst5C {
 		'AGE_AUTH_TOP'           => self::AGE_AUTH_TOP_BEG_LINE ,
 		'AGE_AUTH_LINK_EXCHANGE' => self::AGE_AUTH_LINK_EXCHANGE_BEG_LINE ,
 
-		'ALBUM_CSS_VER' => self::ALBUM_CSS_VER_BEG_LINE ,
+				// 'ALBUM_CSS_VER' => self::ALBUM_CSS_VER_BEG_LINE ,
 		'ALBUM_CSS_VAL' => self::ALBUM_CSS_VAL_BEG_LINE
 	);
 	var $endList = array(			// セクションの終了キーワードリスト
@@ -135,7 +141,7 @@ class templateConst5C {
 
 		'PROFILE'    => self::PROFILE_END_LINE    ,
 		'ALBUM'      => self::ALBUM_END_LINE      ,
-		'ALBUM_LINK' => self::ALBUM_LINK_END_LINE ,
+				// 'ALBUM_LINK' => self::ALBUM_LINK_END_LINE ,
 
 		'TOP_PAGE_HEADER'   => self::TOP_PAGE_HEADER_END_LINE   ,
 		'OTHER_PAGE_HEADER' => self::OTHER_PAGE_HEADER_END_LINE ,
@@ -145,6 +151,7 @@ class templateConst5C {
 		'DECORATION_VER' => self::DECO_CSS_VER_END_LINE ,
 		'DECORATION_VAL' => self::DECO_CSS_VAL_END_LINE ,
 
+		'NEWS_AREA'       => self::NEWS_AREA_END_LINE       ,
 		'ALBUM_AREA'      => self::ALBUM_AREA_END_LINE      ,
 		'WORKS_AREA'      => self::WORKS_AREA_END_LINE      ,
 		'RECRUIT_AREA'    => self::RECRUIT_AREA_END_LINE    ,
@@ -159,7 +166,7 @@ class templateConst5C {
 		'AGE_AUTH_TOP'           => self::AGE_AUTH_TOP_END_LINE ,
 		'AGE_AUTH_LINK_EXCHANGE' => self::AGE_AUTH_LINK_EXCHANGE_END_LINE ,
 
-		'ALBUM_CSS_VER' => self::ALBUM_CSS_VER_END_LINE ,
+				// 'ALBUM_CSS_VER' => self::ALBUM_CSS_VER_END_LINE ,
 		'ALBUM_CSS_VAL' => self::ALBUM_CSS_VAL_END_LINE
 	);
 
@@ -260,6 +267,7 @@ class templateConst5C {
 	const RECOMM_JS_VER = 'JS_VER';			// オススメJSのバージョン
 
 	//TOPページ
+	const NEWS_VAL        = '<!-- NEWS_VAL -->';			// ニュース
 	const ALBUM_VAL       = '<!-- ALBUM_VAL -->';			// アルバム
 	const WORKS_VAL       = '<!-- WORKS_VAL -->';			// 出勤予定
 	const RECRUIT_VAL     = '<!-- RECRUIT_VAL -->';			// 求人内容
@@ -286,7 +294,6 @@ class templateConst5C {
 
 	const AGE_AUTH_LINK_ANY_IMG = '<!-- AGE_AUTH_LINK_ANY_IMG -->';		// 画像あり
 	const AGE_AUTH_LINK_NO_IMG  = '<!-- AGE_AUTH_LINK_NO_IMG -->';		// 画像ナシ
-
 
 
 	// 全ページ共通

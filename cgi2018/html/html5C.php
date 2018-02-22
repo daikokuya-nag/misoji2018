@@ -51,6 +51,8 @@ class html5C {
 	var $begValList;	//セクション開始キーワードリスト
 	var $endValList;	//セクション終了キーワードリスト
 
+	var $realRoot;
+
 	var $detail1;
 
 /**
@@ -88,6 +90,8 @@ class html5C {
 		$this->rangeList  = $rangeList;
 		$this->begValList = $rangeList['BEG_LIST'];
 		$this->endValList = $rangeList['END_LIST'];
+
+		$this->realRoot = realpath(dirname(__FILE__) . '/../..');
 	}
 
 
@@ -176,7 +180,7 @@ class html5C {
 
 
 /**
- * 開始キーワードの検索
+ * 変換
  *
  * 指定された開始キーワードに応じてセクション情報を実データに変換する
  *
@@ -239,6 +243,10 @@ class html5C {
 			$ret = $this->setDecoration($sect1 ,$begKwd);
 		}
 
+		// TOPページ
+		if(strcmp($begKwd ,'NEWS_AREA') == 0) {
+			$ret = $this->setNewsArea($sect1 ,$begKwd);
+		}
 
 		if(strcmp($begKwd ,'ALBUM_AREA') == 0) {
 			$ret = $this->setAlbumArea($sect1 ,$begKwd);
@@ -304,6 +312,9 @@ class html5C {
 			$outStr = mb_convert_encoding($outStr ,common5C::ENCODE_MO ,common5C::ENCODE_DEFAULT);
 		}
 
+		$imgDir  = 'img/' . $this->branchNo . '/RECRUIT/';
+		$imgRoot = $this->realRoot . '/' . $imgDir;
+
 		$ret = array();
 		$lineMax = count($sect);
 		for($idx=0 ;$idx<$lineMax ;$idx++) {
@@ -313,13 +324,9 @@ class html5C {
 				$ret[] = $outStr;
 			} else {
 				if(strcmp($line1 ,templateConst5C::RECRUIT_IMG) == 0) {
-					$imgNo  = $outVals[0]['IMGNO'];
-
-					$imgDir  = 'img/' . $this->branchNo . '/RECRUIT/';
-					$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
-
+					$imgNo   = $outVals[0]['IMGNO'];
 					$imgList = $outVals['IMGLIST'];
-					$imgMax = count($imgList);
+					$imgMax  = count($imgList);
 
 					//画像番号のファイルの有無を調べる
 					$fileExist  = false;
@@ -336,7 +343,7 @@ class html5C {
 						}
 					}
 
-					//画像ファイルがあればtrue
+					//画像ファイルがあれば表示
 					if($fileExist) {
 						$imgPath = $imgDispPath;
 					} else {
@@ -382,6 +389,9 @@ class html5C {
 			$outStr = mb_convert_encoding($outStr ,common5C::ENCODE_MO ,common5C::ENCODE_DEFAULT);
 		}
 
+		$imgDir  = 'img/' . $this->branchNo . '/SYSTEM/';
+		$imgRoot = $this->realRoot . '/' . $imgDir;
+
 		$ret = array();
 		$lineMax = count($sect);
 		for($idx=0 ;$idx<$lineMax ;$idx++) {
@@ -391,13 +401,9 @@ class html5C {
 				$ret[] = $outStr;
 			} else {
 				if(strcmp($line1 ,templateConst5C::SYSTEM_IMG) == 0) {
-					$imgNo  = $outVals[0]['IMGNO'];
-
-					$imgDir  = 'img/' . $this->branchNo . '/SYSTEM/';
-					$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
-
+					$imgNo   = $outVals[0]['IMGNO'];
 					$imgList = $outVals['IMGLIST'];
-					$imgMax = count($imgList);
+					$imgMax  = count($imgList);
 
 					//画像番号のファイルの有無を調べる
 					$fileExist  = false;
@@ -414,7 +420,7 @@ class html5C {
 						}
 					}
 
-					//画像ファイルがあればtrue
+					//画像ファイルがあれば表示
 					if($fileExist) {
 						$imgPath = $imgDispPath;
 					} else {
@@ -1072,14 +1078,16 @@ class html5C {
 					}
 				}
 
-				$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::ALBUM_URL_PARAM);
-				if($kwdPos >= 0) {
-					if(strcmp($urlVals['SITE'] ,dbPageParam5C::OTHER) == 0) {
-						$line1 = str_replace(templateConst5C::ALBUM_URL_PARAM ,'' ,$line1);
-					} else {
-						$line1 = str_replace(templateConst5C::ALBUM_URL_PARAM ,'' ,$line1);
-					}
-				}
+					/*
+						$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::ALBUM_URL_PARAM);
+						if($kwdPos >= 0) {
+							if(strcmp($urlVals['SITE'] ,dbPageParam5C::OTHER) == 0) {
+								$line1 = str_replace(templateConst5C::ALBUM_URL_PARAM ,'' ,$line1);
+							} else {
+								$line1 = str_replace(templateConst5C::ALBUM_URL_PARAM ,'' ,$line1);
+							}
+						}
+					*/
 
 				$ret[] = $line1;
 			}
@@ -1097,10 +1105,10 @@ class html5C {
 		if(isset($outVals['SITE'])) {
 			$target = $outVals['SITE'];
 		} else {
-			$target = 'OWN_SITE';
+			$target = 'dbPageParam5C::OWN';
 		}
 
-		if(strcmp($target ,'OWN_SITE') == 0) {
+		if(strcmp($target ,'dbPageParam5C::OWN') == 0) {
 			$ret[] = '<div id="todaysWorksList"></div>';
 		} else {
 			$ret[] = '<div id="workListIndex" class="otherSiteIndex">	<!-- photoDiaryIndex -->' .
@@ -1218,7 +1226,7 @@ class html5C {
 	private function setTopPageHeaderImg($headerVal) {
 
 		$imgDir  = 'img/' . $this->branchNo . '/HEADER/';
-		$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
+		$imgRoot = $this->realRoot . '/' . $imgDir;
 
 		$expSeq = explode(':' ,$headerVal['SEQ']);
 		$expUse = explode(':' ,$headerVal['USE']);
@@ -1399,7 +1407,7 @@ class html5C {
 	private function setOtherPageHeaderImg($headerVal) {
 
 		$imgDir  = 'img/' . $this->branchNo . '/HEADER/';
-		$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
+		$imgRoot = $this->realRoot . '/' . $imgDir;
 
 		$expNo  = $headerVal['NO' ];
 		$imgList = $headerVal['IMGLIST'];
@@ -1505,10 +1513,10 @@ class html5C {
 			if(isset($menuVals[$targetID])) {
 				$target = $menuVals[$targetID]['SITE'];
 			} else {
-				$target = 'OWN_SITE';
+				$target = 'dbPageParam5C::OWN';
 			}
 
-			if(strcmp($target ,'OWN_SITE') == 0) {
+			if(strcmp($target ,'dbPageParam5C::OWN') == 0) {
 				$urlList = fileName5C::getFileName($this->device ,$targetID ,'' ,'');
 				$url = $urlList['fileName'];
 				if(strcmp($this->fileID ,'PROFILE') == 0) {
@@ -1599,7 +1607,7 @@ class html5C {
 		// 画像を使用するとき
 		if(strcmp($use ,'I') == 0) {
 			$imgDir  = 'img/' . $this->branchNo . '/DECO/';
-			$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
+			$imgRoot = $this->realRoot . '/' . $imgDir;
 
 			$imgList = $decoVal['IMGLIST'];
 			$imgMax = count($imgList);
@@ -1650,7 +1658,6 @@ class html5C {
 //				'* {color:#' . $dec . $dec . $dec . ';}' . $lineBreak .
 //				'a {color:#' . $dec . $dec . $dec . ';}';
 
-
 		return $ret;
 	}
 
@@ -1663,7 +1670,7 @@ class html5C {
 		// 画像を使用するとき
 		if(strcmp($use ,'I') == 0) {
 			$imgDir  = 'img/' . $this->branchNo . '/DECO/';
-			$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
+			$imgRoot = $this->realRoot . '/' . $imgDir;
 
 			$imgList = $decoVal['IMGLIST'];
 			$imgMax = count($imgList);
@@ -1683,12 +1690,10 @@ class html5C {
 				}
 			}
 
-			//画像ファイルがあればtrue
+			//画像ファイルがあれば表示
 			if($fileExist) {
 				$imgDispPath = '../' . $imgDispPath;
 				$ret = 'body {background-image:url(' . $imgDispPath .  ');}';
-			} else {
-				$ret = '';
 			}
 		}
 
@@ -1708,6 +1713,106 @@ class html5C {
 				'}' . $lineBreak .
 				'* {color:#' . $dec . $dec . $dec . ';}' . $lineBreak .
 				'a {color:#' . $dec . $dec . $dec . ';}';
+		}
+
+		return $ret;
+	}
+
+
+
+
+
+
+
+
+
+
+/**
+ * ニュースの変換
+ *
+ * @access
+ * @param string $sect セクション情報
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	private function setNewsArea($sect ,$kwd) {
+
+		$menuVals = sess5C::getOutVals('PAGE_MENU');
+		$menuList = siteConst5C::getHtmlFileIDList($this->device);
+
+		$url = '';
+		$menuMax = count($menuList);
+		for($idx=0 ;$idx<$menuMax ;$idx++) {
+			$targetID = $menuList[$idx];
+
+			if(strcmp($targetID ,'NEWS') == 0) {
+				if(isset($menuVals[$targetID])) {
+					$target = $menuVals[$targetID]['SITE'];
+				} else {
+					$target = 'dbPageParam5C::OWN';
+				}
+
+				if(strcmp($target ,dbPageParam5C::OWN) != 0) {
+					$url = $menuVals[$targetID]['URL'];
+				}
+				break;
+			}
+		}
+
+		$tempLine = array();
+
+		$lineMax = count($sect);
+		for($idx=0 ;$idx<$lineMax ;$idx++) {
+			$line1 = $sect[$idx];
+			if(strcmp($line1 ,$this->begValList[$kwd]) == 0
+			|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
+			} else {
+				/* 出力条件
+				1. 内部で<!-- NEWS_VAL -->でないとき
+				2. 外部で<!-- NEWS_VAL -->のとき
+				*/
+				$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::NEWS_VAL);
+				if(strlen($url) <= 0) {
+					// 内部のとき
+					if($kwdPos >= 0) {
+					} else {
+						$tempLine[] = $line1;
+					}
+				} else {
+					// 外部のとき
+					if($kwdPos >= 0) {
+						$tempLine[] = $line1;
+					}
+				}
+			}
+		}
+
+		$ret  = array();
+		$temp = array();
+
+		if(strlen($url) <= 0) {
+			$ret = $this->setNews($tempLine ,'NEWS');
+		} else {
+			$lineMax = count($tempLine);
+			for($idx=0 ;$idx<$lineMax ;$idx++) {
+				$line1 = $tempLine[$idx];
+
+				$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::NEWS_VAL);
+				if($kwdPos >= 0) {
+					if(strlen($url) >= 1) {
+						$temp[] = '<div id="newsListIndex" class="otherSiteIndex">' .
+								'<iframe src="' . $url . '" width="240" class="otherSiteFrame" title="出勤予定"></iframe>' .
+								'</div>';
+					}
+				} else {
+					$temp[] = $line1;
+				}
+			}
+			$ret = $temp;
 		}
 
 		return $ret;
@@ -1746,10 +1851,10 @@ class html5C {
 				if(isset($menuVals[$targetID])) {
 					$target = $menuVals[$targetID]['SITE'];
 				} else {
-					$target = 'OWN_SITE';
+					$target = 'dbPageParam5C::OWN';
 				}
 
-				if(strcmp($target ,'OWN_SITE') == 0) {
+				if(strcmp($target ,'dbPageParam5C::OWN') == 0) {
 					$urlList = fileName5C::getFileName($this->device ,$targetID ,'' ,'');
 					$url = $urlList['fileName'];
 				} else {
@@ -1817,10 +1922,10 @@ class html5C {
 				if(isset($menuVals[$targetID])) {
 					$target = $menuVals[$targetID]['SITE'];
 				} else {
-					$target = 'OWN_SITE';
+					$target = 'dbPageParam5C::OWN';
 				}
 
-				if(strcmp($target ,'OWN_SITE') == 0) {
+				if(strcmp($target ,'dbPageParam5C::OWN') == 0) {
 					$urlList = fileName5C::getFileName($this->device ,$targetID ,'' ,'');
 					$url = $urlList['fileName'];
 					if(strcmp($this->fileID ,'PROFILE') == 0) {
@@ -1887,10 +1992,10 @@ class html5C {
 				if(isset($menuVals[$targetID])) {
 					$target = $menuVals[$targetID]['SITE'];
 				} else {
-					$target = 'OWN_SITE';
+					$target = 'dbPageParam5C::OWN';
 				}
 
-				if(strcmp($target ,'OWN_SITE') == 0) {
+				if(strcmp($target ,'dbPageParam5C::OWN') == 0) {
 					$urlList = fileName5C::getFileName($this->device ,$targetID ,'' ,'');
 					$url = $urlList['fileName'];
 					if(strcmp($this->fileID ,'PROFILE') == 0) {
@@ -1957,10 +2062,10 @@ class html5C {
 				if(isset($menuVals[$targetID])) {
 					$target = $menuVals[$targetID]['SITE'];
 				} else {
-					$target = 'OWN_SITE';
+					$target = 'dbPageParam5C::OWN';
 				}
 
-				if(strcmp($target ,'OWN_SITE') == 0) {
+				if(strcmp($target ,'dbPageParam5C::OWN') == 0) {
 					$urlList = fileName5C::getFileName($this->device ,$targetID ,'' ,'');
 					$url = $urlList['fileName'];
 					if(strcmp($this->fileID ,'PROFILE') == 0) {
@@ -2015,7 +2120,8 @@ class html5C {
 	private function setTopImg($headerVal) {
 
 		$imgDir  = 'img/' . $this->branchNo . '/TOP/';
-		$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
+		$imgRoot = $this->realRoot . '/' . $imgDir;
+
 		$expNo   = $headerVal['NO' ];
 		$imgList = $headerVal['IMGLIST'];
 		$imgMax = count($imgList);
@@ -2204,7 +2310,7 @@ class html5C {
 	private function setSideBarImg($headerVal ,$imgList) {
 
 		$imgDir  = 'img/' . $this->branchNo . '/SIDEBAR/';
-		$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
+		$imgRoot = $this->realRoot . '/' . $imgDir;
 
 		$expNo  = $headerVal['IMGNO' ];
 		$imgMax = count($imgList);
@@ -2294,7 +2400,7 @@ class html5C {
 	private function setAgeAuthImg($val) {
 
 		$imgDir  = 'img/' . $this->branchNo . '/AGE_AUTH/';
-		$imgRoot = realpath(dirname(__FILE__) . '/../..') . '/' . $imgDir;
+		$imgRoot = $this->realRoot . '/' . $imgDir;
 
 		$expNo   = $val['IMG'    ];
 		$imgList = $val['IMGLIST'];

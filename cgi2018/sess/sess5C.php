@@ -163,10 +163,8 @@ class sess5C {
 			$timestamp = strtotime('+10 minute');
 			$format    = 'Y' . dateTime5C::DATE_SEP . 'm' . dateTime5C::DATE_SEP . 'd' . ' ' . 'H' . dateTime5C::TIME_SEP . 'i' . dateTime5C::TIME_SEP . 's';
 			$currDT    = date($format, $timestamp);
-
-			$str = $sessID . self::SEPT . $currDT;
-
-			$fileName = self::getFileName();
+			$str       = $sessID . self::SEPT . $currDT;
+			$fileName  = self::getFileName();
 
 						logFile5C::debug('セッションファイル更新');
 			$fp = fopen($fileName ,'w');
@@ -345,6 +343,7 @@ class sess5C {
 			$val[]   = $dbVal['profInfo'];
 		}
 
+		/*
 		if(strcmp($ID ,'ALBUM_LINK') == 0) {
 			$db = new dbPageParam5C();
 			$dbURL  = $db->readByObj($branchNo ,'USEPAGE');
@@ -366,6 +365,7 @@ class sess5C {
 			$outID[] = $ID;
 			$val[]   = $dbVal;
 		}
+		*/
 
 		if(strcmp($ID ,'TOP_PAGE_HEADER') == 0) {
 			$db = new dbPageParam5C();
@@ -409,6 +409,7 @@ class sess5C {
 			$val[]   = $valTmp;
 		}
 
+		/*
 		if(strcmp($ID ,'PAGE_HEADER') == 0) {
 			$db = new dbPageParam5C();
 			$dbVal = $db->readAll($branchNo ,'' ,'HEADER');
@@ -429,6 +430,7 @@ class sess5C {
 			$outID[] = $ID;
 			$val[]   = $valTmp;
 		}
+		*/
 
 
 		if(strcmp($ID ,'DECORATION_VER') == 0
@@ -464,6 +466,7 @@ class sess5C {
 
 
 		if(strcmp($ID ,'PAGE_MENU'      ) == 0
+		|| strcmp($ID ,'NEWS_AREA'      ) == 0
 		|| strcmp($ID ,'ALBUM_AREA'     ) == 0
 		|| strcmp($ID ,'RECRUIT_AREA'   ) == 0
 		|| strcmp($ID ,'SYSTEM_AREA'    ) == 0
@@ -558,6 +561,37 @@ class sess5C {
 				$valTmpC['IMGLIST'] = $imgList['imgInfo'];
 
 				$outID[] = 'ALBUM_AREA';
+				$val[]   = $valTmpC;
+			}
+
+
+			if(strcmp($ID ,'PAGE_MENU') == 0
+			|| strcmp($ID ,'NEWS_AREA') == 0) {
+				$db = new dbPageParam5C();
+				$dbVal = $db->readAll($branchNo ,'TOP' ,'NEWS');
+
+				$dbVal1 = $dbVal['pageVal'][0];
+				$valTmpC = array(
+					'SEQ'    => $dbVal1[dbPageParam5C::FLD_VALUE1] ,
+					'USE'    => $dbVal1[dbPageParam5C::FLD_VALUE2] ,
+					'NO'     => $dbVal1[dbPageParam5C::FLD_VALUE3] ,
+					'STRING' => $dbVal1[dbPageParam5C::FLD_VALUE4]
+				);
+
+				$dbVal = $db->readAll($branchNo ,'NEWS' ,'USEPAGE');
+
+				$dbVal1 = $dbVal['pageVal'][0];
+				$valTmpC['SITE'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+				$valTmpC['URL' ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+
+
+				$handle = $db->getHandle();
+				$dbImgList = new dbImage5C($handle);
+
+				$imgList = $dbImgList->readShowable($branchNo);
+				$valTmpC['IMGLIST'] = $imgList['imgInfo'];
+
+				$outID[] = 'NEWS_AREA';
 				$val[]   = $valTmpC;
 			}
 		}
@@ -657,10 +691,7 @@ class sess5C {
 		}
 
 
-
-
-/*
-当面使用しない
+		/*
 		if(strcmp($ID ,'ALBUM_CSS_VER') == 0
 		|| strcmp($ID ,'ALBUM_CSS_VAL') == 0) {
 			$db = new dbPageParam5C();
@@ -683,7 +714,7 @@ class sess5C {
 			$outID[] = 'ALBUM';
 			$val[]   = $valTmp;
 		}
-*/
+		*/
 
 
 		$idxMax = count($outID);
