@@ -16,11 +16,14 @@ PHP5
 	$extList     = bldImgList5C::bldSeqList($branchNo);
 	$recruitVals = readTopImg($pageParam ,$branchNo ,$extList['extList'] ,'RECRUIT');
 	$systemVals  = readTopImg($pageParam ,$branchNo ,$extList['extList'] ,'SYSTEM');
+	$albumVals   = readTopImg($pageParam ,$branchNo ,$extList['extList'] ,'ALBUM');
+
 	$areaVals    = readTopVal($pageParam ,$branchNo ,'AREA');
 
 	$ret['extList'] = $extList['extList'];
 	$ret['recruit'] = $recruitVals;
 	$ret['system' ] = $systemVals;
+	$ret['album'  ] = $albumVals;
 	$ret['area'   ] = $areaVals;
 
 	print json_encode($ret);

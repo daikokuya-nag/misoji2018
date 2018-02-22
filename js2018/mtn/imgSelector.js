@@ -166,6 +166,9 @@ function showImgDlg() {
 		if(IMG_PLACE == 'RECRUIT') {
 			imgNo = $('#topRecruitImg').val();
 		}
+		if(IMG_PLACE == 'ALBUM') {
+			imgNo = $('#topAlbumImg').val();
+		}
 
 		if(imgNo) {
 			if(imgNo.length >= 1) {
@@ -316,6 +319,16 @@ var ext;
 			tagStr = '<img src="../img/' + BRANCH_NO +  '/TOP/' + selectedImg + '.' + ext + '">';
 			$('#topRecruitImgTN').html(tagStr);
 			$('#topRecruitImg').val(selectedImg);
+		}
+
+		if(IMG_PLACE == 'ALBUM') {
+			ext = EXT_LIST[selectedImg];
+				console.debug('top profile');
+				console.debug(ext);
+
+			tagStr = '<img src="../img/' + BRANCH_NO +  '/TOP/' + selectedImg + '.' + ext + '">';
+			$('#topAlbumImgTN').html(tagStr);
+			$('#topAlbumImg').val(selectedImg);
 		}
 
 		$("#bldTopImg").prop('disabled' ,false);

@@ -60,11 +60,13 @@ var result = $.ajax({
 	result.done(function(response) {
 					// console.debug(response);
 
-		setTopImg(response['system' ]['img'] ,response['extList'] ,'SYSTEM');
+		setTopImg(response['system' ]['img'] ,response['extList'] ,'SYSTEM' );
 		setTopImg(response['recruit']['img'] ,response['extList'] ,'RECRUIT');
+		setTopImg(response['album'  ]['img'] ,response['extList'] ,'ALBUM');
 
 		$('#topSystemStr' ).val(response['system' ]['str']);
 		$('#topRecruitStr').val(response['recruit']['str']);
+		$('#topAlbumStr'  ).val(response['album'  ]['str']);
 
 		setTopArea(response['area']);
 
@@ -143,6 +145,11 @@ var fileExist = '0';
 		$("#topRecruitImg").val(imgNo);			//画像Noの保持
 		$('#useTopRecruitImg').prop('checked' ,useChecked);
 	}
+	if(imgID == 'ALBUM') {
+		$('#topAlbumImgTN').html(imgTag);
+		$("#topAlbumImg").val(imgNo);			//画像Noの保持
+		$('#useTopAlbumImg').prop('checked' ,useChecked);
+	}
 }
 
 /**
@@ -178,6 +185,7 @@ function updTopImg() {
 
 var seleSystem  = $('#topSystemImg' ).val();
 var seleRecruit = $('#topRecruitImg').val();
+var seleAlbum   = $('#topAlbumImg'  ).val();
 
 var titleColor   = $("#areaTitleStr").val();
 var titleBGColor = $("#areaTitleBG" ).val();
@@ -185,11 +193,12 @@ var areaBGColor  = $("#areaBG"      ).val();
 
 var systemStr  = $('#topSystemStr' ).val();
 var recruitStr = $('#topRecruitStr').val();
+var albumStr   = $('#topAlbumStr'  ).val();
 
 var dispSW   = $(".useTopImg").serialize();
-var sendData = dispSW + '&branchNo=' + BRANCH_NO + '&system=' + seleSystem + '&recruit=' + seleRecruit +
+var sendData = dispSW + '&branchNo=' + BRANCH_NO + '&system=' + seleSystem + '&recruit=' + seleRecruit + '&album=' + seleAlbum + 
 				'&titleColor=' +  titleColor + '&titleBGColor=' + titleBGColor + '&areaBGColor=' +  areaBGColor +
-				'&systemStr=' + systemStr + '&recruitStr=' + recruitStr;
+				'&systemStr=' + systemStr + '&recruitStr=' + recruitStr + '&albumStr=' + albumStr;
 					//console.debug(sendData);
 
 var result = $.ajax({
@@ -201,7 +210,7 @@ var result = $.ajax({
 	});
 
 	result.done(function(response) {
-					// console.debug(response);
+					 console.debug(response);
 
 		if(response['SESSCOND'] == SESS_OWN_INTIME) {
 			selectWriteFile('TOP');		//出力対象ファイルの抽出→ファイル出力

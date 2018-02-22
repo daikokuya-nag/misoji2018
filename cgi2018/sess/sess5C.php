@@ -286,11 +286,10 @@ class sess5C {
 			$dbVal = $db->readAll($branchNo ,$ID ,'CONTENT');
 
 			$dbVal1 = $dbVal['pageVal'][0];
-			$imgVal = array(
+			$valTmp[0] = array(
 				'IMGNO'  => $dbVal1[dbPageParam5C::FLD_VALUE3] ,
 				'STRING' => $dbVal1[dbPageParam5C::FLD_STR1  ]
 			);
-			$valTmp[0] = $imgVal;
 
 			$handle = $db->getHandle();
 			$dbImgList = new dbImage5C($handle);
@@ -307,11 +306,10 @@ class sess5C {
 			$dbVal = $db->readAll($branchNo ,$ID ,'CONTENT');
 
 			$dbVal1 = $dbVal['pageVal'][0];
-			$imgVal = array(
+			$valTmp[0] = array(
 				'IMGNO'  => $dbVal1[dbPageParam5C::FLD_VALUE3] ,
 				'STRING' => $dbVal1[dbPageParam5C::FLD_STR1  ]
 			);
-			$valTmp[0] = $imgVal;
 
 			$handle = $db->getHandle();
 			$dbImgList = new dbImage5C($handle);
@@ -357,10 +355,10 @@ class sess5C {
 				$dbURL1 = $pageVal[$idx];
 				$pageID = $dbURL1[dbPageParam5C::FLD_PAGE_ID];
 				if(strcmp($pageID ,dbPageParam5C::PAGE_ALBUM) == 0) {
-					$valTmpA['SITE'] = $dbURL1[dbPageParam5C::FLD_VALUE1];
-					$valTmpA['URL' ] = $dbURL1[dbPageParam5C::FLD_VALUE2];
-
-					$dbVal['URL'] = $valTmpA;
+					$dbVal['URL'] = array(
+						'SITE' => $dbURL1[dbPageParam5C::FLD_VALUE1] ,
+						'URL'  => $dbURL1[dbPageParam5C::FLD_VALUE2]
+					);
 					break;
 				}
 			}
@@ -374,9 +372,11 @@ class sess5C {
 			$dbVal = $db->readAll($branchNo ,'TOP' ,'HEADER');
 
 			$dbVal1 = $dbVal['pageVal'][0];
-			$valTmp['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-			$valTmp['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-			$valTmp['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+			$valTmp = array(
+				'SEQ' => $dbVal1[dbPageParam5C::FLD_VALUE1] ,
+				'USE' => $dbVal1[dbPageParam5C::FLD_VALUE2] ,
+				'NO'  => $dbVal1[dbPageParam5C::FLD_VALUE3]
+			);
 
 			$handle = $db->getHandle();
 			$dbImgList = new dbImage5C($handle);
@@ -393,9 +393,11 @@ class sess5C {
 			$dbVal = $db->readAll($branchNo ,'OTHER' ,'HEADER');
 
 			$dbVal1 = $dbVal['pageVal'][0];
-			$valTmp['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-			$valTmp['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-			$valTmp['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+			$valTmp = array(
+				'SEQ' => $dbVal1[dbPageParam5C::FLD_VALUE1] ,
+				'USE' => $dbVal1[dbPageParam5C::FLD_VALUE2] ,
+				'NO'  => $dbVal1[dbPageParam5C::FLD_VALUE3]
+			);
 
 			$handle = $db->getHandle();
 			$dbImgList = new dbImage5C($handle);
@@ -412,9 +414,11 @@ class sess5C {
 			$dbVal = $db->readAll($branchNo ,'' ,'HEADER');
 
 			$dbVal1 = $dbVal['pageVal'][0];
-			$valTmp['SEQ'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-			$valTmp['USE'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-			$valTmp['NO' ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
+			$valTmp = array(
+				'SEQ' => $dbVal1[dbPageParam5C::FLD_VALUE1] ,
+				'USE' => $dbVal1[dbPageParam5C::FLD_VALUE2] ,
+				'NO'  => $dbVal1[dbPageParam5C::FLD_VALUE3]
+			);
 
 			$handle = $db->getHandle();
 			$dbImgList = new dbImage5C($handle);
@@ -435,10 +439,12 @@ class sess5C {
 			$dbVal = $db->readAll($branchNo ,'ALL' ,'DECO');
 
 			$dbVal1 = $dbVal['pageVal'][0];
-			$valTmp['USE'    ] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-			$valTmp['COLOR'  ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-			$valTmp['IMGNO'  ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
-			$valTmp['VERSION'] = $dbVal1[dbPageParam5C::FLD_VALUE4];
+			$valTmp = array(
+				'USE'     => $dbVal1[dbPageParam5C::FLD_VALUE1] ,
+				'COLOR'   => $dbVal1[dbPageParam5C::FLD_VALUE2] ,
+				'IMGNO'   => $dbVal1[dbPageParam5C::FLD_VALUE3] ,
+				'VERSION' => $dbVal1[dbPageParam5C::FLD_VALUE4]
+			);
 
 			//ニュースの背景指定
 			$dbVal = $db->readAll($branchNo ,'NEWS' ,'BG_COLOR');
@@ -458,6 +464,7 @@ class sess5C {
 
 
 		if(strcmp($ID ,'PAGE_MENU'      ) == 0
+		|| strcmp($ID ,'ALBUM_AREA'     ) == 0
 		|| strcmp($ID ,'RECRUIT_AREA'   ) == 0
 		|| strcmp($ID ,'SYSTEM_AREA'    ) == 0
 		|| strcmp($ID ,'PHOTODIARY_AREA') == 0) {
@@ -483,10 +490,12 @@ class sess5C {
 				$dbVal = $db->readAll($branchNo ,'TOP' ,'RECRUIT');
 
 				$dbVal1 = $dbVal['pageVal'][0];
-				$valTmpB['SEQ'   ] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-				$valTmpB['USE'   ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-				$valTmpB['NO'    ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
-				$valTmpB['STRING'] = $dbVal1[dbPageParam5C::FLD_VALUE4];
+				$valTmpB = array(
+					'SEQ'    => $dbVal1[dbPageParam5C::FLD_VALUE1] ,
+					'USE'    => $dbVal1[dbPageParam5C::FLD_VALUE2] ,
+					'NO'     => $dbVal1[dbPageParam5C::FLD_VALUE3] ,
+					'STRING' => $dbVal1[dbPageParam5C::FLD_VALUE4]
+				);
 
 				$handle = $db->getHandle();
 				$dbImgList = new dbImage5C($handle);
@@ -504,10 +513,12 @@ class sess5C {
 				$dbVal = $db->readAll($branchNo ,'TOP' ,'SYSTEM');
 
 				$dbVal1 = $dbVal['pageVal'][0];
-				$valTmpC['SEQ'   ] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-				$valTmpC['USE'   ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-				$valTmpC['NO'    ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
-				$valTmpC['STRING'] = $dbVal1[dbPageParam5C::FLD_VALUE4];
+				$valTmpC = array(
+					'SEQ'    => $dbVal1[dbPageParam5C::FLD_VALUE1] ,
+					'USE'    => $dbVal1[dbPageParam5C::FLD_VALUE2] ,
+					'NO'     => $dbVal1[dbPageParam5C::FLD_VALUE3] ,
+					'STRING' => $dbVal1[dbPageParam5C::FLD_VALUE4]
+				);
 
 				$handle = $db->getHandle();
 				$dbImgList = new dbImage5C($handle);
@@ -518,10 +529,41 @@ class sess5C {
 				$outID[] = 'SYSTEM_AREA';
 				$val[]   = $valTmpC;
 			}
+
+			if(strcmp($ID ,'PAGE_MENU') == 0
+			|| strcmp($ID ,'ALBUM_AREA') == 0) {
+				$db = new dbPageParam5C();
+				$dbVal = $db->readAll($branchNo ,'TOP' ,'ALBUM');
+
+				$dbVal1 = $dbVal['pageVal'][0];
+				$valTmpC = array(
+					'SEQ'    => $dbVal1[dbPageParam5C::FLD_VALUE1] ,
+					'USE'    => $dbVal1[dbPageParam5C::FLD_VALUE2] ,
+					'NO'     => $dbVal1[dbPageParam5C::FLD_VALUE3] ,
+					'STRING' => $dbVal1[dbPageParam5C::FLD_VALUE4]
+				);
+
+
+				$dbVal = $db->readAll($branchNo ,'ALBUM' ,'USEPAGE');
+
+				$dbVal1 = $dbVal['pageVal'][0];
+				$valTmpC['SITE'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
+				$valTmpC['URL' ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
+
+
+				$handle = $db->getHandle();
+				$dbImgList = new dbImage5C($handle);
+
+				$imgList = $dbImgList->readShowable($branchNo);
+				$valTmpC['IMGLIST'] = $imgList['imgInfo'];
+
+				$outID[] = 'ALBUM_AREA';
+				$val[]   = $valTmpC;
+			}
 		}
 
 
-		if(strcmp($ID ,'WORKS_LIST') == 0) {
+		if(strcmp($ID ,'WORKS_AREA') == 0) {
 			$db = new dbPageParam5C();
 			$dbVal = $db->readAll($branchNo ,'WORK' ,'USEPAGE');
 
@@ -529,7 +571,7 @@ class sess5C {
 			$valTmpB['SITE'] = $dbVal1[dbPageParam5C::FLD_VALUE1];
 			$valTmpB['URL' ] = $dbVal1[dbPageParam5C::FLD_VALUE2];
 
-			$outID[] = 'WORKS_LIST';
+			$outID[] = 'WORKS_AREA';
 			$val[]   = $valTmpB;
 		}
 
@@ -542,10 +584,12 @@ class sess5C {
 			$dbVal = $db->readAll($branchNo ,'TOP' ,'AREA');
 
 			$dbVal1 = $dbVal['pageVal'][0];
-			$valTmp['AREA_BGCOLOR' ] = $dbVal1[dbPageParam5C::FLD_VALUE1];
-			$valTmp['TITLE_BGCOLOR'] = $dbVal1[dbPageParam5C::FLD_VALUE2];
-			$valTmp['TITLE_COLOR'  ] = $dbVal1[dbPageParam5C::FLD_VALUE3];
-			$valTmp['VERSION'      ] = $dbVal1[dbPageParam5C::FLD_VALUE4];
+			$valTmp = array(
+				'AREA_BGCOLOR'  => $dbVal1[dbPageParam5C::FLD_VALUE1] ,
+				'TITLE_BGCOLOR' => $dbVal1[dbPageParam5C::FLD_VALUE2] ,
+				'TITLE_COLOR'   => $dbVal1[dbPageParam5C::FLD_VALUE3] ,
+				'VERSION'       => $dbVal1[dbPageParam5C::FLD_VALUE4]
+			);
 
 			$outID[] = 'TOP';
 			$val[]   = $valTmp;

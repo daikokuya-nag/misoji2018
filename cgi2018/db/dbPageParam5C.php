@@ -283,7 +283,7 @@ class dbPageParam5C {
 
 		if(isset($vals[self::FLD_STR1])) {
 			$fldArr[] = self::FLD_STR1;
-			$fldList  = $fldList . ',' . $db->setQuote($vals[self::FLD_STR1]);
+			$valList  = $valList . ',' . $db->setQuote($vals[self::FLD_STR1]);
 		}
 
 

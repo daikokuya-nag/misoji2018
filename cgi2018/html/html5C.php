@@ -211,9 +211,6 @@ class html5C {
 			$ret = $this->setAlbum($sect1 ,$begKwd);
 		}
 
-		if(strcmp($begKwd ,'WORKS_LIST') == 0) {
-			$ret = $this->setWorksList($sect1 ,$begKwd);
-		}
 
 		if(strcmp($begKwd ,'ALBUM_LINK') == 0) {
 			$ret = $this->setAlbumURL($sect1 ,$begKwd);
@@ -243,6 +240,12 @@ class html5C {
 		}
 
 
+		if(strcmp($begKwd ,'ALBUM_AREA') == 0) {
+			$ret = $this->setAlbumArea($sect1 ,$begKwd);
+		}
+		if(strcmp($begKwd ,'WORKS_AREA') == 0) {
+			$ret = $this->setWorksList($sect1 ,$begKwd);
+		}
 		if(strcmp($begKwd ,'RECRUIT_AREA') == 0) {
 			$ret = $this->setRecruitArea($sect1 ,$begKwd);
 		}
@@ -273,6 +276,11 @@ class html5C {
 
 		return $ret;
 	}
+
+
+
+
+
 
 
 /**
@@ -1706,6 +1714,95 @@ class html5C {
 	}
 
 
+
+
+
+
+
+
+/**
+ * アルバムデータの変換
+ *
+ * @access
+ * @param string $sect セクション情報
+ * @param string $kwd セクションID
+ * @return string 実データで変換した文字列
+ * @link
+ * @see
+ * @throws
+ * @todo
+ */
+	private function setAlbumArea($sect ,$kwd) {
+
+		$menuVals = sess5C::getOutVals('PAGE_MENU');
+		$menuList = siteConst5C::getHtmlFileIDList($this->device);
+
+		$url = '';
+		$menuMax = count($menuList);
+		for($idx=0 ;$idx<$menuMax ;$idx++) {
+			$targetID = $menuList[$idx];
+
+			if(strcmp($targetID ,'ALBUM') == 0) {
+				if(isset($menuVals[$targetID])) {
+					$target = $menuVals[$targetID]['SITE'];
+				} else {
+					$target = 'OWN_SITE';
+				}
+
+				if(strcmp($target ,'OWN_SITE') == 0) {
+					$urlList = fileName5C::getFileName($this->device ,$targetID ,'' ,'');
+					$url = $urlList['fileName'];
+				} else {
+					$url = $menuVals[$targetID]['URL'];
+				}
+				break;
+			}
+		}
+
+		$ret  = array();
+		$temp = array();
+
+		$disp = '';
+		$lineMax = count($sect);
+		for($idx=0 ;$idx<$lineMax ;$idx++) {
+			$line1 = $sect[$idx];
+			$kwdPos = strings5C::mb_existStr($line1 ,templateConst5C::ALBUM_VAL);
+			if($kwdPos >= 0) {
+				$val  = sess5C::getOutVals('ALBUM_AREA');
+				$disp = $this->setTopImg($val);
+
+				if(strlen($disp) >= 1) {
+					$imgStr = '<img src="' . $disp . '" class="img-responsive center-block">';
+					if(strlen($url) >= 1) {
+						$temp[] = '<a href="' . $url . '">' . $imgStr . '</a>';
+					} else {
+						$temp[] = $imgStr;
+					}
+				}
+
+				if(strlen($val['STRING']) >= 1) {
+					$temp[] = '<div class="topAreaStr">' . $val['STRING'] . '</div>';
+				}
+			} else {
+				if(strcmp($line1 ,$this->begValList[$kwd]) == 0
+				|| strcmp($line1 ,$this->endValList[$kwd]) == 0) {
+				} else {
+					$temp[] = $line1;
+				}
+			}
+		}
+
+		if(strlen($disp) >= 1) {
+			$ret = $temp;
+		}
+
+		return $ret;
+	}
+
+
+
+
+
 	function setRecruitArea($sect ,$kwd) {
 
 		$menuVals = sess5C::getOutVals('PAGE_MENU');
@@ -1774,6 +1871,7 @@ class html5C {
 
 		return $ret;
 	}
+
 
 	function setSystemArea($sect ,$kwd) {
 

@@ -179,7 +179,7 @@
 
       <div class="newsRight">
         <!-- 背景色 -->
-        <div class="sheetTitle">背景色</div>
+        <div class="sheetTitle">既定背景色</div>
         <div class="decoColorSele">
           <div>
             <div>
@@ -454,6 +454,7 @@
                 <td class="topSystemStr"><input type="text" name="topSystemStr" id="topSystemStr" class="topStr"></td>
                 <td class="topImgDisp"><input type="checkbox" name="useTopSystemImg" id="useTopSystemImg" class="useTopImg" value="U"></td>
               </tr>
+
               <tr><td colspan="5"><hr></td></tr>
               <tr id="topRecruitImgT">
                 <td class="topRecruitImgTN">求人</td>
@@ -462,10 +463,20 @@
                 <td class="topRecruitStr"><input type="text" name="topRecruitStr" id="topRecruitStr" class="topStr"></td>
                 <td class="topImgDisp"><input type="checkbox" name="useTopRecruitImg" id="useTopRecruitImg" class="useTopImg" value="U"></td>
               </tr>
+
+              <tr><td colspan="5"><hr></td></tr>
+              <tr id="topAlbumImgT">
+                <td class="topAlbumImgTN">人妻たち</td>
+                <td class="topAlbumImgTN" id="topAlbumImgTN"></td>
+                <td class="topAlbumImgSele"><input type="button" value="画像選択" name="attTopAlbumImg" id="attTopAlbumImg" onclick="showSeleImg('TOP' ,'ALBUM')"></td>
+                <td class="topAlbumStr"><input type="text" name="topAlbumStr" id="topAlbumStr" class="topStr"></td>
+                <td class="topImgDisp"><input type="checkbox" name="useTopAlbumImg" id="useTopAlbumImg" class="useTopImg" value="U"></td>
+              </tr>
             </tbody>
           </table>
           <input type="hidden" id="topSystemImg"  value="">
           <input type="hidden" id="topRecruitImg" value="">
+          <input type="hidden" id="topAlbumImg" value="">
         </div>
 
         <hr>

@@ -37,8 +37,6 @@ class templateConst5C {
 	const ALBUM_BEG_LINE = '<!-- ALBUM_BEG -->';			// アルバムの開始
 	const ALBUM_END_LINE = '<!-- ALBUM_END -->';			// アルバムの終了
 
-	const WORKS_LIST_BEG_LINE = '<!-- WORKS_LIST_BEG -->';			// 出勤情報の開始
-	const WORKS_LIST_END_LINE = '<!-- WORKS_LIST_END -->';			// 出勤情報の終了
 
 	const ALBUM_LINK_BEG_LINE = '<!-- ALBUM_LINK_BEG -->';			// アルバムリンクの開始
 	const ALBUM_LINK_END_LINE = '<!-- ALBUM_LINK_END -->';			// アルバムリンクの終了
@@ -58,6 +56,12 @@ class templateConst5C {
 	const DECO_CSS_VAL_BEG_LINE = '/* DECO_CSS_BEG */';		// cssの開始
 	const DECO_CSS_VAL_END_LINE = '/* DECO_CSS_END */';		// cssの終了
 
+
+	const ALBUM_AREA_BEG_LINE = '<!-- ALBUM_AREA_BEG -->';			// アルバムの開始
+	const ALBUM_AREA_END_LINE = '<!-- ALBUM_AREA_END -->';			// アルバムの終了
+
+	const WORKS_AREA_BEG_LINE = '<!-- WORKS_AREA_BEG -->';			// 出勤情報の開始
+	const WORKS_AREA_END_LINE = '<!-- WORKS_AREA_END -->';			// 出勤情報の終了
 
 	const RECRUIT_AREA_BEG_LINE = '<!-- RECRUIT_AREA_BEG -->';	// 求人の開始
 	const RECRUIT_AREA_END_LINE = '<!-- RECRUIT_AREA_END -->';	// 求人の終了
@@ -97,7 +101,6 @@ class templateConst5C {
 
 		'PROFILE'    => self::PROFILE_BEG_LINE    ,
 		'ALBUM'      => self::ALBUM_BEG_LINE      ,
-		'WORKS_LIST' => self::WORKS_LIST_BEG_LINE ,
 		'ALBUM_LINK' => self::ALBUM_LINK_BEG_LINE ,
 
 		'TOP_PAGE_HEADER'   => self::TOP_PAGE_HEADER_BEG_LINE   ,
@@ -108,6 +111,8 @@ class templateConst5C {
 		'DECORATION_VER' => self::DECO_CSS_VER_BEG_LINE ,
 		'DECORATION_VAL' => self::DECO_CSS_VAL_BEG_LINE ,
 
+		'ALBUM_AREA'      => self::ALBUM_AREA_BEG_LINE      ,
+		'WORKS_AREA'      => self::WORKS_AREA_BEG_LINE      ,
 		'RECRUIT_AREA'    => self::RECRUIT_AREA_BEG_LINE    ,
 		'SYSTEM_AREA'     => self::SYSTEM_AREA_BEG_LINE     ,
 		'PHOTODIARY_AREA' => self::PHOTODIARY_AREA_BEG_LINE ,
@@ -130,7 +135,6 @@ class templateConst5C {
 
 		'PROFILE'    => self::PROFILE_END_LINE    ,
 		'ALBUM'      => self::ALBUM_END_LINE      ,
-		'WORKS_LIST' => self::WORKS_LIST_END_LINE ,
 		'ALBUM_LINK' => self::ALBUM_LINK_END_LINE ,
 
 		'TOP_PAGE_HEADER'   => self::TOP_PAGE_HEADER_END_LINE   ,
@@ -141,6 +145,8 @@ class templateConst5C {
 		'DECORATION_VER' => self::DECO_CSS_VER_END_LINE ,
 		'DECORATION_VAL' => self::DECO_CSS_VAL_END_LINE ,
 
+		'ALBUM_AREA'      => self::ALBUM_AREA_END_LINE      ,
+		'WORKS_AREA'      => self::WORKS_AREA_END_LINE      ,
 		'RECRUIT_AREA'    => self::RECRUIT_AREA_END_LINE    ,
 		'SYSTEM_AREA'     => self::SYSTEM_AREA_END_LINE     ,
 		'PHOTODIARY_AREA' => self::PHOTODIARY_AREA_END_LINE ,
@@ -195,7 +201,6 @@ class templateConst5C {
 	const KWD_HEIGHT_S    = '<!-- PROF_HEIGHT -->';			// 身長
 	const KWD_SIZES_S     = '<!-- PROF_SIZES -->';			// スリーサイズ
 
-	const KWD_WORKS_LIST  = '<!-- WORKS_LIST -->';			// 出勤予定
 	const KWD_WORK_TIME_S = '<!-- PROF_WORK_TIME -->';		// 出勤時間
 	const KWD_WORK_DAY_S  = '<!-- PROF_WORK_DAY -->';		// 出勤日
 	const KWD_REST_DAY_S  = '<!-- PROF_REST_DAY -->';		// 公休日
@@ -255,11 +260,13 @@ class templateConst5C {
 	const RECOMM_JS_VER = 'JS_VER';			// オススメJSのバージョン
 
 	//TOPページ
-	const RECRUIT_VAL     = '<!-- RECRUIT_VAL -->';				// 求人内容
-	const SYSTEM_VAL      = '<!-- SYSTEM_VAL -->';				// 料金内容
-	const TOP_CSS_VER_VAL = '<!-- TOP_CSS_VER_STR -->';			// CSSのバージョン
-	const TOP_CSS_VAL_STR = '/* TOP_CSS_VAL_STR */';			// CSSの内容
-	const PHOTODIARY_VAL  = '<!-- PHOTODIARY_VAL -->';			// 写メ日記内容
+	const ALBUM_VAL       = '<!-- ALBUM_VAL -->';			// アルバム
+	const WORKS_VAL       = '<!-- WORKS_VAL -->';			// 出勤予定
+	const RECRUIT_VAL     = '<!-- RECRUIT_VAL -->';			// 求人内容
+	const SYSTEM_VAL      = '<!-- SYSTEM_VAL -->';			// 料金内容
+	const TOP_CSS_VER_VAL = '<!-- TOP_CSS_VER_STR -->';		// CSSのバージョン
+	const TOP_CSS_VAL_STR = '/* TOP_CSS_VAL_STR */';		// CSSの内容
+	const PHOTODIARY_VAL  = '<!-- PHOTODIARY_VAL -->';		// 写メ日記内容
 
 	// サイドバー
 	const SIDEBAR_IMG = '<!-- SIDEBAR_IMG -->';					// サイドバーの画像
